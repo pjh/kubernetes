@@ -41,6 +41,7 @@ try {
   Create-PauseImage
   DownloadAndInstall-KubernetesBinaries
   Configure-CniNetworking
+  Set-PodCidr
   Create-NodePki
   Create-KubeletKubeconfig
   Create-KubeproxyKubeconfig
