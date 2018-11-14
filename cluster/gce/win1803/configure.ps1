@@ -67,11 +67,12 @@ try {
   Create-PauseImage
   DownloadAndInstall-KubernetesBinaries
   Configure-CniNetworking
-  Set-PodCidr
   Create-NodePki
   Create-KubeletKubeconfig
   Create-KubeproxyKubeconfig
-  Write-Host 'Stopping before Configure-HostNetworkingService'
+  #Log "Halting before Set-PodCidr"
+  #exit
+  Set-PodCidr
   Configure-HostNetworkingService
   Configure-Kubelet
 

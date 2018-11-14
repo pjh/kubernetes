@@ -648,20 +648,106 @@ function Get-IpAliasRange {
   $url = "http://${gceMetadataServer}/computeMetadata/v1/instance/network-interfaces/0/ip-aliases/0"
   $client = New-Object Net.WebClient
   $client.Headers.Add('Metadata-Flavor', 'Google')
-  return ($client.DownloadString($url)).Trim()
+  Try {
+    $result = ($client.DownloadString($url)).Trim()
+  } Catch {
+    $result = ''
+  }
+  return $result
+}
+
+# This function runs the kubelet until it registers with the master, then kills
+# it. The main reason for doing this is that it causes a pod CIDR to be
+# assigned to this node. Additionally, the kubelet will consume the bootstrap
+# kubeconfig and write out the permanent kubeconfig.
+function Get-PodCidrViaKubelet {
+  $argListForFirstKubeletRun = @(`
+    "--v=2",
+
+    # Path to a kubeconfig file that will be used to get client certificate for
+    # kubelet. If the file specified by --kubeconfig does not exist, the
+    # bootstrap kubeconfig is used to request a client certificate from the API
+    # server. On success, a kubeconfig file referencing the generated client
+    # certificate and key is written to the path specified by --kubeconfig. The
+    # client certificate and key file will be stored in the directory pointed
+    # by --cert-dir.
+    #
+    # See also:
+    # https://kubernetes.io/docs/reference/command-line-tools-reference/       kubelet-tls-bootstrapping/
+    "--bootstrap-kubeconfig=${env:BOOTSTRAP_KUBECONFIG}",
+    "--kubeconfig=${env:KUBECONFIG}",
+
+    # The directory where the TLS certs are located. If --tls-cert-file and
+    # --tls-private-key-file are provided, this flag will be ignored.
+    "--cert-dir=${env:PKI_DIR}",
+
+    # Comes from https://github.com/Microsoft/SDN/blob/master/Kubernetes/      windows/start-kubelet.ps1#L180:
+    "--pod-infra-container-image=${infraContainer}",
+
+    # Comes from https://github.com/Microsoft/SDN/blob/master/Kubernetes/      windows/start-kubelet.ps1#L180:
+    "--resolv-conf=`"`""
+
+    # kubelet seems to fail (at least when running with bootstrap-kubeconfig)
+    # when this flag is omitted. It's included at
+    # https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-   kubelet.ps1#L232.
+    "--cgroups-per-qos=false"
+
+    # kubelet seems to fail (at least when running with bootstrap-kubeconfig)
+    # when this flag is omitted. It's included at
+    # https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-   kubelet.ps1#L232.
+    "--enforce-node-allocatable=`"`""
+  )
+
+  # TODO(pjh): rename and use logs dir for these.
+  $kubeletOut = "${env:NODE_DIR}\kubelet-out.txt"
+  $kubeletErr = "${env:NODE_DIR}\kubelet-err.txt"
+
+  $kubeletProcess = Start-Process -FilePath ${env:NODE_DIR}\kubelet.exe `
+    -PassThru -ArgumentList ${argListForFirstKubeletRun} `
+    -RedirectStandardOutput $kubeletOut `
+    -RedirectStandardError $kubeletErr
+
+  $podCidr = ""
+  while (${podCidr}.length -eq 0) {
+    #Write-Output "Waiting for kubelet to fetch pod CIDR"
+    Start-Sleep -sec 5
+    # TODO(pjh): fail if errors detected here. For example, if bootstrap process
+    # didn't generate permanent kubeconfig correctly, kubectl execution will
+    # return "error: CreateFile C:\etc\kubernetes\kubelet.kubeconfig: The system
+    # cannot find the file specified", and we'll never successfully get the
+    # podCidr.
+    ${podCidr} = & ${env:NODE_DIR}\kubectl.exe --kubeconfig=${env:KUBECONFIG} `
+      get nodes/$($(hostname).ToLower()) `
+      -o custom-columns=podCidr:.spec.podCIDR --no-headers
+  }
+  # Stop the kubelet process.
+  ${kubeletProcess} | Stop-Process
+
+  #Log "fetched pod CIDR from kubelet: ${podCidr}"
+  # TODO(pjh): I read somewhere that return statement isn't necessary at the
+  # end of functions in PowerShell; review this and update script accordingly.
+  return $podCidr
 }
 
 # The pod CIDR can be accessed at $env:POD_CIDR after this function returns.
 function Set-PodCidr {
-  while($true) {
+  $retries = 0
+  while($retries -lt 20) {
     $podCidr = Get-IpAliasRange
-    if (-not $?) {
+    #if (-not $?) {
+    if ($podCidr -eq '') {
       Write-Output ${podCIDR}
       Write-Output "Retrying Get-IpAliasRange..."
       Start-Sleep -sec 1
+      $retries = $retries + 1
       continue
     }
     break
+  }
+  if ($retries -eq 20) {
+    Log "Failed to get IP alias range from metadata server"
+    Log "Running kubelet once to get pod CIDR instead"
+    $podCidr = Get-PodCidrViaKubelet
   }
 
   Write-Output "fetched pod CIDR (same as IP alias range): ${podCidr}"
