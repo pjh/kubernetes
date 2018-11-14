@@ -70,8 +70,6 @@ try {
   Create-NodePki
   Create-KubeletKubeconfig
   Create-KubeproxyKubeconfig
-  #Log "Halting before Set-PodCidr"
-  #exit
   Set-PodCidr
   Configure-HostNetworkingService
   Configure-Kubelet
