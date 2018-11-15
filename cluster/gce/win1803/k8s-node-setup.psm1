@@ -361,75 +361,119 @@ function Configure-CniNetworking {
   Log "using mgmt IP ${vethIp} and mgmt subnet ${mgmtSubnet} for CNI config"
 
   $l2bridgeConf = "${env:CNI_CONFIG_DIR}\l2bridge.conf"
-  # TODO(pjh): add -Force to overwrite if exists? Or do we want to fail?
   New-Item -ItemType file ${l2bridgeConf}
 
-  # TODO(pjh): validate these values against CNI config on Linux node.
-  # TODO(pjh): rename "l2bridge" to "cbr0" to match Linux?
-  #
+  # The CNI config on Linux nodes using netd appears to be
+  # /etc/cni/net.d/10-gke-ptp.conflist, which looks like:
+  # {
+  #   "name": "gke-pod-network",
+  #   "cniVersion": "0.3.1",
+  #   "plugins": [
+  #     {
+  #       "type": "ptp",
+  #       "mtu": 1460,
+  #       "ipam": {
+  #         "type": "host-local",
+  #         "ranges": [
+  #           [{"subnet": "10.64.2.0/24"}]
+  #         ],
+  #         "routes": [
+  #           {"dst": "0.0.0.0/0"}
+  #         ]
+  #       }
+  #     },
+  #     {
+  #       "type": "portmap",
+  #       "capabilities": {
+  #         "portMappings": true
+  #       },
+  #       "noSnat": true
+  #     }
+  #   ]
+  # }
+
   # Explanation of the CNI config values:
   #   POD_CIDR: ...
   #   DNS_SERVER_IP: ...
   #   DNS_DOMAIN: ...
   #   CLUSTER_CIDR: TODO: validate this against Linux kube-proxy-config.yaml.
-  #   SERVER_CIDR: SERVICE_CLUSTER_IP_RANGE from kubeEnv?
+  #   SERVICE_CIDR: SERVICE_CLUSTER_IP_RANGE from kubeEnv? "The address range
+  #     used by Kubernetes services."
+  #     (https://github.com/Microsoft/SDN/tree/master/Kubernetes/flannel/l2bridge)
   #   MGMT_SUBNET: $mgmtSubnet.
-  #   MGMT_IP: $vethIp.
+  #   MGMT_IP: $vethIp. "The IP address of the machine you are trying to join."
+  #     (https://github.com/Microsoft/SDN/tree/master/Kubernetes/flannel/l2bridge)
+  #
+  # ipam.routes.gw: this is from
+  #   https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/cni/config/l2bridge.conf.
+  # ipam.routes.dst: this is from /etc/cni/net.d/10-gke-ptp.conflist on Linux
+  #   nodes using netd.
+  #   { "dst": "0.0.0.0/0" }
+  # Policies.OutBoundNAT: this ExceptionList is needed to satisfy the K8s
+  #   networking invariant that communication within the cluster must occur
+  #   without NAT.
+  #   https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/common-problems#my-windows-pods-cannot-ping-external-resources
   Set-Content ${l2bridgeConf} `
 '{
-  "cniVersion":  "0.2.0",
-  "name":  "l2bridge",
-  "type":  "win-bridge",
-  "capabilities":  {
-    "portMappings":  true
+  "cniVersion": "0.2.0",
+  "name": "l2bridge",
+  "type": "win-bridge",
+  "capabilities": {
+    "portMappings": true
   },
-  "ipam":  {
+  "ipam": {
     "type": "host-local",
-    "subnet": "POD_CIDR"
+    "ranges": [
+      [ {"subnet": "POD_CIDR"} ]
+    ],
+    "routes": [
+      { "gw": "POD_ENDPOINT_GATEWAY" }
+    ]
   },
-  "dns":  {
-    "Nameservers":  [
+  "dns": {
+    "Nameservers": [
       "DNS_SERVER_IP"
     ],
     "Search": [
       "DNS_DOMAIN"
     ]
   },
-  "Policies":  [
+  "Policies": [
     {
-      "Name":  "EndpointPolicy",
-      "Value":  {
-        "Type":  "OutBoundNAT",
-        "ExceptionList":  [
+      "Name": "EndpointPolicy",
+      "Value": {
+        "Type": "OutBoundNAT",
+        "ExceptionList": [
           "CLUSTER_CIDR",
-          "SERVER_CIDR",
+          "SERVICE_CIDR",
           "MGMT_SUBNET"
         ]
       }
     },
     {
-      "Name":  "EndpointPolicy",
-      "Value":  {
-        "Type":  "ROUTE",
-        "DestinationPrefix":  "SERVER_CIDR",
-        "NeedEncap":  true
+      "Name": "EndpointPolicy",
+      "Value": {
+        "Type": "ROUTE",
+        "DestinationPrefix": "SERVICE_CIDR",
+        "NeedEncap": true
       }
     },
     {
-      "Name":  "EndpointPolicy",
-      "Value":  {
-        "Type":  "ROUTE",
-        "DestinationPrefix":  "MGMT_IP/32",
-        "NeedEncap":  true
+      "Name": "EndpointPolicy",
+      "Value": {
+        "Type": "ROUTE",
+        "DestinationPrefix": "MGMT_IP/32",
+        "NeedEncap": true
       }
     }
   ]
 }'.replace('POD_CIDR', ${env:POD_CIDR}).`
+  replace('POD_ENDPOINT_GATEWAY', ${env:POD_CIDR}.substring(0, ${env:POD_CIDR}.lastIndexOf('.')) + '.2').`
   replace('DNS_SERVER_IP', ${kubeEnv}['DNS_SERVER_IP']).`
   replace('DNS_DOMAIN', ${kubeEnv}['DNS_DOMAIN']).`
   replace('MGMT_IP', ${vethIp}).`
   replace('CLUSTER_CIDR', ${kubeEnv}['CLUSTER_IP_RANGE']).`
-  replace('SERVER_CIDR', ${kubeEnv}['SERVICE_CLUSTER_IP_RANGE']).`
+  replace('SERVICE_CIDR', ${kubeEnv}['SERVICE_CLUSTER_IP_RANGE']).`
   replace('MGMT_SUBNET', ${mgmtSubnet})
 
   Log "CNI config:`n$(Get-Content -Raw ${l2bridgeConf})"
