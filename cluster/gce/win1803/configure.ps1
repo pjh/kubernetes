@@ -17,6 +17,10 @@
   Top-level script that runs on Windows nodes to join them to the K8s cluster.
 #>
 
+# Set to $true to redo steps that were determined to have already been
+# completed once (e.g. to overwrite already-existing config files).
+$REDO_STEPS = $true
+
 $ErrorActionPreference = 'Stop'
 
 # Update TLS setting to enable Github downloads and disable progress bar to
@@ -24,7 +28,7 @@ $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $ProgressPreference = 'SilentlyContinue'
 
-function Get-MetadataValue {
+function Get-InstanceMetadataValue {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
     [parameter(Mandatory=$false)] [string]$Default
@@ -42,31 +46,45 @@ function Get-MetadataValue {
       return $Default
     }
     else {
-      Write-Output "Failed to retrieve value for $Key."
+      Write-Host "Failed to retrieve value for $Key."
       return $null
     }
   }
 }
 
-try {
-  $install_logging_agent_module = Get-MetadataValue 'install-logging-agent-psm1'
-  New-Item -ItemType file C:\install-logging-agent.psm1
-  Set-Content C:\install-logging-agent.psm1 $install_logging_agent_module
-  Import-Module C:\install-logging-agent.psm1
+# Fetches the value of $MetadataKey, saves it to C:\$Filename and imports it as
+# a PowerShell module.
+# TODO: set $Filename automatically.
+function FetchAndImport-ModuleFromMetadata {
+  param (
+    [parameter(Mandatory=$true)] [string]$MetadataKey,
+    [parameter(Mandatory=$true)] [string]$Filename
+  )
 
-  $node_setup_module = Get-MetadataValue 'k8s-node-setup-psm1'
-  New-Item -ItemType file C:\k8s-node-setup.psm1
-  Set-Content C:\k8s-node-setup.psm1 $node_setup_module
-  Import-Module C:\k8s-node-setup.psm1
+  $module = Get-InstanceMetadataValue $MetadataKey
+  if (Test-Path C:\$Filename) {
+    if (-not $REDO_STEPS) {
+      Write-Host "Skip: C:\$Filename already exists, not overwriting"
+      Import-Module -Force C:\$Filename
+      return
+    }
+    Write-Host "Warning: C:\$Filename already exists, will overwrite it."
+  }
+  New-Item -ItemType file -Force C:\$Filename
+  Set-Content C:\$Filename $module
+  Import-Module -Force C:\$Filename
+}
+
+try {
+  FetchAndImport-ModuleFromMetadata `
+      'install-logging-agent-psm1' `
+      'install-logging-agent.psm1'
+  FetchAndImport-ModuleFromMetadata 'k8s-node-setup-psm1' 'k8s-node-setup.psm1'
 
   InstallAndStart-LoggingAgent
-  Log-Output "Installed StackDriver logging agent"
+  Log-Output "Started Stackdriver logging agent"
 
-  $install_ssh_module = Get-MetadataValue 'install-ssh-psm1'
-  New-Item -ItemType file C:\install-ssh.psm1
-  Set-Content C:\install-ssh.psm1 $install_ssh_module
-  Import-Module C:\install-ssh.psm1
-
+  FetchAndImport-ModuleFromMetadata 'install-ssh-psm1' 'install-ssh.psm1'
   InstallAndStart-OpenSSH
   Log-Output "Installed OpenSSH, sshd is running"
 
@@ -78,7 +96,7 @@ try {
   Create-Directories
   Download-HelperScripts
 
-  $kube_env = Download-KubeEnv
+  $kube_env = Fetch-KubeEnv
   Create-PauseImage
   DownloadAndInstall-KubernetesBinaries
   Create-NodePki
@@ -95,11 +113,7 @@ try {
   Start-Sleep 15
   Verify-WorkerServices
 
-  $prepull_images_module = Get-MetadataValue 'prepull-images-psm1'
-  New-Item -ItemType file C:\prepull-images.psm1
-  Set-Content C:\prepull-images.psm1 $prepull_images_module
-  Import-Module C:\prepull-images.psm1
-
+  FetchAndImport-ModuleFromMetadata 'prepull-images-psm1' 'prepull-images.psm1'
   Prepull-E2EImages
 }
 catch {

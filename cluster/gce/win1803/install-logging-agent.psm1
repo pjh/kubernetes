@@ -17,6 +17,8 @@
   Library for installing and starting the Stackdriver logging agent
 #>
 
+$STACKDRIVER_ROOT = 'C:\Program Files (x86)\Stackdriver'
+
 # Install and start the Stackdriver logging agent according to
 #   https://cloud.google.com/logging/docs/agent/installation
 # TODO: Update to a newer Stackdriver agent once it is released to support
@@ -30,7 +32,18 @@ function InstallAndStart-LoggingAgent {
   Remove-Item `
       -Force `
       -ErrorAction Ignore `
-      'C:\Program Files (x86)\Stackdriver\LoggingAgent\Main\pos\winevtlog.pos\worker0\storage.json'
+      ("$STACKDRIVER_ROOT\LoggingAgent\Main\pos\winevtlog.pos\worker0\" +
+       "storage.json")
+
+  if (Test-Path $STACKDRIVER_ROOT) {
+    # TODO: check $REDO_STEPS variable here.
+    Write-Host ("Warning: $STACKDRIVER_ROOT already present, assuming that " +
+                "Stackdriver logging agent is already installed")
+    # Restart-Service restarts a running service or starts a not-running
+    # service.
+    Restart-Service StackdriverLogging
+    return
+  }
 
   # TODO: Need to either skip or ensure the installation will not stall when
   # the machine restarts.
@@ -49,19 +62,19 @@ function InstallAndStart-LoggingAgent {
       -ArgumentList "/S" `
       -Wait
 
-    # Install additional plugins required to parse container logs.
-  Start-process 'C:\Program Files (x86)\Stackdriver\LoggingAgent\Main\bin\fluent-gem' `
+  # Install additional plugins required to parse container logs.
+  Start-Process "$STACKDRIVER_ROOT\LoggingAgent\Main\bin\fluent-gem" `
       -ArgumentList "install","fluent-plugin-record-reformer" `
       -Wait
 
   # Create a configuration file for kubernetes containers.
   # The config.d directory should have already been created automatically, but
   # try creating again just in case.
-  New-Item 'C:\Program Files (x86)\Stackdriver\LoggingAgent\config.d' `
+  New-Item "$STACKDRIVER_ROOT\LoggingAgent\config.d" `
       -ItemType 'directory' `
       -Force
   $FLUENTD_CONFIG | Out-File `
-      -FilePath 'C:\Program Files (x86)\Stackdriver\LoggingAgent\config.d\k8s_containers.conf' `
+      -FilePath "$STACKDRIVER_ROOT\LoggingAgent\config.d\k8s_containers.conf" `
       -Encoding ASCII
 
   # Restart the service to pick up the new configurations.
@@ -154,4 +167,4 @@ $FLUENTD_CONFIG = @'
 </match>
 '@
 
-Export-ModuleMember -Function InstallAndStart-LoggingAgent
+Export-ModuleMember -Function *-*

@@ -458,7 +458,7 @@ function test_linux_pod_to_linux_pod {
     http://$linux_webserver_pod_ip &> $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi
@@ -479,7 +479,7 @@ function test_linux_pod_to_windows_pod {
     http://$windows_webserver_pod_ip:8080/read &> $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     echo "This test seems to be flaky. TODO: investigate."
     exit $?
@@ -496,7 +496,7 @@ function test_linux_pod_to_internet {
     http://$internet_ip > $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi
@@ -518,7 +518,7 @@ function test_linux_pod_to_k8s_service {
     curl -m 20 http://$service_ip:$service_port &> $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi
@@ -532,6 +532,9 @@ function test_windows_node_to_windows_pod {
   echo "TODO: ${FUNCNAME[0]}"
 }
 
+# TODO: this test failed for me once with
+#   error: unable to upgrade connection: container not found ("nettest")
+# Maybe the container crashed for some reason? Investigate if it happens more.
 function test_windows_pod_to_linux_pod {
   echo "TEST: ${FUNCNAME[0]}"
   local windows_command_pod="$(get_windows_command_pod_name)"
@@ -541,7 +544,7 @@ function test_windows_pod_to_linux_pod {
     "curl -UseBasicParsing http://$linux_webserver_pod_ip" > $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi
@@ -557,7 +560,7 @@ function test_windows_pod_to_windows_pod {
     > $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi
@@ -588,7 +591,7 @@ function test_windows_pod_to_internet {
      }" > $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi
@@ -624,7 +627,7 @@ function test_windows_pod_to_k8s_service {
      }" > $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi
@@ -641,7 +644,7 @@ function test_kube_dns_in_windows_pod {
     "Resolve-DnsName www.bing.com -server $service_ip" > $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi
@@ -655,7 +658,7 @@ function test_dns_just_works_in_windows_pod {
     "curl -UseBasicParsing http://www.bing.com" > $output_file
   if [[ $? -ne 0 ]]; then
     cleanup_deployments
-    echo "Failing output:\n$(cat $output_file)"
+    echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
     exit $?
   fi

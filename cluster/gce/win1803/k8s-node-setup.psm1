@@ -34,10 +34,22 @@
 #>
 
 # TODO(pjh):
+#  - Remove {} around variable references unless actually needed for clarity.
 #  - Try to use "approved verbs":
 #    https://docs.microsoft.com/en-us/powershell/developer/cmdlet/approved-verbs-for-windows-powershell-commands
 #  - Document functions using proper syntax:
 #    https://technet.microsoft.com/en-us/library/hh847834(v=wps.620).aspx
+
+# Set to $true to redo steps that were determined to have already been completed
+# once (e.g. to overwrite already-existing config files).
+# TODO: when this is set to $false there's something about the network setup on
+# the Windows node that does not get configured properly - the smoke tests for
+# connectivity between Linux and Windows pods fail. Investigate what's going on
+# so that setting this to $false works. If re-doing some step is required but
+# shouldn't be, report it to sig-windows.
+# TODO: move this variable and other basic function (e.g. Log-Output) to a
+# common.psm1 module that all other modules depend on.
+$REDO_STEPS = $true
 
 $K8S_DIR = "C:\etc\kubernetes"
 $INFRA_CONTAINER = "kubeletwin/pause"
@@ -54,17 +66,37 @@ function Log-Output {
     [switch]$Fatal
   )
   # TODO(pjh): what's correct, Write-Output or Write-Host??
-  Write-Output "${Message}"
+  Write-Host "${Message}"
   if (${Fatal}) {
     Exit 1
   }
+}
+
+# Checks if a file already exists and emits a message if it does.
+#
+# Returns $true if the file exists and the caller should NOT overwrite it.
+# Returns $false if the file does not exist, or if it does but the global
+# $REDO_STEPS variable is set to $true.
+function Test_FileExists {
+  param (
+    [parameter(Mandatory=$true)] [string]$Filename
+  )
+  if (Test-Path $Filename) {
+    if ($REDO_STEPS) {
+      Log-Output "Warning: $Filename already exists, will overwrite it"
+      return $false
+    }
+    Log-Output "Skip: $Filename already exists, not overwriting it"
+    return $true
+  }
+  return $false
 }
 
 function Todo {
   param (
     [parameter(Mandatory=$true)] [string]$Message
   )
-  Write-Output "TODO: ${Message}"
+  Log-Output "TODO: ${Message}"
 }
 
 function Log_NotImplemented {
@@ -121,15 +153,13 @@ function Add_GceMetadataServerRoute {
   Get-NetAdapter | ForEach-Object {
     $adapter_index = $_.InterfaceIndex
     New-NetRoute `
-        -ErrorAction SilentlyContinue `
+        -ErrorAction Ignore `
         -DestinationPrefix "${GCE_METADATA_SERVER}/32" `
         -InterfaceIndex ${adapter_index} | Out-Null
   }
 }
 
-# TODO: rename this InstanceMetadata (as opposed to e.g. network-interfaces
-# metadata).
-function Get-MetadataValue {
+function Get-InstanceMetadataValue {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
     [parameter(Mandatory=$false)] [string]$Default
@@ -147,7 +177,7 @@ function Get-MetadataValue {
       return $Default
     }
     else {
-      Write-Output "Failed to retrieve value for $Key."
+      Log-Output "Failed to retrieve value for $Key."
       return $null
     }
   }
@@ -157,10 +187,10 @@ function Get-MetadataValue {
 #
 # Returns: a PowerShell Hashtable object containing the key-value pairs from
 #   kube-env.
-function Download-KubeEnv {
+function Fetch-KubeEnv {
   # Testing / debugging:
   # First:
-  #   ${kube_env} = Get-MetadataValue 'kube-env'
+  #   ${kube_env} = Get-InstanceMetadataValue 'kube-env'
   # or:
   #   ${kube_env} = [IO.File]::ReadAllText(".\kubeEnv.txt")
   # ${kube_env_table} = ConvertFrom-Yaml ${kube_env}
@@ -168,11 +198,8 @@ function Download-KubeEnv {
   # ${kube_env_table}.GetType()
 
   # The type of kube_env is a powershell String.
-  $kube_env = Get-MetadataValue 'kube-env'
+  $kube_env = Get-InstanceMetadataValue 'kube-env'
   $kube_env_table = ConvertFrom-Yaml ${kube_env}
-
-  # TODO(pjh): instead of returning kube_env_table, put it in $global namespace
-  # so it's accessible from all other functions?
   return ${kube_env_table}
 }
 
@@ -217,7 +244,7 @@ function Set-EnvironmentVars {
   # takes effect after a reboot), and in the current shell.
   $env_vars.GetEnumerator() | ForEach-Object{
     $message = "Setting environment variable: " + $_.key + " = " + $_.value
-    Write-Output ${message}
+    Log-Output ${message}
     Set-MachineEnvironmentVar $_.key $_.value
     Set-CurrentShellEnvironmentVar $_.key $_.value
   }
@@ -229,7 +256,7 @@ function Set-PrerequisiteOptions {
   sc.exe config wuauserv start=disabled
   sc.exe stop wuauserv
 
-  # Use TLS 1.2: needed for Invoke-WebRequest to github.com.
+  # Use TLS 1.2: needed for Invoke-WebRequest downloads from github.com.
   [Net.ServicePointManager]::SecurityProtocol = `
       [Net.SecurityProtocolType]::Tls12
 
@@ -248,24 +275,51 @@ function Create-Directories {
 }
 
 function Download-HelperScripts {
+  if (Test_FileExists ${env:K8S_DIR}\hns.psm1) {
+    return
+  }
   Invoke-WebRequest `
-    https://github.com/Microsoft/SDN/raw/master/Kubernetes/windows/hns.psm1 `
-    -OutFile ${env:K8S_DIR}\hns.psm1
+      https://github.com/Microsoft/SDN/raw/master/Kubernetes/windows/hns.psm1 `
+      -OutFile ${env:K8S_DIR}\hns.psm1
 }
 
 function Create-PauseImage {
-  $win_version = Get-MetadataValue 'win-version'
+  $win_version = Get-InstanceMetadataValue 'win-version'
 
-  mkdir -Force ${env:K8S_DIR}\pauseimage
-  New-Item -ItemType file ${env:K8S_DIR}\pauseimage\Dockerfile
-  Set-Content `
-      ${env:K8S_DIR}\pauseimage\Dockerfile `
-      "FROM microsoft/nanoserver:${win_version}`n`nCMD cmd /c ping -t localhost"
-  docker build -t ${INFRA_CONTAINER} ${env:K8S_DIR}\pauseimage
+  $pause_dir = "${env:K8S_DIR}\pauseimage"
+  $dockerfile = "$pause_dir\Dockerfile"
+  mkdir -Force $pause_dir
+  if (-not (Test_FileExists $dockerfile)) {
+    New-Item -Force -ItemType file $dockerfile
+    Set-Content `
+        $dockerfile `
+        ("FROM microsoft/nanoserver:${win_version}`n`n" +
+         "CMD cmd /c ping -t localhost")
+  }
+
+  if (($(docker images -a) -like "*${INFRA_CONTAINER}*") -and
+      (-not $REDO_STEPS)) {
+    Log-Output "Skip: ${INFRA_CONTAINER} already built"
+    return
+  }
+  docker build -t ${INFRA_CONTAINER} $pause_dir
+}
+
+function Download_FileIfNotAlreadyPresent {
+  param (
+    [parameter(Mandatory=$true)] [string]$Url,
+    [parameter(Mandatory=$true)] [string]$OutFile
+  )
+  if (Test_FileExists $OutFile) {
+    return
+  }
+  # Disable progress bar to dramatically increase download speed.
+  $ProgressPreference = 'SilentlyContinue'
+  Invoke-WebRequest $Url -OutFile $OutFile
 }
 
 function DownloadAndInstall-KubernetesBinaries {
-  $k8s_version = Get-MetadataValue 'k8s-version'
+  $k8s_version = Get-InstanceMetadataValue 'k8s-version'
 
   # TODO(pjh): in one kube-up run I got a mysterious failure when the startup
   # script tried to download the binaries here:
@@ -278,16 +332,18 @@ function DownloadAndInstall-KubernetesBinaries {
   # being throttled?), but perhaps we can wrap the Invoke-WebRequest calls in a
   # download-with-retries function.
 
-  # Disable progress bar to dramatically increase download speed.
-  $ProgressPreference = 'SilentlyContinue'
-  Invoke-WebRequest `
-      https://storage.googleapis.com/kubernetes-release/release/${k8s_version}/bin/windows/amd64/kubectl.exe `
+  $download_root = ("https://storage.googleapis.com/kubernetes-release/" +
+                    "release/${k8s_version}/bin/windows/amd64")
+  # Note: these downloads will fail if there are running processes using the
+  # existing binaries.
+  Download_FileIfNotAlreadyPresent `
+      $download_root/kubectl.exe `
       -OutFile ${env:NODE_DIR}\kubectl.exe
-  Invoke-WebRequest `
-      https://storage.googleapis.com/kubernetes-release/release/${k8s_version}/bin/windows/amd64/kubelet.exe `
+  Download_FileIfNotAlreadyPresent `
+      $download_root/kubelet.exe `
       -OutFile ${env:NODE_DIR}\kubelet.exe
-  Invoke-WebRequest `
-      https://storage.googleapis.com/kubernetes-release/release/${k8s_version}/bin/windows/amd64/kube-proxy.exe `
+  Download_FileIfNotAlreadyPresent `
+      $download_root/kube-proxy.exe `
       -OutFile ${env:NODE_DIR}\kube-proxy.exe
 }
 
@@ -346,7 +402,7 @@ function ConvertTo_MaskLength
 }
 
 # This function will fail if Add-InitialHnsNetwork() has not been called first.
-function Get-MgmtSubnet {
+function Get_MgmtSubnet {
   $net_adapter = Get_MgmtNetAdapter
 
   $addr = (Get-NetIPAddress `
@@ -371,12 +427,17 @@ function Get_MgmtNetAdapter {
   return $net_adapter
 }
 
-# Decodes the base64 $Data string and writes it as binary to $File.
+# Decodes the base64 $Data string and writes it as binary to $File. Does
+# nothing if $File already exists and $REDO_STEPS is not set.
 function Write_PkiData {
   param (
     [parameter(Mandatory=$true)] [string] $Data,
     [parameter(Mandatory=$true)] [string] $File
   )
+
+  if (Test_FileExists $File) {
+    return
+  }
 
   # This command writes out a PEM certificate file, analogous to "base64
   # --decode" on Linux. See https://stackoverflow.com/a/51914136/1230197.
@@ -430,7 +491,10 @@ function Create-KubeletKubeconfig {
   $fetchBootstrapConfig = $false
 
   if (${createBootstrapConfig}) {
-    New-Item -ItemType file ${env:BOOTSTRAP_KUBECONFIG}
+    if (Test_FileExists ${env:BOOTSTRAP_KUBECONFIG}) {
+      return
+    }
+    New-Item -Force -ItemType file ${env:BOOTSTRAP_KUBECONFIG}
     # TODO(pjh): is user "kubelet" correct? In my guide it's
     #   "system:node:$(hostname)"
     # The kubelet user config uses client-certificate and client-key here; in
@@ -485,8 +549,12 @@ current-context: service-account-context'.`
 #   CA_CERT
 #   KUBE_PROXY_TOKEN
 function Create-KubeproxyKubeconfig {
+  if (Test_FileExists ${env:KUBEPROXY_KUBECONFIG}) {
+    return
+  }
+
   # TODO: make this command and other New-Item commands silent.
-  New-Item -ItemType file ${env:KUBEPROXY_KUBECONFIG}
+  New-Item -Force -ItemType file ${env:KUBEPROXY_KUBECONFIG}
 
   # In configure-helper.sh kubelet kubeconfig uses certificate-authority while
   # kubeproxy kubeconfig uses certificate-authority-data, ugh. Does it matter?
@@ -529,15 +597,15 @@ function Set-PodCidr {
   while($true) {
     $pod_cidr = Get_IpAliasRange
     if (-not $?) {
-      Write-Output ${pod_cIDR}
-      Write-Output "Retrying Get_IpAliasRange..."
+      Log-Output ${pod_cIDR}
+      Log-Output "Retrying Get_IpAliasRange..."
       Start-Sleep -sec 1
       continue
     }
     break
   }
 
-  Write-Output "fetched pod CIDR (same as IP alias range): ${pod_cidr}"
+  Log-Output "fetched pod CIDR (same as IP alias range): ${pod_cidr}"
   Set-MachineEnvironmentVar "POD_CIDR" ${pod_cidr}
   Set-CurrentShellEnvironmentVar "POD_CIDR" ${pod_cidr}
 }
@@ -559,6 +627,11 @@ function Add-InitialHnsNetwork {
   # nodes without a network blip. Creating a vSwitch takes time, causes network
   # blips, and it makes it more likely to hit the issue where flanneld is
   # stuck, so we want to do this as rarely as possible."
+  if ($(Get-HnsNetwork) -like '*Name*External*') {
+    Log-Output ('Skip: Initial "External" HNS network already exists, not ' +
+                'recreating it')
+    return
+  }
   Log-Output ("Creating initial HNS network to force creation of " +
               "${MGMT_ADAPTER_NAME} interface")
   # Note: RDP connection will hiccup when running this command.
@@ -590,9 +663,20 @@ function Configure-HostNetworkingService {
               "podCidr = ${env:POD_CIDR}, podGateway = ${pod_gateway}, " +
               "podEndpointGateway = ${pod_endpoint_gateway}")
 
+  if (Get-HnsNetwork | Where-Object Name -eq ${env:KUBE_NETWORK}) {
+    if ($REDO_STEPS) {
+      Log-Output ("${env:KUBE_NETWORK} HNS network already exists, removing " +
+                  "it and recreating it")
+      Get-HnsNetwork | Where-Object Name -eq ${env:KUBE_NETWORK} |
+          Remove-HnsNetwork
+    }
+    else {
+      Log-Output "Skip: ${env:KUBE_NETWORK} HNS network already exists"
+      return
+    }
+  }
+
   # Note: RDP connection will hiccup when running this command.
-  Todo ('update Configure-HostNetworkingService so that it checks for ' +
-        'existing HNS network and overrides/removes it.')
   $hns_network = New-HNSNetwork `
       -Type "L2Bridge" `
       -AddressPrefix ${env:POD_CIDR} `
@@ -625,6 +709,7 @@ function Configure-HostNetworkingService {
   # VM.
   $mgmt_net_adapter = Get_MgmtNetAdapter
   New-NetRoute `
+      -ErrorAction Ignore `
       -InterfaceAlias ${mgmt_net_adapter}.ifAlias `
       -DestinationPrefix ${env:POD_CIDR} `
       -NextHop "0.0.0.0" `
@@ -654,29 +739,36 @@ function Configure-HostNetworkingService {
 #   The "cbr0" HNS network for pod networking has been configured
 #     (Configure-HostNetworkingService).
 function Configure-CniNetworking {
-  $github_repo = Get-MetadataValue 'github-repo'
-  $github_branch = Get-MetadataValue 'github-branch'
-  Invoke-WebRequest `
-      https://github.com/${github_repo}/kubernetes/raw/${github_branch}/cluster/gce/windows-cni-plugins.zip `
-      -OutFile ${env:CNI_DIR}\windows-cni-plugins.zip
-  Expand-Archive ${env:CNI_DIR}\windows-cni-plugins.zip ${env:CNI_DIR}
-  mv ${env:CNI_DIR}\bin\*.exe ${env:CNI_DIR}\
+  $github_repo = Get-InstanceMetadataValue 'github-repo'
+  $github_branch = Get-InstanceMetadataValue 'github-branch'
+
+  if ((-not (Test_FileExists ${env:CNI_DIR}\win-bridge.exe)) -or
+      (-not (Test_FileExists ${env:CNI_DIR}\host-local.exe))) {
+    Invoke-WebRequest `
+        https://github.com/${github_repo}/kubernetes/raw/${github_branch}/cluster/gce/windows-cni-plugins.zip `
+        -OutFile ${env:CNI_DIR}\windows-cni-plugins.zip
+    rm ${env:CNI_DIR}\*.exe
+    Expand-Archive ${env:CNI_DIR}\windows-cni-plugins.zip ${env:CNI_DIR}
+    mv ${env:CNI_DIR}\bin\*.exe ${env:CNI_DIR}\
+    rmdir ${env:CNI_DIR}\bin
+  }
   if (-not ((Test-Path ${env:CNI_DIR}\win-bridge.exe) -and `
             (Test-Path ${env:CNI_DIR}\host-local.exe))) {
     Log-Output `
         "win-bridge.exe and host-local.exe not found in ${env:CNI_DIR}" `
         -Fatal
   }
-  rmdir ${env:CNI_DIR}\bin
+
+  $l2bridge_conf = "${env:CNI_CONFIG_DIR}\l2bridge.conf"
+  if (Test_FileExists ${l2bridge_conf}) {
+    return
+  }
 
   $veth_ip = (Get-NetAdapter | Where-Object Name -Like ${MGMT_ADAPTER_NAME} |
               Get-NetIPAddress -AddressFamily IPv4).IPAddress
-  $mgmt_subnet = Get-MgmtSubnet
+  $mgmt_subnet = Get_MgmtSubnet
   Log-Output ("using mgmt IP ${veth_ip} and mgmt subnet ${mgmt_subnet} for " +
               "CNI config")
-
-  $l2bridge_conf = "${env:CNI_CONFIG_DIR}\l2bridge.conf"
-  New-Item -ItemType file ${l2bridge_conf}
 
   # TODO(pjh): validate these values against CNI config on Linux node.
   #
@@ -688,6 +780,7 @@ function Configure-CniNetworking {
   #   SERVICE_CIDR: SERVICE_CLUSTER_IP_RANGE from kube_env?
   #   MGMT_SUBNET: $mgmt_subnet.
   #   MGMT_IP: $vethIp.
+  New-Item -Force -ItemType file ${l2bridge_conf}
   Set-Content ${l2bridge_conf} `
 '{
   "cniVersion":  "0.2.0",
@@ -753,8 +846,12 @@ function Configure-Kubelet {
   # cluster/gce/util.sh, and stored in the metadata server under the
   # 'kubelet-config' key.
 
+  if (Test_FileExists ${env:KUBELET_CONFIG}) {
+    return
+  }
+
   # Download and save Kubelet Config, and log the result
-  $kubelet_config = Get-MetadataValue 'kubelet-config'
+  $kubelet_config = Get-InstanceMetadataValue 'kubelet-config'
   Set-Content ${env:KUBELET_CONFIG} $kubelet_config
   Log-Output "Kubelet config:`n$(Get-Content -Raw ${env:KUBELET_CONFIG})"
 }
@@ -868,6 +965,11 @@ function Start-WorkerServices {
       "--cluster-cidr=$(${kube_env}['CLUSTER_IP_RANGE'])"
   )
 
+  if (Get-Process | Where-Object Name -eq "kubelet") {
+    Log-Output `
+        "A kubelet process is already running, don't know what to do" `
+        -Fatal
+  }
   Log-Output "Starting kubelet"
 
   # Use Start-Process, not Start-Job; jobs are killed as soon as the shell /
@@ -910,6 +1012,12 @@ function Start-WorkerServices {
 
   Log-Output "Waiting 10 seconds for kubelet to stabilize"
   Start-Sleep 10
+
+  if (Get-Process | Where-Object Name -eq "kube-proxy") {
+    Log-Output `
+        "A kube-proxy process is already running, don't know what to do" `
+        -Fatal
+  }
 
   # F1020 23:08:52.000083    9136 server.go:361] unable to load in-cluster
   # configuration, KUBERNETES_SERVICE_HOST and KUBERNETES_SERVICE_PORT must be

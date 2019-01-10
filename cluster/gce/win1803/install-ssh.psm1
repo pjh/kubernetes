@@ -17,12 +17,30 @@
   Library for installing and running Win32-OpenSSH.
 #>
 
+# Starts the Win32-OpenSSH services and configures them to automatically start
+# on subsequent boots.
+function Start_OpenSshServices {
+  ForEach ($service in ("sshd", "ssh-agent")) {
+    net start ${service}
+    Set-Service ${service} -StartupType Automatic
+  }
+}
+
 # Installs open-ssh using the instructions in
 # https://github.com/PowerShell/Win32-OpenSSH/wiki/Install-Win32-OpenSSH.
 #
 # After installation run StartProcess-WriteSshKeys to fetch ssh keys from the
 # metadata server.
 function InstallAndStart-OpenSSH {
+  $OPENSSH_ROOT = 'C:\Program Files\OpenSSH'
+  if (Test-Path $OPENSSH_ROOT) {
+    # TODO: check $REDO_STEPS variable here.
+    Write-Host ("Warning: $OPENSSH_ROOT already exists, skipping " +
+                "Win32-OpenSSH installation")
+    Start_OpenSshServices
+    return
+  }
+
   # Download open-ssh.
   $url = ("https://github.com/PowerShell/Win32-OpenSSH/releases/download/" +
           "v7.7.2.0p1-Beta/OpenSSH-Win32.zip")
@@ -30,18 +48,15 @@ function InstallAndStart-OpenSSH {
   Invoke-WebRequest $url -OutFile C:\openssh-win32.zip
 
   # Unzip and install open-ssh
-  Expand-Archive `
-      C:\openssh-win32.zip `
-      -DestinationPath "C:\Program Files\OpenSSH"
+  Expand-Archive C:\openssh-win32.zip -DestinationPath $OPENSSH_ROOT
   # TODO(pjh): should this have a leading '&' ?
   powershell.exe `
       -ExecutionPolicy Bypass `
-      -File "C:\Program Files\OpenSSH\OpenSSH-Win32\install-sshd.ps1"
+      -File "$OPENSSH_ROOT\OpenSSH-Win32\install-sshd.ps1"
 
   # Disable password-based authentication.
-  $sshd_config_default=("C:\Program Files\OpenSSH\OpenSSH-Win32\" +
-                        "sshd_config_default")
-  $sshd_config="C:\ProgramData\ssh\sshd_config"
+  $sshd_config_default = "$OPENSSH_ROOT\OpenSSH-Win32\sshd_config_default"
+  $sshd_config = 'C:\ProgramData\ssh\sshd_config'
   New-Item -ItemType Directory -Force -Path "C:\ProgramData\ssh\"
   # SSH config files must be UTF-8 encoded:
   # https://github.com/PowerShell/Win32-OpenSSH/issues/862
@@ -60,12 +75,7 @@ function InstallAndStart-OpenSSH {
       -Action Allow `
       -LocalPort 22
 
-  # Start the services and configure them to automatically start on subsequent
-  # boots:
-  ForEach ($service in ("sshd", "ssh-agent")) {
-    net start ${service}
-    Set-Service ${service} -StartupType Automatic
-  }
+  Start_OpenSshServices
 }
 
 # Starts a background process that retrieves ssh keys from the metadata server
@@ -89,6 +99,8 @@ function InstallAndStart-OpenSSH {
 function StartProcess-WriteSshKeys {
   [Net.ServicePointManager]::SecurityProtocol = `
       [Net.SecurityProtocolType]::Tls12
+  # Download helper module for manipulating Windows user profiles.
+  # TODO: copy the helper module into this repository.
   Invoke-WebRequest `
       https://gist.githubusercontent.com/pjh/9753cd14400f4e3d4567f4553ba75f1d/raw/cb7929fa78fc8f840819249785e69838f3e35d64/user-profile.psm1 `
       -OutFile C:\user-profile.psm1
@@ -96,7 +108,7 @@ function StartProcess-WriteSshKeys {
   $write_ssh_keys = "C:\write-ssh-keys.ps1"
   New-Item -ItemType file -Force ${write_ssh_keys}
   Set-Content ${write_ssh_keys} `
-'Import-Module C:\user-profile.psm1
+'Import-Module -Force C:\user-profile.psm1
 # For [System.Web.Security.Membership]::GeneratePassword():
 Add-Type -AssemblyName System.Web
 
@@ -186,15 +198,17 @@ while($true) {
   }
   Start-Sleep -sec $poll_interval
 }'
-  Log-Output "${write_ssh_keys}:`n$(Get-Content -Raw ${write_ssh_keys})"
+  Write-Host "${write_ssh_keys}:`n$(Get-Content -Raw ${write_ssh_keys})"
 
+  # TODO: check if such a process is already running before starting another
+  # one.
   $write_keys_process = Start-Process `
       -FilePath "powershell.exe" `
       -ArgumentList @("-Command", ${write_ssh_keys}) `
       -WindowStyle Hidden -PassThru `
       -RedirectStandardOutput "NUL" `
       -RedirectStandardError C:\write-ssh-keys.err
-  Log-Output "$(${write_keys_process} | Out-String)"
+  Write-Host "$(${write_keys_process} | Out-String)"
 }
 
 # Export all public functions:
