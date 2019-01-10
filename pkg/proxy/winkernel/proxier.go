@@ -1047,7 +1047,7 @@ func (proxier *Proxier) syncProxyRules() {
 
 		hnsLoadBalancer, err := getHnsLoadBalancer(
 			hnsEndpoints,
-			false,
+			true,
 			svcInfo.clusterIP.String(),
 			Enum(svcInfo.protocol),
 			uint16(svcInfo.targetPort),
@@ -1065,7 +1065,7 @@ func (proxier *Proxier) syncProxyRules() {
 		if svcInfo.nodePort > 0 {
 			hnsLoadBalancer, err := getHnsLoadBalancer(
 				hnsEndpoints,
-				false,
+				true,
 				"", // VIP has to be empty to automatically select the nodeIP
 				Enum(svcInfo.protocol),
 				uint16(svcInfo.targetPort),
