@@ -33,9 +33,11 @@
     # Execute functions manually or run configure.ps1.
 #>
 
-# TODO(pjh):
+# TODO: update scripts for these style guidelines:
 #  - Remove {} around variable references unless actually needed for clarity.
-#  - Try to use "approved verbs":
+#  - Always use single-quoted strings unless actually interpolating variables
+#    or using escape characters.
+#  - Use "approved verbs":
 #    https://docs.microsoft.com/en-us/powershell/developer/cmdlet/approved-verbs-for-windows-powershell-commands
 #  - Document functions using proper syntax:
 #    https://technet.microsoft.com/en-us/library/hh847834(v=wps.620).aspx

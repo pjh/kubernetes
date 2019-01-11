@@ -36,7 +36,9 @@ function InstallAndStart-LoggingAgent {
        "storage.json")
 
   if (Test-Path $STACKDRIVER_ROOT) {
-    # TODO: check $REDO_STEPS variable here.
+    # TODO: check $REDO_STEPS variable here. Note that the installer will prompt
+    # for confirmation if Stackdriver is already installed, so need to find a
+    # way around this.
     Write-Host ("Warning: $STACKDRIVER_ROOT already present, assuming that " +
                 "Stackdriver logging agent is already installed")
     # Restart-Service restarts a running service or starts a not-running
