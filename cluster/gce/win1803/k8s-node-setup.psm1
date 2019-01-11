@@ -72,24 +72,26 @@ function Log-Output {
   }
 }
 
-# Checks if a file already exists and emits a message if it does.
+# Checks if a file should be written or overwritten by testing if it already
+# exists and checking the value of the global $REDO_STEPS variable. Emits an
+# informative message if the file already exists.
 #
-# Returns $true if the file exists and the caller should NOT overwrite it.
-# Returns $false if the file does not exist, or if it does but the global
-# $REDO_STEPS variable is set to $true.
-function Test_FileExists {
+# Returns $true if the file does not exist, or if it does but the global
+# $REDO_STEPS variable is set to $true. Returns $false if the file exists and
+# the caller should not overwrite it.
+function ShouldWrite_File {
   param (
     [parameter(Mandatory=$true)] [string]$Filename
   )
   if (Test-Path $Filename) {
     if ($REDO_STEPS) {
       Log-Output "Warning: $Filename already exists, will overwrite it"
-      return $false
+      return $true
     }
     Log-Output "Skip: $Filename already exists, not overwriting it"
-    return $true
+    return $false
   }
-  return $false
+  return $true
 }
 
 function Todo {
@@ -275,7 +277,7 @@ function Create-Directories {
 }
 
 function Download-HelperScripts {
-  if (Test_FileExists ${env:K8S_DIR}\hns.psm1) {
+  if (-not (ShouldWrite_File ${env:K8S_DIR}\hns.psm1)) {
     return
   }
   Invoke-WebRequest `
@@ -289,7 +291,7 @@ function Create-PauseImage {
   $pause_dir = "${env:K8S_DIR}\pauseimage"
   $dockerfile = "$pause_dir\Dockerfile"
   mkdir -Force $pause_dir
-  if (-not (Test_FileExists $dockerfile)) {
+  if (ShouldWrite_File $dockerfile) {
     New-Item -Force -ItemType file $dockerfile
     Set-Content `
         $dockerfile `
@@ -310,7 +312,7 @@ function Download_FileIfNotAlreadyPresent {
     [parameter(Mandatory=$true)] [string]$Url,
     [parameter(Mandatory=$true)] [string]$OutFile
   )
-  if (Test_FileExists $OutFile) {
+  if (-not (ShouldWrite_File $OutFile)) {
     return
   }
   # Disable progress bar to dramatically increase download speed.
@@ -435,7 +437,7 @@ function Write_PkiData {
     [parameter(Mandatory=$true)] [string] $File
   )
 
-  if (Test_FileExists $File) {
+  if (-not (ShouldWrite_File $File)) {
     return
   }
 
@@ -491,7 +493,7 @@ function Create-KubeletKubeconfig {
   $fetchBootstrapConfig = $false
 
   if (${createBootstrapConfig}) {
-    if (Test_FileExists ${env:BOOTSTRAP_KUBECONFIG}) {
+    if (-not (ShouldWrite_File ${env:BOOTSTRAP_KUBECONFIG})) {
       return
     }
     New-Item -Force -ItemType file ${env:BOOTSTRAP_KUBECONFIG}
@@ -549,7 +551,7 @@ current-context: service-account-context'.`
 #   CA_CERT
 #   KUBE_PROXY_TOKEN
 function Create-KubeproxyKubeconfig {
-  if (Test_FileExists ${env:KUBEPROXY_KUBECONFIG}) {
+  if (-not (ShouldWrite_File ${env:KUBEPROXY_KUBECONFIG})) {
     return
   }
 
@@ -742,8 +744,8 @@ function Configure-CniNetworking {
   $github_repo = Get-InstanceMetadataValue 'github-repo'
   $github_branch = Get-InstanceMetadataValue 'github-branch'
 
-  if ((-not (Test_FileExists ${env:CNI_DIR}\win-bridge.exe)) -or
-      (-not (Test_FileExists ${env:CNI_DIR}\host-local.exe))) {
+  if ((ShouldWrite_File ${env:CNI_DIR}\win-bridge.exe) -or
+      (ShouldWrite_File ${env:CNI_DIR}\host-local.exe)) {
     Invoke-WebRequest `
         https://github.com/${github_repo}/kubernetes/raw/${github_branch}/cluster/gce/windows-cni-plugins.zip `
         -OutFile ${env:CNI_DIR}\windows-cni-plugins.zip
@@ -760,7 +762,7 @@ function Configure-CniNetworking {
   }
 
   $l2bridge_conf = "${env:CNI_CONFIG_DIR}\l2bridge.conf"
-  if (Test_FileExists ${l2bridge_conf}) {
+  if (-not (ShouldWrite_File ${l2bridge_conf})) {
     return
   }
 
@@ -846,7 +848,7 @@ function Configure-Kubelet {
   # cluster/gce/util.sh, and stored in the metadata server under the
   # 'kubelet-config' key.
 
-  if (Test_FileExists ${env:KUBELET_CONFIG}) {
+  if (-not (ShouldWrite_File ${env:KUBELET_CONFIG})) {
     return
   }
 
