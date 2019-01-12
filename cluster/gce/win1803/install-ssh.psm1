@@ -15,7 +15,16 @@
 <#
 .SYNOPSIS
   Library for installing and running Win32-OpenSSH.
+
+.NOTES
+  This module depends on common.psm1.
 #>
+
+Import-Module -Force C:\common.psm1
+
+$OPENSSH_ROOT = 'C:\Program Files\OpenSSH'
+$USER_PROFILE_MODULE = 'C:\user-profile.psm1'
+$WRITE_SSH_KEYS_SCRIPT = 'C:\write-ssh-keys.ps1'
 
 # Starts the Win32-OpenSSH services and configures them to automatically start
 # on subsequent boots.
@@ -32,24 +41,31 @@ function Start_OpenSshServices {
 # After installation run StartProcess-WriteSshKeys to fetch ssh keys from the
 # metadata server.
 function InstallAndStart-OpenSSH {
-  $OPENSSH_ROOT = 'C:\Program Files\OpenSSH'
-  if (Test-Path $OPENSSH_ROOT) {
-    # TODO: check $REDO_STEPS variable here.
-    Write-Host ("Warning: $OPENSSH_ROOT already exists, skipping " +
-                "Win32-OpenSSH installation")
+  if (-not (ShouldWrite-File $OPENSSH_ROOT)) {
+    Log-Output "Starting already-installed OpenSSH services"
     Start_OpenSshServices
     return
   }
+  elseif (Test-Path $OPENSSH_ROOT) {
+    Log-Output ("OpenSSH directory already exists, attempting to run its " +
+                "uninstaller before reinstalling")
+    powershell.exe `
+        -ExecutionPolicy Bypass `
+        -File "$OPENSSH_ROOT\OpenSSH-Win32\uninstall-sshd.ps1"
+    rm -Force -Recurse $OPENSSH_ROOT\OpenSSH-Win32
+  }
 
   # Download open-ssh.
+  # Use TLS 1.2: needed for Invoke-WebRequest downloads from github.com.
+  [Net.ServicePointManager]::SecurityProtocol = `
+      [Net.SecurityProtocolType]::Tls12
   $url = ("https://github.com/PowerShell/Win32-OpenSSH/releases/download/" +
           "v7.7.2.0p1-Beta/OpenSSH-Win32.zip")
   $ProgressPreference = 'SilentlyContinue'
   Invoke-WebRequest $url -OutFile C:\openssh-win32.zip
 
   # Unzip and install open-ssh
-  Expand-Archive C:\openssh-win32.zip -DestinationPath $OPENSSH_ROOT
-  # TODO(pjh): should this have a leading '&' ?
+  Expand-Archive -Force C:\openssh-win32.zip -DestinationPath $OPENSSH_ROOT
   powershell.exe `
       -ExecutionPolicy Bypass `
       -File "$OPENSSH_ROOT\OpenSSH-Win32\install-sshd.ps1"
@@ -57,7 +73,7 @@ function InstallAndStart-OpenSSH {
   # Disable password-based authentication.
   $sshd_config_default = "$OPENSSH_ROOT\OpenSSH-Win32\sshd_config_default"
   $sshd_config = 'C:\ProgramData\ssh\sshd_config'
-  New-Item -ItemType Directory -Force -Path "C:\ProgramData\ssh\"
+  New-Item -Force -ItemType Directory -Path "C:\ProgramData\ssh\"
   # SSH config files must be UTF-8 encoded:
   # https://github.com/PowerShell/Win32-OpenSSH/issues/862
   # https://github.com/PowerShell/Win32-OpenSSH/wiki/Various-Considerations
@@ -66,6 +82,9 @@ function InstallAndStart-OpenSSH {
       Set-Content -Encoding UTF8 $sshd_config
 
   # Configure the firewall to allow inbound SSH connections
+  if (Get-NetFirewallRule -ErrorAction SilentlyContinue sshd) {
+    Get-NetFirewallRule sshd | Remove-NetFirewallRule
+  }
   New-NetFirewallRule `
       -Name sshd `
       -DisplayName 'OpenSSH Server (sshd)' `
@@ -78,37 +97,23 @@ function InstallAndStart-OpenSSH {
   Start_OpenSshServices
 }
 
-# Starts a background process that retrieves ssh keys from the metadata server
-# and writes them to user-specific directories. Intended for use only by test
-# clusters!!
-#
-# While this is running it should be possible to SSH to the Windows node using:
-#   gcloud compute ssh <username>@<instance> --zone=<zone>
-# or:
-#   ssh -i ~/.ssh/google_compute_engine -o 'IdentitiesOnly yes' \
-#     <username>@<instance_external_ip>
-# or copy files using:
-#   gcloud compute scp <username>@<instance>:C:\\path\\to\\file.txt \
-#     path/to/destination/ --zone=<zone>
-#
-# If the username you're using does not already have a project-level SSH key
-# (run "gcloud compute project-info describe --flatten
-# commonInstanceMetadata.items.ssh-keys" to check), run gcloud compute ssh with
-# that username once to add a new project-level SSH key, wait one minute for
-# StartProcess-WriteSshKeys to pick it up, then try to ssh/scp again.
-function StartProcess-WriteSshKeys {
+function Setup_WriteSshKeysScript {
+  if (-not ((ShouldWrite-File $USER_PROFILE_MODULE) -or
+            (ShouldWrite-File $OPENSSH_ROOT))) {
+    return
+  }
+
   [Net.ServicePointManager]::SecurityProtocol = `
       [Net.SecurityProtocolType]::Tls12
   # Download helper module for manipulating Windows user profiles.
   # TODO: copy the helper module into this repository.
   Invoke-WebRequest `
       https://gist.githubusercontent.com/pjh/9753cd14400f4e3d4567f4553ba75f1d/raw/cb7929fa78fc8f840819249785e69838f3e35d64/user-profile.psm1 `
-      -OutFile C:\user-profile.psm1
+      -OutFile $USER_PROFILE_MODULE
 
-  $write_ssh_keys = "C:\write-ssh-keys.ps1"
-  New-Item -ItemType file -Force ${write_ssh_keys}
-  Set-Content ${write_ssh_keys} `
-'Import-Module -Force C:\user-profile.psm1
+  New-Item -Force -ItemType file ${WRITE_SSH_KEYS_SCRIPT}
+  Set-Content ${WRITE_SSH_KEYS_SCRIPT} `
+'Import-Module -Force USER_PROFILE_MODULE
 # For [System.Web.Security.Membership]::GeneratePassword():
 Add-Type -AssemblyName System.Web
 
@@ -197,18 +202,41 @@ while($true) {
     }
   }
   Start-Sleep -sec $poll_interval
-}'
-  Write-Host "${write_ssh_keys}:`n$(Get-Content -Raw ${write_ssh_keys})"
+}'.replace('USER_PROFILE_MODULE', $USER_PROFILE_MODULE)
+  Log-Output ("${WRITE_SSH_KEYS_SCRIPT}:`n" +
+              "$(Get-Content -Raw ${WRITE_SSH_KEYS_SCRIPT})")
+}
+
+# Starts a background process that retrieves ssh keys from the metadata server
+# and writes them to user-specific directories. Intended for use only by test
+# clusters!!
+#
+# While this is running it should be possible to SSH to the Windows node using:
+#   gcloud compute ssh <username>@<instance> --zone=<zone>
+# or:
+#   ssh -i ~/.ssh/google_compute_engine -o 'IdentitiesOnly yes' \
+#     <username>@<instance_external_ip>
+# or copy files using:
+#   gcloud compute scp <username>@<instance>:C:\\path\\to\\file.txt \
+#     path/to/destination/ --zone=<zone>
+#
+# If the username you're using does not already have a project-level SSH key
+# (run "gcloud compute project-info describe --flatten
+# commonInstanceMetadata.items.ssh-keys" to check), run gcloud compute ssh with
+# that username once to add a new project-level SSH key, wait one minute for
+# StartProcess-WriteSshKeys to pick it up, then try to ssh/scp again.
+function StartProcess-WriteSshKeys {
+  Setup_WriteSshKeysScript
 
   # TODO: check if such a process is already running before starting another
   # one.
   $write_keys_process = Start-Process `
       -FilePath "powershell.exe" `
-      -ArgumentList @("-Command", ${write_ssh_keys}) `
+      -ArgumentList @("-Command", ${WRITE_SSH_KEYS_SCRIPT}) `
       -WindowStyle Hidden -PassThru `
       -RedirectStandardOutput "NUL" `
       -RedirectStandardError C:\write-ssh-keys.err
-  Write-Host "$(${write_keys_process} | Out-String)"
+  Log-Output "$(${write_keys_process} | Out-String)"
 }
 
 # Export all public functions:

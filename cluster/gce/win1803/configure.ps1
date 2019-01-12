@@ -17,10 +17,6 @@
   Top-level script that runs on Windows nodes to join them to the K8s cluster.
 #>
 
-# Set to $true to redo steps that were determined to have already been
-# completed once (e.g. to overwrite already-existing config files).
-$REDO_STEPS = $true
-
 $ErrorActionPreference = 'Stop'
 
 # Update TLS setting to enable Github downloads and disable progress bar to
@@ -54,7 +50,8 @@ function Get-InstanceMetadataValue {
 
 # Fetches the value of $MetadataKey, saves it to C:\$Filename and imports it as
 # a PowerShell module.
-# TODO: set $Filename automatically.
+#
+# Note: this function depends on common.psm1.
 function FetchAndImport-ModuleFromMetadata {
   param (
     [parameter(Mandatory=$true)] [string]$MetadataKey,
@@ -64,11 +61,11 @@ function FetchAndImport-ModuleFromMetadata {
   $module = Get-InstanceMetadataValue $MetadataKey
   if (Test-Path C:\$Filename) {
     if (-not $REDO_STEPS) {
-      Write-Host "Skip: C:\$Filename already exists, not overwriting"
+      Log-Output "Skip: C:\$Filename already exists, not overwriting"
       Import-Module -Force C:\$Filename
       return
     }
-    Write-Host "Warning: C:\$Filename already exists, will overwrite it."
+    Log-Output "Warning: C:\$Filename already exists, will overwrite it."
   }
   New-Item -ItemType file -Force C:\$Filename
   Set-Content C:\$Filename $module
@@ -76,15 +73,26 @@ function FetchAndImport-ModuleFromMetadata {
 }
 
 try {
+  # Don't use FetchAndImport-ModuleFromMetadata for common.psm1 - the common
+  # module includes variables and functions that any other function may depend
+  # on.
+  $module = Get-InstanceMetadataValue 'common-psm1'
+  New-Item -ItemType file -Force C:\common.psm1
+  Set-Content C:\common.psm1 $module
+  Import-Module -Force C:\common.psm1
+
+  # TODO: update the function to set $Filename automatically from the key then
+  # put these calls into a loop over a list of XYZ-psm1 keys.
   FetchAndImport-ModuleFromMetadata `
       'install-logging-agent-psm1' `
       'install-logging-agent.psm1'
   FetchAndImport-ModuleFromMetadata 'k8s-node-setup-psm1' 'k8s-node-setup.psm1'
+  FetchAndImport-ModuleFromMetadata 'install-ssh-psm1' 'install-ssh.psm1'
+  FetchAndImport-ModuleFromMetadata 'prepull-images-psm1' 'prepull-images.psm1'
 
   InstallAndStart-LoggingAgent
   Log-Output "Started Stackdriver logging agent"
 
-  FetchAndImport-ModuleFromMetadata 'install-ssh-psm1' 'install-ssh.psm1'
   InstallAndStart-OpenSSH
   Log-Output "Installed OpenSSH, sshd is running"
 
@@ -109,11 +117,10 @@ try {
   Configure-Kubelet
 
   Start-WorkerServices
-  Write-Host 'Waiting 15 seconds for node to join cluster.'
+  Log-Output 'Waiting 15 seconds for node to join cluster.'
   Start-Sleep 15
   Verify-WorkerServices
 
-  FetchAndImport-ModuleFromMetadata 'prepull-images-psm1' 'prepull-images.psm1'
   Prepull-E2EImages
 }
 catch {

@@ -14,10 +14,15 @@
 
 <#
 .SYNOPSIS
-  Library for installing and starting the Stackdriver logging agent
+  Library for installing and starting the Stackdriver logging agent.
+
+.NOTES
+  This module depends on common.psm1.
 #>
 
 $STACKDRIVER_ROOT = 'C:\Program Files (x86)\Stackdriver'
+
+Import-Module -Force C:\common.psm1
 
 # Install and start the Stackdriver logging agent according to
 #   https://cloud.google.com/logging/docs/agent/installation
@@ -36,10 +41,12 @@ function InstallAndStart-LoggingAgent {
        "storage.json")
 
   if (Test-Path $STACKDRIVER_ROOT) {
-    # TODO: check $REDO_STEPS variable here. Note that the installer will prompt
-    # for confirmation if Stackdriver is already installed, so need to find a
-    # way around this.
-    Write-Host ("Warning: $STACKDRIVER_ROOT already present, assuming that " +
+    # Note: we should reinstall the Stackdriver agent if $REDO_STEPS is true
+    # here, but we don't know how to run the installer without it prompting
+    # when Stackdriver is already installed. I dumped the strings in the
+    # installer binary and searched for flags to do this but found nothing. Oh
+    # well.
+    Log-Output ("Skip: $STACKDRIVER_ROOT is already present, assuming that " +
                 "Stackdriver logging agent is already installed")
     # Restart-Service restarts a running service or starts a not-running
     # service.
@@ -49,7 +56,7 @@ function InstallAndStart-LoggingAgent {
 
   # TODO: Need to either skip or ensure the installation will not stall when
   # the machine restarts.
-  Write-Host 'Install Stackdriver...'
+  Log-Output 'Install Stackdriver...'
   # Create a temporary directory for download.
   New-Item 'C:\stackdriver_tmp' -ItemType 'directory' -Force
 

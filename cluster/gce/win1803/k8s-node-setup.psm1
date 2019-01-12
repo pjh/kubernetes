@@ -16,9 +16,12 @@
 .SYNOPSIS
   Library for configuring Windows nodes and joining them to the cluster.
 
-.DESCRIPTION
+.NOTES
+  This module depends on common.psm1.
+
   Some portions copied / adapted from
   https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1.
+
 .EXAMPLE
   Suggested usage for dev/test:
     [Net.ServicePointManager]::SecurityProtocol = `
@@ -42,17 +45,6 @@
 #  - Document functions using proper syntax:
 #    https://technet.microsoft.com/en-us/library/hh847834(v=wps.620).aspx
 
-# Set to $true to redo steps that were determined to have already been completed
-# once (e.g. to overwrite already-existing config files).
-# TODO: when this is set to $false there's something about the network setup on
-# the Windows node that does not get configured properly - the smoke tests for
-# connectivity between Linux and Windows pods fail. Investigate what's going on
-# so that setting this to $false works. If re-doing some step is required but
-# shouldn't be, report it to sig-windows.
-# TODO: move this variable and other basic function (e.g. Log-Output) to a
-# common.psm1 module that all other modules depend on.
-$REDO_STEPS = $true
-
 $K8S_DIR = "C:\etc\kubernetes"
 $INFRA_CONTAINER = "kubeletwin/pause"
 $GCE_METADATA_SERVER = "169.254.169.254"
@@ -62,41 +54,9 @@ $GCE_METADATA_SERVER = "169.254.169.254"
 # Add-InitialHnsNetwork().
 $MGMT_ADAPTER_NAME = "vEthernet (Ethernet*"
 
-function Log-Output {
-  param (
-    [parameter(Mandatory=$true)] [string]$Message,
-    [switch]$Fatal
-  )
-  # TODO(pjh): what's correct, Write-Output or Write-Host??
-  Write-Host "${Message}"
-  if (${Fatal}) {
-    Exit 1
-  }
-}
+Import-Module -Force C:\common.psm1
 
-# Checks if a file should be written or overwritten by testing if it already
-# exists and checking the value of the global $REDO_STEPS variable. Emits an
-# informative message if the file already exists.
-#
-# Returns $true if the file does not exist, or if it does but the global
-# $REDO_STEPS variable is set to $true. Returns $false if the file exists and
-# the caller should not overwrite it.
-function ShouldWrite_File {
-  param (
-    [parameter(Mandatory=$true)] [string]$Filename
-  )
-  if (Test-Path $Filename) {
-    if ($REDO_STEPS) {
-      Log-Output "Warning: $Filename already exists, will overwrite it"
-      return $true
-    }
-    Log-Output "Skip: $Filename already exists, not overwriting it"
-    return $false
-  }
-  return $true
-}
-
-function Todo {
+function Log_Todo {
   param (
     [parameter(Mandatory=$true)] [string]$Message
   )
@@ -163,7 +123,7 @@ function Add_GceMetadataServerRoute {
   }
 }
 
-function Get-InstanceMetadataValue {
+function Get_InstanceMetadataValue {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
     [parameter(Mandatory=$false)] [string]$Default
@@ -194,7 +154,7 @@ function Get-InstanceMetadataValue {
 function Fetch-KubeEnv {
   # Testing / debugging:
   # First:
-  #   ${kube_env} = Get-InstanceMetadataValue 'kube-env'
+  #   ${kube_env} = Get_InstanceMetadataValue 'kube-env'
   # or:
   #   ${kube_env} = [IO.File]::ReadAllText(".\kubeEnv.txt")
   # ${kube_env_table} = ConvertFrom-Yaml ${kube_env}
@@ -202,12 +162,12 @@ function Fetch-KubeEnv {
   # ${kube_env_table}.GetType()
 
   # The type of kube_env is a powershell String.
-  $kube_env = Get-InstanceMetadataValue 'kube-env'
+  $kube_env = Get_InstanceMetadataValue 'kube-env'
   $kube_env_table = ConvertFrom-Yaml ${kube_env}
   return ${kube_env_table}
 }
 
-function Set-MachineEnvironmentVar {
+function Set_MachineEnvironmentVar {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
     [parameter(Mandatory=$true)] [string]$Value
@@ -215,7 +175,7 @@ function Set-MachineEnvironmentVar {
   [Environment]::SetEnvironmentVariable($Key, $Value, "Machine")
 }
 
-function Set-CurrentShellEnvironmentVar {
+function Set_CurrentShellEnvironmentVar {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
     [parameter(Mandatory=$true)] [string]$Value
@@ -249,8 +209,8 @@ function Set-EnvironmentVars {
   $env_vars.GetEnumerator() | ForEach-Object{
     $message = "Setting environment variable: " + $_.key + " = " + $_.value
     Log-Output ${message}
-    Set-MachineEnvironmentVar $_.key $_.value
-    Set-CurrentShellEnvironmentVar $_.key $_.value
+    Set_MachineEnvironmentVar $_.key $_.value
+    Set_CurrentShellEnvironmentVar $_.key $_.value
   }
 }
 
@@ -279,7 +239,7 @@ function Create-Directories {
 }
 
 function Download-HelperScripts {
-  if (-not (ShouldWrite_File ${env:K8S_DIR}\hns.psm1)) {
+  if (-not (ShouldWrite-File ${env:K8S_DIR}\hns.psm1)) {
     return
   }
   Invoke-WebRequest `
@@ -288,12 +248,12 @@ function Download-HelperScripts {
 }
 
 function Create-PauseImage {
-  $win_version = Get-InstanceMetadataValue 'win-version'
+  $win_version = Get_InstanceMetadataValue 'win-version'
 
   $pause_dir = "${env:K8S_DIR}\pauseimage"
   $dockerfile = "$pause_dir\Dockerfile"
   mkdir -Force $pause_dir
-  if (ShouldWrite_File $dockerfile) {
+  if (ShouldWrite-File $dockerfile) {
     New-Item -Force -ItemType file $dockerfile
     Set-Content `
         $dockerfile `
@@ -309,22 +269,15 @@ function Create-PauseImage {
   docker build -t ${INFRA_CONTAINER} $pause_dir
 }
 
-function Download_FileIfNotAlreadyPresent {
-  param (
-    [parameter(Mandatory=$true)] [string]$Url,
-    [parameter(Mandatory=$true)] [string]$OutFile
-  )
-  if (-not (ShouldWrite_File $OutFile)) {
+function DownloadAndInstall-KubernetesBinaries {
+  # Assume that presence of kubelet.exe indicates that the kubernetes binaries
+  # were already previously downloaded to this node.
+  if (-not (ShouldWrite-File ${env:NODE_DIR}\kubelet.exe)) {
     return
   }
-  # Disable progress bar to dramatically increase download speed.
-  $ProgressPreference = 'SilentlyContinue'
-  Invoke-WebRequest $Url -OutFile $OutFile
-}
 
-function DownloadAndInstall-KubernetesBinaries {
   $tmp_dir = 'C:\k8s_tmp'
-  New-Item $tmp_dir -ItemType 'directory' -Force
+  New-Item -Force -ItemType 'directory' $tmp_dir
 
   $uri = ${kube_env}['NODE_BINARY_TAR_URL']
   $filename = Split-Path -leaf $uri
@@ -336,8 +289,8 @@ function DownloadAndInstall-KubernetesBinaries {
   # TODO: Verify hash of the tarball.
 
   # Change the directory to the parent directory of ${env:K8S_DIR} and untar.
-  # This (over-)writes $Pdest_dir}/kubernetes/node/bin/*.exe files.
-  $dest_dir = (get-item ${env:K8S_DIR}).Parent.Fullname
+  # This (over-)writes ${dest_dir}/kubernetes/node/bin/*.exe files.
+  $dest_dir = (Get-Item ${env:K8S_DIR}).Parent.Fullname
   tar xzf ${tmp_dir}\${filename} -C ${dest_dir}
 
   # Clean up the temporary directory
@@ -432,15 +385,15 @@ function Write_PkiData {
     [parameter(Mandatory=$true)] [string] $File
   )
 
-  if (-not (ShouldWrite_File $File)) {
+  if (-not (ShouldWrite-File $File)) {
     return
   }
 
   # This command writes out a PEM certificate file, analogous to "base64
   # --decode" on Linux. See https://stackoverflow.com/a/51914136/1230197.
   [IO.File]::WriteAllBytes($File, [Convert]::FromBase64String($Data))
-  Todo ("need to set permissions correctly on ${File}; not sure what the " +
-        "Windows equivalent of 'umask 077' is")
+  Log_Todo ("need to set permissions correctly on ${File}; not sure what the " +
+            "Windows equivalent of 'umask 077' is")
   # Linux: owned by root, rw by user only.
   #   -rw------- 1 root root 1.2K Oct 12 00:56 ca-certificates.crt
   #   -rw------- 1 root root 1.3K Oct 12 00:56 kubelet.crt
@@ -488,7 +441,7 @@ function Create-KubeletKubeconfig {
   $fetchBootstrapConfig = $false
 
   if (${createBootstrapConfig}) {
-    if (-not (ShouldWrite_File ${env:BOOTSTRAP_KUBECONFIG})) {
+    if (-not (ShouldWrite-File ${env:BOOTSTRAP_KUBECONFIG})) {
       return
     }
     New-Item -Force -ItemType file ${env:BOOTSTRAP_KUBECONFIG}
@@ -546,7 +499,7 @@ current-context: service-account-context'.`
 #   CA_CERT
 #   KUBE_PROXY_TOKEN
 function Create-KubeproxyKubeconfig {
-  if (-not (ShouldWrite_File ${env:KUBEPROXY_KUBECONFIG})) {
+  if (-not (ShouldWrite-File ${env:KUBEPROXY_KUBECONFIG})) {
     return
   }
 
@@ -603,8 +556,8 @@ function Set-PodCidr {
   }
 
   Log-Output "fetched pod CIDR (same as IP alias range): ${pod_cidr}"
-  Set-MachineEnvironmentVar "POD_CIDR" ${pod_cidr}
-  Set-CurrentShellEnvironmentVar "POD_CIDR" ${pod_cidr}
+  Set_MachineEnvironmentVar "POD_CIDR" ${pod_cidr}
+  Set_CurrentShellEnvironmentVar "POD_CIDR" ${pod_cidr}
 }
 
 # This function adds an initial HNS network on the Windows node, which forces
@@ -612,6 +565,8 @@ function Set-PodCidr {
 # used to communicate with the rest of the Kubernetes cluster without NAT.
 function Add-InitialHnsNetwork {
   Import-Module -Force ${env:K8S_DIR}\hns.psm1
+  $INITIAL_HNS_NETWORK = 'External'
+
   # This comes from
   # https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/start.ps1#L74
   # (or
@@ -624,10 +579,18 @@ function Add-InitialHnsNetwork {
   # nodes without a network blip. Creating a vSwitch takes time, causes network
   # blips, and it makes it more likely to hit the issue where flanneld is
   # stuck, so we want to do this as rarely as possible."
-  if ($(Get-HnsNetwork) -like '*Name*External*') {
-    Log-Output ('Skip: Initial "External" HNS network already exists, not ' +
-                'recreating it')
-    return
+  if ($(Get-HnsNetwork) | Where-Object Name -eq $INITIAL_HNS_NETWORK) {
+    if ($REDO_STEPS) {
+      Log-Output ("Warning: initial '$INITIAL_HNS_NETWORK' HNS network " +
+                  "already exists, removing it and recreating it")
+      $(Get-HnsNetwork) | Where-Object Name -eq $INITIAL_HNS_NETWORK |
+          Remove-HnsNetwork
+    }
+    else {
+      Log-Output ("Skip: initial '$INITIAL_HNS_NETWORK' HNS network " +
+                  "already exists, not recreating it")
+      return
+    }
   }
   Log-Output ("Creating initial HNS network to force creation of " +
               "${MGMT_ADAPTER_NAME} interface")
@@ -636,7 +599,7 @@ function Add-InitialHnsNetwork {
       -Type "L2Bridge" `
       -AddressPrefix "192.168.255.0/30" `
       -Gateway "192.168.255.1" `
-      -Name "External" `
+      -Name $INITIAL_HNS_NETWORK `
       -Verbose
 }
 
@@ -661,9 +624,16 @@ function Configure-HostNetworkingService {
               "podEndpointGateway = ${pod_endpoint_gateway}")
 
   if (Get-HnsNetwork | Where-Object Name -eq ${env:KUBE_NETWORK}) {
-    if ($REDO_STEPS) {
-      Log-Output ("${env:KUBE_NETWORK} HNS network already exists, removing " +
-                  "it and recreating it")
+    # TODO: investigate / ask Microsoft why recreating the l2bridge HNS network
+    # is always necessary on a reboot. If it is not recreated, our
+    # linux-pod-to-windows-pod and windows-pod-to-linux-pod connectivity tests
+    # fail.
+    # Is it actually the HNS network that's necessary to recreate? Or is there
+    # some other step in this function that needs to be redone (e.g. adding a
+    # route)?
+    if ($REDO_STEPS -or $true) {
+      Log-Output ("Warning: ${env:KUBE_NETWORK} HNS network already exists, " +
+                  "removing it and recreating it")
       Get-HnsNetwork | Where-Object Name -eq ${env:KUBE_NETWORK} |
           Remove-HnsNetwork
     }
@@ -736,11 +706,11 @@ function Configure-HostNetworkingService {
 #   The "cbr0" HNS network for pod networking has been configured
 #     (Configure-HostNetworkingService).
 function Configure-CniNetworking {
-  $github_repo = Get-InstanceMetadataValue 'github-repo'
-  $github_branch = Get-InstanceMetadataValue 'github-branch'
+  $github_repo = Get_InstanceMetadataValue 'github-repo'
+  $github_branch = Get_InstanceMetadataValue 'github-branch'
 
-  if ((ShouldWrite_File ${env:CNI_DIR}\win-bridge.exe) -or
-      (ShouldWrite_File ${env:CNI_DIR}\host-local.exe)) {
+  if ((ShouldWrite-File ${env:CNI_DIR}\win-bridge.exe) -or
+      (ShouldWrite-File ${env:CNI_DIR}\host-local.exe)) {
     Invoke-WebRequest `
         https://github.com/${github_repo}/kubernetes/raw/${github_branch}/cluster/gce/windows-cni-plugins.zip `
         -OutFile ${env:CNI_DIR}\windows-cni-plugins.zip
@@ -757,7 +727,7 @@ function Configure-CniNetworking {
   }
 
   $l2bridge_conf = "${env:CNI_CONFIG_DIR}\l2bridge.conf"
-  if (-not (ShouldWrite_File ${l2bridge_conf})) {
+  if (-not (ShouldWrite-File ${l2bridge_conf})) {
     return
   }
 
@@ -843,12 +813,12 @@ function Configure-Kubelet {
   # cluster/gce/util.sh, and stored in the metadata server under the
   # 'kubelet-config' key.
 
-  if (-not (ShouldWrite_File ${env:KUBELET_CONFIG})) {
+  if (-not (ShouldWrite-File ${env:KUBELET_CONFIG})) {
     return
   }
 
   # Download and save Kubelet Config, and log the result
-  $kubelet_config = Get-InstanceMetadataValue 'kubelet-config'
+  $kubelet_config = Get_InstanceMetadataValue 'kubelet-config'
   Set-Content ${env:KUBELET_CONFIG} $kubelet_config
   Log-Output "Kubelet config:`n$(Get-Content -Raw ${env:KUBELET_CONFIG})"
 }
@@ -1032,8 +1002,8 @@ function Start-WorkerServices {
   # E1023 04:03:58.143449    4840 reflector.go:205] k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/factory.go:129: Failed to list *core.Endpoints: Get https://35.239.84.171/api/v1/endpoints?limit=500&resourceVersion=0: dial tcp 35.239.84.171:443: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
   # E1023 04:03:58.150266    4840 reflector.go:205] k8s.io/kubernetes/pkg/client/informers/informers_generated/internalversion/factory.go:129: Failed to list *core.Service: Get https://35.239.84.171/api/v1/services?limit=500&resourceVersion=0: dial tcp 35.239.84.171:443: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
 
-  Todo ("verify that jobs are still running; print more details about the " +
-        "background jobs.")
+  Log_Todo ("verify that jobs are still running; print more details about " +
+            "the background jobs.")
   Log-Output "$(Get-Process kube* | Out-String)"
   Verify_GceMetadataServerRouteIsPresent
   Log-Output "Kubernetes components started successfully"
@@ -1048,7 +1018,7 @@ function Verify-WorkerServices {
   Log-Output ("kubectl get nodes:`n" +
               "$(& ${env:NODE_DIR}\kubectl.exe get nodes | Out-String)")
   Verify_GceMetadataServerRouteIsPresent
-  Todo "run more verification commands."
+  Log_Todo "run more verification commands."
 }
 
 # Export all public functions:

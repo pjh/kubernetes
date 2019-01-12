@@ -41,6 +41,7 @@ function get-windows-node-instance-metadata-from-file {
   # get-serial-port-output <instance>" from the location where you're running
   # kube-up.
   metadata+="windows-startup-script-ps1=${KUBE_ROOT}/cluster/gce/win${win_version}/configure.ps1,"
+  metadata+="common-psm1=${KUBE_ROOT}/cluster/gce/win${win_version}/common.psm1,"
   metadata+="install-ssh-psm1=${KUBE_ROOT}/cluster/gce/win${win_version}/install-ssh.psm1,"
   metadata+="install-logging-agent-psm1=${KUBE_ROOT}/cluster/gce/win${win_version}/install-logging-agent.psm1,"
   metadata+="prepull-images-psm1=${KUBE_ROOT}/cluster/gce/win${win_version}/prepull-images.psm1,"
