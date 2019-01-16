@@ -579,12 +579,13 @@ function Add-InitialHnsNetwork {
   # nodes without a network blip. Creating a vSwitch takes time, causes network
   # blips, and it makes it more likely to hit the issue where flanneld is
   # stuck, so we want to do this as rarely as possible."
-  if ($(Get-HnsNetwork) | Where-Object Name -eq $INITIAL_HNS_NETWORK) {
+  $hns_network = Get-HnsNetwork | Where-Object Name -eq $INITIAL_HNS_NETWORK
+  if ($hns_network) {
     if ($REDO_STEPS) {
       Log-Output ("Warning: initial '$INITIAL_HNS_NETWORK' HNS network " +
                   "already exists, removing it and recreating it")
-      $(Get-HnsNetwork) | Where-Object Name -eq $INITIAL_HNS_NETWORK |
-          Remove-HnsNetwork
+      $hns_network | Remove-HnsNetwork
+      $hns_network = $null
     }
     else {
       Log-Output ("Skip: initial '$INITIAL_HNS_NETWORK' HNS network " +
@@ -609,8 +610,8 @@ function Add-InitialHnsNetwork {
 function Configure-HostNetworkingService {
   $endpoint_name = "cbr0"
   $vnic_name = "vEthernet (${endpoint_name})"
-
   Import-Module -Force ${env:K8S_DIR}\hns.psm1
+
   Verify_GceMetadataServerRouteIsPresent
 
   # For Windows nodes the pod gateway IP address is the .1 address in the pod
@@ -623,44 +624,59 @@ function Configure-HostNetworkingService {
               "podCidr = ${env:POD_CIDR}, podGateway = ${pod_gateway}, " +
               "podEndpointGateway = ${pod_endpoint_gateway}")
 
-  if (Get-HnsNetwork | Where-Object Name -eq ${env:KUBE_NETWORK}) {
-    # TODO: investigate / ask Microsoft why recreating the l2bridge HNS network
-    # is always necessary on a reboot. If it is not recreated, our
-    # linux-pod-to-windows-pod and windows-pod-to-linux-pod connectivity tests
-    # fail.
-    # Is it actually the HNS network that's necessary to recreate? Or is there
-    # some other step in this function that needs to be redone (e.g. adding a
-    # route)?
-    if ($REDO_STEPS -or $true) {
+  $hns_network = Get-HnsNetwork | Where-Object Name -eq ${env:KUBE_NETWORK}
+  if ($hns_network) {
+    if ($REDO_STEPS) {
       Log-Output ("Warning: ${env:KUBE_NETWORK} HNS network already exists, " +
                   "removing it and recreating it")
-      Get-HnsNetwork | Where-Object Name -eq ${env:KUBE_NETWORK} |
-          Remove-HnsNetwork
+      $hns_network | Remove-HnsNetwork
+      $hns_network = $null
     }
     else {
       Log-Output "Skip: ${env:KUBE_NETWORK} HNS network already exists"
-      return
     }
   }
+  $created_hns_network = $false
+  if (-not $hns_network) {
+    # Note: RDP connection will hiccup when running this command.
+    $hns_network = New-HNSNetwork `
+        -Type "L2Bridge" `
+        -AddressPrefix ${env:POD_CIDR} `
+        -Gateway ${pod_gateway} `
+        -Name ${env:KUBE_NETWORK} `
+        -Verbose
+    $created_hns_network = $true
+  }
 
-  # Note: RDP connection will hiccup when running this command.
-  $hns_network = New-HNSNetwork `
-      -Type "L2Bridge" `
-      -AddressPrefix ${env:POD_CIDR} `
-      -Gateway ${pod_gateway} `
-      -Name ${env:KUBE_NETWORK} `
-      -Verbose
-  $hns_endpoint = New-HnsEndpoint `
-      -NetworkId ${hns_network}.Id `
-      -Name ${endpoint_name} `
-      -IPAddress ${pod_endpoint_gateway} `
-      -Gateway "0.0.0.0" `
-      -Verbose
-  Attach-HnsHostEndpoint `
-      -EndpointID ${hns_endpoint}.Id `
-      -CompartmentID 1 `
-      -Verbose
-  netsh interface ipv4 set interface "${vnic_name}" forwarding=enabled
+  $hns_endpoint = Get-HnsEndpoint | Where-Object Name -eq $endpoint_name
+  # Note: we don't expect to ever enter this block currently - while the HNS
+  # network does seem to persist across reboots, the HNS endpoints do not.
+  if ($hns_endpoint) {
+    if ($REDO_STEPS) {
+      Log-Output ("Warning: HNS endpoint $endpoint_name already exists, " +
+                  "removing it and recreating it")
+      $hns_endpoint | Remove-HnsEndpoint
+      $hns_endpoint = $null
+    }
+    else {
+      Log-Output "Skip: HNS endpoint $endpoint_name already exists"
+    }
+  }
+  if (-not $hns_endpoint) {
+    $hns_endpoint = New-HnsEndpoint `
+        -NetworkId ${hns_network}.Id `
+        -Name ${endpoint_name} `
+        -IPAddress ${pod_endpoint_gateway} `
+        -Gateway "0.0.0.0" `
+        -Verbose
+    # TODO: why is this always CompartmentId 1??
+    Attach-HnsHostEndpoint `
+        -EndpointID ${hns_endpoint}.Id `
+        -CompartmentID 1 `
+        -Verbose
+    netsh interface ipv4 set interface "${vnic_name}" forwarding=enabled
+  }
+
   Get-HNSPolicyList | Remove-HnsPolicyList
 
   # Add a route from the management NIC to the pod CIDR.
@@ -682,19 +698,21 @@ function Configure-HostNetworkingService {
       -NextHop "0.0.0.0" `
       -Verbose
 
-  # There is an HNS bug where the route to the GCE metadata server will be
-  # removed when the HNS network is created:
-  # https://github.com/Microsoft/hcsshim/issues/299#issuecomment-425491610.
-  # The behavior here is very unpredictable: the route may only be removed
-  # after some delay, or it may appear to be removed then you'll add it back but
-  # then it will be removed once again. So, we first wait a long unfortunate
-  # amount of time to ensure that things have quiesced, then we wait until we're
-  # sure the route is really gone before re-adding it again.
-  Log-Output "Waiting 45 seconds for host network state to quiesce"
-  Start-Sleep 45
-  WaitFor_GceMetadataServerRouteToBeRemoved
-  Log-Output "Re-adding the GCE metadata server route"
-  Add_GceMetadataServerRoute
+  if ($created_hns_network) {
+    # There is an HNS bug where the route to the GCE metadata server will be
+    # removed when the HNS network is created:
+    # https://github.com/Microsoft/hcsshim/issues/299#issuecomment-425491610.
+    # The behavior here is very unpredictable: the route may only be removed
+    # after some delay, or it may appear to be removed then you'll add it back
+    # but then it will be removed once again. So, we first wait a long
+    # unfortunate amount of time to ensure that things have quiesced, then we
+    # wait until we're sure the route is really gone before re-adding it again.
+    Log-Output "Waiting 45 seconds for host network state to quiesce"
+    Start-Sleep 45
+    WaitFor_GceMetadataServerRouteToBeRemoved
+    Log-Output "Re-adding the GCE metadata server route"
+    Add_GceMetadataServerRoute
+  }
   Verify_GceMetadataServerRouteIsPresent
 
   Log-Output "Host network setup complete"
