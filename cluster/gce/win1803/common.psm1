@@ -26,6 +26,7 @@
 $REDO_STEPS = $false
 Export-ModuleMember -Variable REDO_STEPS
 
+# Writes $Message to the console. Terminates the script if $Fatal is set.
 function Log-Output {
   param (
     [parameter(Mandatory=$true)] [string]$Message,
