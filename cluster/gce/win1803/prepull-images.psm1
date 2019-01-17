@@ -17,7 +17,7 @@
   Library for pre-pulling E2E test container images on Windows nodes.
 #>
 
-
+# Pulls the container images used for the Windows end-to-end tests.
 function Prepull-E2EImages {
   $images = @(
     "e2eteam/busybox:1.29"

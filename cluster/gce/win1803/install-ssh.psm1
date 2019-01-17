@@ -14,10 +14,12 @@
 
 <#
 .SYNOPSIS
-  Library for installing and running Win32-OpenSSH.
+  Library for installing and running Win32-OpenSSH. NOT FOR PRODUCTION USE.
 
 .NOTES
-  This module depends on common.psm1.
+  This module depends on common.psm1. This module depends on third-party code
+  which has not been security-reviewed, so it should only be used for test
+  clusters. DO NOT USE THIS MODULE FOR PRODUCTION.
 #>
 
 Import-Module -Force C:\common.psm1
@@ -40,7 +42,7 @@ function Start_OpenSshServices {
 #
 # After installation run StartProcess-WriteSshKeys to fetch ssh keys from the
 # metadata server.
-function InstallAndStart-OpenSSH {
+function InstallAndStart-OpenSsh {
   if (-not (ShouldWrite-File $OPENSSH_ROOT)) {
     Log-Output "Starting already-installed OpenSSH services"
     Start_OpenSshServices
@@ -106,7 +108,7 @@ function Setup_WriteSshKeysScript {
   [Net.ServicePointManager]::SecurityProtocol = `
       [Net.SecurityProtocolType]::Tls12
   # Download helper module for manipulating Windows user profiles.
-  # TODO: copy the helper module into this repository.
+  # TODO(windows): copy the helper module into this repository.
   Invoke-WebRequest `
       https://gist.githubusercontent.com/pjh/9753cd14400f4e3d4567f4553ba75f1d/raw/cb7929fa78fc8f840819249785e69838f3e35d64/user-profile.psm1 `
       -OutFile $USER_PROFILE_MODULE
@@ -228,8 +230,8 @@ while($true) {
 function StartProcess-WriteSshKeys {
   Setup_WriteSshKeysScript
 
-  # TODO: check if such a process is already running before starting another
-  # one.
+  # TODO(pjh): check if such a process is already running before starting
+  # another one.
   $write_keys_process = Start-Process `
       -FilePath "powershell.exe" `
       -ArgumentList @("-Command", ${WRITE_SSH_KEYS_SCRIPT}) `

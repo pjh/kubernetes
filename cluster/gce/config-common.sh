@@ -20,7 +20,6 @@
 function get-num-nodes {
   echo "$((${NUM_LINUX_NODES} + ${NUM_WINDOWS_NODES}))"
 }
-#echo "PJH: get-num-nodes: $((${NUM_LINUX_NODES} + ${NUM_WINDOWS_NODES}))"
 
 function get-master-size {
   local suggested_master_size=2

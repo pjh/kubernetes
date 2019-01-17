@@ -23,7 +23,6 @@ source "${KUBE_ROOT}/cluster/gce/config-common.sh"
 # This endpoint has to be pointing to v1 api. For example, https://www.googleapis.com/compute/staging_v1/
 GCE_API_ENDPOINT=${KUBE_GCE_API_ENDPOINT:-}
 GCLOUD=gcloud
-# TODO(peterhornyack): this should get default zone from gcloud.
 ZONE=${KUBE_GCE_ZONE:-us-central1-b}
 REGION=${ZONE%-*}
 RELEASE_REGION_FALLBACK=${RELEASE_REGION_FALLBACK:-false}
@@ -31,6 +30,7 @@ REGIONAL_KUBE_ADDONS=${REGIONAL_KUBE_ADDONS:-true}
 NODE_SIZE=${NODE_SIZE:-n1-standard-2}
 NUM_LINUX_NODES=${NUM_LINUX_NODES:-2}
 NUM_WINDOWS_NODES=${NUM_WINDOWS_NODES:-2}
+# TODO(windows): remove these GITHUB_* environment variables before upstreaming
 GITHUB_REPO=${GITHUB_REPO:-pjh}
 GITHUB_BRANCH=${GITHUB_BRANCH:-windows-up}
 MASTER_SIZE=${MASTER_SIZE:-n1-standard-$(get-master-size)}
@@ -64,11 +64,10 @@ KUBE_DELETE_NODES=${KUBE_DELETE_NODES:-true}
 KUBE_DELETE_NETWORK=${KUBE_DELETE_NETWORK:-} # default value calculated below
 CREATE_CUSTOM_NETWORK=${CREATE_CUSTOM_NETWORK:-false}
 MIG_WAIT_UNTIL_STABLE_TIMEOUT=${MIG_WAIT_UNTIL_STABLE_TIMEOUT:-1800}
-MIG_WAIT_UNTIL_WINDOWS_STABLE_TIMEOUT=${MIG_WAIT_UNTIL_WINDOWS_STABLE_TIMEOUT:-1800}
 
 MASTER_OS_DISTRIBUTION=${KUBE_MASTER_OS_DISTRIBUTION:-${KUBE_OS_DISTRIBUTION:-gci}}
 LINUX_NODE_OS_DISTRIBUTION=${KUBE_NODE_OS_DISTRIBUTION:-${KUBE_OS_DISTRIBUTION:-gci}}
-WINDOWS_NODE_OS_DISTRIBUTION="win1803"
+WINDOWS_NODE_OS_DISTRIBUTION=${KUBE_WINDOWS_NODE_OS_DISTRIBUTION:-win1803}
 
 if [[ "${MASTER_OS_DISTRIBUTION}" == "cos" ]]; then
     MASTER_OS_DISTRIBUTION="gci"
@@ -190,7 +189,7 @@ fi
 
 # To avoid running Calico on a node that is not configured appropriately,
 # label each Node so that the DaemonSet can run the Pods only on ready Nodes.
-# Windows nodes to not support Calico.
+# Windows nodes do not support Calico.
 if [[ ${NETWORK_POLICY_PROVIDER:-} == "calico" ]]; then
 	LINUX_NON_MASTER_NODE_LABELS="${LINUX_NON_MASTER_NODE_LABELS:+${LINUX_NON_MASTER_NODE_LABELS},}projectcalico.org/ds-ready=true"
 fi
@@ -203,7 +202,7 @@ CUSTOM_TYPHA_DEPLOYMENT_YAML="${KUBE_CUSTOM_TYPHA_DEPLOYMENT_YAML:-}"
 
 # To avoid running netd on a node that is not configured appropriately,
 # label each Node so that the DaemonSet can run the Pods only on ready Nodes.
-# Windows nodes to not support netd.
+# Windows nodes do not support netd.
 if [[ ${ENABLE_NETD:-} == "true" ]]; then
 	LINUX_NON_MASTER_NODE_LABELS="${LINUX_NON_MASTER_NODE_LABELS:+${LINUX_NON_MASTER_NODE_LABELS},}cloud.google.com/gke-netd-ready=true"
 fi
@@ -302,8 +301,6 @@ NODE_PROBLEM_DETECTOR_TAR_HASH="${NODE_PROBLEM_DETECTOR_TAR_HASH:-}"
 # Optional: Create autoscaler for cluster's nodes.
 ENABLE_CLUSTER_AUTOSCALER="${KUBE_ENABLE_CLUSTER_AUTOSCALER:-false}"
 if [[ "${ENABLE_CLUSTER_AUTOSCALER}" == "true" ]]; then
-  echo "PJH: ENABLE_CLUSTER_AUTOSCALER true, update for Windows nodes"
-  exit 1
   AUTOSCALER_MIN_NODES="${KUBE_AUTOSCALER_MIN_NODES:-}"
   AUTOSCALER_MAX_NODES="${KUBE_AUTOSCALER_MAX_NODES:-}"
   AUTOSCALER_ENABLE_SCALE_DOWN="${KUBE_AUTOSCALER_ENABLE_SCALE_DOWN:-true}"

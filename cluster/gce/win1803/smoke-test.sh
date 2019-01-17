@@ -71,65 +71,6 @@ function check_no_system_pods_on_windows_nodes {
   echo "Verified that all system pods are running on Linux nodes"
 }
 
-function run_iis_deployment {
-  echo "Writing example deployment to windows-iis-deployment.yaml"
-  cat <<EOF > windows-iis-deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iis-deployment
-  labels:
-    app: iis
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: iis
-  template:
-    metadata:
-      labels:
-        app: iis
-    spec:
-      containers:
-      - name: iis-servercore
-        image: microsoft/iis:windowsservercore-1803
-      nodeSelector:
-        beta.kubernetes.io/os: windows
-EOF
-
-  ${kubectl} create -f windows-iis-deployment.yaml
-
-  # It may take a while for the IIS pods to start running because the IIS
-  # container (based on the large windowsservercore container) must be fetched
-  # on the Windows nodes.
-  timeout=120
-  while [[ $timeout -gt 0 ]]; do
-    echo "Waiting for IIS pods to become Ready"
-    statuses=$(${kubectl} get pods -l app=iis \
-      -o jsonpath='{.items[*].status.conditions[?(@.type=="Ready")].status}' \
-      | grep "False" | wc -w)
-    if [[ $statuses -eq 0 ]]; then
-      break
-    else
-      sleep 10
-      let timeout=timeout-10
-    fi
-  done
-
-  if [[ $timeout -gt 0 ]]; then
-    echo "All IIS pods became Ready"
-  else
-    echo "ERROR: Not all IIS pods became Ready"
-    echo "kubectl get pods -l app=iis"
-    ${kubectl} get pods -l app=iis
-    ${kubectl} delete deployment iis-deployment
-    exit 1
-  fi
-
-  echo "Removing iis-deployment"
-  ${kubectl} delete deployment iis-deployment
-}
-
 linux_webserver_deployment=linux-nginx
 linux_webserver_pod_label=nginx
 
@@ -278,7 +219,8 @@ function get_linux_command_pod_ip {
 }
 
 # Installs test executables (ping, curl) in the Linux command pod.
-# NOTE: this assumes that there is only one Linux "command pod". TODO fix this.
+# NOTE: this assumes that there is only one Linux "command pod".
+# TODO(pjh): fix this.
 function prepare_linux_command_pod {
   local linux_command_pod="$(get_linux_command_pod_name)"
   echo "Installing test utilities in Linux command pod, may take a minute"
@@ -481,7 +423,7 @@ function test_linux_pod_to_windows_pod {
     cleanup_deployments
     echo "Failing output: $(cat $output_file)"
     echo "FAILED: ${FUNCNAME[0]}"
-    echo "This test seems to be flaky. TODO: investigate."
+    echo "This test seems to be flaky. TODO(pjh): investigate."
     exit $?
   fi
 }
@@ -532,7 +474,7 @@ function test_windows_node_to_windows_pod {
   echo "TODO: ${FUNCNAME[0]}"
 }
 
-# TODO: this test failed for me once with
+# TODO(pjh): this test failed for me once with
 #   error: unable to upgrade connection: container not found ("nettest")
 # Maybe the container crashed for some reason? Investigate if it happens more.
 function test_windows_pod_to_linux_pod {
@@ -673,7 +615,6 @@ function cleanup_deployments {
 
 check_windows_nodes_are_ready
 check_no_system_pods_on_windows_nodes
-#run_iis_deployment
 
 deploy_linux_webserver_pod
 deploy_linux_command_pod

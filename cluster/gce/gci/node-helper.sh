@@ -35,9 +35,10 @@ function get-linux-node-instance-metadata-from-file {
 
 function get-linux-node-instance-metadata {
   local metadata=""
-  # TODO(pjh): if we don't add any metadata here, does setting '--metadata ""'
-  # work in create-node-template?
-  metadata+="serial-port-enable=1,"
+  # Note: leave at least one key-value pair here to simplify the logic in
+  # create-node-template so that it easily works for both Linux and Windows
+  # nodes.
+  metadata+="serial-port-enable=0,"
   echo "${metadata}"
 }
 

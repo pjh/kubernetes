@@ -26,10 +26,10 @@ Import-Module -Force C:\common.psm1
 
 # Install and start the Stackdriver logging agent according to
 #   https://cloud.google.com/logging/docs/agent/installation
-# TODO: Update to a newer Stackdriver agent once it is released to support
-# kubernetes metadata properly. The current version does not recognizes the
-# local resource key "logging.googleapis.com/local_resource_id", and fails to
-# label namespace, pod and container names on the logs.
+# TODO(yujuhong): Update to a newer Stackdriver agent once it is released to
+# support kubernetes metadata properly. The current version does not recognizes
+# the local resource key "logging.googleapis.com/local_resource_id", and fails
+# to label namespace, pod and container names on the logs.
 function InstallAndStart-LoggingAgent {
   # Remove the existing storage.json file if it exists. This is a workaround
   # for the bug where the logging agent cannot start up if the file is
@@ -54,8 +54,6 @@ function InstallAndStart-LoggingAgent {
     return
   }
 
-  # TODO: Need to either skip or ensure the installation will not stall when
-  # the machine restarts.
   Log-Output 'Install Stackdriver...'
   # Create a temporary directory for download.
   New-Item 'C:\stackdriver_tmp' -ItemType 'directory' -Force
@@ -93,14 +91,13 @@ function InstallAndStart-LoggingAgent {
   Remove-Item -Force -Recurse 'C:\stackdriver_tmp'
 }
 
-# TODO:
+# TODO(yujuhong):
 #   - Collect kubelet/kube-proxy logs.
 #   - Add tag for kubernetes node name.
 $FLUENTD_CONFIG = @'
-# This configuration file for Fluentd is used
-# to watch changes to kubernetes container logs in the 
-# directory /var/lib/docker/containers/ and submit the log records to Google
-# Cloud Logging using the cloud-logging plugin.
+# This configuration file for Fluentd is used to watch changes to kubernetes
+# container logs in the directory /var/lib/docker/containers/ and submit the
+# log records to Google Cloud Logging using the cloud-logging plugin.
 #
 # Example
 # =======

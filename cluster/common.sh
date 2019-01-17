@@ -21,7 +21,6 @@ set -o nounset
 set -o pipefail
 
 KUBE_ROOT=$(cd $(dirname "${BASH_SOURCE}")/.. && pwd)
-#echo "PJH: KUBE_ROOT: ${KUBE_ROOT}"
 
 DEFAULT_KUBECONFIG="${HOME:-.}/.kube/config"
 

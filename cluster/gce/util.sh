@@ -75,12 +75,12 @@ function set-linux-node-image() {
 
 function set-windows-node-image() {
     WINDOWS_NODE_IMAGE_PROJECT="windows-cloud"
-    if [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win1709" ]]; then
-        WINDOWS_NODE_IMAGE_FAMILY="windows-1709-core-for-containers"
-        #WINDOWS_NODE_IMAGE="windows-server-1709-dc-core-for-containers-v20180916"
-    elif [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win1803" ]]; then
+    if [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win1803" ]]; then
         WINDOWS_NODE_IMAGE_FAMILY="windows-1803-core-for-containers"
-        #WINDOWS_NODE_IMAGE="windows-server-1803-dc-core-for-containers-v20180916"
+    elif [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win2019" ]]; then
+        WINDOWS_NODE_IMAGE_FAMILY="windows-2019-core-for-containers"
+    elif [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win1809" ]]; then
+        WINDOWS_NODE_IMAGE_FAMILY="windows-1809-core-for-containers"
     else
         echo "Unknown WINDOWS_NODE_OS_DISTRIBUTION ${WINDOWS_NODE_OS_DISTRIBUTION}"
         exit 1
@@ -631,7 +631,7 @@ function write-windows-node-env {
     KUBERNETES_MASTER_NAME="${MASTER_NAME}"
   fi
 
-  construct-windows-kubelet-flags false
+  construct-windows-kubelet-flags
   build-kube-env false "${KUBE_TEMP}/windows-node-kube-env.yaml"
   build-kubelet-config false "windows" "${KUBE_TEMP}/windows-node-kubelet-config.yaml"
 }
@@ -653,6 +653,8 @@ function build-linux-node-labels {
   echo $node_labels
 }
 
+# TODO(windows): coalesce common Linux+Windows node labels in a separate
+# function used for both.
 function build-windows-node-labels {
   local master="false"
   local node_labels=""
@@ -821,11 +823,11 @@ function construct-linux-kubelet-flags {
   KUBELET_ARGS="${flags}"
 }
 
+# TODO(windows): coalesce common Linux+Windows kubelet flags in a separate
+# function used for both.
 function construct-windows-kubelet-flags {
-  local master=$1  # unused, no Windows master yet.
   local flags="${KUBELET_TEST_LOG_LEVEL:-"--v=2"} ${KUBELET_TEST_ARGS:-}"
 
-  echo "TODO(pjh): coalesce kubelet flags that work on both Windows + Linux."
   flags+=" --allow-privileged=true"
   flags+=" --cloud-provider=gce"
   ## Keep in sync with CONTAINERIZED_MOUNTER_HOME in configure-helper.sh
@@ -880,7 +882,6 @@ function construct-windows-kubelet-flags {
     flags+=" --max-pods=${MAX_PODS_PER_NODE}"
   fi
 
-  echo "PJH: windows KUBELET_ARGS: ${flags}"
   KUBELET_ARGS="${flags}"
 }
 
@@ -1003,8 +1004,9 @@ function print-windows-node-kubelet-config {
 
   # TODO(mtaufen): Does it make any sense to set eviction thresholds for inodes on Windows?
 
-  # TODO(pjh, mtaufen): It may make sense to use a different hairpin mode on Windows.
-  # We're currently using hairpin-veth, but https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1#L121
+  # TODO(pjh, mtaufen): It may make sense to use a different hairpin mode on
+  # Windows. We're currently using hairpin-veth, but
+  # https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1#L121
   # uses promiscuous-bridge.
 
   # TODO(pjh, mtaufen): Does cgroupRoot make sense for Windows?
@@ -1016,8 +1018,6 @@ authentication:
     clientCAFile: 'C:\etc\kubernetes\pki\ca-certificates.crt'
 EOF
 }
-
-
 
 function build-kube-master-certs {
   local file=$1
@@ -1037,14 +1037,11 @@ EOF
 function build-kube-env {
   local master=$1
   local file=$2
-  # file is something like "/tmp/tmp.Xqsou4FNlf/node-kube-env.yaml" - in
-  # KUBE_TEMP directory!
-  #echo "PJH: build-kube-env: file=${file}"
 
   local server_binary_tar_url=$SERVER_BINARY_TAR_URL
   # We don't build Windows binaries in our CI test job yet; allow overriding
   # the setting to always use the release node binaries.
-  # TODO: Remove this when upstreaming to the kubernetes repository.
+  # TODO(windows): Remove this when upstreaming to the kubernetes repository.
   if [[ -n "${USE_RELEASE_NODE_BINARIES:-}" ]]; then
     local node_binary_tar_url="https://storage.googleapis.com/kubernetes-release/release/${KUBE_VERSION:-v1.13.2}/kubernetes-node-windows-amd64.tar.gz"
   else
@@ -1724,9 +1721,7 @@ from distutils import version
 
 minVersion = version.LooseVersion("1.3.0")
 required = [ "alpha", "beta", "core" ]
-#print ("pjh: sys.argv=%s" % sys.argv)
 data = json.loads(sys.argv[1])
-#print ("pjh: data=%s" % data)
 rel = data.get("Google Cloud SDK")
 if "CL @" in rel:
   print("Using dev version of gcloud: %s" %rel)
@@ -1898,11 +1893,7 @@ function create-node-template() {
   detect-project
   detect-subnetworks
   local template_name="${1}"
-  echo "PJH: in create-node-template: template_name=${template_name}"
   local linux_or_windows="${5}"
-  echo "PJH: in create-node-template: linux_or_windows=${linux_or_windows}"
-  echo "PJH: in create-node-template: \$3: ${3}"
-  echo "PJH: in create-node-template: \$4: ${4}"
 
   # First, ensure the template doesn't exist.
   # TODO(zmerlynn): To make this really robust, we need to parse the output and
@@ -1971,8 +1962,6 @@ function create-node-template() {
   else
       node_image_flags="--image-project ${WINDOWS_NODE_IMAGE_PROJECT} --image-family ${WINDOWS_NODE_IMAGE_FAMILY}"
   fi
-  echo "PJH: in create-node-template: node_image_flags=${node_image_flags}"
-  echo "PJH: in create-node-template: NODE_TAG=${NODE_TAG}"
 
   local attempt=1
   while true; do
@@ -2056,15 +2045,12 @@ function kube-up() {
     detect-subnetworks
     write-cluster-location
     write-cluster-name
-    echo "PJH: kube-up(): calling create-autoscaler-config"
     create-autoscaler-config
     create-master
     create-nodes-firewall
     create-nodes-template
-    echo "PJH: kube-up(): calling create-linux-nodes and create-windows-nodes"
     create-linux-nodes
     create-windows-nodes
-    echo "PJH: kube-up(): calling check-cluster"
     check-cluster
   fi
 }
@@ -2141,7 +2127,7 @@ function create-network() {
   fi
 
   # Open up TCP 3389 to allow RDP connections.
-  # TODO: Only do this for windows nodes.
+  # TODO(windows): Only do this for windows nodes.
   if ! gcloud compute firewall-rules describe --project "${NETWORK_PROJECT}" "${NETWORK}-default-rdp" &>/dev/null; then
     gcloud compute firewall-rules create "${NETWORK}-default-rdp" \
       --project "${NETWORK_PROJECT}" \
@@ -2614,7 +2600,6 @@ function set_num_migs() {
   export NUM_LINUX_MIGS=$(((${NUM_LINUX_NODES} + ${defaulted_max_instances_per_mig} - 1) / ${defaulted_max_instances_per_mig}))
   export NUM_WINDOWS_MIGS=$(((${NUM_WINDOWS_NODES} + ${defaulted_max_instances_per_mig} - 1) / ${defaulted_max_instances_per_mig}))
   export NUM_MIGS=$((${NUM_LINUX_NODES} + ${NUM_WINDOWS_NODES}))
-  echo "PJH: NUM_LINUX_MIGS=${NUM_LINUX_MIGS}, NUM_WINDOWS_MIGS=${NUM_WINDOWS_MIGS}, NUM_MIGS=${NUM_MIGS}"
 }
 
 # Assumes:
@@ -2698,7 +2683,7 @@ function create-windows-nodes() {
         "${group_name}" \
         --zone "${ZONE}" \
         --project "${PROJECT}" \
-        --timeout "${MIG_WAIT_UNTIL_WINDOWS_STABLE_TIMEOUT}" || true;
+        --timeout "${MIG_WAIT_UNTIL_STABLE_TIMEOUT}" || true;
   done
 }
 
@@ -2731,7 +2716,6 @@ function create-heapster-node() {
       "${ENABLE_IP_ALIASES:-}" \
       "${IP_ALIAS_SIZE:-}")
 
-  echo "PJH: creating heapster instance w/ metadata-from-file from get-linux-node-instance-metadata()"
   ${gcloud} compute instances \
       create "${NODE_INSTANCE_PREFIX}-heapster" \
       --project "${PROJECT}" \
@@ -2758,11 +2742,6 @@ function create-heapster-node() {
 # Exports
 # - AUTOSCALER_MIG_CONFIG
 function create-cluster-autoscaler-mig-config() {
-
-  echo "PJH: create-cluster-autoscaler-mig-config: no idea if/how to fork this function for Windows, might break"
-  echo "PJH: create-cluster-autoscaler-mig-config: AUTOSCALER_MIN_NODES=${AUTOSCALER_MIN_NODES}"
-  echo "PJH: create-cluster-autoscaler-mig-config: AUTOSCALER_MAX_NODES=${AUTOSCALER_MAX_NODES}"
-
   # Each MIG must have at least one node, so the min number of nodes
   # must be greater or equal to the number of migs.
   if [[ ${AUTOSCALER_MIN_NODES} -lt 0 ]]; then
@@ -2817,8 +2796,6 @@ function create-autoscaler-config() {
   if [[ "${ENABLE_CLUSTER_AUTOSCALER}" == "true" ]]; then
     create-cluster-autoscaler-mig-config
     echo "Using autoscaler config: ${AUTOSCALER_MIG_CONFIG} ${AUTOSCALER_EXPANDER_CONFIG}"
-  else
-    echo "PJH: create-autoscaler-config: ENABLE_CLUSTER_AUTOSCALER false, creating autoscaler MIG config."
   fi
 }
 

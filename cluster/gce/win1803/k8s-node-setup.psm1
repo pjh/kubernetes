@@ -247,9 +247,30 @@ function Download-HelperScripts {
       -OutFile ${env:K8S_DIR}\hns.psm1
 }
 
-function Create-PauseImage {
-  $win_version = Get_InstanceMetadataValue 'win-version'
+# Takes the Windows version string from the cluster bash scripts (e.g.
+# 'win1803') and returns the correct label to use for containers on this
+# version of Windows. Returns $null if $WinVersion is unknown.
+function Get_ContainerVersionLabel {
+  param (
+    [parameter(Mandatory=$true)] [string]$WinVersion
+  )
+  # -match does regular expression matching.
+  if ($WinVersion -match '1803') {
+    return '1803'
+  }
+  elseif ($WinVersion -match '1809') {
+    return '1809'
+  }
+  elseif ($WinVersion -match '2019') {
+    return 'ltsc2019'
+  }
+  Throw ("Unknown Windows version $WinVersion, don't know its container " +
+         "version label")
+}
 
+function Create-PauseImage {
+  $version_label = Get_ContainerVersionLabel `
+      $(Get_InstanceMetadataValue 'win-version')
   $pause_dir = "${env:K8S_DIR}\pauseimage"
   $dockerfile = "$pause_dir\Dockerfile"
   mkdir -Force $pause_dir
@@ -257,7 +278,7 @@ function Create-PauseImage {
     New-Item -Force -ItemType file $dockerfile
     Set-Content `
         $dockerfile `
-        ("FROM microsoft/nanoserver:${win_version}`n`n" +
+        ("FROM microsoft/nanoserver:${version_label}`n`n" +
          "CMD cmd /c ping -t localhost > nul")
   }
 
@@ -370,7 +391,7 @@ function Get_MgmtSubnet {
 function Get_MgmtNetAdapter {
   $net_adapter = Get-NetAdapter | Where-Object Name -Like ${MGMT_ADAPTER_NAME}
   if (-not ${net_adapter}) {
-    throw ("Failed to find a suitable network adapter, check your network " +
+    Throw ("Failed to find a suitable network adapter, check your network " +
            "settings.")
   }
 

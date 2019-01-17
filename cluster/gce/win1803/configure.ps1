@@ -24,6 +24,8 @@ $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $ProgressPreference = 'SilentlyContinue'
 
+# Returns the GCE instance metadata value for $Key. If the key is not present
+# in the instance metadata returns $Default if set, otherwise returns $null.
 function Get-InstanceMetadataValue {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
@@ -81,8 +83,8 @@ try {
   Set-Content C:\common.psm1 $module
   Import-Module -Force C:\common.psm1
 
-  # TODO: update the function to set $Filename automatically from the key then
-  # put these calls into a loop over a list of XYZ-psm1 keys.
+  # TODO(pjh): update the function to set $Filename automatically from the key,
+  # then put these calls into a loop over a list of XYZ-psm1 keys.
   FetchAndImport-ModuleFromMetadata `
       'install-logging-agent-psm1' `
       'install-logging-agent.psm1'
@@ -93,7 +95,7 @@ try {
   InstallAndStart-LoggingAgent
   Log-Output "Started Stackdriver logging agent"
 
-  InstallAndStart-OpenSSH
+  InstallAndStart-OpenSsh
   Log-Output "Installed OpenSSH, sshd is running"
 
   StartProcess-WriteSshKeys
