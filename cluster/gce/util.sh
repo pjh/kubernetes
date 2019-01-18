@@ -641,32 +641,33 @@ function build-linux-node-labels {
   local node_labels=""
   if [[ "${KUBE_PROXY_DAEMONSET:-}" == "true" && "${master}" != "true" ]]; then
     # Add kube-proxy daemonset label to node to avoid situation during cluster
-    # upgrade/downgrade when there are two instances of kube-proxy running on a node.
+    # upgrade/downgrade when there are two instances of kube-proxy running on a
+    # node.
     node_labels="beta.kubernetes.io/kube-proxy-ds-ready=true"
   fi
-  if [[ -n "${NODE_LABELS:-}" ]]; then
-    node_labels="${node_labels:+${node_labels},}${NODE_LABELS}"
+  if [[ -n "${LINUX_NODE_LABELS:-}" ]]; then
+    node_labels="${node_labels:+${node_labels},}${LINUX_NODE_LABELS}"
   fi
+
+  # Historically fluentd was a manifest pod and then was migrated to DaemonSet.
+  # To avoid situation during cluster upgrade when there are two instances
+  # of fluentd running on a node, kubelet need to mark node on which
+  # fluentd is not running as a manifest pod with appropriate label.
+  # TODO(piosz): remove this in 1.8
+  node_labels="${node_labels:+${node_labels},}beta.kubernetes.io/fluentd-ds-ready=true"
+
   if [[ -n "${LINUX_NON_MASTER_NODE_LABELS:-}" && "${master}" != "true" ]]; then
     node_labels="${node_labels:+${node_labels},}${LINUX_NON_MASTER_NODE_LABELS}"
   fi
   echo $node_labels
 }
 
-# TODO(windows): coalesce common Linux+Windows node labels in a separate
-# function used for both.
 function build-windows-node-labels {
-  local master="false"
   local node_labels=""
-  if [[ "${KUBE_PROXY_DAEMONSET:-}" == "true" && "${master}" != "true" ]]; then
-    # Add kube-proxy daemonset label to node to avoid situation during cluster
-    # upgrade/downgrade when there are two instances of kube-proxy running on a node.
-    node_labels="beta.kubernetes.io/kube-proxy-ds-ready=true"
+  if [[ -n "${WINDOWS_NODE_LABELS:-}" ]]; then
+    node_labels="${node_labels:+${node_labels},}${WINDOWS_NODE_LABELS}"
   fi
-  if [[ -n "${NODE_LABELS:-}" ]]; then
-    node_labels="${node_labels:+${node_labels},}${NODE_LABELS}"
-  fi
-  if [[ -n "${WINDOWS_NON_MASTER_NODE_LABELS:-}" && "${master}" != "true" ]]; then
+  if [[ -n "${WINDOWS_NON_MASTER_NODE_LABELS:-}" ]]; then
     node_labels="${node_labels:+${node_labels},}${WINDOWS_NON_MASTER_NODE_LABELS}"
   fi
   echo $node_labels
@@ -2175,13 +2176,14 @@ function create-network() {
   fi
 
   # Open up TCP 3389 to allow RDP connections.
-  # TODO(windows): Only do this for windows nodes.
-  if ! gcloud compute firewall-rules describe --project "${NETWORK_PROJECT}" "${NETWORK}-default-rdp" &>/dev/null; then
-    gcloud compute firewall-rules create "${NETWORK}-default-rdp" \
-      --project "${NETWORK_PROJECT}" \
-      --network "${NETWORK}" \
-      --source-ranges "0.0.0.0/0" \
-      --allow "tcp:3389" &
+  if [[ ${NUM_WINDOWS_NODES} -gt 0 ]]; then
+    if ! gcloud compute firewall-rules describe --project "${NETWORK_PROJECT}" "${NETWORK}-default-rdp" &>/dev/null; then
+      gcloud compute firewall-rules create "${NETWORK}-default-rdp" \
+        --project "${NETWORK_PROJECT}" \
+        --network "${NETWORK}" \
+        --source-ranges "0.0.0.0/0" \
+        --allow "tcp:3389" &
+    fi
   fi
 }
 

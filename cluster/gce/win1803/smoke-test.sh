@@ -477,6 +477,10 @@ function test_windows_node_to_windows_pod {
 # TODO(pjh): this test failed for me once with
 #   error: unable to upgrade connection: container not found ("nettest")
 # Maybe the container crashed for some reason? Investigate if it happens more.
+#
+# TODO(pjh): another one-time failure:
+#   error: unable to upgrade connection: Authorization error
+#   (user=kube-apiserver, verb=create, resource=nodes, subresource=proxy)
 function test_windows_pod_to_linux_pod {
   echo "TEST: ${FUNCNAME[0]}"
   local windows_command_pod="$(get_windows_command_pod_name)"

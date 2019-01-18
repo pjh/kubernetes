@@ -94,9 +94,6 @@ To teardown the cluster run:
 PROJECT=${CLOUDSDK_CORE_PROJECT} KUBERNETES_SKIP_CONFIRM=y ./cluster/kube-down.sh
 ```
 
-TODO(pjh): add NUM_LINUX_NODES and NUM_WINDOWS_NODES to
-kube-up-gce-windows-netd.env.
-
 #### 2.b Create a Kubernetes end-to-end (E2E) test cluster
 
 ```
@@ -105,11 +102,12 @@ PROJECT=${CLOUDSDK_CORE_PROJECT} go run ./hack/e2e.go  -- --up
 This command, by default, tears down the existing E2E cluster and create a new
 one.
 
-
 No matter what type of cluster you chose to create, the result should be a
 Kubernetes cluster with one Linux master node, two Linux worker nodes and two
-Windows worker nodes. The Linux nodes will use the `netd` CNI plugin and the
-Windows nodes will use `win-bridge`.
+Windows worker nodes. The number of nodes can be adjusted by setting the
+`NUM_LINUX_NODES` and `NUM_WINDOWS_NODES` environment variables before running
+the commands to bring up the cluster. The Linux nodes will use the `netd` CNI
+plugin and the Windows nodes will use `win-bridge`.
 
 
 ## Validating the cluster
