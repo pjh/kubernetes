@@ -51,11 +51,12 @@ $GCE_METADATA_SERVER = "169.254.169.254"
 # The "management" interface is used by the kubelet and by Windows pods to talk
 # to the rest of the Kubernetes cluster *without NAT*. This interface does not
 # exist until an initial HNS network has been created on the Windows node - see
-# Add-InitialHnsNetwork().
+# Add_InitialHnsNetwork().
 $MGMT_ADAPTER_NAME = "vEthernet (Ethernet*"
 
 Import-Module -Force C:\common.psm1
 
+# Writes a TODO with $Message to the console.
 function Log_Todo {
   param (
     [parameter(Mandatory=$true)] [string]$Message
@@ -63,6 +64,8 @@ function Log_Todo {
   Log-Output "TODO: ${Message}"
 }
 
+# Writes a not-implemented warning with $Message to the console and exits the
+# script.
 function Log_NotImplemented {
   param (
     [parameter(Mandatory=$true)] [string]$Message
@@ -79,12 +82,14 @@ function Verify_GceMetadataServerRouteIsPresent {
         -AddressFamily IPv4 `
         -DestinationPrefix ${GCE_METADATA_SERVER}/32 | Out-Null
   } Catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException] {
-    # TODO(pjh): add $true arg to make this fatal.
-    Log-Output ("GCE metadata server route is not present as expected.`n" +
-                "$(Get-NetRoute -AddressFamily IPv4 | Out-String)")
+    Log-Output -Fatal `
+        ("GCE metadata server route is not present as expected.`n" +
+         "$(Get-NetRoute -AddressFamily IPv4 | Out-String)")
   }
 }
 
+# Checks if the route to the GCE metadata server is present. Returns when the
+# route is NOT present or after a timeout has expired.
 function WaitFor_GceMetadataServerRouteToBeRemoved {
   $elapsed = 0
   $timeout = 60
@@ -105,6 +110,7 @@ function WaitFor_GceMetadataServerRouteToBeRemoved {
   }
 }
 
+# Adds a route to the GCE metadata server to every network interface.
 function Add_GceMetadataServerRoute {
   # Before setting up HNS the 1803 VM has a "vEthernet (nat)" interface and a
   # "Ethernet" interface, and the route to the metadata server exists on the
@@ -123,6 +129,8 @@ function Add_GceMetadataServerRoute {
   }
 }
 
+# Returns the GCE instance metadata value for $Key. If the key is not present
+# in the instance metadata returns $Default if set, otherwise returns $null.
 function Get_InstanceMetadataValue {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
@@ -167,6 +175,8 @@ function Fetch-KubeEnv {
   return ${kube_env_table}
 }
 
+# Sets the environment variable $Key to $Value at the Machine scope (will
+# be present in the environment for all new shells after a reboot).
 function Set_MachineEnvironmentVar {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
@@ -175,6 +185,7 @@ function Set_MachineEnvironmentVar {
   [Environment]::SetEnvironmentVariable($Key, $Value, "Machine")
 }
 
+# Sets the environment variable $Key to $Value in the current shell.
 function Set_CurrentShellEnvironmentVar {
   param (
     [parameter(Mandatory=$true)] [string]$Key,
@@ -184,6 +195,8 @@ function Set_CurrentShellEnvironmentVar {
   Invoke-Expression ${expression}
 }
 
+# Sets environment variables used by Kubernetes binaries and by other functions
+# in this module.
 function Set-EnvironmentVars {
   $env_vars = @{
     "K8S_DIR" = "${K8S_DIR}"
@@ -214,11 +227,23 @@ function Set-EnvironmentVars {
   }
 }
 
+# Configures various settings and prerequisites needed for the rest of the
+# functions in this module and the Kubernetes binaries to operate properly.
 function Set-PrerequisiteOptions {
-  Log-Output "Disabling Windows Firewall and Windows Update service"
+  # The Windows firewall interferes with Kubernetes networking; GCE's firewall
+  # should be sufficient.
+  Log-Output "Disabling Windows Firewall"
   Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False
+
+  # Windows updates cause the node to reboot at arbitrary times.
+  Log-Output "Disabling Windows Update service"
   sc.exe config wuauserv start=disabled
   sc.exe stop wuauserv
+
+  # Windows Defender periodically consumes 100% of the CPU.
+  Log-Output "Disabling Windows Defender service"
+  Set-MpPreference -DisableRealtimeMonitoring $true
+  Uninstall-WindowsFeature -Name 'Windows-Defender'
 
   # Use TLS 1.2: needed for Invoke-WebRequest downloads from github.com.
   [Net.ServicePointManager]::SecurityProtocol = `
@@ -229,6 +254,8 @@ function Set-PrerequisiteOptions {
   Install-Module -Name powershell-yaml -Force
 }
 
+# Creates directories where other functions in this module will read and write
+# data.
 function Create-Directories {
   Log-Output "Creating ${env:K8S_DIR} and its subdirectories."
   ForEach ($dir in ("${env:K8S_DIR}", "${env:NODE_DIR}", "${env:LOGS_DIR}",
@@ -238,6 +265,8 @@ function Create-Directories {
   }
 }
 
+# Downloads some external helper scripts needed by other functions in this
+# module.
 function Download-HelperScripts {
   if (-not (ShouldWrite-File ${env:K8S_DIR}\hns.psm1)) {
     return
@@ -268,6 +297,7 @@ function Get_ContainerVersionLabel {
          "version label")
 }
 
+# Builds the pause image with name $INFRA_CONTAINER.
 function Create-PauseImage {
   $version_label = Get_ContainerVersionLabel `
       $(Get_InstanceMetadataValue 'win-version')
@@ -290,6 +320,11 @@ function Create-PauseImage {
   docker build -t ${INFRA_CONTAINER} $pause_dir
 }
 
+# Downloads the Kubernetes binaries from kube-env's NODE_BINARY_TAR_URL and
+# puts them in a subdirectory of $env:K8S_DIR.
+#
+# Required ${kube_env} keys:
+#   NODE_BINARY_TAR_URL
 function DownloadAndInstall-KubernetesBinaries {
   # Assume that presence of kubelet.exe indicates that the kubernetes binaries
   # were already previously downloaded to this node.
@@ -307,7 +342,7 @@ function DownloadAndInstall-KubernetesBinaries {
   $ProgressPreference = 'SilentlyContinue'
   Invoke-WebRequest $uri -OutFile ${tmp_dir}\${filename}
 
-  # TODO: Verify hash of the tarball.
+  # TODO(yujuhong): Verify hash of the tarball.
 
   # Change the directory to the parent directory of ${env:K8S_DIR} and untar.
   # This (over-)writes ${dest_dir}/kubernetes/node/bin/*.exe files.
@@ -372,7 +407,10 @@ function ConvertTo_MaskLength
   return $bits.Length
 }
 
-# This function will fail if Add-InitialHnsNetwork() has not been called first.
+# Returns the "management" subnet on which the Windows pods+kubelet will
+# communicate with the rest of the Kubernetes cluster without NAT.
+#
+# This function will fail if Add_InitialHnsNetwork() has not been called first.
 function Get_MgmtSubnet {
   $net_adapter = Get_MgmtNetAdapter
 
@@ -387,9 +425,12 @@ function Get_MgmtSubnet {
   return "${mgmt_subnet}/$(ConvertTo_MaskLength $mask)"
 }
 
-# This function will fail if Add-InitialHnsNetwork() has not been called first.
+# Returns a network adapter object for the "management" interface via which the
+# Windows pods+kubelet will communicate with the rest of the Kubernetes cluster.
+#
+# This function will fail if Add_InitialHnsNetwork() has not been called first.
 function Get_MgmtNetAdapter {
-  $net_adapter = Get-NetAdapter | Where-Object Name -Like ${MGMT_ADAPTER_NAME}
+  $net_adapter = Get-NetAdapter | Where-Object Name -like ${MGMT_ADAPTER_NAME}
   if (-not ${net_adapter}) {
     Throw ("Failed to find a suitable network adapter, check your network " +
            "settings.")
@@ -424,8 +465,8 @@ function Write_PkiData {
   #   https://docs.microsoft.com/en-us/dotnet/api/system.io.fileattributes
 }
 
-# This function is analogous to create-node-pki() in gci/configure-helper.sh for
-# Linux nodes.
+# Creates the node PKI files in $env:PKI_DIR.
+#
 # Required ${kube_env} keys:
 #   CA_CERT
 #   KUBELET_CERT
@@ -433,23 +474,20 @@ function Write_PkiData {
 function Create-NodePki {
   Log-Output "Creating node pki files"
 
-  # Note: create-node-pki() tests if CA_CERT_BUNDLE / KUBELET_CERT /
-  # KUBELET_KEY are already set, we don't.
   $CA_CERT_BUNDLE = ${kube_env}['CA_CERT']
   $KUBELET_CERT = ${kube_env}['KUBELET_CERT']
   $KUBELET_KEY = ${kube_env}['KUBELET_KEY']
 
-  # Wrap data arg in quotes in case it contains spaces? (does this even make
-  # sense?)
   Write_PkiData "${CA_CERT_BUNDLE}" ${env:CA_CERT_BUNDLE_PATH}
   Write_PkiData "${KUBELET_CERT}" ${env:KUBELET_CERT_PATH}
   Write_PkiData "${KUBELET_KEY}" ${env:KUBELET_KEY_PATH}
   Get-ChildItem ${env:PKI_DIR}
 }
 
-# This is analogous to create-kubelet-kubeconfig() in gci/configure-helper.sh
-# for Linux nodes.
+# Creates the kubelet kubeconfig at $env:BOOTSTRAP_KUBECONFIG.
+#
 # Create-NodePki() must be called first.
+#
 # Required ${kube_env} keys:
 #   KUBERNETES_MASTER_NAME: the apiserver IP address.
 function Create-KubeletKubeconfig {
@@ -466,10 +504,8 @@ function Create-KubeletKubeconfig {
       return
     }
     New-Item -Force -ItemType file ${env:BOOTSTRAP_KUBECONFIG}
-    # TODO(pjh): is user "kubelet" correct? In my guide it's
-    #   "system:node:$(hostname)"
-    # The kubelet user config uses client-certificate and client-key here; in
-    # my guide it's client-certificate-data and client-key-data. Does it matter?
+    # TODO(mtaufen): is user "kubelet" correct? Other examples use e.g.
+    #   "system:node:$(hostname)".
     Set-Content ${env:BOOTSTRAP_KUBECONFIG} `
 'apiVersion: v1
 kind: Config
@@ -513,9 +549,10 @@ current-context: service-account-context'.`
   }
 }
 
-# This is analogous to create-kubeproxy-user-kubeconfig() in
-# gci/configure-helper.sh for Linux nodes. Create-NodePki() must be called
-# first.
+# Creates the kube-proxy user kubeconfig file at $env:KUBEPROXY_KUBECONFIG.
+#
+# Create-NodePki() must be called first.
+#
 # Required ${kube_env} keys:
 #   CA_CERT
 #   KUBE_PROXY_TOKEN
@@ -524,7 +561,7 @@ function Create-KubeproxyKubeconfig {
     return
   }
 
-  # TODO: make this command and other New-Item commands silent.
+  # TODO(windows): make this command and other New-Item commands silent.
   New-Item -Force -ItemType file ${env:KUBEPROXY_KUBECONFIG}
 
   # In configure-helper.sh kubelet kubeconfig uses certificate-authority while
@@ -548,13 +585,13 @@ contexts:
   name: service-account-context
 current-context: service-account-context'.`
     replace('KUBEPROXY_TOKEN', ${kube_env}['KUBE_PROXY_TOKEN']).`
-    #replace('CA_CERT_BUNDLE_PATH', ${env:CA_CERT_BUNDLE_PATH})
     replace('CA_CERT', ${kube_env}['CA_CERT'])
 
   Log-Output ("kubeproxy kubeconfig:`n" +
               "$(Get-Content -Raw ${env:KUBEPROXY_KUBECONFIG})")
 }
 
+# Returns the IP alias range configured for this GCE instance.
 function Get_IpAliasRange {
   $url = ("http://${GCE_METADATA_SERVER}/computeMetadata/v1/instance/" +
           "network-interfaces/0/ip-aliases/0")
@@ -563,7 +600,7 @@ function Get_IpAliasRange {
   return ($client.DownloadString($url)).Trim()
 }
 
-# The pod CIDR can be accessed at $env:POD_CIDR after this function returns.
+# Retrieves the pod CIDR and sets it in $env:POD_CIDR.
 function Set-PodCidr {
   while($true) {
     $pod_cidr = Get_IpAliasRange
@@ -581,11 +618,17 @@ function Set-PodCidr {
   Set_CurrentShellEnvironmentVar "POD_CIDR" ${pod_cidr}
 }
 
-# This function adds an initial HNS network on the Windows node, which forces
-# the creation of a virtual switch and the "management" interface that will be
-# used to communicate with the rest of the Kubernetes cluster without NAT.
-function Add-InitialHnsNetwork {
-  Import-Module -Force ${env:K8S_DIR}\hns.psm1
+# Adds an initial HNS network on the Windows node which forces the creation of
+# a virtual switch and the "management" interface that will be used to
+# communicate with the rest of the Kubernetes cluster without NAT.
+#
+# Note that adding the initial HNS network may cause connectivity to the GCE
+# metadata server to be lost due to a Windows bug.
+# Configure-HostNetworkingService() restores connectivity, look there for
+# details.
+#
+# Download-HelperScripts() must have been called first.
+function Add_InitialHnsNetwork {
   $INITIAL_HNS_NETWORK = 'External'
 
   # This comes from
@@ -625,15 +668,20 @@ function Add-InitialHnsNetwork {
       -Verbose
 }
 
+# Configures HNS on the Windows node to enable Kubernetes networking:
+#   - Creates the "management" interface associated with an initial HNS network.
+#   - Creates the HNS network $env:KUBE_NETWORK for pod networking.
+#   - Creates an HNS endpoint for pod networking.
+#   - Adds necessary routes on the management interface.
+#   - Verifies that the GCE metadata server connection remains intact.
+#
 # Prerequisites:
 #   $env:POD_CIDR is set (by Set-PodCidr).
-#   The "management" interface exists (Add-InitialHnsNetwork).
+#   Download-HelperScripts() has been called.
 function Configure-HostNetworkingService {
-  $endpoint_name = "cbr0"
-  $vnic_name = "vEthernet (${endpoint_name})"
   Import-Module -Force ${env:K8S_DIR}\hns.psm1
 
-  Verify_GceMetadataServerRouteIsPresent
+  Add_InitialHnsNetwork
 
   # For Windows nodes the pod gateway IP address is the .1 address in the pod
   # CIDR for the host, but from inside containers it's the .2 address.
@@ -669,6 +717,9 @@ function Configure-HostNetworkingService {
     $created_hns_network = $true
   }
 
+  $endpoint_name = "cbr0"
+  $vnic_name = "vEthernet (${endpoint_name})"
+
   $hns_endpoint = Get-HnsEndpoint | Where-Object Name -eq $endpoint_name
   # Note: we don't expect to ever enter this block currently - while the HNS
   # network does seem to persist across reboots, the HNS endpoints do not.
@@ -690,7 +741,7 @@ function Configure-HostNetworkingService {
         -IPAddress ${pod_endpoint_gateway} `
         -Gateway "0.0.0.0" `
         -Verbose
-    # TODO: why is this always CompartmentId 1??
+    # TODO(pjh): find out: why is this always CompartmentId 1??
     Attach-HnsHostEndpoint `
         -EndpointID ${hns_endpoint}.Id `
         -CompartmentID 1 `
@@ -739,11 +790,20 @@ function Configure-HostNetworkingService {
   Log-Output "Host network setup complete"
 }
 
+# Downloads the Windows CNI binaries and writes a CNI config file under
+# $env:CNI_CONFIG_DIR.
+#
 # Prerequisites:
 #   $env:POD_CIDR is set (by Set-PodCidr).
-#   The "management" interface exists (Add-InitialHnsNetwork).
-#   The "cbr0" HNS network for pod networking has been configured
+#   The "management" interface exists (Configure-HostNetworkingService).
+#   The HNS network for pod networking has been configured
 #     (Configure-HostNetworkingService).
+#
+# Required ${kube_env} keys:
+#   DNS_SERVER_IP
+#   DNS_DOMAIN
+#   CLUSTER_IP_RANGE
+#   SERVICE_CLUSTER_IP_RANGE
 function Configure-CniNetworking {
   $github_repo = Get_InstanceMetadataValue 'github-repo'
   $github_branch = Get_InstanceMetadataValue 'github-branch'
@@ -776,8 +836,9 @@ function Configure-CniNetworking {
   Log-Output ("using mgmt IP ${veth_ip} and mgmt subnet ${mgmt_subnet} for " +
               "CNI config")
 
-  # TODO(pjh): validate these values against CNI config on Linux node.
-  #
+  # TODO(windows): validate these values against CNI config on Linux node.
+
+  # TODO(windows): add explanatory comments.
   # Explanation of the CNI config values:
   #   POD_CIDR: ...
   #   DNS_SERVER_IP: ...
@@ -847,21 +908,28 @@ function Configure-CniNetworking {
   Log-Output "CNI config:`n$(Get-Content -Raw ${l2bridge_conf})"
 }
 
+# Fetches the kubelet config from the instance metadata and puts it at
+# $env:KUBELET_CONFIG.
 function Configure-Kubelet {
-  # The Kubelet config is built by build-kubelet-config() in
-  # cluster/gce/util.sh, and stored in the metadata server under the
-  # 'kubelet-config' key.
-
   if (-not (ShouldWrite-File ${env:KUBELET_CONFIG})) {
     return
   }
 
-  # Download and save Kubelet Config, and log the result
+  # The Kubelet config is built by build-kubelet-config() in
+  # cluster/gce/util.sh, and stored in the metadata server under the
+  # 'kubelet-config' key.
   $kubelet_config = Get_InstanceMetadataValue 'kubelet-config'
   Set-Content ${env:KUBELET_CONFIG} $kubelet_config
   Log-Output "Kubelet config:`n$(Get-Content -Raw ${env:KUBELET_CONFIG})"
 }
 
+# Sets up the kubelet and kube-proxy arguments and starts them as native
+# Windows services.
+#
+# Required ${kube_env} keys:
+#   KUBELET_ARGS
+#   KUBERNETES_MASTER_NAME
+#   CLUSTER_IP_RANGE
 function Start-WorkerServices {
   $kubelet_args_str = ${kube_env}['KUBELET_ARGS']
   $kubelet_args = $kubelet_args_str.Split(" ")
@@ -972,9 +1040,8 @@ function Start-WorkerServices {
   )
 
   if (Get-Process | Where-Object Name -eq "kubelet") {
-    Log-Output `
-        "A kubelet process is already running, don't know what to do" `
-        -Fatal
+    Log-Output -Fatal `
+        "A kubelet process is already running, don't know what to do"
   }
   Log-Output "Starting kubelet"
 
@@ -999,8 +1066,6 @@ function Start-WorkerServices {
       -RedirectStandardOutput ${env:LOGS_DIR}\kubelet.out `
       -RedirectStandardError ${env:LOGS_DIR}\kubelet.log
   Log-Output "$(${kubelet_process} | Out-String)"
-  # TODO(pjh): set kubelet_process as a global variable so that
-  # Stop-WorkerServices can access it.
 
   # TODO(pjh): kubelet is emitting these messages:
   # I1023 23:44:11.761915    2468 kubelet.go:274] Adding pod path:
@@ -1048,11 +1113,8 @@ function Start-WorkerServices {
   Log-Output "Kubernetes components started successfully"
 }
 
-function Stop-WorkerServices {
-  # Stop-Job
-  # Remove-Job
-}
-
+# Runs 'kubectl get nodes'.
+# TODO(pjh): run more verification commands.
 function Verify-WorkerServices {
   Log-Output ("kubectl get nodes:`n" +
               "$(& ${env:NODE_DIR}\kubectl.exe get nodes | Out-String)")

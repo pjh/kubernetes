@@ -113,7 +113,6 @@ try {
   Create-KubeletKubeconfig
   Create-KubeproxyKubeconfig
   Set-PodCidr
-  Add-InitialHnsNetwork
   Configure-HostNetworkingService
   Configure-CniNetworking
   Configure-Kubelet
