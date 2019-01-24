@@ -70,6 +70,16 @@ function InstallAndStart-LoggingAgent {
       -Wait
 
   # Install additional plugins required to parse container logs.
+  # TODO(pjh, yjhong): this failed once, do we need to sleep or retry here? Did
+  # Stackdriver installation fail for some reason?
+  # 2019/01/24 22:44:41 windows-startup-script-ps1: Install Stackdriver...
+  # 2019/01/24 22:44:41 windows-startup-script-ps1: d-----        1/24/2019  10:44 PM                stackdriver_tmp
+  # 2019/01/24 22:44:48 windows-startup-script-ps1: Exception caught in script:
+  # 2019/01/24 22:44:48 windows-startup-script-ps1: At C:\install-logging-agent.psm1:73 char:3
+  # 2019/01/24 22:44:48 windows-startup-script-ps1: +   Start-Process "$STACKDRIVER_ROOT\LoggingAgent\Main\bin\fluent-gem"  ...
+  # 2019/01/24 22:44:48 windows-startup-script-ps1: +   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # 2019/01/24 22:44:48 windows-startup-script-ps1: Kubernetes Windows node setup failed: This command cannot be run due to the error: The system cannot find the file specified.
+  # 2019/01/24 22:44:48 GCEMetadataScripts: windows-startup-script-ps1 exit status 1
   Start-Process "$STACKDRIVER_ROOT\LoggingAgent\Main\bin\fluent-gem" `
       -ArgumentList "install","fluent-plugin-record-reformer" `
       -Wait
