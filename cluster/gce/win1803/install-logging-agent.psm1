@@ -70,7 +70,7 @@ function InstallAndStart-LoggingAgent {
       -Wait
 
   # Install additional plugins required to parse container logs.
-  # TODO(pjh, yjhong): this failed once, do we need to sleep or retry here? Did
+  # TODO(pjh, yujuhong): this failed once, do we need to sleep or retry here? Did
   # Stackdriver installation fail for some reason?
   # 2019/01/24 22:44:41 windows-startup-script-ps1: Install Stackdriver...
   # 2019/01/24 22:44:41 windows-startup-script-ps1: d-----        1/24/2019  10:44 PM                stackdriver_tmp
