@@ -101,12 +101,12 @@ try {
   InstallAndStart-OpenSsh
   StartProcess-WriteSshKeys
 
-  Set-EnvironmentVars
   Set-PrerequisiteOptions
+  $kube_env = Fetch-KubeEnv
+  Set-EnvironmentVars
   Create-Directories
   Download-HelperScripts
 
-  $kube_env = Fetch-KubeEnv
   Create-PauseImage
   DownloadAndInstall-KubernetesBinaries
   Create-NodePki

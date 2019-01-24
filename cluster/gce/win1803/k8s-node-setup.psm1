@@ -45,7 +45,6 @@
 #  - Document functions using proper syntax:
 #    https://technet.microsoft.com/en-us/library/hh847834(v=wps.620).aspx
 
-$K8S_DIR = "C:\etc\kubernetes"
 $INFRA_CONTAINER = "kubeletwin/pause"
 $GCE_METADATA_SERVER = "169.254.169.254"
 # The "management" interface is used by the kubelet and by Windows pods to talk
@@ -170,25 +169,33 @@ function Set_CurrentShellEnvironmentVar {
 }
 
 # Sets environment variables used by Kubernetes binaries and by other functions
-# in this module.
+# in this module. Depends on numerous ${kube_env} keys.
 function Set-EnvironmentVars {
+  # Turning the kube-env values into environment variables is not required but
+  # it makes debugging this script easier, and it also makes the syntax a lot
+  # easier (${env:K8S_DIR} can be expanded within a string but
+  # ${kube_env}['K8S_DIR'] cannot be afaik).
   $env_vars = @{
-    "K8S_DIR" = "${K8S_DIR}"
-    "NODE_DIR" = "${K8S_DIR}\node\bin"
-    "Path" = ${env:Path} + ";${K8S_DIR}\node\bin"
-    "LOGS_DIR" = "${K8S_DIR}\logs"
-    "CNI_DIR" = "${K8S_DIR}\cni"
-    "CNI_CONFIG_DIR" = "${K8S_DIR}\cni\config"
-    "MANIFESTS_DIR" = "${K8S_DIR}\manifests"
-    "KUBELET_CONFIG" = "${K8S_DIR}\kubelet-config.yaml"
-    "KUBECONFIG" = "${K8S_DIR}\kubelet.kubeconfig"
-    "BOOTSTRAP_KUBECONFIG" = "${K8S_DIR}\kubelet.bootstrap-kubeconfig"
-    "KUBEPROXY_KUBECONFIG" = "${K8S_DIR}\kubeproxy.kubeconfig"
+    "K8S_DIR" = ${kube_env}['K8S_DIR']
+    "NODE_DIR" = ${kube_env}['NODE_DIR']
+    "CNI_DIR" = ${kube_env}['CNI_DIR']
+    "CNI_CONFIG_DIR" = ${kube_env}['CNI_CONFIG_DIR']
+    "PKI_DIR" = ${kube_env}['PKI_DIR']
+    "KUBELET_CONFIG" = ${kube_env}['KUBELET_CONFIG_FILE']
+    "BOOTSTRAP_KUBECONFIG" = ${kube_env}['BOOTSTRAP_KUBECONFIG_FILE']
+    "KUBEPROXY_KUBECONFIG" = ${kube_env}['KUBEPROXY_KUBECONFIG_FILE']
+
+    "Path" = ${env:Path} + ";" + ${kube_env}['NODE_DIR']
     "KUBE_NETWORK" = "l2bridge".ToLower()
-    "PKI_DIR" = "${K8S_DIR}\pki"
-    "CA_CERT_BUNDLE_PATH" = "${K8S_DIR}\pki\ca-certificates.crt"
-    "KUBELET_CERT_PATH" = "${K8S_DIR}\pki\kubelet.crt"
-    "KUBELET_KEY_PATH" = "${K8S_DIR}\pki\kubelet.key"
+    "CA_CERT_BUNDLE_PATH" = ${kube_env}['PKI_DIR'] + '\ca-certificates.crt'
+    "KUBELET_CERT_PATH" = ${kube_env}['PKI_DIR'] + '\kubelet.crt'
+    "KUBELET_KEY_PATH" = ${kube_env}['PKI_DIR'] + '\kubelet.key'
+
+    # TODO(pjh): these are only in flags, can be removed from env once flags are
+    # moved to util.sh:
+    "LOGS_DIR" = ${kube_env}['LOGS_DIR']
+    "MANIFESTS_DIR" = ${kube_env}['MANIFESTS_DIR']
+    "KUBECONFIG" = ${kube_env}['KUBECONFIG_FILE']
   }
 
   # Set the environment variables in two ways: permanently on the machine (only
@@ -215,9 +222,11 @@ function Set-PrerequisiteOptions {
   sc.exe stop wuauserv
 
   # Windows Defender periodically consumes 100% of the CPU.
-  Log-Output "Disabling Windows Defender service"
-  Set-MpPreference -DisableRealtimeMonitoring $true
-  Uninstall-WindowsFeature -Name 'Windows-Defender'
+  # TODO(pjh): this (all of a sudden, wtf?) started failing with "The term
+  # 'Set-MpPreference' is not recognized...". Investigate and fix or remove.
+  #Log-Output "Disabling Windows Defender service"
+  #Set-MpPreference -DisableRealtimeMonitoring $true
+  #Uninstall-WindowsFeature -Name 'Windows-Defender'
 
   # Use TLS 1.2: needed for Invoke-WebRequest downloads from github.com.
   [Net.ServicePointManager]::SecurityProtocol = `
@@ -516,10 +525,6 @@ current-context: service-account-context'.`
   }
   else {
     Log_NotImplemented "fetching kubelet kubeconfig file from metadata"
-    # get-metadata-value "instance/attributes/kubeconfig" >
-    #   /var/lib/kubelet/kubeconfig
-    Get-Content -Raw ${env:KUBECONFIG}
-    Log-Output "kubelet kubeconfig:`n$(Get-Content -Raw ${env:KUBECONFIG})"
   }
 }
 
@@ -908,100 +913,11 @@ function Start-WorkerServices {
   $kubelet_args_str = ${kube_env}['KUBELET_ARGS']
   $kubelet_args = $kubelet_args_str.Split(" ")
   Log-Output "kubelet_args from metadata: ${kubelet_args}"
-    # --v=2
-    # --allow-privileged=true
-    # --cloud-provider=gce
-    # --non-masquerade-cidr=0.0.0.0/0
-    # --node-labels=beta.kubernetes.io/fluentd-ds-ready=true,cloud.google.com/gke-netd-ready=true
 
-  # Reference:
-  # https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#options
   $additional_arg_list = @(`
-      "--config=${env:KUBELET_CONFIG}",
-
-      # Path to a kubeconfig file that will be used to get client certificate
-      # for kubelet. If the file specified by --kubeconfig does not exist, the
-      # bootstrap kubeconfig is used to request a client certificate from the
-      # API server. On success, a kubeconfig file referencing the generated
-      # client certificate and key is written to the path specified by
-      # --kubeconfig. The client certificate and key file will be stored in the
-      # directory pointed by --cert-dir.
-      #
-      # See also:
-      # https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/
-      "--bootstrap-kubeconfig=${env:BOOTSTRAP_KUBECONFIG}",
-      "--kubeconfig=${env:KUBECONFIG}",
-
-      # The directory where the TLS certs are located. If --tls-cert-file and
-      # --tls-private-key-file are provided, this flag will be ignored.
-      "--cert-dir=${env:PKI_DIR}",
-
-      # The following flags are adapted from
-      # https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1#L117
-      # (last checked on 2019-01-07):
-      "--pod-infra-container-image=${INFRA_CONTAINER}",
-
-
-      # Both --cgroups-per-qos and --enforce-node-allocatable should be disabled on windows;
-      # the latter requires the former to be enabled to work.
-      "--cgroups-per-qos=false",
-
-      "--network-plugin=cni",
-      "--cni-bin-dir=${env:CNI_DIR}",
-      "--cni-conf-dir=${env:CNI_CONFIG_DIR}",
-      "--pod-manifest-path=${env:MANIFESTS_DIR}",
-      # Windows images are large and we don't have gcr mirrors yet. Allow
-      # longer pull progress deadline.
-      "--image-pull-progress-deadline=5m",
-      "--enable-debugging-handlers=true",
-      # Turn off kernel memory cgroup notification.
-      "--experimental-kernel-memcg-notification=false",
-
-      # Configure kubelet to run as a windows service.
-      "--windows-service=true",
-
-      # TODO(mtaufen): Configure logging for kubelet running as a service.
-      # I haven't been able to figure out how to direct stdout/stderr into log
-      # files when configuring it to run via sc.exe, so we just manually override
-      # logging config here.
-      "--log-file=${env:LOGS_DIR}\kubelet.log",
-      # klog sets this to true intenrally, so need to override to false
-      # so we actually log to the file
-      "--logtostderr=false",
-
-      # Configure flags with explicit empty string values. We can't escape double-quotes,
-      # because they still break sc.exe after expansion in the binPath parameter,
-      # and single-quotes get parsed as characters instead of string delimiters.
-      "--resolv-conf=",
-      "--enforce-node-allocatable="
+      "--pod-infra-container-image=${INFRA_CONTAINER}"
   )
   $kubelet_args = ${kubelet_args} + ${additional_arg_list}
-
-  # These args are present in the Linux KUBELET_ARGS value of kube-env, but I
-  # don't think we need them or they don't make sense on Windows.
-  $arg_list_unused = @(`
-      # [Experimental] Path of mounter binary. Leave empty to use the default
-      # mount.
-      "--experimental-mounter-path=/home/kubernetes/containerized_mounter/mounter",
-      # [Experimental] if set true, the kubelet will check the underlying node
-      # for required components (binaries, etc.) before performing the mount
-      "--experimental-check-node-capabilities-before-mount=true",
-      # The Kubelet will use this directory for checkpointing downloaded
-      # configurations and tracking configuration health. The Kubelet will
-      # create this directory if it does not already exist. The path may be
-      # absolute or relative; relative paths start at the Kubelet's current
-      # working directory. Providing this flag enables dynamic Kubelet
-      # configuration.  Presently, you must also enable the
-      # DynamicKubeletConfig feature gate to pass this flag.
-      "--dynamic-config-dir=/var/lib/kubelet/dynamic-config",
-      # The full path of the directory in which to search for additional third
-      # party volume plugins (default
-      # "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/")
-      "--volume-plugin-dir=/home/kubernetes/flexvolume",
-      # The container runtime to use. Possible values: 'docker', 'rkt'.
-      # (default "docker")
-      "--container-runtime=docker"
-  )
 
   # kubeproxy is started on Linux nodes using
   # kube-manifests/kubernetes/gci-trusty/kube-proxy.manifest, which is
@@ -1027,33 +943,19 @@ function Start-WorkerServices {
 
       # TODO(mtaufen): Configure logging for kube-proxy running as a service.
       # I haven't been able to figure out how to direct stdout/stderr into log
-      # files when configuring it to run via sc.exe, so we just manually override
-      # logging config here.
+      # files when configuring it to run via sc.exe, so we just manually
+      # override logging config here.
       "--log-file=${env:LOGS_DIR}\kube-proxy.log",
       # klog sets this to true intenrally, so need to override to false
       # so we actually log to the file
       "--logtostderr=false",
 
-      # Configure flags with explicit empty string values. We can't escape double-quotes,
-      # because they still break sc.exe after expansion in the binPath parameter,
-      # and single-quotes get parsed as characters instead of string delimiters.
+      # Configure flags with explicit empty string values. We can't escape
+      # double-quotes, because they still break sc.exe after expansion in the
+      # binPath parameter, and single-quotes get parsed as characters instead
+      # of string delimiters.
       "--resource-container="
   )
-
-  # Use Start-Process, not Start-Job; jobs are killed as soon as the shell /
-  # script that invoked them terminates, whereas processes continue running.
-  #
-  # -PassThru causes a process object to be returned from the Start-Process
-  # command.
-  #
-  # TODO(pjh): add -UseNewEnvironment flag and debug error "server.go:262]
-  # failed to run Kubelet: could not init cloud provider "gce": Get
-  # http://169.254.169.254/computeMetadata/v1/instance/zone: dial tcp
-  # 169.254.169.254:80: socket: The requested service provider could not be
-  # loaded or initialized."
-  # -UseNewEnvironment ensures that there are no implicit dependencies
-  # on the variables in this script - everything the kubelet needs should be
-  # specified via flags or config files.
 
   # TODO(pjh): kubelet is emitting these messages:
   # I1023 23:44:11.761915    2468 kubelet.go:274] Adding pod path:
@@ -1069,12 +971,11 @@ function Start-WorkerServices {
   # Figure out how to change the directory that the kubelet monitors for new
   # pod manifests.
 
-
-
-  # We configure the service to restart on failure, after 10s wait. We reset the restart
-  # count to 0 each time, so we re-use our restart/10000 action on each failure.
-  # Note it currently restarts even when explicitly stopped, you have to delete the service
-  # entry to *really* kill it (e.g. `sc.exe delete kubelet`). See issue #72900.
+  # We configure the service to restart on failure, after 10s wait. We reset
+  # the restart count to 0 each time, so we re-use our restart/10000 action on
+  # each failure. Note it currently restarts even when explicitly stopped, you
+  # have to delete the service entry to *really* kill it (e.g. `sc.exe delete
+  # kubelet`). See issue #72900.
   if (Get-Process | Where-Object Name -eq "kubelet") {
     Log-Output -Fatal `
         "A kubelet process is already running, don't know what to do"

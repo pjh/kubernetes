@@ -611,7 +611,7 @@ function write-master-env {
   fi
 
   construct-linux-kubelet-flags true
-  build-kube-env true "${KUBE_TEMP}/master-kube-env.yaml"
+  build-linux-kube-env true "${KUBE_TEMP}/master-kube-env.yaml"
   build-kubelet-config true "linux" "${KUBE_TEMP}/master-kubelet-config.yaml"
   build-kube-master-certs "${KUBE_TEMP}/kube-master-certs.yaml"
 }
@@ -622,7 +622,7 @@ function write-linux-node-env {
   fi
 
   construct-linux-kubelet-flags false
-  build-kube-env false "${KUBE_TEMP}/linux-node-kube-env.yaml"
+  build-linux-kube-env false "${KUBE_TEMP}/linux-node-kube-env.yaml"
   build-kubelet-config false "linux" "${KUBE_TEMP}/linux-node-kubelet-config.yaml"
 }
 
@@ -632,7 +632,7 @@ function write-windows-node-env {
   fi
 
   construct-windows-kubelet-flags
-  build-kube-env false "${KUBE_TEMP}/windows-node-kube-env.yaml"
+  build-windows-kube-env "${KUBE_TEMP}/windows-node-kube-env.yaml"
   build-kubelet-config false "windows" "${KUBE_TEMP}/windows-node-kubelet-config.yaml"
 }
 
@@ -749,12 +749,29 @@ function yaml-map-string-string {
   fi
 }
 
+# Returns kubelet flags used on both Linux and Windows nodes.
+function construct-common-kubelet-flags {
+  local flags="${KUBELET_TEST_LOG_LEVEL:-"--v=2"} ${KUBELET_TEST_ARGS:-}"
+  flags+=" --cloud-provider=gce"
+  if [[ -n "${NODE_TAINTS:-}" ]]; then
+    flags+=" --register-with-taints=${NODE_TAINTS}"
+  fi
+  # TODO(mtaufen): ROTATE_CERTIFICATES seems unused; delete it?
+  if [[ -n "${ROTATE_CERTIFICATES:-}" ]]; then
+    flags+=" --rotate-certificates=true"
+  fi
+  if [[ -n "${MAX_PODS_PER_NODE:-}" ]]; then
+    flags+=" --max-pods=${MAX_PODS_PER_NODE}"
+  fi
+  echo $flags
+}
+
+# Sets KUBELET_ARGS with the kubelet flags for Linux nodes.
 # $1: if 'true', we're rendering flags for a master, else a node
 function construct-linux-kubelet-flags {
   local master=$1
-  local flags="${KUBELET_TEST_LOG_LEVEL:-"--v=2"} ${KUBELET_TEST_ARGS:-}"
+  local flags=$(construct-common-kubelet-flags)
   flags+=" --allow-privileged=true"
-  flags+=" --cloud-provider=gce"
   # Keep in sync with CONTAINERIZED_MOUNTER_HOME in configure-helper.sh
   flags+=" --experimental-mounter-path=/home/kubernetes/containerized_mounter/mounter"
   flags+=" --experimental-check-node-capabilities-before-mount=true"
@@ -803,84 +820,82 @@ function construct-linux-kubelet-flags {
   if [[ -n "${node_labels:-}" ]]; then
     flags+=" --node-labels=${node_labels}"
   fi
-  if [[ -n "${NODE_TAINTS:-}" ]]; then
-    flags+=" --register-with-taints=${NODE_TAINTS}"
-  fi
-  # TODO(mtaufen): ROTATE_CERTIFICATES seems unused; delete it?
-  if [[ -n "${ROTATE_CERTIFICATES:-}" ]]; then
-    flags+=" --rotate-certificates=true"
-  fi
   if [[ -n "${CONTAINER_RUNTIME:-}" ]]; then
     flags+=" --container-runtime=${CONTAINER_RUNTIME}"
   fi
   if [[ -n "${CONTAINER_RUNTIME_ENDPOINT:-}" ]]; then
     flags+=" --container-runtime-endpoint=${CONTAINER_RUNTIME_ENDPOINT}"
   fi
-  if [[ -n "${MAX_PODS_PER_NODE:-}" ]]; then
-    flags+=" --max-pods=${MAX_PODS_PER_NODE}"
-  fi
 
   KUBELET_ARGS="${flags}"
 }
 
-# TODO(windows): coalesce common Linux+Windows kubelet flags in a separate
-# function used for both.
+# Sets KUBELET_ARGS with the kubelet flags for Windows nodes.
 function construct-windows-kubelet-flags {
-  local flags="${KUBELET_TEST_LOG_LEVEL:-"--v=2"} ${KUBELET_TEST_ARGS:-}"
-
-  flags+=" --allow-privileged=true"
-  flags+=" --cloud-provider=gce"
-  ## Keep in sync with CONTAINERIZED_MOUNTER_HOME in configure-helper.sh
-  #flags+=" --experimental-mounter-path=/home/kubernetes/containerized_mounter/mounter"
-  #flags+=" --experimental-check-node-capabilities-before-mount=true"
-  ## Keep in sync with the mkdir command in configure-helper.sh (until the TODO is resolved)
-  #flags+=" --cert-dir=/var/lib/kubelet/pki/"
-  ## Configure the directory that the Kubelet should use to store dynamic config checkpoints
-  #flags+=" --dynamic-config-dir=/var/lib/kubelet/dynamic-config"
+  local flags=$(construct-common-kubelet-flags)
 
   # Note: NODE_KUBELET_TEST_ARGS is empty in typical kube-up runs.
   flags+=" ${NODE_KUBELET_TEST_ARGS:-}"
-  #flags+=" --bootstrap-kubeconfig=/var/lib/kubelet/bootstrap-kubeconfig"
-  #flags+=" --kubeconfig=/var/lib/kubelet/kubeconfig"
-
-  ## Network plugin
-  #if [[ -n "${NETWORK_PROVIDER:-}" || -n "${NETWORK_POLICY_PROVIDER:-}" ]]; then
-    #flags+=" --cni-bin-dir=/home/kubernetes/bin"
-    #if [[ "${NETWORK_POLICY_PROVIDER:-}" == "calico" || "${ENABLE_NETD:-}" == "true" ]]; then
-      ## Calico uses CNI always.
-      #flags+=" --network-plugin=cni"
-    #else
-      ## Otherwise use the configured value.
-      #flags+=" --network-plugin=${NETWORK_PROVIDER}"
-
-    #fi
-  #fi
-  if [[ -n "${NON_MASQUERADE_CIDR:-}" ]]; then
-    flags+=" --non-masquerade-cidr=${NON_MASQUERADE_CIDR}"
-  fi
-  #flags+=" --volume-plugin-dir=${VOLUME_PLUGIN_DIR}"
 
   local node_labels=$(build-windows-node-labels)
   if [[ -n "${node_labels:-}" ]]; then
     flags+=" --node-labels=${node_labels}"
   fi
 
-  if [[ -n "${NODE_TAINTS:-}" ]]; then
-    flags+=" --register-with-taints=${NODE_TAINTS}"
-  fi
-  # TODO(mtaufen): ROTATE_CERTIFICATES seems unused; delete it?
-  if [[ -n "${ROTATE_CERTIFICATES:-}" ]]; then
-    flags+=" --rotate-certificates=true"
-  fi
-  #if [[ -n "${CONTAINER_RUNTIME:-}" ]]; then
-    #flags+=" --container-runtime=${CONTAINER_RUNTIME}"
-  #fi
-  #if [[ -n "${CONTAINER_RUNTIME_ENDPOINT:-}" ]]; then
-    #flags+=" --container-runtime-endpoint=${CONTAINER_RUNTIME_ENDPOINT}"
-  #fi
-  if [[ -n "${MAX_PODS_PER_NODE:-}" ]]; then
-    flags+=" --max-pods=${MAX_PODS_PER_NODE}"
-  fi
+  # Many of these flags were adapted from
+  # https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/start-kubelet.ps1.
+  flags+=" --config=${WINDOWS_KUBELET_CONFIG_FILE}"
+
+  # Path to a kubeconfig file that will be used to get client certificate for
+  # kubelet. If the file specified by --kubeconfig does not exist, the bootstrap
+  # kubeconfig is used to request a client certificate from the API server. On
+  # success, a kubeconfig file referencing the generated client certificate and
+  # key is written to the path specified by --kubeconfig. The client certificate
+  # and key file will be stored in the directory pointed by --cert-dir.
+  #
+  # See also:
+  # https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/
+  flags+=" --bootstrap-kubeconfig=${WINDOWS_BOOTSTRAP_KUBECONFIG_FILE}"
+  flags+=" --kubeconfig=${WINDOWS_KUBECONFIG_FILE}"
+
+  # The directory where the TLS certs are located. If --tls-cert-file and
+  # --tls-private-key-file are provided, this flag will be ignored.
+  flags+=" --cert-dir=${WINDOWS_PKI_DIR}"
+
+  flags+=" --network-plugin=cni"
+  flags+=" --cni-bin-dir=${WINDOWS_CNI_DIR}"
+  flags+=" --cni-conf-dir=${WINDOWS_CNI_CONFIG_DIR}"
+  flags+=" --pod-manifest-path=${WINDOWS_MANIFESTS_DIR}"
+
+  # Windows images are large and we don't have gcr mirrors yet. Allow longer
+  # pull progress deadline.
+  flags+=" --image-pull-progress-deadline=5m"
+  flags+=" --enable-debugging-handlers=true"
+
+  # Configure kubelet to run as a windows service.
+  flags+=" --windows-service=true"
+
+  # TODO(mtaufen): Configure logging for kubelet running as a service. I haven't
+  # been able to figure out how to direct stdout/stderr into log files when
+  # configuring it to run via sc.exe, so we just manually override logging
+  # config here.
+  flags+=" --log-file=${WINDOWS_LOGS_DIR}\kubelet.log"
+  # klog sets this to true internally, so need to override to false so we
+  # actually log to the file
+  flags+=" --logtostderr=false"
+
+  # Configure flags with explicit empty string values. We can't escape
+  # double-quotes, because they still break sc.exe after expansion in the
+  # binPath parameter, and single-quotes get parsed as characters instead of
+  # string delimiters.
+  flags+=" --resolv-conf="
+
+  # Both --cgroups-per-qos and --enforce-node-allocatable should be disabled on
+  # windows; the latter requires the former to be enabled to work.
+  flags+=" --cgroups-per-qos=false --enforce-node-allocatable="
+
+  # Turn off kernel memory cgroup notification.
+  flags+=" --experimental-kernel-memcg-notification=false"
 
   KUBELET_ARGS="${flags}"
 }
@@ -1034,7 +1049,7 @@ EOF
 }
 
 # $1: if 'true', we're building a master yaml, else a node
-function build-kube-env {
+function build-linux-kube-env {
   local master=$1
   local file=$2
 
@@ -1426,6 +1441,39 @@ EOF
 MAX_PODS_PER_NODE: $(yaml-quote ${MAX_PODS_PER_NODE})
 EOF
   fi
+}
+
+# TODO(pjh): move these somewhere sensible.
+WINDOWS_K8S_DIR="C:\etc\kubernetes"
+WINDOWS_NODE_DIR="${WINDOWS_K8S_DIR}\node\bin"
+WINDOWS_LOGS_DIR="${WINDOWS_K8S_DIR}\logs"
+WINDOWS_CNI_DIR="${WINDOWS_K8S_DIR}\cni"
+WINDOWS_CNI_CONFIG_DIR="${WINDOWS_K8S_DIR}\cni\config"
+WINDOWS_MANIFESTS_DIR="${WINDOWS_K8S_DIR}\manifests"
+WINDOWS_PKI_DIR="${WINDOWS_K8S_DIR}\pki"
+WINDOWS_KUBELET_CONFIG_FILE="${WINDOWS_K8S_DIR}\kubelet-config.yaml"
+WINDOWS_KUBECONFIG_FILE="${WINDOWS_K8S_DIR}\kubelet.kubeconfig"
+WINDOWS_BOOTSTRAP_KUBECONFIG_FILE="${WINDOWS_K8S_DIR}\kubelet.bootstrap-kubeconfig"
+WINDOWS_KUBEPROXY_KUBECONFIG_FILE="${WINDOWS_K8S_DIR}\kubeproxy.kubeconfig"
+
+function build-windows-kube-env {
+  local file=$1
+  # For now the Windows kube-env is a superset of the Linux kube-env.
+  build-linux-kube-env false $file
+
+  cat >>$file <<EOF
+K8S_DIR: $(yaml-quote ${WINDOWS_K8S_DIR})
+NODE_DIR: $(yaml-quote ${WINDOWS_NODE_DIR})
+LOGS_DIR: $(yaml-quote ${WINDOWS_LOGS_DIR})
+CNI_DIR: $(yaml-quote ${WINDOWS_CNI_DIR})
+CNI_CONFIG_DIR: $(yaml-quote ${WINDOWS_CNI_CONFIG_DIR})
+MANIFESTS_DIR: $(yaml-quote ${WINDOWS_MANIFESTS_DIR})
+PKI_DIR: $(yaml-quote ${WINDOWS_PKI_DIR})
+KUBELET_CONFIG_FILE: $(yaml-quote ${WINDOWS_KUBELET_CONFIG_FILE})
+KUBECONFIG_FILE: $(yaml-quote ${WINDOWS_KUBECONFIG_FILE})
+BOOTSTRAP_KUBECONFIG_FILE: $(yaml-quote ${WINDOWS_BOOTSTRAP_KUBECONFIG_FILE})
+KUBEPROXY_KUBECONFIG_FILE: $(yaml-quote ${WINDOWS_KUBEPROXY_KUBECONFIG_FILE})
+EOF
 }
 
 function sha1sum-file() {
