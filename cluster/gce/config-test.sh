@@ -28,7 +28,8 @@ REGION=${ZONE%-*}
 RELEASE_REGION_FALLBACK=${RELEASE_REGION_FALLBACK:-false}
 REGIONAL_KUBE_ADDONS=${REGIONAL_KUBE_ADDONS:-true}
 NODE_SIZE=${NODE_SIZE:-n1-standard-2}
-NUM_NODES=${NUM_NODES:-3}
+NUM_LINUX_NODES=${NUM_NODES:-3}
+NUM_WINDOWS_NODES=${NUM_WINDOWS_NODES:-0}
 MASTER_SIZE=${MASTER_SIZE:-n1-standard-$(get-master-size)}
 MASTER_MIN_CPU_ARCHITECTURE=${MASTER_MIN_CPU_ARCHITECTURE:-} # To allow choosing better architectures.
 MASTER_DISK_TYPE=pd-ssd
@@ -37,13 +38,6 @@ MASTER_ROOT_DISK_SIZE=${MASTER_ROOT_DISK_SIZE:-$(get-master-root-disk-size)}
 NODE_DISK_TYPE=${NODE_DISK_TYPE:-pd-standard}
 NODE_DISK_SIZE=${NODE_DISK_SIZE:-100GB}
 NODE_LOCAL_SSDS=${NODE_LOCAL_SSDS:-0}
-
-# Historically fluentd was a manifest pod and then was migrated to DaemonSet.
-# To avoid situation during cluster upgrade when there are two instances
-# of fluentd running on a node, kubelet need to mark node on which
-# fluentd is not running as a manifest pod with appropriate label.
-# TODO(piosz): remove this in 1.8
-NODE_LABELS="${KUBE_NODE_LABELS:-beta.kubernetes.io/fluentd-ds-ready=true}"
 
 # An extension to local SSDs allowing users to specify block/fs and SCSI/NVMe devices
 # Format of this variable will be "#,scsi/nvme,block/fs" you can specify multiple
@@ -65,23 +59,25 @@ CREATE_CUSTOM_NETWORK=${CREATE_CUSTOM_NETWORK:-false}
 MIG_WAIT_UNTIL_STABLE_TIMEOUT=${MIG_WAIT_UNTIL_STABLE_TIMEOUT:-1800}
 
 MASTER_OS_DISTRIBUTION=${KUBE_MASTER_OS_DISTRIBUTION:-${KUBE_OS_DISTRIBUTION:-gci}}
-NODE_OS_DISTRIBUTION=${KUBE_NODE_OS_DISTRIBUTION:-${KUBE_OS_DISTRIBUTION:-gci}}
+LINUX_NODE_OS_DISTRIBUTION=${KUBE_NODE_OS_DISTRIBUTION:-${KUBE_OS_DISTRIBUTION:-gci}}
+WINDOWS_NODE_OS_DISTRIBUTION=${WINDOWS_NODE_OS_DISTRIBUTION:-win1803}
+
 if [[ "${MASTER_OS_DISTRIBUTION}" == "cos" ]]; then
     MASTER_OS_DISTRIBUTION="gci"
 fi
 
-if [[ "${NODE_OS_DISTRIBUTION}" == "cos" ]]; then
-    NODE_OS_DISTRIBUTION="gci"
+if [[ "${LINUX_NODE_OS_DISTRIBUTION}" == "cos" ]]; then
+    LINUX_NODE_OS_DISTRIBUTION="gci"
 fi
 
 # GPUs supported in GCE do not have compatible drivers in Debian 7.
-if [[ "${NODE_OS_DISTRIBUTION}" == "debian" ]]; then
+if [[ "${LINUX_NODE_OS_DISTRIBUTION}" == "debian" ]]; then
     NODE_ACCELERATORS=""
 fi
 
 # To avoid failing large tests due to some flakes in starting nodes, allow
 # for a small percentage of nodes to not start during cluster startup.
-ALLOWED_NOTREADY_NODES="${ALLOWED_NOTREADY_NODES:-$((NUM_NODES / 100))}"
+ALLOWED_NOTREADY_NODES="${ALLOWED_NOTREADY_NODES:-$(($(get-num-nodes) / 100))}"
 
 # By default a cluster will be started with the master and nodes
 # on Container-optimized OS (cos, previously known as gci). If
@@ -91,8 +87,8 @@ ALLOWED_NOTREADY_NODES="${ALLOWED_NOTREADY_NODES:-$((NUM_NODES / 100))}"
 GCI_VERSION=${KUBE_GCI_VERSION:-cos-stable-65-10323-64-0}
 MASTER_IMAGE=${KUBE_GCE_MASTER_IMAGE:-}
 MASTER_IMAGE_PROJECT=${KUBE_GCE_MASTER_PROJECT:-cos-cloud}
-NODE_IMAGE=${KUBE_GCE_NODE_IMAGE:-${GCI_VERSION}}
-NODE_IMAGE_PROJECT=${KUBE_GCE_NODE_PROJECT:-cos-cloud}
+LINUX_NODE_IMAGE=${KUBE_GCE_NODE_IMAGE:-${GCI_VERSION}}
+LINUX_NODE_IMAGE_PROJECT=${KUBE_GCE_NODE_PROJECT:-cos-cloud}
 NODE_SERVICE_ACCOUNT=${KUBE_GCE_NODE_SERVICE_ACCOUNT:-default}
 CONTAINER_RUNTIME=${KUBE_CONTAINER_RUNTIME:-docker}
 CONTAINER_RUNTIME_ENDPOINT=${KUBE_CONTAINER_RUNTIME_ENDPOINT:-}
@@ -173,8 +169,9 @@ ENABLE_METRICS_SERVER="${KUBE_ENABLE_METRICS_SERVER:-true}"
 # running on the same node for exporting metrics and logs.
 ENABLE_METADATA_AGENT="${KUBE_ENABLE_METADATA_AGENT:-none}"
 
-# One special node out of NUM_NODES would be created of this type if specified.
-# Useful for scheduling heapster in large clusters with nodes of small size.
+# One special node out of NUM_LINUX_NODES would be created of this type if
+# specified. Useful for scheduling heapster in large clusters with nodes of
+# small size.
 HEAPSTER_MACHINE_TYPE="${HEAPSTER_MACHINE_TYPE:-}"
 
 # Set etcd image (e.g. k8s.gcr.io/etcd) and version (e.g. 3.3.10-0) if you need
@@ -202,7 +199,7 @@ TEST_CLUSTER_RESYNC_PERIOD="${TEST_CLUSTER_RESYNC_PERIOD:---min-resync-period=3m
 TEST_CLUSTER_API_CONTENT_TYPE="${TEST_CLUSTER_API_CONTENT_TYPE:-}"
 
 KUBELET_TEST_ARGS="${KUBELET_TEST_ARGS:-} --serialize-image-pulls=false ${TEST_CLUSTER_API_CONTENT_TYPE}"
-if [[ "${NODE_OS_DISTRIBUTION}" == "gci" ]] || [[ "${NODE_OS_DISTRIBUTION}" == "ubuntu" ]] || [[ "${NODE_OS_DISTRIBUTION}" == "custom" ]]; then 
+if [[ "${LINUX_NODE_OS_DISTRIBUTION}" == "gci" ]] || [[ "${LINUX_NODE_OS_DISTRIBUTION}" == "ubuntu" ]] || [[ "${LINUX_NODE_OS_DISTRIBUTION}" == "custom" ]]; then 
   NODE_KUBELET_TEST_ARGS="${NODE_KUBELET_TEST_ARGS:-} --experimental-kernel-memcg-notification=true"  
 fi 
 if [[ "${MASTER_OS_DISTRIBUTION}" == "gci" ]] || [[ "${MASTER_OS_DISTRIBUTION}" == "ubuntu" ]]; then 
@@ -213,13 +210,24 @@ CONTROLLER_MANAGER_TEST_ARGS="${CONTROLLER_MANAGER_TEST_ARGS:-} ${TEST_CLUSTER_R
 SCHEDULER_TEST_ARGS="${SCHEDULER_TEST_ARGS:-} ${TEST_CLUSTER_API_CONTENT_TYPE}"
 KUBEPROXY_TEST_ARGS="${KUBEPROXY_TEST_ARGS:-} ${TEST_CLUSTER_API_CONTENT_TYPE}"
 
-# NON_MASTER_NODE_LABELS are labels will only be applied on non-master nodes.
-NON_MASTER_NODE_LABELS="${KUBE_NON_MASTER_NODE_LABELS:-}"
+# Historically fluentd was a manifest pod and then was migrated to DaemonSet.
+# To avoid situation during cluster upgrade when there are two instances
+# of fluentd running on a node, kubelet need to mark node on which
+# fluentd is not running as a manifest pod with appropriate label.
+# TODO(piosz): remove this in 1.8
+LINUX_NODE_LABELS="${KUBE_NODE_LABELS:-beta.kubernetes.io/fluentd-ds-ready=true}"
+WINDOWS_NODE_LABELS="${WINDOWS_NODE_LABELS:-}"
+
+# *_NON_MASTER_NODE_LABELS are labels will only be applied on non-master nodes.
+LINUX_NON_MASTER_NODE_LABELS="${KUBE_NON_MASTER_NODE_LABELS:-}"
+WINDOWS_NON_MASTER_NODE_LABELS="${WINDOWS_NON_MASTER_NODE_LABELS:-}"
 
 if [[ "${PREEMPTIBLE_MASTER}" == "true" ]]; then
-    NODE_LABELS="${NODE_LABELS},cloud.google.com/gke-preemptible=true"
+    LINUX_NODE_LABELS="${LINUX_NODE_LABELS},cloud.google.com/gke-preemptible=true"
+    WINDOWS_NODE_LABELS="${WINDOWS_NODE_LABELS},cloud.google.com/gke-preemptible=true"
 elif [[ "${PREEMPTIBLE_NODE}" == "true" ]]; then
-    NON_MASTER_NODE_LABELS="${NON_MASTER_NODE_LABELS},cloud.google.com/gke-preemptible=true"
+    LINUX_NON_MASTER_NODE_LABELS="${LINUX_NON_MASTER_NODE_LABELS},cloud.google.com/gke-preemptible=true"
+    WINDOWS_NON_MASTER_NODE_LABELS="${WINDOWS_NON_MASTER_NODE_LABELS},cloud.google.com/gke-preemptible=true"
 fi
 
 # Optional: Enable netd.
@@ -230,16 +238,18 @@ CUSTOM_TYPHA_DEPLOYMENT_YAML="${KUBE_CUSTOM_TYPHA_DEPLOYMENT_YAML:-}"
 
 # To avoid running netd on a node that is not configured appropriately,
 # label each Node so that the DaemonSet can run the Pods only on ready Nodes.
+# Windows nodes do not support netd.
 if [[ ${ENABLE_NETD:-} == "true" ]]; then
-	NON_MASTER_NODE_LABELS="${NON_MASTER_NODE_LABELS:+${NON_MASTER_NODE_LABELS},}cloud.google.com/gke-netd-ready=true"
+	LINUX_NON_MASTER_NODE_LABELS="${LINUX_NON_MASTER_NODE_LABELS:+${LINUX_NON_MASTER_NODE_LABELS},}cloud.google.com/gke-netd-ready=true"
 fi
 
 ENABLE_NODELOCAL_DNS="${KUBE_ENABLE_NODELOCAL_DNS:-false}"
 
 # To avoid running Calico on a node that is not configured appropriately,
 # label each Node so that the DaemonSet can run the Pods only on ready Nodes.
+# Windows nodes do not support Calico.
 if [[ ${NETWORK_POLICY_PROVIDER:-} == "calico" ]]; then
-	NON_MASTER_NODE_LABELS="${NON_MASTER_NODE_LABELS:+${NON_MASTER_NODE_LABELS},}projectcalico.org/ds-ready=true"
+	LINUX_NON_MASTER_NODE_LABELS="${LINUX_NON_MASTER_NODE_LABELS:+${LINUX_NON_MASTER_NODE_LABELS},}projectcalico.org/ds-ready=true"
 fi
 
 # Enable metadata concealment by firewalling pod traffic to the metadata server
@@ -248,7 +258,7 @@ ENABLE_METADATA_CONCEALMENT="${ENABLE_METADATA_CONCEALMENT:-true}" # true, false
 METADATA_CONCEALMENT_NO_FIREWALL="${METADATA_CONCEALMENT_NO_FIREWALL:-false}" # true, false
 if [[ ${ENABLE_METADATA_CONCEALMENT:-} == "true" ]]; then
   # Put the necessary label on the node so the daemonset gets scheduled.
-  NODE_LABELS="${NODE_LABELS},beta.kubernetes.io/metadata-proxy-ready=true"
+  LINUX_NODE_LABELS="${LINUX_NODE_LABELS},beta.kubernetes.io/metadata-proxy-ready=true"
   # Add to the provider custom variables.
   PROVIDER_VARS="${PROVIDER_VARS:-} ENABLE_METADATA_CONCEALMENT METADATA_CONCEALMENT_NO_FIREWALL"
 fi
@@ -269,7 +279,7 @@ fi
 if [[ ! -z "${NODE_ACCELERATORS}" ]]; then
     FEATURE_GATES="${FEATURE_GATES},DevicePlugins=true"
     if [[ "${NODE_ACCELERATORS}" =~ .*type=([a-zA-Z0-9-]+).* ]]; then
-        NON_MASTER_NODE_LABELS="${NON_MASTER_NODE_LABELS},cloud.google.com/gke-accelerator=${BASH_REMATCH[1]}"
+        LINUX_NON_MASTER_NODE_LABELS="${LINUX_NON_MASTER_NODE_LABELS},cloud.google.com/gke-accelerator=${BASH_REMATCH[1]}"
     fi
 fi
 
@@ -291,7 +301,7 @@ ENABLE_CLUSTER_UI="${KUBE_ENABLE_CLUSTER_UI:-true}"
 #   none           - Not run node problem detector.
 #   daemonset      - Run node problem detector as daemonset.
 #   standalone     - Run node problem detector as standalone system daemon.
-if [[ "${NODE_OS_DISTRIBUTION}" == "gci" ]]; then
+if [[ "${LINUX_NODE_OS_DISTRIBUTION}" == "gci" ]]; then
   # Enable standalone mode by default for gci.
   ENABLE_NODE_PROBLEM_DETECTOR="${KUBE_ENABLE_NODE_PROBLEM_DETECTOR:-standalone}"
 else
@@ -486,3 +496,7 @@ ENABLE_NODE_TERMINATION_HANDLER="${ENABLE_NODE_TERMINATION_HANDLER:-false}"
 if [[ "${NODE_TERMINATION_HANDLER_IMAGE:-}" ]]; then
   PROVIDER_VARS="${PROVIDER_VARS:-} NODE_TERMINATION_HANDLER_IMAGE"
 fi
+
+# Taint Windows nodes by default to prevent Linux workloads from being
+# scheduled onto them.
+WINDOWS_NODE_TAINTS="${WINDOWS_NODE_TAINTS:-node.kubernetes.io/os=windows:NoSchedule}"
