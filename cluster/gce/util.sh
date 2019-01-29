@@ -80,9 +80,7 @@ function set-linux-node-image() {
 #   WINDOWS_NODE_IMAGE_PROJECT
 function set-windows-node-image() {
     WINDOWS_NODE_IMAGE_PROJECT="windows-cloud"
-    if [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win1803" ]]; then
-        WINDOWS_NODE_IMAGE_FAMILY="windows-1803-core-for-containers"
-    elif [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win2019" ]]; then
+    if [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win2019" ]]; then
         WINDOWS_NODE_IMAGE_FAMILY="windows-2019-core-for-containers"
     elif [[ "${WINDOWS_NODE_OS_DISTRIBUTION}" == "win1809" ]]; then
         WINDOWS_NODE_IMAGE_FAMILY="windows-1809-core-for-containers"

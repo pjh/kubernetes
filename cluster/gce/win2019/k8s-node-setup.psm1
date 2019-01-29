@@ -27,10 +27,10 @@
     [Net.ServicePointManager]::SecurityProtocol = `
         [Net.SecurityProtocolType]::Tls12
     Invoke-WebRequest `
-        https://github.com/kubernetes/kubernetes/raw/windows-up/cluster/gce/win1803/k8s-node-setup.psm1 `
+        https://github.com/kubernetes/kubernetes/raw/windows-up/cluster/gce/win2019/k8s-node-setup.psm1 `
         -OutFile C:\k8s-node-setup.psm1
     Invoke-WebRequest `
-        https://github.com/kubernetes/kubernetes/raw/windows-up/cluster/gce/win1803/configure.ps1 `
+        https://github.com/kubernetes/kubernetes/raw/windows-up/cluster/gce/win2019/configure.ps1 `
         -OutFile C:\configure.ps1
     Import-Module -Force C:\k8s-node-setup.psm1  # -Force to override existing
     # Execute functions manually or run configure.ps1.
@@ -111,7 +111,7 @@ function WaitFor_GceMetadataServerRouteToBeRemoved {
 
 # Adds a route to the GCE metadata server to every network interface.
 function Add_GceMetadataServerRoute {
-  # Before setting up HNS the 1803 VM has a "vEthernet (nat)" interface and a
+  # Before setting up HNS the 2019 VM has a "vEthernet (nat)" interface and a
   # "Ethernet" interface, and the route to the metadata server exists on the
   # Ethernet interface. After adding the HNS network a "vEthernet (Ethernet)"
   # interface is added, and it seems to subsume the routes of the "Ethernet"
@@ -260,17 +260,14 @@ function Download-HelperScripts {
 }
 
 # Takes the Windows version string from the cluster bash scripts (e.g.
-# 'win1803') and returns the correct label to use for containers on this
+# 'win2019') and returns the correct label to use for containers on this
 # version of Windows. Returns $null if $WinVersion is unknown.
 function Get_ContainerVersionLabel {
   param (
     [parameter(Mandatory=$true)] [string]$WinVersion
   )
   # -match does regular expression matching.
-  if ($WinVersion -match '1803') {
-    return '1803'
-  }
-  elseif ($WinVersion -match '1809') {
+  if ($WinVersion -match '1809') {
     return '1809'
   }
   elseif ($WinVersion -match '2019') {

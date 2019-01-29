@@ -99,7 +99,7 @@ Invoke this script to run a smoke test that verifies that the cluster has been
 brought up correctly:
 
 ```
-cluster/gce/win1803/smoke-test.sh
+cluster/gce/win2019/smoke-test.sh
 ```
 
 ## Running tests against the cluster
