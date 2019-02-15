@@ -47,15 +47,6 @@ function detect-masters() {
   echo "KUBE_MASTER_IP_ADDRESSES: [${KUBE_MASTER_IP_ADDRESSES[*]}]" 1>&2
 }
 
-# Get node IP addresses and store in KUBE_NODE_IP_ADDRESSES[]
-function detect-nodes() {
-  KUBE_NODE_IP_ADDRESSES=()
-  for node in ${NODES}; do
-    KUBE_NODE_IP_ADDRESSES+=("${node#*@}")
-  done
-  echo "KUBE_NODE_IP_ADDRESSES: [${KUBE_NODE_IP_ADDRESSES[*]}]" 1>&2
-}
-
 # Verify prereqs on host machine
 function verify-prereqs() {
   local rc

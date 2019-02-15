@@ -400,33 +400,6 @@ function detect-node-names() {
   echo "NODE_NAMES=${NODE_NAMES[*]:-}" >&2
 }
 
-# Detect the information about the minions
-#
-# Assumed vars:
-#   ZONE
-# Vars set:
-#   NODE_NAMES
-#   KUBE_NODE_IP_ADDRESSES (array)
-function detect-nodes() {
-  detect-project
-  detect-node-names
-  KUBE_NODE_IP_ADDRESSES=()
-  for (( i=0; i<${#NODE_NAMES[@]}; i++)); do
-    local node_ip=$(gcloud compute instances describe --project "${PROJECT}" --zone "${ZONE}" \
-      "${NODE_NAMES[$i]}" --format='value(networkInterfaces[0].accessConfigs[0].natIP)')
-    if [[ -z "${node_ip-}" ]] ; then
-      echo "Did not find ${NODE_NAMES[$i]}" >&2
-    else
-      echo "Found ${NODE_NAMES[$i]} at ${node_ip}"
-      KUBE_NODE_IP_ADDRESSES+=("${node_ip}")
-    fi
-  done
-  if [[ -z "${KUBE_NODE_IP_ADDRESSES-}" ]]; then
-    echo "Could not detect Kubernetes minion nodes.  Make sure you've launched a cluster with 'kube-up.sh'" >&2
-    exit 1
-  fi
-}
-
 # Detect the IP for the master
 #
 # Assumed vars:

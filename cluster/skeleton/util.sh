@@ -28,11 +28,6 @@ function detect-node-names {
 	echo "NODE_NAMES: [${NODE_NAMES[*]}]" 1>&2
 }
 
-# Get node IP addresses and store in KUBE_NODE_IP_ADDRESSES[]
-function detect-nodes {
-	echo "KUBE_NODE_IP_ADDRESSES: [${KUBE_NODE_IP_ADDRESSES[*]}]" 1>&2
-}
-
 # Verify prereqs on host machine
 function verify-prereqs {
 	echo "Skeleton Provider: verify-prereqs not implemented" 1>&2
