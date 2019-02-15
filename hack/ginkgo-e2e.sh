@@ -100,6 +100,8 @@ fi
 # set before we get here, which eliminates any cluster/gke use if
 # KUBERNETES_CONFORMANCE_PROVIDER is set to "gke".
 if [[ -z "${NODE_INSTANCE_GROUP:-}" ]] && [[ "${KUBERNETES_PROVIDER}" == "gke" ]]; then
+  # TODO(pjh): this code is broken, detect-node-instance-groups appears nowhere
+  # else in k/k.
   detect-node-instance-groups
   NODE_INSTANCE_GROUP=$(kube::util::join , "${NODE_INSTANCE_GROUPS[@]}")
 fi
