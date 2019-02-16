@@ -419,8 +419,6 @@ function detect-node-names() {
 
   echo "INSTANCE_GROUPS=${INSTANCE_GROUPS[*]:-}" >&2
   echo "NODE_NAMES=${NODE_NAMES[*]:-}" >&2
-  echo "PJH: INSTANCE_GROUPS=${WINDOWS_INSTANCE_GROUPS[*]:-}" >&2  # REMOVE
-  echo "PJH: NODE_NAMES=${WINDOWS_NODE_NAMES[*]:-}" >&2  # REMOVE
 }
 
 # Detect the IP for the master
