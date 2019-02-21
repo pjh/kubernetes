@@ -271,9 +271,6 @@ function Get_ContainerVersionLabel {
   if ($WinVersion -match '1809') {
     return '1809'
   }
-  elseif ($WinVersion -match '1803') {
-    return '1803'
-  }
   elseif ($WinVersion -match '2019') {
     return 'ltsc2019'
   }
