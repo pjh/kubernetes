@@ -38,15 +38,9 @@ release`. However, that builds binaries for all supported platforms, and can be
 slow. You can speed up the process by following the instructions below to only
 build the necessary binaries.
 ```
-# Set the git remote name you used for pjh/kubernetes
-REMOTE=<name of your remote>
-
-# Fetch the PR: https://github.com/pjh/kubernetes/pull/43
-git fetch $REMOTE pull/43/head
-
-# Get the commit hash and cherry-pick the commit to your current branch
-BUILD_WIN_COMMIT=$(git ls-remote $REMOTE | grep refs/pull/43/head | cut -f 1)
-git cherry-pick $BUILD_WIN_COMMIT
+# Apply the patch to build windows binaries
+curl https://raw.githubusercontent.com/yujuhong/gce-k8s-windows-testing/master/0001-Build-windows-biniaries-when-running-make-quick-rele.patch \
+ | git apply
 
 # Build binaries for both Linux and Windows
 make quick-release
