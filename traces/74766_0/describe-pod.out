@@ -1,0 +1,54 @@
+Name:               windows-nettest-5ff677fcf-q489m
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               e2e-test-peterhornyack-windows-node-group-kvdp/10.40.0.3
+Start Time:         Fri, 01 Mar 2019 10:56:09 -0800
+Labels:             app=nettest
+                    pod-template-hash=5ff677fcf
+Annotations:        kubernetes.io/limit-ranger=LimitRanger plugin set: cpu request for container nettest
+Status:             Running
+IP:                 10.64.1.4
+Controlled By:      ReplicaSet/windows-nettest-5ff677fcf
+Containers:
+  nettest:
+    Container ID:   docker://e40d7526d974350f56cb3c7407ea3337cebe9329a2f6c8485efc26afd9d14efc
+    Image:          e2eteam/nettest:1.0
+    Image ID:       docker-pullable://e2eteam/nettest@sha256:1701dfa7d28c9ea48447933042b7dfc66d53d0bd4aaf80c971232194f0348948
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Fri, 01 Mar 2019 11:00:13 -0800
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:        100m
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-d45vn (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  default-token-d45vn:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-d45vn
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  beta.kubernetes.io/os=windows
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/os=windows:NoSchedule
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason                  Age   From                                                     Message
+  ----     ------                  ----  ----                                                     -------
+  Normal   Scheduled               7m    default-scheduler                                        Successfully assigned default/windows-nettest-5ff677fcf-q489m to e2e-test-peterhornyack-windows-node-group-kvdp
+  Warning  FailedCreatePodSandBox  3m    kubelet, e2e-test-peterhornyack-windows-node-group-kvdp  Failed create pod sandbox: rpc error: code = Unknown desc = [failed to set up sandbox container "1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd" network for pod "windows-nettest-5ff677fcf-q489m": NetworkPlugin cni failed to set up pod "windows-nettest-5ff677fcf-q489m_default" network: error while ProvisionEndpoint(1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd_l2bridge,64736A7F-E9F0-4465-B861-7879393DDD22,1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd): failed to create the new HNSEndpoint: hnsCall failed in Win32: The object already exists. (0x1392), failed to clean up sandbox container "1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd" network for pod "windows-nettest-5ff677fcf-q489m": NetworkPlugin cni failed to teardown pod "windows-nettest-5ff677fcf-q489m_default" network: failed to find HNSEndpoint 1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd_l2bridge: Endpoint 1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd_l2bridge not found]
+  Normal   SandboxChanged          3m    kubelet, e2e-test-peterhornyack-windows-node-group-kvdp  Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulling                 3m    kubelet, e2e-test-peterhornyack-windows-node-group-kvdp  pulling image "e2eteam/nettest:1.0"
+  Normal   Pulled                  3m    kubelet, e2e-test-peterhornyack-windows-node-group-kvdp  Successfully pulled image "e2eteam/nettest:1.0"
+  Normal   Created                 3m    kubelet, e2e-test-peterhornyack-windows-node-group-kvdp  Created container
+  Normal   Started                 3m    kubelet, e2e-test-peterhornyack-windows-node-group-kvdp  Started container

@@ -1,0 +1,22 @@
+sending event [event-info={e40d7526d974350f56cb3c7407ea3337cebe9329a2f6c8485efc26afd9d14efc init 2360 0 0001-01-01 00:00:00 +0000 UTC false <nil>} module=libcontainerd namespace=moby container=e40d7526d974350f56cb3c7407ea3337cebe9329a2f6c8485efc26afd9d14efc event=start]
+sending event [event-info={d4c7245271c104387f57bafabf7c7c33de38248b3ac04f2499db9882498bfddc init 4256 0 0001-01-01 00:00:00 +0000 UTC false <nil>} module=libcontainerd namespace=moby container=d4c7245271c104387f57bafabf7c7c33de38248b3ac04f2499db9882498bfddc event=start]
+sending event [container=1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd event=exit module=libcontainerd namespace=moby event-info={1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd init 3764 3221225786 2019-03-01 18:59:52.4809905 +0000 GMT m=+1448.096563601 false <nil>}]
+sending event [event-info={1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd init 3764 0 0001-01-01 00:00:00 +0000 UTC false <nil>} namespace=moby module=libcontainerd container=1885009e399aa542ad60bab063262196a804252010ab401967a6575cc7ccd1bd event=start]
+API listen on //./pipe/docker_engine
+Daemon has completed initialization
+starting telemetry service
+Docker daemon [version=18.09.2 commit=1ac774dfdd graphdriver(s)=windowsfilter]
+unable to lookup licensing details without a daemon.cluster
+Loading containers: done.
+Restoring existing overlay networks from HNS into docker
+Loading containers: start.
+Windows default isolation mode: process
+API listen on //./pipe/docker_engine
+Daemon has completed initialization
+starting telemetry service
+Docker daemon [version=18.09.2 commit=1ac774dfdd graphdriver(s)=windowsfilter]
+unable to lookup licensing details without a daemon.cluster
+Loading containers: done.
+Restoring existing overlay networks from HNS into docker
+Loading containers: start.
+Windows default isolation mode: process

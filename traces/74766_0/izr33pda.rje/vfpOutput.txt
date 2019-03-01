@@ -1,0 +1,2316 @@
+
+Port name                            MAC address       PortId
+---------                            -----------       ------
+1BB9FA70-5D42-4133-9694-4A96FA1E78B5 00-15-5D-40-DB-61 1     
+8DDAAA6C-429B-45F9-B0CC-4FF2606F27CA 42-01-0A-28-00-03 1     
+76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8 42-01-0A-28-00-03 2     
+A8C55E01-BC27-4693-9775-05E99674EDDF 00-15-5D-6E-A4-DD 3     
+FA8B1EA6-256D-425D-A2B0-2B3B568D8487 00-15-5D-6E-AA-98 4     
+
+
+Policy for port : 
+1BB9FA70-5D42-4133-9694-4A96FA1E78B5
+ERROR: failed to execute list-space
+Error (2): The system cannot find the file specified.
+
+ERROR: failed to execute list-mapping
+Error (2): The system cannot find the file specified.
+
+ERROR: failed to execute list-rule
+Error (2): The system cannot find the file specified.
+
+ERROR: failed to execute get-port-state
+Error (2): The system cannot find the file specified.
+
+ERROR: failed to execute list-nat-range
+Error (2): The system cannot find the file specified.
+
+Policy for port : 
+8DDAAA6C-429B-45F9-B0CC-4FF2606F27CA
+
+ ITEM LIST
+===========
+
+Command list-space succeeded!
+
+ ITEM LIST
+===========
+
+Command list-mapping succeeded!
+
+ ITEM LIST
+===========
+
+LAYER : EXTERNAL_L2_REWRITE_LAYER
+    Friendly name : EXTERNAL_L2_REWRITE_LAYER
+    Priority : 500
+
+  GROUP : EXTERNAL_L2_REWRITE_GROUP_IPV4_IN
+      Friendly name : EXTERNAL_L2_REWRITE_GROUP_IPV4_IN
+      Priority : 0
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Priority : 0
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Source MAC : 42-01-0A-28-00-03
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : A8C55E01-BC27-4693-9775-05E99674EDDF_to_EN
+        Priority : 200
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Source MAC : 00-15-5D-6E-A4-DD
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8_to_EN
+        Priority : 200
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Source MAC : 42-01-0A-28-00-03
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : FA8B1EA6-256D-425D-A2B0-2B3B568D8487_to_EN
+        Priority : 200
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Source MAC : 00-15-5D-6E-AA-98
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+  GROUP : EXTERNAL_L2_REWRITE_GROUP_IPV4_OUT
+      Friendly name : EXTERNAL_L2_REWRITE_GROUP_IPV4_OUT
+      Priority : 0
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : EN_to_A8C55E01-BC27-4693-9775-05E99674EDDF
+        Priority : 0
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.64.1.2
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 00-15-5D-6E-A4-DD
+        FlagsEx : 0 
+
+    RULE : EN_to_76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        Priority : 0
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : EN_to_FA8B1EA6-256D-425D-A2B0-2B3B568D8487
+        Priority : 0
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.64.1.4
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 00-15-5D-6E-AA-98
+        FlagsEx : 0 
+
+    RULE : 
+        Priority : 100
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination MAC : 00-00-00-00-00-00
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Priority : 100
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination MAC : 42-01-0A-28-00-03
+        Flow TTL: 0
+        FlagsEx : 0 
+
+Command list-rule succeeded!
+
+ ITEM LIST
+===========
+
+PORT STATE
+  Enabled : TRUE
+  Blocked : FALSE
+  BlockedOnRestore : TRUE
+  No Encapsulation Offloads Enabled
+
+Command get-port-state succeeded!
+
+ ITEM LIST
+===========
+
+Command list-nat-range succeeded!
+Policy for port : 
+76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+
+ ITEM LIST
+===========
+
+SPACE : 64736A7F-E9F0-4465-B861-7879393DDD22
+    Friendly name : VNET_ENCAP_SPACE
+
+SPACE : 6F3D540C-5645-4CAC-9351-79704512B06C
+    Friendly name : VNET_ENCAP_SPACE
+
+Command list-space succeeded!
+
+ ITEM LIST
+===========
+
+SPACE : 64736A7F-E9F0-4465-B861-7879393DDD22
+    Friendly name : VNET_ENCAP_SPACE
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.1.4
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 00-15-5D-6E-AA-98
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 35.224.3.221
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-23-E0-03-DD
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-03
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.8
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-08
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.4
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-04
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.9
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-09
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-02
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-02
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.1.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 00-15-5D-6E-A4-DD
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.40.0.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 42-01-0A-28-00-03
+
+SPACE : 6F3D540C-5645-4CAC-9351-79704512B06C
+    Friendly name : VNET_ENCAP_SPACE
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.40.0.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 42-01-0A-28-00-03
+
+Command list-mapping succeeded!
+
+ ITEM LIST
+===========
+
+LAYER : SNAT
+    Friendly name : SNAT
+    Flags : 0x9 Default Allow , Update flows on address change 
+    Priority : 200
+
+  GROUP : SNAT_IN
+      Friendly name : SNAT_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : ALLOW_GROUP
+        Priority : 65535
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 0
+        FlagsEx : 0 
+
+  GROUP : SNAT_OUT
+      Friendly name : SNAT_OUT
+      Priority : 100
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : Block_LoopBack0AD44_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.0.10
+            Destination IP : 10.0.0.10
+            Destination ports : 9153
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack187C0_10.40.0.3_10.40.0.3_31476_8080_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.40.0.3
+            Destination IP : 10.40.0.3
+            Destination ports : 31476
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack350F5_10.40.0.3_10.0.85.231_80_8082_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.85.231
+            Destination IP : 10.0.85.231
+            Destination ports : 80
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack3C109_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.0.10
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack6DE57_10.40.0.3_10.0.3.232_80_8080_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.3.232
+            Destination IP : 10.0.3.232
+            Destination ports : 80
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack804F3_10.40.0.3_10.0.214.116_443_8443_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.214.116
+            Destination IP : 10.0.214.116
+            Destination ports : 443
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBackE2B3F_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.0.1
+            Destination IP : 10.0.0.1
+            Destination ports : 443
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBackF2041_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.0.10
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBackFEC86_10.40.0.3_10.0.80.105_443_443_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.80.105
+            Destination IP : 10.0.80.105
+            Destination ports : 443
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_0AD44_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 9153
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.109153
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_187C0_10.40.0.3_10.40.0.3_31476_8080_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.40.0.3
+            Destination ports : 31476
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.40.0.331476
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_350F5_10.40.0.3_10.0.85.231_80_8082_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.85.231
+            Destination ports : 80
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.85.23180
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_3C109_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1053
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_6DE57_10.40.0.3_10.0.3.232_80_8080_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.3.232
+            Destination ports : 80
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.3.23280
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_804F3_10.40.0.3_10.0.214.116_443_8443_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.214.116
+            Destination ports : 443
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.214.116443
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_E2B3F_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.1
+            Destination ports : 443
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1443
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_FEC86_10.40.0.3_10.0.80.105_443_443_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.80.105
+            Destination ports : 443
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.80.105443
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_UDP_F2041_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 17
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_UDP_10.40.0.310.0.0.1053
+        FlagsEx : 0 
+
+LAYER : LB
+    Friendly name : LB
+    Flags : 0x1, Default Allow 
+    Priority : 300
+
+  GROUP : LB_IN
+      Friendly name : LB_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : ALLOW_GROUP
+        Priority : 65535
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 0
+        FlagsEx : 0 
+
+  GROUP : LB_OUT
+      Friendly name : LB_OUT
+      Priority : 100
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : LB_0AD44_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 9153
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 2
+        DIP Range(s) : 
+                { 10.64.2.2 : 9153 }
+                { 10.64.3.2 : 9153 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_187C0_10.40.0.3_10.40.0.3_31476_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.40.0.3
+            Destination ports : 31476
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.3.9 : 8080 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_350F5_10.40.0.3_10.0.85.231_80_8082_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.85.231
+            Destination ports : 80
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.2.4 : 8082 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_3C109_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 2
+        DIP Range(s) : 
+                { 10.64.2.2 : 53 }
+                { 10.64.3.2 : 53 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_6DE57_10.40.0.3_10.0.3.232_80_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.3.232
+            Destination ports : 80
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.3.9 : 8080 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_804F3_10.40.0.3_10.0.214.116_443_8443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.214.116
+            Destination ports : 443
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.3.8 : 8443 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_E2B3F_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.1
+            Destination ports : 443
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 35.224.3.221 : 443 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_F2041_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 17
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 2
+        DIP Range(s) : 
+                { 10.64.2.2 : 53 }
+                { 10.64.3.2 : 53 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_FEC86_10.40.0.3_10.0.80.105_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.80.105
+            Destination ports : 443
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.2.3 : 443 }
+        FlagsEx : 0 
+
+LAYER : DECAP_OUT
+    Friendly name : DECAP_OUT
+    Flags : 0x1, Default Allow 
+    Priority : 350
+
+  GROUP : DECAP_OUT
+      Friendly name : DECAP_OUT
+      Priority : 100
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : DECAP_Global
+        Priority : 100
+        Flags : 1 terminating 
+        Type : decap
+        Conditions:
+            Protocols : 252
+        Flow TTL: 0
+        FlagsEx : 0 
+
+LAYER : EXTERNAL_L2_REWRITE_ALLOW_LAYER
+    Friendly name : EXTERNAL_L2_REWRITE_ALLOW_LAYER
+    Flags : 0x1, Default Allow 
+    Priority : 500
+
+LAYER : DECAP_IN
+    Friendly name : DECAP_IN
+    Flags : 0x1, Default Allow 
+    Priority : 600
+
+  GROUP : DECAP_IN
+      Friendly name : DECAP_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : DECAP_Global
+        Priority : 100
+        Flags : 1 terminating 
+        Type : decap
+        Conditions:
+            Protocols : 252
+        Flow TTL: 0
+        FlagsEx : 0 
+
+LAYER : SLB_LB_LAYER
+    Friendly name : SLB_LB_LAYER
+    Flags : 0x1, Default Allow 
+    Priority : 700
+
+  GROUP : SLB_GROUP_LB_IPv4_OUT
+      Friendly name : SLB_GROUP_LB_IPv4_OUT
+      Priority : 300
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : NAT_CC2C6_10.40.0.3_64960_65023_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Destination IP : 10.40.0.3
+            Protocols : 6
+            Destination ports : 64960-65023
+        Flow TTL: 240
+        Rule Data:
+        Encapping packets
+        Encap Type: VXLAN
+        Using source PA MAC
+        Decrementing TTL
+        Fixing MAC
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.1.4 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : NAT_CC2C6_10.40.0.3_65408_65471_17
+        Priority : 1
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Destination IP : 10.40.0.3
+            Protocols : 17
+            Destination ports : 65408-65471
+        Flow TTL: 240
+        Rule Data:
+        Encapping packets
+        Encap Type: VXLAN
+        Using source PA MAC
+        Decrementing TTL
+        Fixing MAC
+        Map space : 64736A7F-E9F0-4465-B861-7879393DDD22
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.1.4 }
+        FlagsEx : 0 
+
+LAYER : VNET_PA_ROUTE_LAYER
+    Friendly name : VNET_PA_ROUTE_LAYER
+    Flags : 0x1, Default Allow 
+    Priority : 2000
+
+  GROUP : VNET_GROUP_PA_ROUTE_IPV4_OUT
+      Friendly name : VNET_GROUP_PA_ROUTE_IPV4_OUT
+      Priority : 200
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : 
+        Friendly name : PA_ROUTE_EXCEPTION
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : PA_ROUTE
+        Priority : 45535
+        Flags : 1 terminating 
+        Type : paroute
+        Conditions:
+            <none>
+        Flow TTL: 0
+        Rule Data:
+        VLAN ID: 0
+        Using default compartment
+        Cache pruning threshold: 10
+        Cache pruning timeout: 30 seconds
+        Using interface constraint with interface index: 14
+        FlagsEx : 0 
+
+  GROUP : VNET_GROUP_PA_ROUTE_IPV6_OUT
+      Friendly name : VNET_GROUP_PA_ROUTE_IPV6_OUT
+      Priority : 200
+      Direction : OUT
+      Type : IPv6
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : 
+        Friendly name : PA_ROUTE_EXCEPTION
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : PA_ROUTE
+        Priority : 45535
+        Flags : 1 terminating 
+        Type : paroute
+        Conditions:
+            <none>
+        Flow TTL: 0
+        Rule Data:
+        VLAN ID: 0
+        Using default compartment
+        Cache pruning threshold: 10
+        Cache pruning timeout: 30 seconds
+        Using interface constraint with interface index: 14
+        FlagsEx : 0 
+
+LAYER : SLB_HAIRPIN_LAYER
+    Friendly name : SLB_HAIRPIN_LAYER
+    Flags : 0x3 Hairpin Layer, Default Allow 
+    Priority : 101
+
+  GROUP : SLB_GROUP_HAIRPIN_IPv4_IN
+      Friendly name : SLB_GROUP_HAIRPIN_IPv4_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : HairPin_CC2C6_10.40.0.3_64960_65023_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.40.0.3
+            Destination ports : 64960-65023
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HairPin_CC2C6_10.40.0.3_65408_65471_17
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 17
+            Destination IP : 10.40.0.3
+            Destination ports : 65408-65471
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+  GROUP : LB_HAIRPIN_NON_DSR_IN
+      Friendly name : LB_HAIRPIN_NON_DSR_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : HP_DEST_0AD44_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 9153
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_187C0_10.40.0.3_10.40.0.3_31476_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.40.0.3
+            Destination ports : 31476
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_350F5_10.40.0.3_10.0.85.231_80_8082_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.85.231
+            Destination ports : 80
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_3C109_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_6DE57_10.40.0.3_10.0.3.232_80_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.3.232
+            Destination ports : 80
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_804F3_10.40.0.3_10.0.214.116_443_8443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.214.116
+            Destination ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_E2B3F_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.1
+            Destination ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_F2041_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 17
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_FEC86_10.40.0.3_10.0.80.105_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.80.105
+            Destination ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_0AD44_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.10
+            Source ports : 9153
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_187C0_10.40.0.3_10.40.0.3_31476_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.40.0.3
+            Source ports : 31476
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_350F5_10.40.0.3_10.0.85.231_80_8082_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.85.231
+            Source ports : 80
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_3C109_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.10
+            Source ports : 53
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_6DE57_10.40.0.3_10.0.3.232_80_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.3.232
+            Source ports : 80
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_804F3_10.40.0.3_10.0.214.116_443_8443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.214.116
+            Source ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_E2B3F_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.1
+            Source ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_F2041_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 17
+            Source IP : 10.0.0.10
+            Source ports : 53
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_FEC86_10.40.0.3_10.0.80.105_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.80.105
+            Source ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: 6FD6CD7D-85F7-40E7-A0B8-5FDBB4EBA164
+        Forward to Port: 76FA1268-4DD3-48DE-9E6E-7BA64B4D9AC8
+        FlagsEx : 0 
+
+Command list-rule succeeded!
+
+ ITEM LIST
+===========
+
+PORT STATE
+  Enabled : TRUE
+  Blocked : FALSE
+  BlockedOnRestore : TRUE
+  No Encapsulation Offloads Enabled
+
+Command get-port-state succeeded!
+
+ ITEM LIST
+===========
+
+NAT POOL : SLB_NATPOOL_IPV4_UDP_10.40.0.310.0.0.1053
+    Friendly name : SLB_NATPOOL_IPV4_UDP_10.40.0.310.0.0.1053
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Partially Used
+      Usage bitmap : 1111111111111100000000000000000000000000000000000000000000000000
+      Ip address : 10.40.0.3
+      Port range : 65472-65535
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.109153
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.109153
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 1350
+      Ip address : 10.40.0.3
+      Port range : 65024-65087
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1443
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1443
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Partially Used
+      Usage bitmap : 1000000000000000000000000000000000000000000000000000000000000000
+      Ip address : 10.40.0.3
+      Port range : 65088-65151
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.80.105443
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.80.105443
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 1350
+      Ip address : 10.40.0.3
+      Port range : 65152-65215
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.214.116443
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.214.116443
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 1350
+      Ip address : 10.40.0.3
+      Port range : 65216-65279
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.85.23180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.85.23180
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 1350
+      Ip address : 10.40.0.3
+      Port range : 65280-65343
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.40.0.331476
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.40.0.331476
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 1350
+      Ip address : 10.40.0.3
+      Port range : 65344-65407
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.3.23280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.3.23280
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 1350
+      Ip address : 10.40.0.3
+      Port range : 65408-65471
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1053
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1053
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 1350
+      Ip address : 10.40.0.3
+      Port range : 65472-65535
+      Reuse limit : 0
+
+Command list-nat-range succeeded!
+Policy for port : 
+A8C55E01-BC27-4693-9775-05E99674EDDF
+
+ ITEM LIST
+===========
+
+SPACE : 64736A7F-E9F0-4465-B861-7879393DDD22
+    Friendly name : VNET_ENCAP_SPACE
+
+Command list-space succeeded!
+
+ ITEM LIST
+===========
+
+SPACE : 64736A7F-E9F0-4465-B861-7879393DDD22
+    Friendly name : VNET_ENCAP_SPACE
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.1.4
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 00-15-5D-6E-AA-98
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 35.224.3.221
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-23-E0-03-DD
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-03
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.8
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-08
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.4
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-04
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.9
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-09
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-02
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-02
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.1.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 00-15-5D-6E-A4-DD
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.40.0.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 42-01-0A-28-00-03
+
+Command list-mapping succeeded!
+
+ ITEM LIST
+===========
+
+LAYER : ACL_ENDPOINT_LAYER
+    Friendly name : ACL_ENDPOINT_LAYER
+    Priority : 15
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV4_IN
+      Friendly name : ACL_ENDPOINT_GROUP_IPV4_IN
+      Priority : 1
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : F32AF423-AEA2-4DA2-8DE1-62E4C1C1F4CD
+        Friendly name : Container: DHCP client service allow inbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 68-68
+            Source ports : 67-67
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 5924EB88-B202-4D1C-BD5C-09B22D48A690
+        Friendly name : Container: Allow In Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV4_OUT
+      Friendly name : ACL_ENDPOINT_GROUP_IPV4_OUT
+      Priority : 2
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : BB0F3D50-DCC1-498E-9B06-5F20C29C7071
+        Friendly name : Container: DHCP client service allow outbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 67-67
+            Source ports : 68-68
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : DA329DD0-F7EF-4B2C-ADFF-2CF221A5B676
+        Friendly name : Container: Allow Out Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV6_IN
+      Friendly name : ACL_ENDPOINT_GROUP_IPV6_IN
+      Priority : 3
+      Direction : IN
+      Type : IPv6
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : E38B5928-95EA-4CFF-8FFA-E55E58220C58
+        Friendly name : Container: DHCP client service allow inbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 68-68
+            Source ports : 67-67
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 7EEE2CA6-8388-4EEC-A8D2-C0A70FB10B09
+        Friendly name : Container: Allow In Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV6_OUT
+      Friendly name : ACL_ENDPOINT_GROUP_IPV6_OUT
+      Priority : 4
+      Direction : OUT
+      Type : IPv6
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : 9A6CF4A3-625F-46EB-95A4-636890901FD9
+        Friendly name : Container: DHCP client service allow outbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 67-67
+            Source ports : 68-68
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : E71D66CF-BFB7-4BA9-9A65-0114998077DF
+        Friendly name : Container: Allow Out Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+LAYER : EXTERNAL_L2_REWRITE_ALLOW_LAYER
+    Friendly name : EXTERNAL_L2_REWRITE_ALLOW_LAYER
+    Flags : 0x1 Default Allow 
+    Priority : 500
+
+Command list-rule succeeded!
+
+ ITEM LIST
+===========
+
+PORT STATE
+  Enabled : TRUE
+  Blocked : FALSE
+  BlockedOnRestore : TRUE
+  No Encapsulation Offloads Enabled
+
+Command get-port-state succeeded!
+
+ ITEM LIST
+===========
+
+Command list-nat-range succeeded!
+Policy for port : 
+FA8B1EA6-256D-425D-A2B0-2B3B568D8487
+
+ ITEM LIST
+===========
+
+SPACE : 64736A7F-E9F0-4465-B861-7879393DDD22
+    Friendly name : VNET_ENCAP_SPACE
+
+Command list-space succeeded!
+
+ ITEM LIST
+===========
+
+SPACE : 64736A7F-E9F0-4465-B861-7879393DDD22
+    Friendly name : VNET_ENCAP_SPACE
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.1.4
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 00-15-5D-6E-AA-98
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 35.224.3.221
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-23-E0-03-DD
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-03
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.8
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-08
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.4
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-04
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.9
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-09
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.3.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-03-02
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.2.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-02-02
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.1.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 00-15-5D-6E-A4-DD
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.40.0.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 42-01-0A-28-00-03
+
+Command list-mapping succeeded!
+
+ ITEM LIST
+===========
+
+LAYER : ACL_ENDPOINT_LAYER
+    Friendly name : ACL_ENDPOINT_LAYER
+    Priority : 15
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV4_IN
+      Friendly name : ACL_ENDPOINT_GROUP_IPV4_IN
+      Priority : 1
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : 31B97C6C-6F5B-408F-B0E7-92E2187107E6
+        Friendly name : Container: DHCP client service allow inbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 68-68
+            Source ports : 67-67
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 49BACC15-4617-4D99-87AC-BA4E69666F73
+        Friendly name : Container: Allow In Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV4_OUT
+      Friendly name : ACL_ENDPOINT_GROUP_IPV4_OUT
+      Priority : 2
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : 1F162094-8FB1-4425-9A67-E2CFB9CAA7EE
+        Friendly name : Container: DHCP client service allow outbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 67-67
+            Source ports : 68-68
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : CA6C4E12-D388-45E6-B3E7-6F7064122B03
+        Friendly name : Container: Allow Out Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV6_IN
+      Friendly name : ACL_ENDPOINT_GROUP_IPV6_IN
+      Priority : 3
+      Direction : IN
+      Type : IPv6
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : D311937E-F332-46FE-A311-CF94B3711FF1
+        Friendly name : Container: DHCP client service allow inbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 68-68
+            Source ports : 67-67
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 8BF07C20-09A0-45AB-ACB6-3548DBC4AE64
+        Friendly name : Container: Allow In Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV6_OUT
+      Friendly name : ACL_ENDPOINT_GROUP_IPV6_OUT
+      Priority : 4
+      Direction : OUT
+      Type : IPv6
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : EDE49E6F-2AD6-49DE-915E-7D28E404D22B
+        Friendly name : Container: DHCP client service allow outbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 67-67
+            Source ports : 68-68
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : FBF7EF76-C0A5-4AF0-B2D6-B6E1871A71D4
+        Friendly name : Container: Allow Out Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+LAYER : SLB_NAT_LAYER
+    Friendly name : SLB_NAT_LAYER
+    Flags : 0x9 Default Allow , Update flows on address change 
+    Priority : 50
+
+  GROUP : SLB_GROUP_NAT_IPv4_IN
+      Friendly name : SLB_GROUP_NAT_IPv4_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : NAT_Allow
+        Priority : 65535
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 0
+        FlagsEx : 0 
+
+  GROUP : SLB_GROUP_NAT_IPv4_OUT
+      Friendly name : SLB_GROUP_NAT_IPv4_OUT
+      Priority : 300
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : EXCEPTIONS_OUTBOUNDNAT_CC2C6_10.40.0.310.0.0.0
+        Priority : 0
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination IP : 10.0.0.0-10.0.255.255
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : EXCEPTIONS_OUTBOUNDNAT_CC2C6_10.40.0.310.40.0.0
+        Priority : 0
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination IP : 10.40.0.0-10.40.3.255
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : EXCEPTIONS_OUTBOUNDNAT_CC2C6_10.40.0.310.40.0.3
+        Priority : 0
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination IP : 10.40.0.3
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : EXCEPTIONS_OUTBOUNDNAT_CC2C6_10.40.0.310.64.0.0
+        Priority : 0
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination IP : 10.64.0.0-10.67.255.255
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : EXCEPTIONS_OUTBOUNDNAT_CC2C6_10.40.0.310.64.1.1
+        Priority : 0
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination IP : 10.64.1.0-10.64.1.255
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_OUTBOUNDNAT_CC2C6_10.40.0.3
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Source IP : 10.64.1.4
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.64.1.410.40.0.30
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_UDP_OUTBOUNDNAT_CC2C6_10.40.0.3
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 17
+            Source IP : 10.64.1.4
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_UDP_10.64.1.410.40.0.30
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : ALLOW_OUTBOUNDNAT_CC2C6_10.40.0.3
+        Priority : 65535
+        Flags : 3 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : NAT_Allow
+        Priority : 65535
+        Flags : 3 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 0
+        FlagsEx : 0 
+
+LAYER : SLB_DECAP_LAYER_STATEFUL
+    Friendly name : SLB_DECAP_LAYER_STATEFUL
+    Flags : 0x9, Default Allow , Update flows on address change 
+    Priority : 100
+
+  GROUP : SLB_GROUP_DECAP_IPv4_IN
+      Friendly name : SLB_GROUP_DECAP_IPv4_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : SLB_DECAP_252_10.40.0.3
+        Priority : 101
+        Flags : 257 terminating 
+        Type : decap
+        Conditions:
+            Protocols : 252
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Preserve MAC
+        FlagsEx : 0 
+
+  GROUP : SLB_GROUP_DECAP_IPv4_OUT
+      Friendly name : SLB_GROUP_DECAP_IPv4_OUT
+      Priority : 300
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : SLB_DECAP_Allow_All
+        Priority : 65535
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 0
+        FlagsEx : 0 
+
+LAYER : EXTERNAL_L2_REWRITE_ALLOW_LAYER
+    Friendly name : EXTERNAL_L2_REWRITE_ALLOW_LAYER
+    Flags : 0x1, Default Allow 
+    Priority : 500
+
+LAYER : CUSTOMER_ROUTE
+    Friendly name : CUSTOMER_ROUTE
+    Flags : 0x1, Default Allow 
+    Priority : 1500
+
+  GROUP : CUSTOMER_ROUTE_OUT
+      Friendly name : CUSTOMER_ROUTE_OUT
+      Priority : 100
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : Route_1DA1C_10.0.0.0_16_42-01-0A-28-00-03
+        Priority : 45532
+        Flags : 1 terminating 
+        Type : routeencap
+        Conditions:
+            Destination IP : 10.0.0.0-10.0.255.255
+        Flow TTL: 0
+        Rule Data:
+        Encap Type: VXLAN
+        Fixing inner MAC
+        Using source PA MAC
+        Decrementing TTL
+        Encap Source IP : 10.40.0.3
+        Encap Destination(s) : 
+            { IP address=10.40.0.3, MAC address=42-01-0A-28-00-03, GRE key=0 }
+
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Route_A0A2C_10.40.0.3_32_42-01-0A-28-00-03
+        Priority : 45532
+        Flags : 1 terminating 
+        Type : routeencap
+        Conditions:
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Rule Data:
+        Encap Type: VXLAN
+        Fixing inner MAC
+        Using source PA MAC
+        Decrementing TTL
+        Encap Source IP : 10.40.0.3
+        Encap Destination(s) : 
+            { IP address=10.40.0.3, MAC address=42-01-0A-28-00-03, GRE key=0 }
+
+        FlagsEx : 0 
+
+LAYER : VNET_PA_ROUTE_LAYER
+    Friendly name : VNET_PA_ROUTE_LAYER
+    Flags : 0x1, Default Allow 
+    Priority : 2000
+
+  GROUP : VNET_GROUP_PA_ROUTE_IPV4_OUT
+      Friendly name : VNET_GROUP_PA_ROUTE_IPV4_OUT
+      Priority : 200
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : PA_ALLOW_DIRECT_OUTBOUNDNAT_CC2C6_10.40.0.3
+        Priority : 1
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Source IP : 10.64.1.4
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : PA_ROUTE_EXCEPTION
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : PA_ROUTE
+        Priority : 45535
+        Flags : 1 terminating 
+        Type : paroute
+        Conditions:
+            <none>
+        Flow TTL: 0
+        Rule Data:
+        VLAN ID: 0
+        Using default compartment
+        Cache pruning threshold: 10
+        Cache pruning timeout: 30 seconds
+        Using interface constraint with interface index: 14
+        FlagsEx : 0 
+
+Command list-rule succeeded!
+
+ ITEM LIST
+===========
+
+PORT STATE
+  Enabled : TRUE
+  Blocked : FALSE
+  BlockedOnRestore : TRUE
+  No Encapsulation Offloads Enabled
+
+Command get-port-state succeeded!
+
+ ITEM LIST
+===========
+
+NAT POOL : SLB_NATPOOL_IPV4_UDP_10.64.1.410.40.0.30
+    Friendly name : SLB_NATPOOL_IPV4_UDP_10.64.1.410.40.0.30
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 78
+      Ip address : 10.40.0.3
+      Port range : 65408-65471
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.64.1.410.40.0.30
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.64.1.410.40.0.30
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Partially Used
+      Usage bitmap : 1100000000000000000000000000000000000000000000000000000000000000
+      Ip address : 10.40.0.3
+      Port range : 64960-65023
+      Reuse limit : 0
+
+Command list-nat-range succeeded!
