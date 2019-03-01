@@ -1,0 +1,30 @@
+# You can run a pod with the e2eteam/nettest:1.0 image (which should listen on
+# <podIP>:8080) and create another pod on a different node (linux would be
+# easier) to curl the http server:
+#   curl http://<pod_ip>:8080/read
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: windows-nettest
+  labels:
+    app: nettest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nettest
+  template:
+    metadata:
+      labels:
+        app: nettest
+    spec:
+      containers:
+      - name: nettest
+        image: e2eteam/nettest:1.0
+      nodeSelector:
+        beta.kubernetes.io/os: windows
+      tolerations:
+      - effect: NoSchedule
+        key: node.kubernetes.io/os
+        operator: Equal
+        value: windows
