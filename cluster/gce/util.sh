@@ -1459,13 +1459,25 @@ EOF
 
 function build-windows-kube-env {
   local file="$1"
+
+  # DEV ONLY: We don't build Windows binaries in our CI test job yet; allow
+  # overriding the setting to use the release node binaries.
+  if [[ -n "${OVERRIDE_NODE_BINARY_TAR_URL:-}" ]]; then
+    local node_binary_tar_url=${OVERRIDE_NODE_BINARY_TAR_URL}
+    local node_binary_tar_hash=
+  else
+    local node_binary_tar_url=${NODE_BINARY_TAR_URL}
+    local node_binary_tar_hash=${NODE_BINARY_TAR_HASH}
+  fi
+  echo "Using Windows node binaries at: ${node_binary_tar_url}"
+
   # For now the Windows kube-env is a superset of the Linux kube-env.
   build-linux-kube-env false $file
 
   cat >>$file <<EOF
 WINDOWS_NODE_INSTANCE_PREFIX: $(yaml-quote ${WINDOWS_NODE_INSTANCE_PREFIX})
-NODE_BINARY_TAR_URL: $(yaml-quote ${NODE_BINARY_TAR_URL})
-NODE_BINARY_TAR_HASH: $(yaml-quote ${NODE_BINARY_TAR_HASH})
+NODE_BINARY_TAR_URL: $(yaml-quote ${node_binary_tar_url})
+NODE_BINARY_TAR_HASH: $(yaml-quote ${node_binary_tar_hash})
 K8S_DIR: $(yaml-quote ${WINDOWS_K8S_DIR})
 NODE_DIR: $(yaml-quote ${WINDOWS_NODE_DIR})
 LOGS_DIR: $(yaml-quote ${WINDOWS_LOGS_DIR})
