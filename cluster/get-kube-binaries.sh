@@ -206,7 +206,7 @@ echo "Will download ${SERVER_TAR} from ${DOWNLOAD_URL_PREFIX}"
 echo "Will download and extract ${CLIENT_TAR} from ${DOWNLOAD_URL_PREFIX}"
 
 DOWNLOAD_NODE_TAR=false
-if [[ -n "${NODE_TAR:-}" ]]; then
+if [[ -n "${NODE_TAR:-}" && -z "${OVERRIDE_NODE_BINARY_TAR_URL:-}" ]]; then
   DOWNLOAD_NODE_TAR=true
   echo "Will download and extract ${NODE_TAR} from ${DOWNLOAD_URL_PREFIX}"
 fi
@@ -257,6 +257,10 @@ if "${DOWNLOAD_TESTS_TAR}"; then
     for TUPLE in $(printf "%s\n" "${TEST_PLATFORM_TUPLES[@]}" | sort -u); do
         OS=$(echo "${TUPLE}" | cut -d/ -f1)
         ARCH=$(echo "${TUPLE}" | cut -d/ -f2)
+        if [[ -n "${OVERRIDE_NODE_BINARY_TAR_URL:-}" && "${OS}" == "windows" ]]; then
+          # Don't attempt to download kubernetes-test-windows-amd64.tar.gz.
+          continue
+        fi
         TEST_PLATFORM_TAR="kubernetes-test-${OS}-${ARCH}.tar.gz"
         download_tarball "${KUBE_ROOT}/test" "${TEST_PLATFORM_TAR}"
         extract_arch_tarball "${KUBE_ROOT}/test/${TEST_PLATFORM_TAR}" "${OS}" "${ARCH}"

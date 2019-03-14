@@ -323,7 +323,7 @@ function find-tar() {
 #   KUBE_MANIFESTS_TAR
 function find-release-tars() {
   SERVER_BINARY_TAR=$(find-tar kubernetes-server-linux-amd64.tar.gz)
-  if [[ "${NUM_WINDOWS_NODES}" -gt "0" ]]; then
+  if [[ "${NUM_WINDOWS_NODES}" -gt "0" && -z "${OVERRIDE_NODE_BINARY_TAR_URL:-}" ]]; then
     NODE_BINARY_TAR=$(find-tar kubernetes-node-windows-amd64.tar.gz)
   fi
 
