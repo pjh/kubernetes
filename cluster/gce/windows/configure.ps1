@@ -84,7 +84,37 @@ function FetchAndImport-ModuleFromMetadata {
   Import-Module -Force C:\$Filename
 }
 
+# Installs an NTFS test driver to debug
+# https://github.com/kubernetes/kubernetes/issues/75148. The first time this
+# function is called it will reboot the node; on subsequent calls it will do
+# nothing and return.
+function Install-NtfsTestDriver {
+  $DRIVER_DIR = "${env:windir}\system32\drivers"
+  if (Test-Path $DRIVER_DIR\75148.txt) {
+    Write-Host 'NTFS test driver already installed'
+    return
+  }
+  New-Item -ItemType file -Force $DRIVER_DIR\75148.txt | Out-Null
+
+  Write-Host 'Enabling test signed drivers.'
+  bcdedit /set testsigning on
+
+  gsutil cp gs://eca21b94-46ad-11e9-bad7/ntfs.driver $DRIVER_DIR\ntfs.driver
+  gsutil cp gs://eca21b94-46ad-11e9-bad7/sfpcopy.executable `
+      $DRIVER_DIR\sfpcopy.exe
+
+  Write-Host 'Installing test NTFS.sys driver'
+  cp $DRIVER_DIR\ntfs.sys $DRIVER_DIR\ntfs.sys.original
+  & $DRIVER_DIR\sfpcopy.exe $DRIVER_DIR\ntfs.driver $DRIVER_DIR\ntfs.sys
+  ls $DRIVER_DIR\ntfs* | Out-String
+
+  Write-Host 'Rebooting node after NTFS test driver installation'
+  Restart-Computer
+}
+
 try {
+  Install-NtfsTestDriver
+
   # Don't use FetchAndImport-ModuleFromMetadata for common.psm1 - the common
   # module includes variables and functions that any other function may depend
   # on.
