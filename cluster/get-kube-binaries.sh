@@ -178,7 +178,7 @@ echo "Will download ${SERVER_TAR} from ${DOWNLOAD_URL_PREFIX}"
 echo "Will download and extract ${CLIENT_TAR} from ${DOWNLOAD_URL_PREFIX}"
 
 DOWNLOAD_NODE_TAR=false
-if [[ -n "${NODE_TAR:-}" ]]; then
+if [[ -n "${NODE_TAR:-}" && -z "${OVERRIDE_NODE_BINARY_TAR_URL}" ]]; then
   DOWNLOAD_NODE_TAR=true
   echo "Will download and extract ${NODE_TAR} from ${DOWNLOAD_URL_PREFIX}"
 fi
