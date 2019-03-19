@@ -287,6 +287,8 @@ function Download-HelperScripts {
   }
   MustDownload-File -OutFile ${env:K8S_DIR}\hns.psm1 `
     -URLs "https://github.com/Microsoft/SDN/raw/master/Kubernetes/windows/hns.psm1"
+  MustDownload-File -OutFile C:\collectlogs.ps1 `
+    -URLs "https://github.com/Microsoft/SDN/raw/master/Kubernetes/windows/debug/collectlogs.ps1"
 }
 
 # Takes the Windows version string from the cluster bash scripts (e.g.

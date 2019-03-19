@@ -21,6 +21,8 @@ import (
 	"fmt"
 	"os"
 	"sync"
+	"os/exec"
+	"strings"
 	"time"
 
 	cadvisorapi "github.com/google/cadvisor/info/v1"
@@ -689,6 +691,12 @@ func (m *kubeGenericRuntimeManager) SyncPod(pod *v1.Pod, podStatus *kubecontaine
 		result.AddSyncResult(createSandboxResult)
 		podSandboxID, msg, err = m.createPodSandbox(pod, podContainerChanges.Attempt)
 		if err != nil {
+			if strings.Contains(err.Error(), "Element not found") {
+				klog.Infof("Caught Element not found error: %v", err)
+				cmd := exec.Command("powershell", "/c", `C:\collectlogs.ps1`)
+				output, execErr := cmd.CombinedOutput()
+				klog.Infof("Ran collectlogs.ps1; output: %v, err: %v", string(output), execErr)
+			}
 			createSandboxResult.Fail(kubecontainer.ErrCreatePodSandbox, msg)
 			klog.Errorf("createPodSandbox for pod %q failed: %v", format.Pod(pod), err)
 			ref, referr := ref.GetReference(legacyscheme.Scheme, pod)
