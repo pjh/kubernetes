@@ -1,0 +1,39 @@
+-- Logs begin at Tue 2019-03-19 16:46:07 UTC, end at Tue 2019-03-19 20:08:38 UTC. --
+Mar 19 16:46:19.784277 e2e-test-peterhornyack-minion-group-413w systemd[1]: Starting Download and install k8s binaries and configurations...
+Mar 19 16:46:19.856141 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Start to install kubernetes files
+Mar 19 16:46:19.946314 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Downloading Kubelet config file, if it exists
+Mar 19 16:46:19.960490 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Downloading binary release tar
+Mar 19 16:46:20.001868 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Mar 19 16:46:20.002254 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:                                  Dload  Upload   Total   Spent    Left  Speed
+Mar 19 16:46:25.593099 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: [632B blob data]
+Mar 19 16:46:29.307864 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: == Downloaded https://storage.googleapis.com/kubernetes-staging-7b7212123a/e2e-test-peterhornyack-devel/kubernetes-server-linux-amd64.tar.gz (SHA1 = bf3bc6e7b857530873efe2168f086a8637e4dd54) ==
+Mar 19 16:46:51.777948 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Start loading kube-system docker images
+Mar 19 16:46:51.778479 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Try to load docker image file /home/kubernetes/kube-docker-files/kube-proxy.tar
+Mar 19 16:46:58.820327 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Loaded image: k8s.gcr.io/kube-proxy:v1.15.0-alpha.0.1217_13f77e8589cd67-dirty
+Mar 19 16:46:59.023308 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Downloading node-problem-detector-v0.6.0.tar.gz.
+Mar 19 16:46:59.048949 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Mar 19 16:46:59.049357 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:                                  Dload  Upload   Total   Spent    Left  Speed
+Mar 19 16:46:59.280963 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: [158B blob data]
+Mar 19 16:46:59.337935 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: == Downloaded https://storage.googleapis.com/kubernetes-release/node-problem-detector/node-problem-detector-v0.6.0.tar.gz (SHA1 = a28e960a21bb74bc0ae09c267b6a340f30e5b3a6) ==
+Mar 19 16:46:59.835047 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Downloading cni binaries
+Mar 19 16:46:59.859539 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Mar 19 16:46:59.859923 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:                                  Dload  Upload   Total   Spent    Left  Speed
+Mar 19 16:47:00.237170 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: [158B blob data]
+Mar 19 16:47:00.283588 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: == Downloaded https://storage.googleapis.com/kubernetes-release/network-plugins/cni-plugins-amd64-v0.6.0.tgz (SHA1 = d595d3ded6499a64e8dac02466e2f5f2ce257c9f) ==
+Mar 19 16:47:00.783027 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Downloading k8s manifests tar
+Mar 19 16:47:00.808716 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Mar 19 16:47:00.810555 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:                                  Dload  Upload   Total   Spent    Left  Speed
+Mar 19 16:47:00.857200 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: [158B blob data]
+Mar 19 16:47:00.862493 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: == Downloaded https://storage.googleapis.com/kubernetes-staging-7b7212123a/e2e-test-peterhornyack-devel/kubernetes-manifests.tar.gz (SHA1 = f10e95f965f0e33dafaa33609efb1c988ff6843a) ==
+Mar 19 16:47:00.882727 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Downloading gci mounter tools.
+Mar 19 16:47:00.910312 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Mar 19 16:47:00.910682 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:                                  Dload  Upload   Total   Spent    Left  Speed
+Mar 19 16:47:01.850828 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: [237B blob data]
+Mar 19 16:47:02.594148 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: == Downloaded https://storage.googleapis.com/kubernetes-release/gci-mounter/mounter.tar (SHA1 = 8003b798cf33c7f91320cd6ee5cec4fa22244571) ==
+Mar 19 16:47:03.965458 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Downloading crictl
+Mar 19 16:47:03.992118 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Mar 19 16:47:03.994177 e2e-test-peterhornyack-minion-group-413w configure.sh[784]:                                  Dload  Upload   Total   Spent    Left  Speed
+Mar 19 16:47:04.177203 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: [158B blob data]
+Mar 19 16:47:04.257933 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: == Downloaded https://storage.googleapis.com/kubernetes-release/crictl/crictl-v1.12.0-linux-amd64 (SHA1 = 82ef8b44849f9da0589c87e9865d4716573eec7f) ==
+Mar 19 16:47:04.641839 e2e-test-peterhornyack-minion-group-413w configure.sh[784]: Done for installing kubernetes files
+Mar 19 16:47:04.643666 e2e-test-peterhornyack-minion-group-413w systemd[1]: Started Download and install k8s binaries and configurations.

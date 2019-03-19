@@ -1,0 +1,116 @@
+I0319 16:43:02.845727       1 main.go:65] Starting GLBC image: "v1.2.3", cluster name ""
+I0319 16:43:02.845811       1 main.go:66] Latest commit hash: "e75c466c7ddb99205c48f1e48cae50ee5b4642e1"
+I0319 16:43:02.845818       1 main.go:68] argv[0]: "/glbc"
+I0319 16:43:02.845824       1 main.go:68] argv[1]: "--gce-ratelimit=ga.Operations.Get,qps,10,100"
+I0319 16:43:02.845829       1 main.go:68] argv[2]: "--gce-ratelimit=alpha.Operations.Get,qps,10,100"
+I0319 16:43:02.845834       1 main.go:68] argv[3]: "--gce-ratelimit=ga.BackendServices.Get,qps,1.8,1"
+I0319 16:43:02.845840       1 main.go:68] argv[4]: "--gce-ratelimit=ga.HealthChecks.Get,qps,1.8,1"
+I0319 16:43:02.845845       1 main.go:68] argv[5]: "--gce-ratelimit=alpha.HealthChecks.Get,qps,1.8,1"
+I0319 16:43:02.845850       1 main.go:68] argv[6]: "--gce-ratelimit=beta.NetworkEndpointGroups.Get,qps,1.8,1"
+I0319 16:43:02.845856       1 main.go:68] argv[7]: "--gce-ratelimit=beta.NetworkEndpointGroups.AttachNetworkEndpoints,qps,1.8,1"
+I0319 16:43:02.845862       1 main.go:68] argv[8]: "--gce-ratelimit=beta.NetworkEndpointGroups.DetachNetworkEndpoints,qps,1.8,1"
+I0319 16:43:02.845868       1 main.go:68] argv[9]: "--gce-ratelimit=beta.NetworkEndpointGroups.ListNetworkEndpoints,qps,1.8,1"
+I0319 16:43:02.845874       1 main.go:68] argv[10]: "--verbose"
+I0319 16:43:02.845879       1 main.go:68] argv[11]: "--apiserver-host=http://localhost:8080"
+I0319 16:43:02.845884       1 main.go:68] argv[12]: "--default-backend-service=kube-system/default-http-backend"
+I0319 16:43:02.845890       1 main.go:68] argv[13]: "--sync-period=600s"
+I0319 16:43:02.845895       1 main.go:68] argv[14]: "--running-in-cluster=false"
+I0319 16:43:02.845899       1 main.go:68] argv[15]: "--use-real-cloud=true"
+I0319 16:43:02.845904       1 main.go:68] argv[16]: "--config-file-path=/etc/gce.conf"
+I0319 16:43:02.845909       1 main.go:68] argv[17]: "--healthz-port=8086"
+I0319 16:43:02.845915       1 main.go:71] Flags = {APIServerHost:http://localhost:8080 ClusterName: ConfigFilePath:/etc/gce.conf DefaultSvcHealthCheckPath:/healthz DefaultSvc:kube-system/default-http-backend DefaultSvcPortName:http DeleteAllOnQuit:false GCERateLimit:{specs:[ga.Operations.Get,qps,10,100 alpha.Operations.Get,qps,10,100 ga.BackendServices.Get,qps,1.8,1 ga.HealthChecks.Get,qps,1.8,1 alpha.HealthChecks.Get,qps,1.8,1 beta.NetworkEndpointGroups.Get,qps,1.8,1 beta.NetworkEndpointGroups.AttachNetworkEndpoints,qps,1.8,1 beta.NetworkEndpointGroups.DetachNetworkEndpoints,qps,1.8,1 beta.NetworkEndpointGroups.ListNetworkEndpoints,qps,1.8,1] isSet:true} HealthCheckPath:/ HealthzPort:8086 Features:0x2960056 InCluster:false IngressClass: KubeConfigFile: ResyncPeriod:10m0s Verbose:true Version:false WatchNamespace: NodePortRanges:{ports:[30000-32767] isSet:false} EnableBackendConfig:false LeaderElection:{LeaderElectionConfiguration:{LeaderElect:true LeaseDuration:{Duration:15s} RenewDeadline:{Duration:10s} RetryPeriod:{Duration:2s} ResourceLock:configmaps} LockObjectNamespace:kube-system LockObjectName:ingress-gce-lock}}
+I0319 16:43:02.845965       1 clients.go:54] Using APIServerHost="http://localhost:8080", KubeConfig=""
+I0319 16:43:02.846795       1 clients.go:63] Reading config from path "/etc/gce.conf"
+I0319 16:43:02.846982       1 gce.go:251] Using GCE provider config &{Global:{TokenURL: TokenBody: ProjectID:peterhornyack-kubernetes-test NetworkProjectID:peterhornyack-kubernetes-test NetworkName:e2e-test-peterhornyack SubnetworkName:e2e-test-peterhornyack-subnet-default SecondaryRangeName: NodeTags:[e2e-test-peterhornyack-minion] NodeInstancePrefix:e2e-test-peterhornyack-minion Multizone:false ApiEndpoint: LocalZone: AlphaFeatures:[]}}
+I0319 16:43:02.860787       1 gce.go:849] Using existing Token Source &oauth2.reuseTokenSource{new:google.computeSource{account:""}, mu:sync.Mutex{state:0, sema:0x0}, t:(*oauth2.Token)(nil)}
+I0319 16:43:02.868276       1 gce.go:849] Using existing Token Source &oauth2.reuseTokenSource{new:google.computeSource{account:""}, mu:sync.Mutex{state:0, sema:0x0}, t:(*oauth2.Token)(0xc420079e00)}
+I0319 16:43:02.868316       1 gce.go:849] Using existing Token Source &oauth2.reuseTokenSource{new:google.computeSource{account:""}, mu:sync.Mutex{state:0, sema:0x0}, t:(*oauth2.Token)(0xc420079e00)}
+I0319 16:43:02.868402       1 ratelimit.go:60] Configured rate limiting for: { Get ga Operations}
+I0319 16:43:02.868415       1 ratelimit.go:60] Configured rate limiting for: { Get alpha Operations}
+I0319 16:43:02.868422       1 ratelimit.go:60] Configured rate limiting for: { Get ga BackendServices}
+I0319 16:43:02.868428       1 ratelimit.go:60] Configured rate limiting for: { Get ga HealthChecks}
+I0319 16:43:02.868434       1 ratelimit.go:60] Configured rate limiting for: { Get alpha HealthChecks}
+I0319 16:43:02.868440       1 ratelimit.go:60] Configured rate limiting for: { Get beta NetworkEndpointGroups}
+I0319 16:43:02.868447       1 ratelimit.go:60] Configured rate limiting for: { AttachNetworkEndpoints beta NetworkEndpointGroups}
+I0319 16:43:02.868453       1 ratelimit.go:60] Configured rate limiting for: { DetachNetworkEndpoints beta NetworkEndpointGroups}
+I0319 16:43:02.868463       1 ratelimit.go:60] Configured rate limiting for: { ListNetworkEndpoints beta NetworkEndpointGroups}
+I0319 16:43:03.219278       1 leaderelection.go:175] attempting to acquire leader lease  kube-system/ingress-gce-lock...
+I0319 16:43:03.219733       1 handlers.go:45] Running http server on :8086
+E0319 16:43:13.487265       1 leaderelection.go:228] error initially creating leader election record: namespaces "kube-system" not found
+I0319 16:43:16.681719       1 leaderelection.go:184] successfully acquired lease kube-system/ingress-gce-lock
+I0319 16:43:16.689617       1 event.go:218] Event(v1.ObjectReference{Kind:"ConfigMap", Namespace:"kube-system", Name:"ingress-gce-lock", UID:"1853a1d9-4a66-11e9-8094-42010a280002", APIVersion:"v1", ResourceVersion:"156", FieldPath:""}): type: 'Normal' reason: 'LeaderElection' e2e-test-peterhornyack-master_25610 became leader
+I0319 16:43:16.703187       1 configmaps.go:108] Successfully stored key uid = f3d304668dc65ceb in config map kube-system/ingress-uid
+I0319 16:43:16.704833       1 configmaps.go:67] Found config map kube-system/ingress-uid but it doesn't contain key provider-uid: map[uid:f3d304668dc65ceb]
+I0319 16:43:16.704857       1 namer.go:134] Using cluster UID f3d304668dc65ceb as firewall name
+I0319 16:43:16.706092       1 configmaps.go:95] Configmap kube-system/ingress-uid has key provider-uid but wrong value , updating to f3d304668dc65ceb
+I0319 16:43:16.708754       1 configmaps.go:108] Successfully stored key provider-uid = f3d304668dc65ceb in config map kube-system/ingress-uid
+I0319 16:43:16.708773       1 namer.go:139] Changing cluster name from "" to "f3d304668dc65ceb"
+I0319 16:43:16.708782       1 namer.go:149] Changing firewall name from "" to "f3d304668dc65ceb"
+I0319 16:43:16.708797       1 init.go:62] Checking existance of default backend service "kube-system/default-http-backend"
+I0319 16:43:34.723897       1 controller.go:181] Created new loadbalancer controller
+I0319 16:43:34.723935       1 main.go:179] Cluster name: f3d304668dc65ceb
+I0319 16:43:34.723943       1 main.go:182] clusterManager initialized
+I0319 16:43:34.728577       1 main.go:188] negController started
+I0319 16:43:34.728608       1 controller.go:230] Starting loadbalancer controller
+I0319 16:43:34.737177       1 handlers.go:53] SIGTERM handler registered
+I0319 16:43:34.737558       1 reflector.go:202] Starting reflector *v1beta1.Ingress (10m0s) from k8s.io/ingress-gce/pkg/context/context.go:157
+I0319 16:43:34.737585       1 reflector.go:240] Listing and watching *v1beta1.Ingress from k8s.io/ingress-gce/pkg/context/context.go:157
+I0319 16:43:34.738739       1 reflector.go:202] Starting reflector *v1.Service (10m0s) from k8s.io/ingress-gce/pkg/context/context.go:158
+I0319 16:43:34.738761       1 reflector.go:240] Listing and watching *v1.Service from k8s.io/ingress-gce/pkg/context/context.go:158
+I0319 16:43:34.740097       1 reflector.go:202] Starting reflector *v1.Pod (10m0s) from k8s.io/ingress-gce/pkg/context/context.go:159
+I0319 16:43:34.740129       1 reflector.go:240] Listing and watching *v1.Pod from k8s.io/ingress-gce/pkg/context/context.go:159
+I0319 16:43:34.740629       1 reflector.go:202] Starting reflector *v1.Node (10m0s) from k8s.io/ingress-gce/pkg/context/context.go:160
+I0319 16:43:34.740641       1 reflector.go:240] Listing and watching *v1.Node from k8s.io/ingress-gce/pkg/context/context.go:160
+I0319 16:43:34.740875       1 reflector.go:202] Starting reflector *v1.Endpoints (10m0s) from k8s.io/ingress-gce/pkg/context/context.go:162
+I0319 16:43:34.740885       1 reflector.go:240] Listing and watching *v1.Endpoints from k8s.io/ingress-gce/pkg/context/context.go:162
+I0319 16:43:39.737259       1 controller.go:145] Waiting for initial sync
+I0319 16:43:39.737336       1 controller.go:149] Starting network endpoint group controller
+I0319 16:43:39.737359       1 manager.go:167] Start NEG garbage collection.
+I0319 16:43:39.888376       1 manager.go:177] NEG garbage collection finished.
+I0319 16:53:39.888625       1 manager.go:167] Start NEG garbage collection.
+I0319 16:53:40.060951       1 manager.go:177] NEG garbage collection finished.
+I0319 17:03:40.061225       1 manager.go:167] Start NEG garbage collection.
+I0319 17:03:40.229878       1 manager.go:177] NEG garbage collection finished.
+I0319 17:13:40.230203       1 manager.go:167] Start NEG garbage collection.
+I0319 17:13:40.459996       1 manager.go:177] NEG garbage collection finished.
+I0319 17:23:40.460437       1 manager.go:167] Start NEG garbage collection.
+I0319 17:23:40.623497       1 manager.go:177] NEG garbage collection finished.
+I0319 17:33:40.623790       1 manager.go:167] Start NEG garbage collection.
+I0319 17:33:40.837132       1 manager.go:177] NEG garbage collection finished.
+I0319 17:43:40.838478       1 manager.go:167] Start NEG garbage collection.
+I0319 17:43:41.049735       1 manager.go:177] NEG garbage collection finished.
+I0319 17:53:41.053462       1 manager.go:167] Start NEG garbage collection.
+I0319 17:53:41.220903       1 manager.go:177] NEG garbage collection finished.
+I0319 18:03:41.222918       1 manager.go:167] Start NEG garbage collection.
+I0319 18:03:41.401316       1 manager.go:177] NEG garbage collection finished.
+I0319 18:13:41.401595       1 manager.go:167] Start NEG garbage collection.
+I0319 18:13:41.548952       1 manager.go:177] NEG garbage collection finished.
+I0319 18:23:41.549235       1 manager.go:167] Start NEG garbage collection.
+I0319 18:23:41.798961       1 manager.go:177] NEG garbage collection finished.
+I0319 18:33:41.799247       1 manager.go:167] Start NEG garbage collection.
+I0319 18:33:41.962460       1 manager.go:177] NEG garbage collection finished.
+I0319 18:43:41.962745       1 manager.go:167] Start NEG garbage collection.
+I0319 18:43:42.147459       1 manager.go:177] NEG garbage collection finished.
+I0319 18:53:42.154422       1 manager.go:167] Start NEG garbage collection.
+I0319 18:53:42.661774       1 manager.go:177] NEG garbage collection finished.
+E0319 19:00:25.683439       1 controller.go:334] error processing service "svc-latency-868/latency-svc-ccv6l": services "latency-svc-ccv6l" not found
+E0319 19:00:26.351718       1 controller.go:334] error processing service "svc-latency-868/latency-svc-gzb74": services "latency-svc-gzb74" not found
+E0319 19:00:26.752540       1 controller.go:334] error processing service "svc-latency-868/latency-svc-kgc4w": services "latency-svc-kgc4w" not found
+E0319 19:00:27.232445       1 controller.go:334] error processing service "svc-latency-868/latency-svc-p9vnb": services "latency-svc-p9vnb" not found
+E0319 19:00:28.383968       1 controller.go:334] error processing service "svc-latency-868/latency-svc-vw4hk": services "latency-svc-vw4hk" not found
+E0319 19:00:28.622264       1 controller.go:334] error processing service "svc-latency-868/latency-svc-zgx5p": services "latency-svc-zgx5p" not found
+E0319 19:00:28.630672       1 controller.go:334] error processing service "svc-latency-868/latency-svc-zqrxq": services "latency-svc-zqrxq" not found
+I0319 19:03:42.663984       1 manager.go:167] Start NEG garbage collection.
+I0319 19:03:42.895272       1 manager.go:177] NEG garbage collection finished.
+I0319 19:13:42.898183       1 manager.go:167] Start NEG garbage collection.
+I0319 19:13:43.045447       1 manager.go:177] NEG garbage collection finished.
+I0319 19:23:43.045739       1 manager.go:167] Start NEG garbage collection.
+I0319 19:23:43.239412       1 manager.go:177] NEG garbage collection finished.
+I0319 19:33:43.239658       1 manager.go:167] Start NEG garbage collection.
+I0319 19:33:43.384052       1 manager.go:177] NEG garbage collection finished.
+I0319 19:43:43.384293       1 manager.go:167] Start NEG garbage collection.
+I0319 19:43:43.569265       1 manager.go:177] NEG garbage collection finished.
+I0319 19:53:43.569526       1 manager.go:167] Start NEG garbage collection.
+I0319 19:53:43.726662       1 manager.go:177] NEG garbage collection finished.
+I0319 20:03:43.726928       1 manager.go:167] Start NEG garbage collection.
+I0319 20:03:43.996572       1 manager.go:177] NEG garbage collection finished.

@@ -1,0 +1,127 @@
+2019-03-19 16:43:04.809299 I | pkg/flags: recognized and used environment variable ETCD_SNAPSHOT_COUNT=10000
+2019-03-19 16:43:04.809381 W | pkg/flags: unrecognized environment variable ETCD_CREDS= --peer-trusted-ca-file /etc/srv/kubernetes/etcd-ca.crt --peer-cert-file /etc/srv/kubernetes/etcd-peer.crt --peer-key-file /etc/srv/kubernetes/etcd-peer.key -peer-client-cert-auth 
+2019-03-19 16:43:04.809391 W | pkg/flags: unrecognized environment variable ETCD_APISERVER_CREDS= --client-cert-auth --trusted-ca-file /etc/srv/kubernetes/pki/etcd-apiserver-ca.crt --cert-file /etc/srv/kubernetes/pki/etcd-apiserver-server.crt --key-file /etc/srv/kubernetes/pki/etcd-apiserver-server.key 
+2019-03-19 16:43:04.809416 I | etcdmain: etcd Version: 3.3.10
+2019-03-19 16:43:04.809421 I | etcdmain: Git SHA: 27fc7e2
+2019-03-19 16:43:04.809426 I | etcdmain: Go Version: go1.10.4
+2019-03-19 16:43:04.809430 I | etcdmain: Go OS/Arch: linux/amd64
+2019-03-19 16:43:04.809434 I | etcdmain: setting maximum number of CPUs to 1, total number of available CPUs is 1
+2019-03-19 16:43:04.809498 W | etcdmain: found invalid file/dir version.txt under data dir /var/etcd/data-events (Ignore this if you are upgrading etcd)
+2019-03-19 16:43:04.809521 I | embed: peerTLS: cert = /etc/srv/kubernetes/etcd-peer.crt, key = /etc/srv/kubernetes/etcd-peer.key, ca = , trusted-ca = /etc/srv/kubernetes/etcd-ca.crt, client-cert-auth = true, crl-file = 
+2019-03-19 16:43:04.844679 I | embed: listening for peers on https://10.40.0.2:2381
+2019-03-19 16:43:04.844706 W | embed: The scheme of client url http://127.0.0.1:4002 is HTTP while peer key/cert files are presented. Ignored key/cert files.
+2019-03-19 16:43:04.844714 W | embed: The scheme of client url http://127.0.0.1:4002 is HTTP while client cert auth (--client-cert-auth) is enabled. Ignored client cert auth for this url.
+2019-03-19 16:43:04.844772 I | embed: listening for client requests on 127.0.0.1:4002
+2019-03-19 16:43:04.853043 I | pkg/netutil: resolving e2e-test-peterhornyack-master:2381 to 10.40.0.2:2381
+2019-03-19 16:43:04.853815 I | pkg/netutil: resolving e2e-test-peterhornyack-master:2381 to 10.40.0.2:2381
+2019-03-19 16:43:04.853897 I | etcdserver: name = etcd-e2e-test-peterhornyack-master
+2019-03-19 16:43:04.853904 I | etcdserver: data dir = /var/etcd/data-events
+2019-03-19 16:43:04.853910 I | etcdserver: member dir = /var/etcd/data-events/member
+2019-03-19 16:43:04.853915 I | etcdserver: heartbeat = 100ms
+2019-03-19 16:43:04.853919 I | etcdserver: election = 1000ms
+2019-03-19 16:43:04.853924 I | etcdserver: snapshot count = 10000
+2019-03-19 16:43:04.853933 I | etcdserver: advertise client URLs = http://127.0.0.1:4002
+2019-03-19 16:43:04.853939 I | etcdserver: initial advertise peer URLs = https://e2e-test-peterhornyack-master:2381
+2019-03-19 16:43:04.853947 I | etcdserver: initial cluster = etcd-e2e-test-peterhornyack-master=https://e2e-test-peterhornyack-master:2381
+2019-03-19 16:43:04.860173 I | etcdserver: starting member a7d0e9b462171704 in cluster 85ccce6fe4fb1b9d
+2019-03-19 16:43:04.863627 I | raft: a7d0e9b462171704 became follower at term 0
+2019-03-19 16:43:04.863653 I | raft: newRaft a7d0e9b462171704 [peers: [], term: 0, commit: 0, applied: 0, lastindex: 0, lastterm: 0]
+2019-03-19 16:43:04.863659 I | raft: a7d0e9b462171704 became follower at term 1
+2019-03-19 16:43:04.883768 W | auth: simple token is not cryptographically signed
+2019-03-19 16:43:04.903969 I | etcdserver: starting server... [version: 3.3.10, cluster version: to_be_decided]
+2019-03-19 16:43:04.921362 I | etcdserver: a7d0e9b462171704 as single-node; fast-forwarding 9 ticks (election ticks 10)
+2019-03-19 16:43:04.921968 I | etcdserver/membership: added member a7d0e9b462171704 [https://e2e-test-peterhornyack-master:2381] to cluster 85ccce6fe4fb1b9d
+2019-03-19 16:43:04.935173 I | embed: ClientTLS: cert = /etc/srv/kubernetes/pki/etcd-apiserver-server.crt, key = /etc/srv/kubernetes/pki/etcd-apiserver-server.key, ca = , trusted-ca = /etc/srv/kubernetes/pki/etcd-apiserver-ca.crt, client-cert-auth = true, crl-file = 
+2019-03-19 16:43:05.164008 I | raft: a7d0e9b462171704 is starting a new election at term 1
+2019-03-19 16:43:05.164071 I | raft: a7d0e9b462171704 became candidate at term 2
+2019-03-19 16:43:05.164112 I | raft: a7d0e9b462171704 received MsgVoteResp from a7d0e9b462171704 at term 2
+2019-03-19 16:43:05.164131 I | raft: a7d0e9b462171704 became leader at term 2
+2019-03-19 16:43:05.164139 I | raft: raft.node: a7d0e9b462171704 elected leader a7d0e9b462171704 at term 2
+2019-03-19 16:43:05.164632 I | etcdserver: setting up the initial cluster version to 3.3
+2019-03-19 16:43:05.164695 I | etcdserver: published {Name:etcd-e2e-test-peterhornyack-master ClientURLs:[http://127.0.0.1:4002]} to cluster 85ccce6fe4fb1b9d
+2019-03-19 16:43:05.164887 I | embed: ready to serve client requests
+2019-03-19 16:43:05.165631 N | embed: serving insecure client requests on 127.0.0.1:4002, this is strongly discouraged!
+2019-03-19 16:43:05.166415 N | etcdserver/membership: set the initial cluster version to 3.3
+2019-03-19 16:43:05.166497 I | etcdserver/api: enabled capabilities for version 3.3
+proto: no coders for int
+proto: no encoder for ValueSize int [GetProperties]
+2019-03-19 16:53:08.614898 I | mvcc: store.index: compact 313
+2019-03-19 16:53:08.616822 I | mvcc: finished scheduled compaction at 313 (took 274.128µs)
+2019-03-19 16:58:08.621110 I | mvcc: store.index: compact 338
+2019-03-19 16:58:08.621836 I | mvcc: finished scheduled compaction at 338 (took 235.078µs)
+2019-03-19 17:03:08.626601 I | mvcc: store.index: compact 384
+2019-03-19 17:03:08.628444 I | mvcc: finished scheduled compaction at 384 (took 323.692µs)
+2019-03-19 17:08:08.635065 I | mvcc: store.index: compact 440
+2019-03-19 17:08:08.637085 I | mvcc: finished scheduled compaction at 440 (took 336.476µs)
+2019-03-19 17:13:08.641499 I | mvcc: store.index: compact 461
+2019-03-19 17:13:08.642233 I | mvcc: finished scheduled compaction at 461 (took 237.704µs)
+2019-03-19 17:18:08.646214 I | mvcc: store.index: compact 591
+2019-03-19 17:18:08.648495 I | mvcc: finished scheduled compaction at 591 (took 1.544634ms)
+2019-03-19 17:23:08.650906 I | mvcc: store.index: compact 766
+2019-03-19 17:23:08.653084 I | mvcc: finished scheduled compaction at 766 (took 1.442807ms)
+2019-03-19 17:28:08.660089 I | mvcc: store.index: compact 935
+2019-03-19 17:28:08.662753 I | mvcc: finished scheduled compaction at 935 (took 2.1489ms)
+2019-03-19 17:33:08.666039 I | mvcc: store.index: compact 991
+2019-03-19 17:33:08.666870 I | mvcc: finished scheduled compaction at 991 (took 219.019µs)
+2019-03-19 17:38:08.676164 I | mvcc: store.index: compact 1078
+2019-03-19 17:38:08.676902 I | mvcc: finished scheduled compaction at 1078 (took 294.446µs)
+2019-03-19 17:43:08.681992 I | mvcc: store.index: compact 1080
+2019-03-19 17:43:08.683799 I | mvcc: finished scheduled compaction at 1080 (took 1.34331ms)
+2019-03-19 17:48:08.687242 I | mvcc: store.index: compact 1082
+2019-03-19 17:48:08.689229 I | mvcc: finished scheduled compaction at 1082 (took 256.829µs)
+2019-03-19 17:53:08.701789 I | mvcc: store.index: compact 1086
+2019-03-19 17:53:08.702678 I | mvcc: finished scheduled compaction at 1086 (took 368.998µs)
+2019-03-19 17:58:08.708518 I | mvcc: store.index: compact 1090
+2019-03-19 17:58:08.710310 I | mvcc: finished scheduled compaction at 1090 (took 1.456731ms)
+2019-03-19 18:03:08.713122 I | mvcc: store.index: compact 1111
+2019-03-19 18:03:08.715073 I | mvcc: finished scheduled compaction at 1111 (took 1.660176ms)
+2019-03-19 18:08:08.718082 I | mvcc: store.index: compact 1161
+2019-03-19 18:08:08.718490 I | mvcc: finished scheduled compaction at 1161 (took 95.759µs)
+2019-03-19 18:13:08.723529 I | mvcc: store.index: compact 1233
+2019-03-19 18:13:08.725136 I | mvcc: finished scheduled compaction at 1233 (took 1.154247ms)
+2019-03-19 18:18:08.730765 I | mvcc: store.index: compact 1366
+2019-03-19 18:18:08.732526 I | mvcc: finished scheduled compaction at 1366 (took 1.232201ms)
+2019-03-19 18:23:08.735618 I | mvcc: store.index: compact 1537
+2019-03-19 18:23:08.737487 I | mvcc: finished scheduled compaction at 1537 (took 383.209µs)
+2019-03-19 18:28:08.741495 I | mvcc: store.index: compact 1548
+2019-03-19 18:28:08.743274 I | mvcc: finished scheduled compaction at 1548 (took 67.72µs)
+2019-03-19 18:33:08.746488 I | mvcc: store.index: compact 1618
+2019-03-19 18:33:08.748097 I | mvcc: finished scheduled compaction at 1618 (took 1.34081ms)
+2019-03-19 18:38:08.750851 I | mvcc: store.index: compact 1673
+2019-03-19 18:38:08.751186 I | mvcc: finished scheduled compaction at 1673 (took 79.798µs)
+2019-03-19 18:43:08.755202 I | mvcc: store.index: compact 1730
+2019-03-19 18:43:08.755531 I | mvcc: finished scheduled compaction at 1730 (took 84.408µs)
+2019-03-19 18:48:08.759671 I | mvcc: store.index: compact 1867
+2019-03-19 18:48:08.761424 I | mvcc: finished scheduled compaction at 1867 (took 249.647µs)
+2019-03-19 18:53:08.788017 I | mvcc: store.index: compact 1975
+2019-03-19 18:53:08.788890 I | mvcc: finished scheduled compaction at 1975 (took 221.92µs)
+2019-03-19 18:58:08.793212 I | mvcc: store.index: compact 2122
+2019-03-19 18:58:08.794892 I | mvcc: finished scheduled compaction at 2122 (took 220.02µs)
+2019-03-19 19:03:08.798776 I | mvcc: store.index: compact 2199
+2019-03-19 19:03:08.799210 I | mvcc: finished scheduled compaction at 2199 (took 131.913µs)
+2019-03-19 19:08:08.804223 I | mvcc: store.index: compact 2343
+2019-03-19 19:08:08.804744 I | mvcc: finished scheduled compaction at 2343 (took 197.604µs)
+2019-03-19 19:13:08.809343 I | mvcc: store.index: compact 2422
+2019-03-19 19:13:08.809735 I | mvcc: finished scheduled compaction at 2422 (took 95.451µs)
+2019-03-19 19:18:08.814041 I | mvcc: store.index: compact 2554
+2019-03-19 19:18:08.814623 I | mvcc: finished scheduled compaction at 2554 (took 252.734µs)
+2019-03-19 19:23:08.818522 I | mvcc: store.index: compact 2608
+2019-03-19 19:23:08.818884 I | mvcc: finished scheduled compaction at 2608 (took 115.289µs)
+2019-03-19 19:28:08.824301 I | mvcc: store.index: compact 2661
+2019-03-19 19:28:08.825875 I | mvcc: finished scheduled compaction at 2661 (took 125.262µs)
+2019-03-19 19:33:08.828313 I | mvcc: store.index: compact 2752
+2019-03-19 19:33:08.829879 I | mvcc: finished scheduled compaction at 2752 (took 152.521µs)
+2019-03-19 19:38:08.832316 I | mvcc: store.index: compact 2843
+2019-03-19 19:38:08.832745 I | mvcc: finished scheduled compaction at 2843 (took 136.915µs)
+2019-03-19 19:43:08.839150 I | mvcc: store.index: compact 2976
+2019-03-19 19:43:08.839648 I | mvcc: finished scheduled compaction at 2976 (took 231.868µs)
+2019-03-19 19:48:08.843126 I | mvcc: store.index: compact 3074
+2019-03-19 19:48:08.844728 I | mvcc: finished scheduled compaction at 3074 (took 190.454µs)
+2019-03-19 19:53:08.847080 I | mvcc: store.index: compact 3163
+2019-03-19 19:53:08.847464 I | mvcc: finished scheduled compaction at 3163 (took 129.194µs)
+2019-03-19 19:58:08.851849 I | mvcc: store.index: compact 3255
+2019-03-19 19:58:08.853570 I | mvcc: finished scheduled compaction at 3255 (took 1.342335ms)
+2019-03-19 20:03:08.856269 I | mvcc: store.index: compact 3360
+2019-03-19 20:03:08.856702 I | mvcc: finished scheduled compaction at 3360 (took 146.03µs)
+2019-03-19 20:08:08.861496 I | mvcc: store.index: compact 3457
+2019-03-19 20:08:08.863083 I | mvcc: finished scheduled compaction at 3457 (took 1.27407ms)

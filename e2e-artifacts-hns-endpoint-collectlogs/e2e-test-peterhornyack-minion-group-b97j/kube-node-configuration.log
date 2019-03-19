@@ -1,0 +1,35 @@
+-- Logs begin at Tue 2019-03-19 16:46:08 UTC, end at Tue 2019-03-19 20:08:44 UTC. --
+Mar 19 16:47:07.289589 e2e-test-peterhornyack-minion-group-b97j systemd[1]: Starting Configure kubernetes node...
+Mar 19 16:47:07.310718 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Start to configure instance for kubernetes
+Mar 19 16:47:07.318009 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Found Kubelet config file at /home/kubernetes/kubelet-config.yaml
+Mar 19 16:47:07.362542 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Configuring IP firewall rules
+Mar 19 16:47:07.363811 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: net.ipv4.conf.all.route_localnet = 1
+Mar 19 16:47:07.367789 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Add rules to accept all inbound TCP/UDP/ICMP packets
+Mar 19 16:47:07.375040 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Add rules to accept all forwarded TCP/UDP/ICMP/SCTP packets
+Mar 19 16:47:07.380655 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Add rules for ip masquerade
+Mar 19 16:47:07.390015 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Add rule for metadata concealment
+Mar 19 16:47:07.396916 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Creating required directories
+Mar 19 16:47:07.401073 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Making /var/lib/kubelet executable for kubelet
+Mar 19 16:47:07.415129 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: No local SCSI SSD disks found.
+Mar 19 16:47:07.415129 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: No local NVMe SSD disks found.
+Mar 19 16:47:07.415129 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Creating node pki files
+Mar 19 16:47:07.420790 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Creating kubelet bootstrap-kubeconfig file
+Mar 19 16:47:07.422414 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Creating kube-proxy user kubeconfig file
+Mar 19 16:47:07.424287 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Creating node-problem-detector kubeconfig file
+Mar 19 16:47:07.427083 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: overriding kubectl
+Mar 19 16:47:07.454724 e2e-test-peterhornyack-minion-group-b97j sudo[1049]:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/bin/env
+Mar 19 16:47:07.460154 e2e-test-peterhornyack-minion-group-b97j sudo[1049]: pam_unix(sudo:session): session opened for user root by (uid=0)
+Mar 19 16:47:07.460283 e2e-test-peterhornyack-minion-group-b97j sudo[1049]: pam_tty_audit(sudo:session): changed status from 0 to 1
+Mar 19 16:47:07.462156 e2e-test-peterhornyack-minion-group-b97j sudo[1049]: pam_unix(sudo:session): session closed for user root
+Mar 19 16:47:07.464243 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Assemble docker command line flags
+Mar 19 16:47:07.464514 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Enable docker registry mirror at: https://mirror.gcr.io
+Mar 19 16:47:07.464514 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Extend the docker.service configuration to set a higher pids limit
+Mar 19 16:47:07.550626 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Docker command line is updated. Restart docker to pick it up
+Mar 19 16:47:13.295628 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Start kubelet
+Mar 19 16:47:14.288030 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Using kubelet binary at /home/kubernetes/bin/kubelet
+Mar 19 16:47:14.405520 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Start kube-proxy static pod
+Mar 19 16:47:14.445962 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Start node problem detector
+Mar 19 16:47:14.446355 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Using node problem detector binary at /home/kubernetes/bin/node-problem-detector
+Mar 19 16:47:14.609343 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Prepare containerized mounter
+Mar 19 16:47:14.674810 e2e-test-peterhornyack-minion-group-b97j configure-helper.sh[965]: Done for the configuration for kubernetes
+Mar 19 16:47:14.676736 e2e-test-peterhornyack-minion-group-b97j systemd[1]: Started Configure kubernetes node.

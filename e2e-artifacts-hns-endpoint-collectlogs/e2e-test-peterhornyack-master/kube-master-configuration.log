@@ -1,0 +1,66 @@
+-- Logs begin at Tue 2019-03-19 16:40:57 UTC, end at Tue 2019-03-19 20:07:31 UTC. --
+Mar 19 16:42:30.730555 e2e-test-peterhornyack-master systemd[1]: Starting Configure kubernetes master...
+Mar 19 16:42:30.757705 e2e-test-peterhornyack-master configure-helper.sh[947]: Start to configure instance for kubernetes
+Mar 19 16:42:30.794452 e2e-test-peterhornyack-master configure-helper.sh[947]: Found Kubelet config file at /home/kubernetes/kubelet-config.yaml
+Mar 19 16:42:30.862504 e2e-test-peterhornyack-master configure-helper.sh[947]: Configuring IP firewall rules
+Mar 19 16:42:30.864729 e2e-test-peterhornyack-master configure-helper.sh[947]: net.ipv4.conf.all.route_localnet = 1
+Mar 19 16:42:30.886782 e2e-test-peterhornyack-master configure-helper.sh[947]: Add rules to accept all inbound TCP/UDP/ICMP packets
+Mar 19 16:42:30.893893 e2e-test-peterhornyack-master configure-helper.sh[947]: Add rules to accept all forwarded TCP/UDP/ICMP/SCTP packets
+Mar 19 16:42:30.899196 e2e-test-peterhornyack-master configure-helper.sh[947]: Add rules for ip masquerade
+Mar 19 16:42:30.911268 e2e-test-peterhornyack-master configure-helper.sh[947]: Add rule for metadata concealment
+Mar 19 16:42:30.925003 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating required directories
+Mar 19 16:42:30.929339 e2e-test-peterhornyack-master configure-helper.sh[947]: Making /var/lib/kubelet executable for kubelet
+Mar 19 16:42:30.942949 e2e-test-peterhornyack-master configure-helper.sh[947]: No local SCSI SSD disks found.
+Mar 19 16:42:30.943391 e2e-test-peterhornyack-master configure-helper.sh[947]: No local NVMe SSD disks found.
+Mar 19 16:42:30.950713 e2e-test-peterhornyack-master configure-helper.sh[947]: Mounting master-pd
+Mar 19 16:42:30.972252 e2e-test-peterhornyack-master configure-helper.sh[947]: tune2fs: Bad magic number in super-block while trying to open /dev/disk/by-id/google-master-pd
+Mar 19 16:42:30.976641 e2e-test-peterhornyack-master configure-helper.sh[947]: tune2fs 1.44.1 (24-Mar-2018)
+Mar 19 16:42:30.977157 e2e-test-peterhornyack-master configure-helper.sh[947]: Formatting '/dev/disk/by-id/google-master-pd'
+Mar 19 16:42:30.985391 e2e-test-peterhornyack-master configure-helper.sh[947]: mke2fs 1.44.1 (24-Mar-2018)
+Mar 19 16:42:31.010568 e2e-test-peterhornyack-master configure-helper.sh[947]: [120B blob data]
+Mar 19 16:42:31.011211 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating filesystem with 5242880 4k blocks and 1310720 inodes
+Mar 19 16:42:31.011495 e2e-test-peterhornyack-master configure-helper.sh[947]: Filesystem UUID: 4f1c7941-0546-479b-a5f2-ae433cb03b81
+Mar 19 16:42:31.011641 e2e-test-peterhornyack-master configure-helper.sh[947]: Superblock backups stored on blocks:
+Mar 19 16:42:31.011969 e2e-test-peterhornyack-master configure-helper.sh[947]:         32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+Mar 19 16:42:31.012151 e2e-test-peterhornyack-master configure-helper.sh[947]:         4096000
+Mar 19 16:42:31.012482 e2e-test-peterhornyack-master configure-helper.sh[947]: [57B blob data]
+Mar 19 16:42:31.012788 e2e-test-peterhornyack-master configure-helper.sh[947]: [54B blob data]
+Mar 19 16:42:31.097790 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating journal (32768 blocks): done
+Mar 19 16:42:32.855017 e2e-test-peterhornyack-master configure-helper.sh[947]: [91B blob data]
+Mar 19 16:42:32.857277 e2e-test-peterhornyack-master configure-helper.sh[947]: Mounting '/dev/disk/by-id/google-master-pd' at '/mnt/disks/master-pd'
+Mar 19 16:42:32.902539 e2e-test-peterhornyack-master configure-helper.sh[947]: Mounted master-pd '/dev/disk/by-id/google-master-pd' at '/mnt/disks/master-pd'
+Mar 19 16:42:32.936763 e2e-test-peterhornyack-master useradd[1035]: new group: name=etcd, GID=5003
+Mar 19 16:42:32.937174 e2e-test-peterhornyack-master useradd[1035]: new user: name=etcd, UID=5003, GID=5003, home=/var/etcd, shell=/sbin/nologin
+Mar 19 16:42:32.937389 e2e-test-peterhornyack-master configure-helper.sh[947]: useradd: warning: the home directory already exists.
+Mar 19 16:42:32.937389 e2e-test-peterhornyack-master configure-helper.sh[947]: Not copying any file from skel directory into it.
+Mar 19 16:42:32.943599 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating node pki files
+Mar 19 16:42:32.952048 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating master pki files
+Mar 19 16:42:32.980616 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating master auth files
+Mar 19 16:42:33.031927 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating kubelet bootstrap-kubeconfig file
+Mar 19 16:42:33.066741 e2e-test-peterhornyack-master configure-helper.sh[947]: ls: cannot access '/scrub': No such file or directory
+Mar 19 16:42:33.068341 e2e-test-peterhornyack-master configure-helper.sh[947]: overriding kubectl
+Mar 19 16:42:33.103552 e2e-test-peterhornyack-master sudo[1158]:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/bin/env
+Mar 19 16:42:33.108901 e2e-test-peterhornyack-master sudo[1158]: pam_unix(sudo:session): session opened for user root by (uid=0)
+Mar 19 16:42:33.109410 e2e-test-peterhornyack-master sudo[1158]: pam_tty_audit(sudo:session): changed status from 0 to 1
+Mar 19 16:42:33.111292 e2e-test-peterhornyack-master sudo[1158]: pam_unix(sudo:session): session closed for user root
+Mar 19 16:42:33.111611 e2e-test-peterhornyack-master sudo[1158]: pam_tty_audit(sudo:session): restored status to 0
+Mar 19 16:42:33.113662 e2e-test-peterhornyack-master configure-helper.sh[947]: Assemble docker command line flags
+Mar 19 16:42:33.113960 e2e-test-peterhornyack-master configure-helper.sh[947]: Enable docker registry mirror at: https://mirror.gcr.io
+Mar 19 16:42:33.114310 e2e-test-peterhornyack-master configure-helper.sh[947]: Extend the docker.service configuration to set a higher pids limit
+Mar 19 16:42:33.210625 e2e-test-peterhornyack-master configure-helper.sh[947]: Docker command line is updated. Restart docker to pick it up
+Mar 19 16:42:38.861760 e2e-test-peterhornyack-master configure-helper.sh[947]: Start kubelet
+Mar 19 16:42:39.791218 e2e-test-peterhornyack-master configure-helper.sh[947]: Using kubelet binary at /home/kubernetes/bin/kubelet
+Mar 19 16:42:39.927688 e2e-test-peterhornyack-master configure-helper.sh[947]: Start etcd pods
+Mar 19 16:42:40.222652 e2e-test-peterhornyack-master configure-helper.sh[947]: Start kubernetes api-server
+Mar 19 16:42:40.341752 e2e-test-peterhornyack-master configure-helper.sh[947]: Start kubernetes controller-manager
+Mar 19 16:42:40.342181 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating kube-controller-manager kubeconfig file
+Mar 19 16:42:40.402580 e2e-test-peterhornyack-master configure-helper.sh[947]: Start kubernetes scheduler
+Mar 19 16:42:40.404091 e2e-test-peterhornyack-master configure-helper.sh[947]: Creating kube-scheduler kubeconfig file
+Mar 19 16:42:40.434863 e2e-test-peterhornyack-master configure-helper.sh[947]: Prepare kube-addons manifests and start kube addon manager
+Mar 19 16:42:40.881694 e2e-test-peterhornyack-master configure-helper.sh[947]: Start GCE L7 pod
+Mar 19 16:42:41.108224 e2e-test-peterhornyack-master configure-helper.sh[947]: Prepare containerized mounter
+Mar 19 16:42:41.205914 e2e-test-peterhornyack-master configure-helper.sh[947]: Done for the configuration for kubernetes
+Mar 19 16:42:41.208794 e2e-test-peterhornyack-master systemd[1]: Started Configure kubernetes master.
+Mar 19 16:42:41.767799 e2e-test-peterhornyack-master configure-helper.sh[947]: The connection to the server localhost:8080 was refused - did you specify the right host or port?
+Mar 19 16:42:47.028735 e2e-test-peterhornyack-master configure-helper.sh[947]: The connection to the server localhost:8080 was refused - did you specify the right host or port?
+Mar 19 16:43:13.213053 e2e-test-peterhornyack-master configure-helper.sh[947]: No resources found.

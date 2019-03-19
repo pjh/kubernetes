@@ -1,0 +1,35 @@
+-- Logs begin at Tue 2019-03-19 16:46:07 UTC, end at Tue 2019-03-19 20:08:42 UTC. --
+Mar 19 16:47:04.645629 e2e-test-peterhornyack-minion-group-413w systemd[1]: Starting Configure kubernetes node...
+Mar 19 16:47:04.666866 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Start to configure instance for kubernetes
+Mar 19 16:47:04.673921 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Found Kubelet config file at /home/kubernetes/kubelet-config.yaml
+Mar 19 16:47:04.717515 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Configuring IP firewall rules
+Mar 19 16:47:04.719117 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: net.ipv4.conf.all.route_localnet = 1
+Mar 19 16:47:04.723175 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Add rules to accept all inbound TCP/UDP/ICMP packets
+Mar 19 16:47:04.730309 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Add rules to accept all forwarded TCP/UDP/ICMP/SCTP packets
+Mar 19 16:47:04.736091 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Add rules for ip masquerade
+Mar 19 16:47:04.745331 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Add rule for metadata concealment
+Mar 19 16:47:04.753438 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Creating required directories
+Mar 19 16:47:04.758017 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Making /var/lib/kubelet executable for kubelet
+Mar 19 16:47:04.762188 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: No local SCSI SSD disks found.
+Mar 19 16:47:04.762776 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: No local NVMe SSD disks found.
+Mar 19 16:47:04.768303 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Creating node pki files
+Mar 19 16:47:04.778633 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Creating kubelet bootstrap-kubeconfig file
+Mar 19 16:47:04.780553 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Creating kube-proxy user kubeconfig file
+Mar 19 16:47:04.782219 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Creating node-problem-detector kubeconfig file
+Mar 19 16:47:04.785083 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: overriding kubectl
+Mar 19 16:47:04.829259 e2e-test-peterhornyack-minion-group-413w sudo[1033]:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/bin/env
+Mar 19 16:47:04.834730 e2e-test-peterhornyack-minion-group-413w sudo[1033]: pam_unix(sudo:session): session opened for user root by (uid=0)
+Mar 19 16:47:04.835327 e2e-test-peterhornyack-minion-group-413w sudo[1033]: pam_tty_audit(sudo:session): changed status from 0 to 1
+Mar 19 16:47:04.837350 e2e-test-peterhornyack-minion-group-413w sudo[1033]: pam_unix(sudo:session): session closed for user root
+Mar 19 16:47:04.839329 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Assemble docker command line flags
+Mar 19 16:47:04.839629 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Enable docker registry mirror at: https://mirror.gcr.io
+Mar 19 16:47:04.839871 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Extend the docker.service configuration to set a higher pids limit
+Mar 19 16:47:04.931632 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Docker command line is updated. Restart docker to pick it up
+Mar 19 16:47:10.613583 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Start kubelet
+Mar 19 16:47:11.580559 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Using kubelet binary at /home/kubernetes/bin/kubelet
+Mar 19 16:47:11.693177 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Start kube-proxy static pod
+Mar 19 16:47:11.729469 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Start node problem detector
+Mar 19 16:47:11.730010 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Using node problem detector binary at /home/kubernetes/bin/node-problem-detector
+Mar 19 16:47:12.055917 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Prepare containerized mounter
+Mar 19 16:47:12.144644 e2e-test-peterhornyack-minion-group-413w configure-helper.sh[950]: Done for the configuration for kubernetes
+Mar 19 16:47:12.146004 e2e-test-peterhornyack-minion-group-413w systemd[1]: Started Configure kubernetes node.

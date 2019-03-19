@@ -1,0 +1,948 @@
+SeaBIOS (version 1.8.2-20190122_225043-google)
+Total RAM Size = 0x00000001e0000000 = 7680 MiB
+CPUs found: 2     Max CPUs supported: 2
+found virtio-scsi at 0:3
+virtio-scsi vendor='Google' product='PersistentDisk' rev='1' type=0 removable=0
+virtio-scsi blksize=512 sectors=209715200 = 102400 MiB
+drive 0x000f29c0: PCHS=0/0/0 translation=lba LCHS=1024/255/63 s=209715200
+Booting from Hard Disk 0...
+2019/03/19 16:44:30 GCEWindowsAgent: GCE Agent Started (version 4.6.0@1)
+2019/03/19 16:44:55 GCEInstanceSetup: Starting sysprep specialize phase.
+2019/03/19 16:44:57 GCEInstanceSetup: All networks set to DHCP.
+2019/03/19 16:44:57 GCEInstanceSetup: Running 'netsh' with arguments 'interface ipv4 set interface Ethernet mtu=1460'
+2019/03/19 16:44:58 GCEInstanceSetup: --> The following helper DLL cannot be loaded: C:\PROGRAM FILES\GOOGLE\COMPUTE ENGINE\GVNIC_HELPER\GVNICHELPER.DLL.
+2019/03/19 16:44:58 GCEInstanceSetup: --> Ok.
+2019/03/19 16:44:58 GCEInstanceSetup: MTU set to 1460.
+2019/03/19 16:44:58 GCEInstanceSetup: Running 'route' with arguments '/p add 169.254.169.254 mask 255.255.255.255 0.0.0.0 if 8 metric 1'
+2019/03/19 16:44:58 GCEInstanceSetup: Added persistent route to metadata netblock via first netkvm adapter.
+2019/03/19 16:44:58 GCEInstanceSetup: Getting hostname from metadata server.
+2019/03/19 16:44:59 GCEInstanceSetup: Changing hostname from inst-install-windows-1809-core-for-containers-build-image-j4pvb to e2e-test-peterhornyack-windows-node-group-dp2r.
+2019/03/19 16:44:59 GCEInstanceSetup: Renamed from inst-install-windows-1809-core-for-containers-build-image-j4pvb to e2e-test-peterhornyack-windows-node-group-dp2r.
+2019/03/19 16:45:00 GCEMetadataScripts: Starting specialize scripts (version 4.2.1@1).
+2019/03/19 16:45:00 GCEMetadataScripts: No specialize scripts to run.
+2019/03/19 16:45:00 GCEMetadataScripts: Finished running specialize scripts.
+2019/03/19 16:45:00 GCEInstanceSetup: Finished with sysprep specialize phase, restarting...
+2019/03/19 16:45:00 GCEWindowsAgent: GCE Agent Stopped
+SeaBIOS (version 1.8.2-20190122_225043-google)
+Total RAM Size = 0x00000001e0000000 = 7680 MiB
+CPUs found: 2     Max CPUs supported: 2
+found virtio-scsi at 0:3
+virtio-scsi vendor='Google' product='PersistentDisk' rev='1' type=0 removable=0
+virtio-scsi blksize=512 sectors=209715200 = 102400 MiB
+drive 0x000f29c0: PCHS=0/0/0 translation=lba LCHS=1024/255/63 s=209715200
+Booting from Hard Disk 0...
+2019/03/19 16:45:27 GCEWindowsAgent: GCE Agent Started (version 4.6.0@1)
+2019/03/19 16:45:43 GCEInstanceSetup: Disabled Ctrl + Alt + Del.
+2019/03/19 16:45:43 GCEInstanceSetup: Enable RDP firewall rules.
+2019/03/19 16:45:43 GCEInstanceSetup: Running 'netsh' with arguments 'advfirewall firewall set rule group=remote desktop new enable=Yes'
+2019/03/19 16:45:45 GCEInstanceSetup: --> The following helper DLL cannot be loaded: C:\PROGRAM FILES\GOOGLE\COMPUTE ENGINE\GVNIC_HELPER\GVNICHELPER.DLL.
+2019/03/19 16:45:45 GCEInstanceSetup: --> 
+2019/03/19 16:45:45 GCEInstanceSetup: --> Updated 3 rule(s).
+2019/03/19 16:45:45 GCEInstanceSetup: --> Ok.
+2019/03/19 16:45:45 GCEInstanceSetup: Restarting Terminal Service services, to enable RDP.
+2019/03/19 16:45:50 GCEInstanceSetup: Enabled Remote Desktop.
+2019/03/19 16:45:50 GCEInstanceSetup: Configuring WinRM...
+2019/03/19 16:45:54 GCEInstanceSetup: Running 'netsh' with arguments 'advfirewall firewall add rule profile=any name=Windows Remote Management (HTTPS-In) dir=in localport=5986 protocol=TCP action=allow'
+2019/03/19 16:45:54 GCEInstanceSetup: --> The following helper DLL cannot be loaded: C:\PROGRAM FILES\GOOGLE\COMPUTE ENGINE\GVNIC_HELPER\GVNICHELPER.DLL.
+2019/03/19 16:45:54 GCEInstanceSetup: --> Ok.
+2019/03/19 16:45:55 GCEInstanceSetup: Setup of WinRM complete.
+2019/03/19 16:45:55 GCEInstanceSetup: Running startup scripts from metadata server.
+2019/03/19 16:45:55 GCEInstanceSetup: Running 'schtasks' with arguments '/run /tn GCEStartup'
+2019/03/19 16:45:55 GCEInstanceSetup: --> SUCCESS: Attempted to run the scheduled task "GCEStartup".
+2019/03/19 16:45:55 GCEInstanceSetup: ------------------------------------------------------------
+2019/03/19 16:45:55 GCEInstanceSetup: Instance setup finished. e2e-test-peterhornyack-windows-node-group-dp2r is ready to use.
+2019/03/19 16:45:55 GCEInstanceSetup: ------------------------------------------------------------
+2019/03/19 16:45:57 GCEMetadataScripts: Starting startup scripts (version 4.2.1@1).
+2019/03/19 16:45:57 GCEMetadataScripts: Found windows-startup-script-ps1 in metadata.
+2019/03/19 16:46:02 windows-startup-script-ps1: Enabling test signed drivers.
+2019/03/19 16:46:02 windows-startup-script-ps1: The operation completed successfully.
+2019/03/19 16:46:09 GCEInstanceSetup: Checking instance license activation status.
+2019/03/19 16:46:09 GCEInstanceSetup: e2e-test-peterhornyack-windows-node-group-dp2r needs to be activated by a KMS Server.
+2019/03/19 16:46:09 GCEInstanceSetup: Key Management Service machine name set to kms.windows.googlecloud.com successfully.
+2019/03/19 16:46:10 GCEInstanceSetup: Error: 0xC004E016 On a computer running Microsoft Windows non-core edition, run 'slui.exe 0x2a 0xC004E016' to display the error text.
+2019/03/19 16:46:10 GCEInstanceSetup: Activating instance...
+2019/03/19 16:46:10 GCEInstanceSetup: Activating Windows(R), ServerDatacenterACor edition (90c362e5-0da1-4bfd-b53b-b87d309ade43) ...
+2019/03/19 16:46:10 GCEInstanceSetup: Product activated successfully.
+2019/03/19 16:46:10 GCEInstanceSetup: Activation successful.
+2019/03/19 16:46:25 windows-startup-script-ps1: Copying gs://eca21b94-46ad-11e9-bad7/ntfs.driver...
+2019/03/19 16:46:26 windows-startup-script-ps1: / [0 files][    0.0 B/  2.5 MiB]                                                / [1 files][  2.5 MiB/  2.5 MiB]                                                
+2019/03/19 16:46:26 windows-startup-script-ps1: Operation completed over 1 objects/2.5 MiB.                                      
+2019/03/19 16:46:29 windows-startup-script-ps1: Copying gs://eca21b94-46ad-11e9-bad7/sfpcopy.executable...
+2019/03/19 16:46:29 windows-startup-script-ps1: / [0 files][    0.0 B/ 22.2 KiB]                                                / [1 files][ 22.2 KiB/ 22.2 KiB]                                                
+2019/03/19 16:46:29 windows-startup-script-ps1: Operation completed over 1 objects/22.2 KiB.                                     
+2019/03/19 16:46:30 windows-startup-script-ps1: Installing test NTFS.sys driver
+2019/03/19 16:46:30 windows-startup-script-ps1: Copied successfully [C:\Windows\system32\drivers\ntfs.driver] to [C:\Windows\system32\drivers\ntfs.sys]
+2019/03/19 16:46:31 windows-startup-script-ps1: 
+2019/03/19 16:46:31 windows-startup-script-ps1: 
+2019/03/19 16:46:31 windows-startup-script-ps1:     Directory: C:\Windows\system32\drivers
+2019/03/19 16:46:31 windows-startup-script-ps1: 
+2019/03/19 16:46:31 windows-startup-script-ps1: 
+2019/03/19 16:46:31 windows-startup-script-ps1: Mode                LastWriteTime         Length Name                                                                  
+2019/03/19 16:46:31 windows-startup-script-ps1: ----                -------------         ------ ----                                                                  
+2019/03/19 16:46:31 windows-startup-script-ps1: -a----        3/19/2019   4:46 PM        2621176 ntfs.driver                                                           
+2019/03/19 16:46:31 windows-startup-script-ps1: -a----        3/19/2019   4:46 PM        2621176 ntfs.sys                                                              
+2019/03/19 16:46:31 windows-startup-script-ps1: -a----        2/26/2019   2:34 AM        2626592 ntfs.sys.original                                                     
+2019/03/19 16:46:31 windows-startup-script-ps1: 
+2019/03/19 16:46:31 windows-startup-script-ps1: 
+2019/03/19 16:46:31 windows-startup-script-ps1: 
+2019/03/19 16:46:31 windows-startup-script-ps1: Rebooting node after NTFS test driver installation
+2019/03/19 16:46:32 GCEMetadataScripts: Starting shutdown scripts (version 4.2.1@1).
+2019/03/19 16:46:32 GCEMetadataScripts: No shutdown scripts to run.
+2019/03/19 16:46:32 GCEMetadataScripts: Finished running shutdown scripts.
+2019/03/19 16:46:32 GCEWindowsAgent: GCE Agent Stopped
+2019/03/19 16:46:32 GCEMetadataScripts: windows-startup-script-ps1 exit status 1
+2019/03/19 16:46:32 GCEMetadataScripts: Finished running startup scripts.
+SeaBIOS (version 1.8.2-20190122_225043-google)
+Total RAM Size = 0x00000001e0000000 = 7680 MiB
+CPUs found: 2     Max CPUs supported: 2
+found virtio-scsi at 0:3
+virtio-scsi vendor='Google' product='PersistentDisk' rev='1' type=0 removable=0
+virtio-scsi blksize=512 sectors=209715200 = 102400 MiB
+drive 0x000f29c0: PCHS=0/0/0 translation=lba LCHS=1024/255/63 s=209715200
+Booting from Hard Disk 0...
+2019/03/19 16:46:49 GCEWindowsAgent: GCE Agent Started (version 4.6.0@1)
+2019/03/19 16:46:53 GCEMetadataScripts: Starting startup scripts (version 4.2.1@1).
+2019/03/19 16:46:53 GCEMetadataScripts: Found windows-startup-script-ps1 in metadata.
+2019/03/19 16:47:00 windows-startup-script-ps1: NTFS test driver already installed
+2019/03/19 16:47:02 windows-startup-script-ps1: WARNING: The names of some imported commands from the module 'common' include unapproved verbs that might make them 
+2019/03/19 16:47:02 windows-startup-script-ps1: less discoverable. To find the commands with unapproved verbs, run the Import-Module command again with the Verbose 
+2019/03/19 16:47:02 windows-startup-script-ps1: parameter. For a list of approved verbs, type Get-Verb.
+2019/03/19 16:47:02 windows-startup-script-ps1: WARNING: The names of some imported commands from the module 'common' include unapproved verbs that might make them 
+2019/03/19 16:47:02 windows-startup-script-ps1: less discoverable. To find the commands with unapproved verbs, run the Import-Module command again with the Verbose 
+2019/03/19 16:47:02 windows-startup-script-ps1: parameter. For a list of approved verbs, type Get-Verb.
+2019/03/19 16:47:02 windows-startup-script-ps1: WARNING: The names of some imported commands from the module 'k8s-node-setup' include unapproved verbs that might make 
+2019/03/19 16:47:02 windows-startup-script-ps1: them less discoverable. To find the commands with unapproved verbs, run the Import-Module command again with the 
+2019/03/19 16:47:02 windows-startup-script-ps1: Verbose parameter. For a list of approved verbs, type Get-Verb.
+2019/03/19 16:47:03 windows-startup-script-ps1: Windows version:
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: Major  Minor  Build  Revision
+2019/03/19 16:47:03 windows-startup-script-ps1: -----  -----  -----  --------
+2019/03/19 16:47:03 windows-startup-script-ps1: 10     0      17763  0       
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: Installed hotfixes:
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: Source        Description      HotFixID      InstalledBy          InstalledOn              
+2019/03/19 16:47:03 windows-startup-script-ps1: ------        -----------      --------      -----------          -----------              
+2019/03/19 16:47:03 windows-startup-script-ps1: E2E-TEST-P... Update           KB4483452     NT AUTHORITY\SYSTEM  2/26/2019 12:00:00 AM    
+2019/03/19 16:47:03 windows-startup-script-ps1: E2E-TEST-P... Security Update  KB4470788     NT AUTHORITY\SYSTEM  2/26/2019 12:00:00 AM    
+2019/03/19 16:47:03 windows-startup-script-ps1: E2E-TEST-P... Security Update  KB4487044     NT AUTHORITY\SYSTEM  2/26/2019 12:00:00 AM    
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: GCE Windows image:
+2019/03/19 16:47:03 windows-startup-script-ps1: projects/windows-cloud/global/images/windows-server-1809-dc-core-for-containers-v20190225
+2019/03/19 16:47:03 windows-startup-script-ps1: 
+2019/03/19 16:47:03 windows-startup-script-ps1: Disabling Windows Firewall
+2019/03/19 16:47:07 windows-startup-script-ps1: Disabling Windows Update service
+2019/03/19 16:47:07 windows-startup-script-ps1: [SC] ChangeServiceConfig SUCCESS
+2019/03/19 16:47:07 windows-startup-script-ps1: 
+2019/03/19 16:47:07 windows-startup-script-ps1: SERVICE_NAME: wuauserv 
+2019/03/19 16:47:07 windows-startup-script-ps1:         TYPE               : 30  WIN32  
+2019/03/19 16:47:07 windows-startup-script-ps1:         STATE              : 3  STOP_PENDING 
+2019/03/19 16:47:07 windows-startup-script-ps1:                                 (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
+2019/03/19 16:47:07 windows-startup-script-ps1:         WIN32_EXIT_CODE    : 0  (0x0)
+2019/03/19 16:47:07 windows-startup-script-ps1:         SERVICE_EXIT_CODE  : 0  (0x0)
+2019/03/19 16:47:07 windows-startup-script-ps1:         CHECKPOINT         : 0x2
+2019/03/19 16:47:07 windows-startup-script-ps1:         WAIT_HINT          : 0x7530
+2019/03/19 16:47:07 windows-startup-script-ps1: Installing powershell-yaml module from external repo
+2019/03/19 16:47:18 windows-startup-script-ps1: Disabling Windows Defender service
+2019/03/19 16:47:38 windows-startup-script-ps1: 
+2019/03/19 16:47:38 windows-startup-script-ps1: Success Restart Needed Exit Code      Feature Result                               
+2019/03/19 16:47:38 windows-startup-script-ps1: ------- -------------- ---------      --------------                               
+2019/03/19 16:47:38 windows-startup-script-ps1: True    Yes            SuccessRest... {Windows Defender Antivirus}                 
+2019/03/19 16:47:38 windows-startup-script-ps1: WARNING: You must restart this server to finish the removal process.
+2019/03/19 16:47:38 windows-startup-script-ps1: Test cluster detected, installing OpenSSH.
+2019/03/19 16:47:38 windows-startup-script-ps1: WARNING: The names of some imported commands from the module 'common' include unapproved verbs that might make them 
+2019/03/19 16:47:38 windows-startup-script-ps1: less discoverable. To find the commands with unapproved verbs, run the Import-Module command again with the Verbose 
+2019/03/19 16:47:38 windows-startup-script-ps1: parameter. For a list of approved verbs, type Get-Verb.
+2019/03/19 16:47:38 windows-startup-script-ps1: WARNING: The names of some imported commands from the module 'install-ssh' include unapproved verbs that might make 
+2019/03/19 16:47:38 windows-startup-script-ps1: them less discoverable. To find the commands with unapproved verbs, run the Import-Module command again with the 
+2019/03/19 16:47:39 windows-startup-script-ps1: Verbose parameter. For a list of approved verbs, type Get-Verb.
+2019/03/19 16:47:47 windows-startup-script-ps1: [SC] SetServiceObjectSecurity SUCCESS
+2019/03/19 16:47:47 windows-startup-script-ps1: [SC] ChangeServiceConfig2 SUCCESS
+2019/03/19 16:47:47 windows-startup-script-ps1: [SC] ChangeServiceConfig2 SUCCESS
+2019/03/19 16:47:47 windows-startup-script-ps1: sshd and ssh-agent services successfully installed
+2019/03/19 16:47:48 windows-startup-script-ps1: 
+2019/03/19 16:47:48 windows-startup-script-ps1: Caption                 : 
+2019/03/19 16:47:48 windows-startup-script-ps1: Description             : 
+2019/03/19 16:47:48 windows-startup-script-ps1: ElementName             : OpenSSH Server (sshd)
+2019/03/19 16:47:48 windows-startup-script-ps1: InstanceID              : sshd
+2019/03/19 16:47:48 windows-startup-script-ps1: CommonName              : 
+2019/03/19 16:47:48 windows-startup-script-ps1: PolicyKeywords          : 
+2019/03/19 16:47:48 windows-startup-script-ps1: Enabled                 : True
+2019/03/19 16:47:48 windows-startup-script-ps1: PolicyDecisionStrategy  : 2
+2019/03/19 16:47:48 windows-startup-script-ps1: PolicyRoles             : 
+2019/03/19 16:47:48 windows-startup-script-ps1: ConditionListType       : 3
+2019/03/19 16:47:48 windows-startup-script-ps1: CreationClassName       : MSFT|FW|FirewallRule|sshd
+2019/03/19 16:47:48 windows-startup-script-ps1: ExecutionStrategy       : 2
+2019/03/19 16:47:48 windows-startup-script-ps1: Mandatory               : 
+2019/03/19 16:47:48 windows-startup-script-ps1: PolicyRuleName          : 
+2019/03/19 16:47:48 windows-startup-script-ps1: Priority                : 
+2019/03/19 16:47:48 windows-startup-script-ps1: RuleUsage               : 
+2019/03/19 16:47:48 windows-startup-script-ps1: SequencedActions        : 3
+2019/03/19 16:47:48 windows-startup-script-ps1: SystemCreationClassName : 
+2019/03/19 16:47:48 windows-startup-script-ps1: SystemName              : 
+2019/03/19 16:47:48 windows-startup-script-ps1: Action                  : Allow
+2019/03/19 16:47:48 windows-startup-script-ps1: Direction               : Inbound
+2019/03/19 16:47:48 windows-startup-script-ps1: DisplayGroup            : 
+2019/03/19 16:47:48 windows-startup-script-ps1: DisplayName             : OpenSSH Server (sshd)
+2019/03/19 16:47:48 windows-startup-script-ps1: EdgeTraversalPolicy     : Block
+2019/03/19 16:47:48 windows-startup-script-ps1: EnforcementStatus       : NotApplicable
+2019/03/19 16:47:48 windows-startup-script-ps1: LocalOnlyMapping        : False
+2019/03/19 16:47:48 windows-startup-script-ps1: LooseSourceMapping      : False
+2019/03/19 16:47:48 windows-startup-script-ps1: Owner                   : 
+2019/03/19 16:47:48 windows-startup-script-ps1: Platforms               : {}
+2019/03/19 16:47:48 windows-startup-script-ps1: PolicyStoreSource       : PersistentStore
+2019/03/19 16:47:48 windows-startup-script-ps1: PolicyStoreSourceType   : Local
+2019/03/19 16:47:48 windows-startup-script-ps1: PrimaryStatus           : OK
+2019/03/19 16:47:48 windows-startup-script-ps1: Profiles                : 0
+2019/03/19 16:47:48 windows-startup-script-ps1: RuleGroup               : 
+2019/03/19 16:47:48 windows-startup-script-ps1: Status                  : The rule was parsed successfully from the store. (65536)
+2019/03/19 16:47:48 windows-startup-script-ps1: StatusCode              : 65536
+2019/03/19 16:47:48 windows-startup-script-ps1: PSComputerName          : 
+2019/03/19 16:47:48 windows-startup-script-ps1: Name                    : sshd
+2019/03/19 16:47:48 windows-startup-script-ps1: ID                      : sshd
+2019/03/19 16:47:48 windows-startup-script-ps1: Group                   : 
+2019/03/19 16:47:48 windows-startup-script-ps1: Profile                 : Any
+2019/03/19 16:47:48 windows-startup-script-ps1: Platform                : {}
+2019/03/19 16:47:48 windows-startup-script-ps1: LSM                     : False
+2019/03/19 16:47:48 windows-startup-script-ps1: 
+2019/03/19 16:47:51 windows-startup-script-ps1: The OpenSSH SSH Server service is starting..
+2019/03/19 16:47:51 windows-startup-script-ps1: The OpenSSH SSH Server service was started successfully.
+2019/03/19 16:47:51 windows-startup-script-ps1: 
+2019/03/19 16:47:51 windows-startup-script-ps1: 
+2019/03/19 16:47:51 windows-startup-script-ps1: The OpenSSH Authentication Agent service was started successfully.
+2019/03/19 16:47:51 windows-startup-script-ps1: 
+2019/03/19 16:47:51 windows-startup-script-ps1: C:\write-ssh-keys.ps1:
+2019/03/19 16:47:51 windows-startup-script-ps1: Import-Module -Force C:\user-profile.psm1
+2019/03/19 16:47:51 windows-startup-script-ps1: # For [System.Web.Security.Membership]::GeneratePassword():
+2019/03/19 16:47:51 windows-startup-script-ps1: Add-Type -AssemblyName System.Web
+2019/03/19 16:47:51 windows-startup-script-ps1: 
+2019/03/19 16:47:51 windows-startup-script-ps1: $poll_interval = 10
+2019/03/19 16:47:51 windows-startup-script-ps1: 
+2019/03/19 16:47:51 windows-startup-script-ps1: while($true) {
+2019/03/19 16:47:51 windows-startup-script-ps1:   $r1 = ""
+2019/03/19 16:47:51 windows-startup-script-ps1:   $r2 = ""
+2019/03/19 16:47:51 windows-startup-script-ps1:   # Try both the new "ssh-keys" and the legacy "sshSkeys" attributes for
+2019/03/19 16:47:51 windows-startup-script-ps1:   # compatibility. The Invoke-RestMethods calls will fail when these attributes
+2019/03/19 16:47:51 windows-startup-script-ps1:   # do not exist, or they may fail when the connection to the metadata server
+2019/03/19 16:47:51 windows-startup-script-ps1:   # gets disrupted while we set up container networking on the node.
+2019/03/19 16:47:51 windows-startup-script-ps1:   try {
+2019/03/19 16:47:51 windows-startup-script-ps1:     $r1 = Invoke-RestMethod -Headers @{"Metadata-Flavor"="Google"} -Uri `
+2019/03/19 16:47:51 windows-startup-script-ps1:         "http://metadata.google.internal/computeMetadata/v1/project/attributes/ssh-keys"
+2019/03/19 16:47:51 windows-startup-script-ps1:   } catch {}
+2019/03/19 16:47:51 windows-startup-script-ps1:   try {
+2019/03/19 16:47:51 windows-startup-script-ps1:     $r2 = Invoke-RestMethod -Headers @{"Metadata-Flavor"="Google"} -Uri `
+2019/03/19 16:47:51 windows-startup-script-ps1:         "http://metadata.google.internal/computeMetadata/v1/project/attributes/sshKeys"
+2019/03/19 16:47:51 windows-startup-script-ps1:   } catch {}
+2019/03/19 16:47:51 windows-startup-script-ps1:   $response= $r1 + $r2
+2019/03/19 16:47:51 windows-startup-script-ps1: 
+2019/03/19 16:47:51 windows-startup-script-ps1:   # Split the response into lines; handle both \r\n and \n line breaks.
+2019/03/19 16:47:51 windows-startup-script-ps1:   $tuples = $response -split "\r?\n"
+2019/03/19 16:47:51 windows-startup-script-ps1: 
+2019/03/19 16:47:51 windows-startup-script-ps1:   $users_to_keys = @{}
+2019/03/19 16:47:51 windows-startup-script-ps1:   foreach($line in $tuples) {
+2019/03/19 16:47:51 windows-startup-script-ps1:     if ([string]::IsNullOrEmpty($line)) {
+2019/03/19 16:47:51 windows-startup-script-ps1:       continue
+2019/03/19 16:47:51 windows-startup-script-ps1:     }
+2019/03/19 16:47:51 windows-startup-script-ps1:     # The final parameter to -Split is the max number of strings to return, so
+2019/03/19 16:47:51 windows-startup-script-ps1:     # this only splits on the first colon.
+2019/03/19 16:47:52 windows-startup-script-ps1:     $username, $key = $line -Split ":",2
+2019/03/19 16:47:52 windows-startup-script-ps1: 
+2019/03/19 16:47:52 windows-startup-script-ps1:     # Detect and skip keys without associated usernames, which may come back
+2019/03/19 16:47:52 windows-startup-script-ps1:     # from the legacy sshKeys metadata.
+2019/03/19 16:47:52 windows-startup-script-ps1:     if (($username -like "ssh-*") -or ($username -like "ecdsa-*")) {
+2019/03/19 16:47:52 windows-startup-script-ps1:       Write-Error "Skipping key without username: $username"
+2019/03/19 16:47:52 windows-startup-script-ps1:       continue
+2019/03/19 16:47:52 windows-startup-script-ps1:     }
+2019/03/19 16:47:52 windows-startup-script-ps1:     if (-not $users_to_keys.ContainsKey($username)) {
+2019/03/19 16:47:52 windows-startup-script-ps1:       $users_to_keys[$username] = @($key)
+2019/03/19 16:47:52 windows-startup-script-ps1:     }
+2019/03/19 16:47:52 windows-startup-script-ps1:     else {
+2019/03/19 16:47:52 windows-startup-script-ps1:       $keyList = $users_to_keys[$username]
+2019/03/19 16:47:52 windows-startup-script-ps1:       $users_to_keys[$username] = $keyList + $key
+2019/03/19 16:47:52 windows-startup-script-ps1:     }
+2019/03/19 16:47:52 windows-startup-script-ps1:   }
+2019/03/19 16:47:52 windows-startup-script-ps1:   $users_to_keys.GetEnumerator() | ForEach-Object {
+2019/03/19 16:47:52 windows-startup-script-ps1:     $username = $_.key
+2019/03/19 16:47:52 windows-startup-script-ps1: 
+2019/03/19 16:47:52 windows-startup-script-ps1:     # We want to create an authorized_keys file in the user profile directory
+2019/03/19 16:47:52 windows-startup-script-ps1:     # for each user, but if we create the directory before that user profile
+2019/03/19 16:47:52 windows-startup-script-ps1:     # has been created first by Windows, then Windows will create a different
+2019/03/19 16:47:53 windows-startup-script-ps1:     # user profile directory that looks like "<user>.KUBERNETES-MINI" and sshd
+2019/03/19 16:47:53 windows-startup-script-ps1:     # will look for the authorized_keys file in THAT directory. In other words,
+2019/03/19 16:47:53 windows-startup-script-ps1:     # we need to create the user first before we can put the authorized_keys
+2019/03/19 16:47:53 windows-startup-script-ps1:     # file in that user profile directory. The user-profile.psm1 module (NOT
+2019/03/19 16:47:53 windows-startup-script-ps1:     # FOR PRODUCTION USE!) has Create-NewProfile which achieves this.
+2019/03/19 16:47:53 windows-startup-script-ps1:     #
+2019/03/19 16:47:53 windows-startup-script-ps1:     # Run "Get-Command -Module Microsoft.PowerShell.LocalAccounts" to see the
+2019/03/19 16:47:53 windows-startup-script-ps1:     # build-in commands for users and groups. For some reason the New-LocalUser
+2019/03/19 16:47:53 windows-startup-script-ps1:     # command does not create the user profile directory, so we use the
+2019/03/19 16:47:53 windows-startup-script-ps1:     # auxiliary user-profile.psm1 instead.
+2019/03/19 16:47:54 windows-startup-script-ps1: 
+2019/03/19 16:47:54 windows-startup-script-ps1:     $pw = [System.Web.Security.Membership]::GeneratePassword(16,2)
+2019/03/19 16:47:54 windows-startup-script-ps1:     try {
+2019/03/19 16:47:55 windows-startup-script-ps1:       # Create-NewProfile will throw this when the user profile already exists:
+2019/03/19 16:47:55 windows-startup-script-ps1:       #   Create-NewProfile : Exception calling "SetInfo" with "0" argument(s):
+2019/03/19 16:47:55 windows-startup-script-ps1:       #   "The account already exists."
+2019/03/19 16:47:55 windows-startup-script-ps1:       # Just catch it and ignore it.
+2019/03/19 16:47:55 windows-startup-script-ps1:       Create-NewProfile $username $pw -ErrorAction Stop
+2019/03/19 16:47:55 windows-startup-script-ps1: 
+2019/03/19 16:47:55 windows-startup-script-ps1:       # Add the user to the Administrators group, otherwise we will not have
+2019/03/19 16:47:55 windows-startup-script-ps1:       # privilege when we ssh.
+2019/03/19 16:47:55 windows-startup-script-ps1:       Add-LocalGroupMember -Group Administrators -Member $username
+2019/03/19 16:47:55 windows-startup-script-ps1:     } catch {}
+2019/03/19 16:47:55 windows-startup-script-ps1: 
+2019/03/19 16:47:55 windows-startup-script-ps1:     $user_dir = "C:\Users\" + $username
+2019/03/19 16:47:55 windows-startup-script-ps1:     if (-not (Test-Path $user_dir)) {
+2019/03/19 16:47:55 windows-startup-script-ps1:       # If for some reason Create-NewProfile failed to create the user profile
+2019/03/19 16:47:55 windows-startup-script-ps1:       # directory just continue on to the next user.
+2019/03/19 16:47:55 windows-startup-script-ps1:       continue
+2019/03/19 16:47:55 windows-startup-script-ps1:     }
+2019/03/19 16:47:55 windows-startup-script-ps1: 
+2019/03/19 16:47:55 windows-startup-script-ps1:     # NOTE: there is a race condition here where someone could try to ssh to
+2019/03/19 16:47:55 windows-startup-script-ps1:     # this node in-between when we clear out the authorized_keys file and when
+2019/03/19 16:47:55 windows-startup-script-ps1:     # we write keys to it. Oh well.
+2019/03/19 16:47:55 windows-startup-script-ps1:     $user_keys_file = -join($user_dir, "\.ssh\authorized_keys")
+2019/03/19 16:47:55 windows-startup-script-ps1:     New-Item -ItemType file -Force $user_keys_file | Out-Null
+2019/03/19 16:47:55 windows-startup-script-ps1: 
+2019/03/19 16:47:55 windows-startup-script-ps1:     # New for v7.9.0.0: administrators_authorized_keys file. For permission
+2019/03/19 16:47:55 windows-startup-script-ps1:     # information see
+2019/03/19 16:47:55 windows-startup-script-ps1:     # https://github.com/PowerShell/Win32-OpenSSH/wiki/Security-protection-of-various-files-in-Win32-OpenSSH#administrators_authorized_keys.
+2019/03/19 16:47:55 windows-startup-script-ps1:     $administrator_keys_file = ${env:ProgramData} + `
+2019/03/19 16:47:55 windows-startup-script-ps1:         "\ssh\administrators_authorized_keys"
+2019/03/19 16:47:55 windows-startup-script-ps1:     New-Item -ItemType file -Force $administrator_keys_file | Out-Null
+2019/03/19 16:47:56 windows-startup-script-ps1:     icacls $administrator_keys_file /inheritance:r | Out-Null
+2019/03/19 16:47:56 windows-startup-script-ps1:     icacls $administrator_keys_file /grant SYSTEM:`(F`) | Out-Null
+2019/03/19 16:47:56 windows-startup-script-ps1:     icacls $administrator_keys_file /grant BUILTIN\Administrators:`(F`) | `
+2019/03/19 16:47:56 windows-startup-script-ps1:         Out-Null
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1:     ForEach ($ssh_key in $_.value) {
+2019/03/19 16:47:56 windows-startup-script-ps1:       # authorized_keys and other ssh config files must be UTF-8 encoded:
+2019/03/19 16:47:56 windows-startup-script-ps1:       # https://github.com/PowerShell/Win32-OpenSSH/issues/862
+2019/03/19 16:47:56 windows-startup-script-ps1:       # https://github.com/PowerShell/Win32-OpenSSH/wiki/Various-Considerations
+2019/03/19 16:47:56 windows-startup-script-ps1:       Add-Content -Encoding UTF8 $user_keys_file $ssh_key
+2019/03/19 16:47:56 windows-startup-script-ps1:       Add-Content -Encoding UTF8 $administrator_keys_file $ssh_key
+2019/03/19 16:47:56 windows-startup-script-ps1:     }
+2019/03/19 16:47:56 windows-startup-script-ps1:   }
+2019/03/19 16:47:56 windows-startup-script-ps1:   Start-Sleep -sec $poll_interval
+2019/03/19 16:47:56 windows-startup-script-ps1: }
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1: Started background process to write SSH keys
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1: Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName                                                  
+2019/03/19 16:47:56 windows-startup-script-ps1: -------  ------    -----      -----     ------     --  -- -----------                                                  
+2019/03/19 16:47:56 windows-startup-script-ps1:      42       4      428       1200       0.05   4056   0 powershell                                                   
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: K8S_DIR = C:\etc\kubernetes
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: MANIFESTS_DIR = C:\etc\kubernetes\manifests
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: KUBELET_KEY_PATH = C:\etc\kubernetes\pki\kubelet.key
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: KUBECONFIG = C:\etc\kubernetes\kubelet.kubeconfig
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: CNI_DIR = C:\etc\kubernetes\cni
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: NODE_DIR = C:\etc\kubernetes\node\bin
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: LOGS_DIR = C:\etc\kubernetes\logs
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: PKI_DIR = C:\etc\kubernetes\pki
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: KUBELET_CERT_PATH = C:\etc\kubernetes\pki\kubelet.crt
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: KUBEPROXY_KUBECONFIG = C:\etc\kubernetes\kubeproxy.kubeconfig
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: KUBELET_CONFIG = C:\etc\kubernetes\kubelet-config.yaml
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: Path = C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\GooGet;C:\Program Files\Google\Compute Engine\metadata_scripts;C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\bin;C:\Program Files\Google\Compute Engine\sysprep;C:\Program Files\Docker;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;;C:\etc\kubernetes\node\bin
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: CA_CERT_BUNDLE_PATH = C:\etc\kubernetes\pki\ca-certificates.crt
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: BOOTSTRAP_KUBECONFIG = C:\etc\kubernetes\kubelet.bootstrap-kubeconfig
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: CNI_CONFIG_DIR = C:\etc\kubernetes\cni\config
+2019/03/19 16:47:56 windows-startup-script-ps1: Setting environment variable: KUBE_NETWORK = l2bridge
+2019/03/19 16:47:56 windows-startup-script-ps1: Creating C:\etc\kubernetes and its subdirectories.
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1: PSPath            : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes
+2019/03/19 16:47:56 windows-startup-script-ps1: PSParentPath      : Microsoft.PowerShell.Core\FileSystem::C:\etc
+2019/03/19 16:47:56 windows-startup-script-ps1: PSChildName       : kubernetes
+2019/03/19 16:47:56 windows-startup-script-ps1: PSDrive           : C
+2019/03/19 16:47:56 windows-startup-script-ps1: PSProvider        : Microsoft.PowerShell.Core\FileSystem
+2019/03/19 16:47:56 windows-startup-script-ps1: PSIsContainer     : True
+2019/03/19 16:47:56 windows-startup-script-ps1: Name              : kubernetes
+2019/03/19 16:47:56 windows-startup-script-ps1: FullName          : C:\etc\kubernetes
+2019/03/19 16:47:56 windows-startup-script-ps1: Parent            : etc
+2019/03/19 16:47:56 windows-startup-script-ps1: Exists            : True
+2019/03/19 16:47:56 windows-startup-script-ps1: Root              : C:\
+2019/03/19 16:47:56 windows-startup-script-ps1: Extension         : 
+2019/03/19 16:47:56 windows-startup-script-ps1: CreationTime      : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:56 windows-startup-script-ps1: CreationTimeUtc   : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:56 windows-startup-script-ps1: LastAccessTime    : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:56 windows-startup-script-ps1: LastAccessTimeUtc : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:56 windows-startup-script-ps1: LastWriteTime     : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:56 windows-startup-script-ps1: LastWriteTimeUtc  : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:56 windows-startup-script-ps1: Attributes        : Directory
+2019/03/19 16:47:56 windows-startup-script-ps1: Mode              : d-----
+2019/03/19 16:47:56 windows-startup-script-ps1: BaseName          : kubernetes
+2019/03/19 16:47:56 windows-startup-script-ps1: Target            : {}
+2019/03/19 16:47:56 windows-startup-script-ps1: LinkType          : 
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1: 
+2019/03/19 16:47:56 windows-startup-script-ps1: PSPath            : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes\node\bin
+2019/03/19 16:47:56 windows-startup-script-ps1: PSParentPath      : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes\node
+2019/03/19 16:47:56 windows-startup-script-ps1: PSChildName       : bin
+2019/03/19 16:47:56 windows-startup-script-ps1: PSDrive           : C
+2019/03/19 16:47:56 windows-startup-script-ps1: PSProvider        : Microsoft.PowerShell.Core\FileSystem
+2019/03/19 16:47:56 windows-startup-script-ps1: PSIsContainer     : True
+2019/03/19 16:47:56 windows-startup-script-ps1: Name              : bin
+2019/03/19 16:47:56 windows-startup-script-ps1: FullName          : C:\etc\kubernetes\node\bin
+2019/03/19 16:47:57 windows-startup-script-ps1: Parent            : node
+2019/03/19 16:47:57 windows-startup-script-ps1: Exists            : True
+2019/03/19 16:47:57 windows-startup-script-ps1: Root              : C:\
+2019/03/19 16:47:57 windows-startup-script-ps1: Extension         : 
+2019/03/19 16:47:57 windows-startup-script-ps1: CreationTime      : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: CreationTimeUtc   : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastAccessTime    : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastAccessTimeUtc : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastWriteTime     : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastWriteTimeUtc  : 3/19/2019 4:47:51 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: Attributes        : Directory
+2019/03/19 16:47:57 windows-startup-script-ps1: Mode              : d-----
+2019/03/19 16:47:57 windows-startup-script-ps1: BaseName          : bin
+2019/03/19 16:47:57 windows-startup-script-ps1: Target            : {}
+2019/03/19 16:47:57 windows-startup-script-ps1: LinkType          : 
+2019/03/19 16:47:57 windows-startup-script-ps1: 
+2019/03/19 16:47:57 windows-startup-script-ps1: 
+2019/03/19 16:47:57 windows-startup-script-ps1: PSPath            : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes\logs
+2019/03/19 16:47:57 windows-startup-script-ps1: PSParentPath      : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes
+2019/03/19 16:47:57 windows-startup-script-ps1: PSChildName       : logs
+2019/03/19 16:47:57 windows-startup-script-ps1: PSDrive           : C
+2019/03/19 16:47:57 windows-startup-script-ps1: PSProvider        : Microsoft.PowerShell.Core\FileSystem
+2019/03/19 16:47:57 windows-startup-script-ps1: PSIsContainer     : True
+2019/03/19 16:47:57 windows-startup-script-ps1: Name              : logs
+2019/03/19 16:47:57 windows-startup-script-ps1: FullName          : C:\etc\kubernetes\logs
+2019/03/19 16:47:57 windows-startup-script-ps1: Parent            : kubernetes
+2019/03/19 16:47:57 windows-startup-script-ps1: Exists            : True
+2019/03/19 16:47:57 windows-startup-script-ps1: Root              : C:\
+2019/03/19 16:47:57 windows-startup-script-ps1: Extension         : 
+2019/03/19 16:47:57 windows-startup-script-ps1: CreationTime      : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: CreationTimeUtc   : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastAccessTime    : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastAccessTimeUtc : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastWriteTime     : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastWriteTimeUtc  : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: Attributes        : Directory
+2019/03/19 16:47:57 windows-startup-script-ps1: Mode              : d-----
+2019/03/19 16:47:57 windows-startup-script-ps1: BaseName          : logs
+2019/03/19 16:47:57 windows-startup-script-ps1: Target            : {}
+2019/03/19 16:47:57 windows-startup-script-ps1: LinkType          : 
+2019/03/19 16:47:57 windows-startup-script-ps1: 
+2019/03/19 16:47:57 windows-startup-script-ps1: 
+2019/03/19 16:47:57 windows-startup-script-ps1: PSPath            : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes\cni
+2019/03/19 16:47:57 windows-startup-script-ps1: PSParentPath      : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes
+2019/03/19 16:47:57 windows-startup-script-ps1: PSChildName       : cni
+2019/03/19 16:47:57 windows-startup-script-ps1: PSDrive           : C
+2019/03/19 16:47:57 windows-startup-script-ps1: PSProvider        : Microsoft.PowerShell.Core\FileSystem
+2019/03/19 16:47:57 windows-startup-script-ps1: PSIsContainer     : True
+2019/03/19 16:47:57 windows-startup-script-ps1: Name              : cni
+2019/03/19 16:47:57 windows-startup-script-ps1: FullName          : C:\etc\kubernetes\cni
+2019/03/19 16:47:57 windows-startup-script-ps1: Parent            : kubernetes
+2019/03/19 16:47:57 windows-startup-script-ps1: Exists            : True
+2019/03/19 16:47:57 windows-startup-script-ps1: Root              : C:\
+2019/03/19 16:47:57 windows-startup-script-ps1: Extension         : 
+2019/03/19 16:47:57 windows-startup-script-ps1: CreationTime      : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: CreationTimeUtc   : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastAccessTime    : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastAccessTimeUtc : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastWriteTime     : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastWriteTimeUtc  : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: Attributes        : Directory
+2019/03/19 16:47:57 windows-startup-script-ps1: Mode              : d-----
+2019/03/19 16:47:57 windows-startup-script-ps1: BaseName          : cni
+2019/03/19 16:47:57 windows-startup-script-ps1: Target            : {}
+2019/03/19 16:47:57 windows-startup-script-ps1: LinkType          : 
+2019/03/19 16:47:57 windows-startup-script-ps1: 
+2019/03/19 16:47:57 windows-startup-script-ps1: 
+2019/03/19 16:47:57 windows-startup-script-ps1: PSPath            : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes\cni\config
+2019/03/19 16:47:57 windows-startup-script-ps1: PSParentPath      : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes\cni
+2019/03/19 16:47:57 windows-startup-script-ps1: PSChildName       : config
+2019/03/19 16:47:57 windows-startup-script-ps1: PSDrive           : C
+2019/03/19 16:47:57 windows-startup-script-ps1: PSProvider        : Microsoft.PowerShell.Core\FileSystem
+2019/03/19 16:47:57 windows-startup-script-ps1: PSIsContainer     : True
+2019/03/19 16:47:57 windows-startup-script-ps1: Name              : config
+2019/03/19 16:47:57 windows-startup-script-ps1: FullName          : C:\etc\kubernetes\cni\config
+2019/03/19 16:47:57 windows-startup-script-ps1: Parent            : cni
+2019/03/19 16:47:57 windows-startup-script-ps1: Exists            : True
+2019/03/19 16:47:57 windows-startup-script-ps1: Root              : C:\
+2019/03/19 16:47:57 windows-startup-script-ps1: Extension         : 
+2019/03/19 16:47:57 windows-startup-script-ps1: CreationTime      : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: CreationTimeUtc   : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastAccessTime    : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastAccessTimeUtc : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastWriteTime     : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: LastWriteTimeUtc  : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:57 windows-startup-script-ps1: Attributes        : Directory
+2019/03/19 16:47:57 windows-startup-script-ps1: Mode              : d-----
+2019/03/19 16:47:57 windows-startup-script-ps1: BaseName          : config
+2019/03/19 16:47:57 windows-startup-script-ps1: Target            : {}
+2019/03/19 16:47:57 windows-startup-script-ps1: LinkType          : 
+2019/03/19 16:47:57 windows-startup-script-ps1: 
+2019/03/19 16:47:57 windows-startup-script-ps1: 
+2019/03/19 16:47:57 windows-startup-script-ps1: PSPath            : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes\manifests
+2019/03/19 16:47:57 windows-startup-script-ps1: PSParentPath      : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes
+2019/03/19 16:47:57 windows-startup-script-ps1: PSChildName       : manifests
+2019/03/19 16:47:57 windows-startup-script-ps1: PSDrive           : C
+2019/03/19 16:47:57 windows-startup-script-ps1: PSProvider        : Microsoft.PowerShell.Core\FileSystem
+2019/03/19 16:47:57 windows-startup-script-ps1: PSIsContainer     : True
+2019/03/19 16:47:57 windows-startup-script-ps1: Name              : manifests
+2019/03/19 16:47:58 windows-startup-script-ps1: FullName          : C:\etc\kubernetes\manifests
+2019/03/19 16:47:58 windows-startup-script-ps1: Parent            : kubernetes
+2019/03/19 16:47:58 windows-startup-script-ps1: Exists            : True
+2019/03/19 16:47:58 windows-startup-script-ps1: Root              : C:\
+2019/03/19 16:47:58 windows-startup-script-ps1: Extension         : 
+2019/03/19 16:47:58 windows-startup-script-ps1: CreationTime      : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: CreationTimeUtc   : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastAccessTime    : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastAccessTimeUtc : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastWriteTime     : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastWriteTimeUtc  : 3/19/2019 4:47:55 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: Attributes        : Directory
+2019/03/19 16:47:58 windows-startup-script-ps1: Mode              : d-----
+2019/03/19 16:47:58 windows-startup-script-ps1: BaseName          : manifests
+2019/03/19 16:47:58 windows-startup-script-ps1: Target            : {}
+2019/03/19 16:47:58 windows-startup-script-ps1: LinkType          : 
+2019/03/19 16:47:58 windows-startup-script-ps1: 
+2019/03/19 16:47:58 windows-startup-script-ps1: 
+2019/03/19 16:47:58 windows-startup-script-ps1: PSPath            : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes\pki
+2019/03/19 16:47:58 windows-startup-script-ps1: PSParentPath      : Microsoft.PowerShell.Core\FileSystem::C:\etc\kubernetes
+2019/03/19 16:47:58 windows-startup-script-ps1: PSChildName       : pki
+2019/03/19 16:47:58 windows-startup-script-ps1: PSDrive           : C
+2019/03/19 16:47:58 windows-startup-script-ps1: PSProvider        : Microsoft.PowerShell.Core\FileSystem
+2019/03/19 16:47:58 windows-startup-script-ps1: PSIsContainer     : True
+2019/03/19 16:47:58 windows-startup-script-ps1: Name              : pki
+2019/03/19 16:47:58 windows-startup-script-ps1: FullName          : C:\etc\kubernetes\pki
+2019/03/19 16:47:58 windows-startup-script-ps1: Parent            : kubernetes
+2019/03/19 16:47:58 windows-startup-script-ps1: Exists            : True
+2019/03/19 16:47:58 windows-startup-script-ps1: Root              : C:\
+2019/03/19 16:47:58 windows-startup-script-ps1: Extension         : 
+2019/03/19 16:47:58 windows-startup-script-ps1: CreationTime      : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: CreationTimeUtc   : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastAccessTime    : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastAccessTimeUtc : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastWriteTime     : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastWriteTimeUtc  : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: Attributes        : Directory
+2019/03/19 16:47:58 windows-startup-script-ps1: Mode              : d-----
+2019/03/19 16:47:58 windows-startup-script-ps1: BaseName          : pki
+2019/03/19 16:47:58 windows-startup-script-ps1: Target            : {}
+2019/03/19 16:47:58 windows-startup-script-ps1: LinkType          : 
+2019/03/19 16:47:58 windows-startup-script-ps1: 
+2019/03/19 16:47:58 windows-startup-script-ps1: 
+2019/03/19 16:47:58 windows-startup-script-ps1: PSPath            : Microsoft.PowerShell.Core\FileSystem::C:\tmp
+2019/03/19 16:47:58 windows-startup-script-ps1: PSParentPath      : Microsoft.PowerShell.Core\FileSystem::C:\
+2019/03/19 16:47:58 windows-startup-script-ps1: PSChildName       : tmp
+2019/03/19 16:47:58 windows-startup-script-ps1: PSDrive           : C
+2019/03/19 16:47:58 windows-startup-script-ps1: PSProvider        : Microsoft.PowerShell.Core\FileSystem
+2019/03/19 16:47:58 windows-startup-script-ps1: PSIsContainer     : True
+2019/03/19 16:47:58 windows-startup-script-ps1: Name              : tmp
+2019/03/19 16:47:58 windows-startup-script-ps1: FullName          : C:\tmp
+2019/03/19 16:47:58 windows-startup-script-ps1: Parent            : 
+2019/03/19 16:47:58 windows-startup-script-ps1: Exists            : True
+2019/03/19 16:47:58 windows-startup-script-ps1: Root              : C:\
+2019/03/19 16:47:58 windows-startup-script-ps1: Extension         : 
+2019/03/19 16:47:58 windows-startup-script-ps1: CreationTime      : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: CreationTimeUtc   : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastAccessTime    : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastAccessTimeUtc : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastWriteTime     : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: LastWriteTimeUtc  : 3/19/2019 4:47:56 PM
+2019/03/19 16:47:58 windows-startup-script-ps1: Attributes        : Directory
+2019/03/19 16:47:58 windows-startup-script-ps1: Mode              : d-----
+2019/03/19 16:47:58 windows-startup-script-ps1: BaseName          : tmp
+2019/03/19 16:47:58 windows-startup-script-ps1: Target            : {}
+2019/03/19 16:47:58 windows-startup-script-ps1: LinkType          : 
+2019/03/19 16:47:58 windows-startup-script-ps1: 
+2019/03/19 16:47:58 windows-startup-script-ps1: Downloaded https://github.com/Microsoft/SDN/raw/master/Kubernetes/windows/hns.psm1
+2019/03/19 16:47:58 windows-startup-script-ps1: Downloaded https://github.com/Microsoft/SDN/raw/master/Kubernetes/windows/debug/collectlogs.ps1
+2019/03/19 16:48:00 windows-startup-script-ps1: Downloaded https://dl.google.com/cloudagents/windows/StackdriverLogging-v1-8.exe
+2019/03/19 16:48:00 windows-startup-script-ps1: Invoking Stackdriver installer
+2019/03/19 16:48:32 windows-startup-script-ps1: WARNING: Waiting for service 'Stackdriver Logging (StackdriverLogging)' to start...
+2019/03/19 16:48:34 windows-startup-script-ps1: Importing registry key for Docker
+2019/03/19 16:48:34 windows-startup-script-ps1: The operation completed successfully.
+2019/03/19 16:48:47 windows-startup-script-ps1: Downloaded https://storage.googleapis.com/kubernetes-staging-7b7212123a/e2e-test-peterhornyack-devel/kubernetes-node-windows-amd64.tar.gz (SHA1 = eeb97f7f2753829d6aab6b4884c9196a1bcebaff)
+2019/03/19 16:48:53 windows-startup-script-ps1: Creating node pki files
+2019/03/19 16:48:53 windows-startup-script-ps1: TODO: need to set permissions correctly on C:\etc\kubernetes\pki\ca-certificates.crt; not sure what the Windows equivalent of 'umask 077' is
+2019/03/19 16:48:53 windows-startup-script-ps1: TODO: need to set permissions correctly on C:\etc\kubernetes\pki\kubelet.crt; not sure what the Windows equivalent of 'umask 077' is
+2019/03/19 16:48:53 windows-startup-script-ps1: TODO: need to set permissions correctly on C:\etc\kubernetes\pki\kubelet.key; not sure what the Windows equivalent of 'umask 077' is
+2019/03/19 16:48:53 windows-startup-script-ps1: 
+2019/03/19 16:48:53 windows-startup-script-ps1: LastWriteTime : 3/19/2019 4:48:53 PM
+2019/03/19 16:48:53 windows-startup-script-ps1: Length        : 1257
+2019/03/19 16:48:53 windows-startup-script-ps1: Name          : ca-certificates.crt
+2019/03/19 16:48:53 windows-startup-script-ps1: 
+2019/03/19 16:48:54 windows-startup-script-ps1: 
+2019/03/19 16:48:54 windows-startup-script-ps1: LastWriteTime : 3/19/2019 4:48:53 PM
+2019/03/19 16:48:54 windows-startup-script-ps1: Length        : 1229
+2019/03/19 16:48:54 windows-startup-script-ps1: Name          : kubelet.crt
+2019/03/19 16:48:55 windows-startup-script-ps1: 
+2019/03/19 16:48:55 windows-startup-script-ps1: 
+2019/03/19 16:48:55 windows-startup-script-ps1: LastWriteTime : 3/19/2019 4:48:53 PM
+2019/03/19 16:48:55 windows-startup-script-ps1: Length        : 1679
+2019/03/19 16:48:55 windows-startup-script-ps1: Name          : kubelet.key
+2019/03/19 16:48:56 windows-startup-script-ps1: 
+2019/03/19 16:48:56 windows-startup-script-ps1: kubelet bootstrap kubeconfig:
+2019/03/19 16:48:56 windows-startup-script-ps1: apiVersion: v1
+2019/03/19 16:48:56 windows-startup-script-ps1: kind: Config
+2019/03/19 16:48:56 windows-startup-script-ps1: users:
+2019/03/19 16:48:57 windows-startup-script-ps1: - name: kubelet
+2019/03/19 16:48:57 windows-startup-script-ps1:   user:
+2019/03/19 16:48:57 windows-startup-script-ps1:     client-certificate: C:\etc\kubernetes\pki\kubelet.crt
+2019/03/19 16:48:57 windows-startup-script-ps1:     client-key: C:\etc\kubernetes\pki\kubelet.key
+2019/03/19 16:48:57 windows-startup-script-ps1: clusters:
+2019/03/19 16:48:57 windows-startup-script-ps1: - name: local
+2019/03/19 16:48:57 windows-startup-script-ps1:   cluster:
+2019/03/19 16:48:57 windows-startup-script-ps1:     server: https://104.197.89.63
+2019/03/19 16:48:57 windows-startup-script-ps1:     certificate-authority: C:\etc\kubernetes\pki\ca-certificates.crt
+2019/03/19 16:48:57 windows-startup-script-ps1: contexts:
+2019/03/19 16:48:57 windows-startup-script-ps1: - context:
+2019/03/19 16:48:57 windows-startup-script-ps1:     cluster: local
+2019/03/19 16:48:57 windows-startup-script-ps1:     user: kubelet
+2019/03/19 16:48:57 windows-startup-script-ps1:   name: service-account-context
+2019/03/19 16:48:57 windows-startup-script-ps1: current-context: service-account-context
+2019/03/19 16:48:57 windows-startup-script-ps1: 
+2019/03/19 16:48:57 windows-startup-script-ps1: kubeproxy kubeconfig:
+2019/03/19 16:48:57 windows-startup-script-ps1: apiVersion: v1
+2019/03/19 16:48:57 windows-startup-script-ps1: kind: Config
+2019/03/19 16:48:57 windows-startup-script-ps1: users:
+2019/03/19 16:48:57 windows-startup-script-ps1: - name: kube-proxy
+2019/03/19 16:48:57 windows-startup-script-ps1:   user:
+2019/03/19 16:48:57 windows-startup-script-ps1:     token: dKr8fZtZCYrFGa2R6ISaN1tnPc2goLG8
+2019/03/19 16:48:57 windows-startup-script-ps1: clusters:
+2019/03/19 16:48:57 windows-startup-script-ps1: - name: local
+2019/03/19 16:48:57 windows-startup-script-ps1:   cluster:
+2019/03/19 16:48:57 windows-startup-script-ps1:     server: https://104.197.89.63
+2019/03/19 16:48:57 windows-startup-script-ps1:     certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjakNDQWxxZ0F3SUJBZ0lVVTNXM1d3aGdyaUtJQ0lGNHBSd1gwZkxqTTNnd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0l6RWhNQjhHQTFVRUF3d1lNVEEwTGpFNU55NDRPUzQyTTBBeE5UVXpNREV6TmpRMU1CNFhEVEU1TURNeApPVEUyTkRBME5Wb1hEVEk1TURNeE5qRTJOREEwTlZvd0l6RWhNQjhHQTFVRUF3d1lNVEEwTGpFNU55NDRPUzQyCk0wQXhOVFV6TURFek5qUTFNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQXNFQUIKa3A3VUVWdTRuTzdsekdvZXVDV3hGTnZPbTBUc2gxY3BQN3RRTjY5VGRLaS9KWXpKK2RpN0lWbDNjSGlKSkoyKwpFYk12OWw1MjZidXpESGpqNUNuc0ZNMlhLVDNUZll4R3p2RHJmOVNxODRtd1N2dWxIenBqZ2JEZXJ3dmx6MVBGCjEwanlMTHVLcE1oVGhEVVJjbnZ0KzlJeElvNHBKUHZWWmh2VFJBb3RZSnVyZGNxemxFb3E4UityMHpiQXpFbzUKY0k1YVNIcURZNm5MTm54eUpOc3Jjc3ZIUjcrRGt3VGJaM3dUUDJXUHdyRzUrZlp1aVV6eWoxNXRPR1NRZlh3agpVVnBYQlRJTDJaYmM1dFF3ZEF3K0ZmTHJVbG1HVDB3bG5ZRWtkb0pYaGh6RGljQTRLTFZjOUR2enA0UE9Qd295ClhJdFdMVVpJT0ZEcjA0UGNld0lEQVFBQm80R2RNSUdhTUIwR0ExVWREZ1FXQkJRMUJvOHVNN3JMVjZ5Z09OeEUKUy8vcmp6WmpxekJlQmdOVkhTTUVWekJWZ0JRMUJvOHVNN3JMVjZ5Z09OeEVTLy9yanpaanE2RW5wQ1V3SXpFaApNQjhHQTFVRUF3d1lNVEEwTGpFNU55NDRPUzQyTTBBeE5UVXpNREV6TmpRMWdoUlRkYmRiQ0dDdUlvZ0lnWGlsCkhCZlI4dU16ZURBTUJnTlZIUk1FQlRBREFRSC9NQXNHQTFVZER3UUVBd0lCQmpBTkJna3Foa2lHOXcwQkFRc0YKQUFPQ0FRRUFRd0NyQ0k3Yko3aUx2U3YvbVNhTFp6djlhVnMyMVVLcytNOGFNYWVBQTIyRHRienBYYllKRzZjRgpmNWJ4R0JZb09LSkxsTDh1QjdaVk5Ubml0bzVMdzNRb1pMQ2daay8yaXo2dVZ1MkhROW05eFhUUndiTTc4TXBXCm9VaWtZMlJvaS9RQU5vY09kTCt1bDVxczcvd0NHUHZvcDFqTGE3WUdoZW9Lc0pZb1FCb1J0cTBNdENGQlk4bC8KNnNwdVV1Wmc2T015RVRBTThqbjBDU0VmUHRCMVJyeExjSzZCOWpIZ3U0NjB3OXlIemF0Y3JTMnQ1SXF1WjRmWgovY0hUbjNNMHJBUzlhcEEzemhESnFyWlQxYXk5RldoTzRHcVJYL05PWUR2MUtKb2ZadGxFbE0xaXFDZHBzRFJTCnAvc09yU1cybUdaUWNudEw0OERNQ0pLQUJWMnJMZz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+2019/03/19 16:48:57 windows-startup-script-ps1: contexts:
+2019/03/19 16:48:57 windows-startup-script-ps1: - context:
+2019/03/19 16:48:57 windows-startup-script-ps1:     cluster: local
+2019/03/19 16:48:57 windows-startup-script-ps1:     user: kube-proxy
+2019/03/19 16:48:57 windows-startup-script-ps1:   name: service-account-context
+2019/03/19 16:48:57 windows-startup-script-ps1: current-context: service-account-context
+2019/03/19 16:48:57 windows-startup-script-ps1: 
+2019/03/19 16:48:57 windows-startup-script-ps1: fetched pod CIDR (same as IP alias range): 10.64.2.0/24
+2019/03/19 16:48:57 windows-startup-script-ps1: WARNING: The names of some imported commands from the module 'hns' include unapproved verbs that might make them less 
+2019/03/19 16:48:57 windows-startup-script-ps1: discoverable. To find the commands with unapproved verbs, run the Import-Module command again with the Verbose 
+2019/03/19 16:48:58 windows-startup-script-ps1: parameter. For a list of approved verbs, type Get-Verb.
+2019/03/19 16:48:58 windows-startup-script-ps1: Creating initial HNS network to force creation of vEthernet (Ethernet* interface
+2019/03/19 16:48:58 windows-startup-script-ps1: VERBOSE: Invoke-HNSRequest Method[POST] Path[/networks] Data[{
+2019/03/19 16:48:58 windows-startup-script-ps1:     "Subnets":  [
+2019/03/19 16:48:58 windows-startup-script-ps1:                     {
+2019/03/19 16:48:59 windows-startup-script-ps1:                         "GatewayAddress":  "192.168.255.1",
+2019/03/19 16:48:59 windows-startup-script-ps1:                         "AddressPrefix":  "192.168.255.0/30"
+2019/03/19 16:48:59 windows-startup-script-ps1:                     }
+2019/03/19 16:48:59 windows-startup-script-ps1:                 ],
+2019/03/19 16:49:00 windows-startup-script-ps1:     "Name":  "External",
+2019/03/19 16:49:00 windows-startup-script-ps1:     "Type":  "L2Bridge"
+2019/03/19 16:49:00 windows-startup-script-ps1: }]
+2019/03/19 16:49:01 windows-startup-script-ps1: VERBOSE: Result : 
+2019/03/19 16:49:01 windows-startup-script-ps1: {"Output":{"ActivityId":"1B83D51C-2384-4624-B29B-6127F6606F51","AdditionalParams":{},"CurrentEndpointCount":0,"Extensio
+2019/03/19 16:49:01 windows-startup-script-ps1: ns":[{"Id":"E7C3B2F0-F3C5-48DF-AF2B-10FED6D72E7A","IsEnabled":false,"Name":"Microsoft Windows Filtering 
+2019/03/19 16:49:01 windows-startup-script-ps1: Platform"},{"Id":"E9B59CFA-2BE1-4B21-828F-B6FBDBDDC017","IsEnabled":true,"Name":"Microsoft Azure VFP Switch 
+2019/03/19 16:49:01 windows-startup-script-ps1: Extension"},{"Id":"EA24CD6C-D17A-4348-9190-09F0D5BE83DD","IsEnabled":true,"Name":"Microsoft NDIS 
+2019/03/19 16:49:01 windows-startup-script-ps1: Capture"}],"Health":{"LastErrorCode":0,"LastUpdateTime":131974877361527788},"ID":"1128ADB7-6638-40DF-82DC-E97A3A70AA18"
+2019/03/19 16:49:01 windows-startup-script-ps1: ,"IPv6":false,"LayeredOn":"3F950CDF-3E21-49DE-BD4F-7E7031805D78","MacPools":[{"EndMacAddress":"00-15-5D-F0-EF-FF","Star
+2019/03/19 16:49:01 windows-startup-script-ps1: tMacAddress":"00-15-5D-F0-E0-00"}],"ManagementIP":"10.40.0.4","MaxConcurrentEndpoints":0,"Name":"External","Policies":[
+2019/03/19 16:49:01 windows-startup-script-ps1: ],"Resources":{"AdditionalParams":{},"AllocationOrder":0,"Health":{"LastErrorCode":0,"LastUpdateTime":13197487741663726
+2019/03/19 16:49:01 windows-startup-script-ps1: 9},"ID":"1B83D51C-2384-4624-B29B-6127F6606F51","PortOperationTime":0,"State":1,"SwitchOperationTime":0,"VfpOperationTim
+2019/03/19 16:49:01 windows-startup-script-ps1: e":0,"parentId":"26666BF6-B48C-4D91-834D-3A77F211F911"},"State":1,"Subnets":[{"AdditionalParams":{},"AddressPrefix":"19
+2019/03/19 16:49:01 windows-startup-script-ps1: 2.168.255.0/30","GatewayAddress":"192.168.255.1","Health":{"LastErrorCode":0,"LastUpdateTime":131974877361527788},"ID":
+2019/03/19 16:49:01 windows-startup-script-ps1: "83AD3214-54E7-4B99-AADC-82993480C616","ObjectType":5,"Policies":[],"State":0}],"TotalEndpoints":0,"Type":"L2Bridge","V
+2019/03/19 16:49:01 windows-startup-script-ps1: ersion":38654705665},"Success":true}
+2019/03/19 16:49:01 windows-startup-script-ps1: 
+2019/03/19 16:49:01 windows-startup-script-ps1: ActivityId             : 1B83D51C-2384-4624-B29B-6127F6606F51
+2019/03/19 16:49:01 windows-startup-script-ps1: AdditionalParams       : 
+2019/03/19 16:49:01 windows-startup-script-ps1: CurrentEndpointCount   : 0
+2019/03/19 16:49:01 windows-startup-script-ps1: Extensions             : {@{Id=E7C3B2F0-F3C5-48DF-AF2B-10FED6D72E7A; IsEnabled=False; Name=Microsoft Windows Filtering 
+2019/03/19 16:49:01 windows-startup-script-ps1:                          Platform}, @{Id=E9B59CFA-2BE1-4B21-828F-B6FBDBDDC017; IsEnabled=True; Name=Microsoft Azure 
+2019/03/19 16:49:01 windows-startup-script-ps1:                          VFP Switch Extension}, @{Id=EA24CD6C-D17A-4348-9190-09F0D5BE83DD; IsEnabled=True; 
+2019/03/19 16:49:01 windows-startup-script-ps1:                          Name=Microsoft NDIS Capture}}
+2019/03/19 16:49:01 windows-startup-script-ps1: Health                 : @{LastErrorCode=0; LastUpdateTime=131974877361527788}
+2019/03/19 16:49:01 windows-startup-script-ps1: ID                     : 1128ADB7-6638-40DF-82DC-E97A3A70AA18
+2019/03/19 16:49:01 windows-startup-script-ps1: IPv6                   : False
+2019/03/19 16:49:01 windows-startup-script-ps1: LayeredOn              : 3F950CDF-3E21-49DE-BD4F-7E7031805D78
+2019/03/19 16:49:01 windows-startup-script-ps1: MacPools               : {@{EndMacAddress=00-15-5D-F0-EF-FF; StartMacAddress=00-15-5D-F0-E0-00}}
+2019/03/19 16:49:01 windows-startup-script-ps1: ManagementIP           : 10.40.0.4
+2019/03/19 16:49:01 windows-startup-script-ps1: MaxConcurrentEndpoints : 0
+2019/03/19 16:49:01 windows-startup-script-ps1: Name                   : External
+2019/03/19 16:49:01 windows-startup-script-ps1: Policies               : {}
+2019/03/19 16:49:01 windows-startup-script-ps1: Resources              : @{AdditionalParams=; AllocationOrder=0; Health=; ID=1B83D51C-2384-4624-B29B-6127F6606F51; 
+2019/03/19 16:49:01 windows-startup-script-ps1:                          PortOperationTime=0; State=1; SwitchOperationTime=0; VfpOperationTime=0; 
+2019/03/19 16:49:01 windows-startup-script-ps1:                          parentId=26666BF6-B48C-4D91-834D-3A77F211F911}
+2019/03/19 16:49:01 windows-startup-script-ps1: State                  : 1
+2019/03/19 16:49:01 windows-startup-script-ps1: Subnets                : {@{AdditionalParams=; AddressPrefix=192.168.255.0/30; GatewayAddress=192.168.255.1; Health=; 
+2019/03/19 16:49:01 windows-startup-script-ps1:                          ID=83AD3214-54E7-4B99-AADC-82993480C616; ObjectType=5; Policies=System.Object[]; State=0}}
+2019/03/19 16:49:01 windows-startup-script-ps1: TotalEndpoints         : 0
+2019/03/19 16:49:02 windows-startup-script-ps1: Type                   : L2Bridge
+2019/03/19 16:49:02 windows-startup-script-ps1: Version                : 38654705665
+2019/03/19 16:49:03 windows-startup-script-ps1: 
+2019/03/19 16:49:03 windows-startup-script-ps1: Setting up Windows node HNS networking: podCidr = 10.64.2.0/24, podGateway = 10.64.2.1, podEndpointGateway = 10.64.2.2
+2019/03/19 16:49:03 windows-startup-script-ps1: VERBOSE: Invoke-HNSRequest Method[POST] Path[/networks] Data[{
+2019/03/19 16:49:04 windows-startup-script-ps1:     "Subnets":  [
+2019/03/19 16:49:04 windows-startup-script-ps1:                     {
+2019/03/19 16:49:04 windows-startup-script-ps1:                         "GatewayAddress":  "10.64.2.1",
+2019/03/19 16:49:04 windows-startup-script-ps1:                         "AddressPrefix":  "10.64.2.0/24"
+2019/03/19 16:49:04 windows-startup-script-ps1:                     }
+2019/03/19 16:49:04 windows-startup-script-ps1:                 ],
+2019/03/19 16:49:05 windows-startup-script-ps1:     "Name":  "l2bridge",
+2019/03/19 16:49:05 windows-startup-script-ps1:     "Type":  "L2Bridge"
+2019/03/19 16:49:05 windows-startup-script-ps1: }]
+2019/03/19 16:49:05 windows-startup-script-ps1: VERBOSE: Result : 
+2019/03/19 16:49:05 windows-startup-script-ps1: {"Output":{"ActivityId":"A9BBEA24-91A3-44C1-BE64-6FB24B9E8EC7","AdditionalParams":{},"CurrentEndpointCount":0,"Extensio
+2019/03/19 16:49:05 windows-startup-script-ps1: ns":[{"Id":"E7C3B2F0-F3C5-48DF-AF2B-10FED6D72E7A","IsEnabled":false,"Name":"Microsoft Windows Filtering 
+2019/03/19 16:49:05 windows-startup-script-ps1: Platform"},{"Id":"E9B59CFA-2BE1-4B21-828F-B6FBDBDDC017","IsEnabled":true,"Name":"Microsoft Azure VFP Switch 
+2019/03/19 16:49:05 windows-startup-script-ps1: Extension"},{"Id":"EA24CD6C-D17A-4348-9190-09F0D5BE83DD","IsEnabled":true,"Name":"Microsoft NDIS 
+2019/03/19 16:49:05 windows-startup-script-ps1: Capture"}],"Health":{"LastErrorCode":0,"LastUpdateTime":131974877417403613},"ID":"B19F0EAB-F49A-4637-9C90-237759D50F2B"
+2019/03/19 16:49:05 windows-startup-script-ps1: ,"IPv6":false,"LayeredOn":"3F950CDF-3E21-49DE-BD4F-7E7031805D78","MacPools":[{"EndMacAddress":"00-15-5D-09-3F-FF","Star
+2019/03/19 16:49:05 windows-startup-script-ps1: tMacAddress":"00-15-5D-09-30-00"}],"ManagementIP":"10.40.0.4","MaxConcurrentEndpoints":0,"Name":"l2bridge","Policies":[
+2019/03/19 16:49:05 windows-startup-script-ps1: ],"Resources":{"AdditionalParams":{},"AllocationOrder":0,"Health":{"LastErrorCode":0,"LastUpdateTime":13197487741790178
+2019/03/19 16:49:05 windows-startup-script-ps1: 9},"ID":"A9BBEA24-91A3-44C1-BE64-6FB24B9E8EC7","PortOperationTime":0,"State":1,"SwitchOperationTime":0,"VfpOperationTim
+2019/03/19 16:49:05 windows-startup-script-ps1: e":0,"parentId":"26666BF6-B48C-4D91-834D-3A77F211F911"},"State":1,"Subnets":[{"AdditionalParams":{},"AddressPrefix":"10
+2019/03/19 16:49:05 windows-startup-script-ps1: .64.2.0/24","GatewayAddress":"10.64.2.1","Health":{"LastErrorCode":0,"LastUpdateTime":131974877417403613},"ID":"EAE564F
+2019/03/19 16:49:05 windows-startup-script-ps1: E-C41E-4F39-BC93-10A807F64462","ObjectType":5,"Policies":[],"State":0}],"TotalEndpoints":0,"Type":"L2Bridge","Version":
+2019/03/19 16:49:05 windows-startup-script-ps1: 38654705665},"Success":true}
+2019/03/19 16:49:05 windows-startup-script-ps1: VERBOSE: Invoke-HNSRequest Method[POST] Path[/endpoints] Data[{
+2019/03/19 16:49:05 windows-startup-script-ps1:     "GatewayAddress":  "0.0.0.0",
+2019/03/19 16:49:05 windows-startup-script-ps1:     "Policies":  [
+2019/03/19 16:49:05 windows-startup-script-ps1: 
+2019/03/19 16:49:05 windows-startup-script-ps1:                  ],
+2019/03/19 16:49:05 windows-startup-script-ps1:     "VirtualNetwork":  "b19f0eab-f49a-4637-9c90-237759d50f2b",
+2019/03/19 16:49:05 windows-startup-script-ps1:     "Name":  "cbr0",
+2019/03/19 16:49:05 windows-startup-script-ps1:     "IPAddress":  "10.64.2.2"
+2019/03/19 16:49:05 windows-startup-script-ps1: }]
+2019/03/19 16:49:05 windows-startup-script-ps1: VERBOSE: Result : 
+2019/03/19 16:49:05 windows-startup-script-ps1: {"Output":{"ActivityId":"01D528B5-169F-48C5-BD1E-54A4002F3A08","AdditionalParams":{},"CreateProcessingStartTime":131974
+2019/03/19 16:49:05 windows-startup-script-ps1: 877418536269,"Health":{"LastErrorCode":0,"LastUpdateTime":131974877418438758},"ID":"89C321FB-4F1E-4172-BE00-27BD4FB753D
+2019/03/19 16:49:05 windows-startup-script-ps1: 9","IPAddress":"10.64.2.2","MacAddress":"00-15-5D-09-34-D8","Name":"cbr0","OriginalGatewayAddress":"0.0.0.0","Policies"
+2019/03/19 16:49:05 windows-startup-script-ps1: :[{"Type":"L2Driver"}],"PrefixLength":24,"Resources":{"AdditionalParams":{},"AllocationOrder":0,"Health":{"LastErrorCod
+2019/03/19 16:49:05 windows-startup-script-ps1: e":0,"LastUpdateTime":131974877418438758},"ID":"01D528B5-169F-48C5-BD1E-54A4002F3A08","PortOperationTime":0,"State":1,"
+2019/03/19 16:49:05 windows-startup-script-ps1: SwitchOperationTime":0,"VfpOperationTime":0,"parentId":"A9BBEA24-91A3-44C1-BE64-6FB24B9E8EC7"},"SharedContainers":[],"S
+2019/03/19 16:49:05 windows-startup-script-ps1: tate":1,"Type":"L2Bridge","Version":38654705665,"VirtualNetwork":"b19f0eab-f49a-4637-9c90-237759d50f2b","VirtualNetwork
+2019/03/19 16:49:05 windows-startup-script-ps1: Name":"l2bridge"},"Success":true}
+2019/03/19 16:49:05 windows-startup-script-ps1: VERBOSE: Invoke-HNSRequest Method[POST] Path[/endpoints/89c321fb-4f1e-4172-be00-27bd4fb753d9/attach] Data[{
+2019/03/19 16:49:05 windows-startup-script-ps1:     "SystemType":  "Host",
+2019/03/19 16:49:05 windows-startup-script-ps1:     "CompartmentId":  1
+2019/03/19 16:49:05 windows-startup-script-ps1: }]
+2019/03/19 16:49:05 windows-startup-script-ps1: VERBOSE: Result : {"Success":true}
+2019/03/19 16:49:05 windows-startup-script-ps1: The following helper DLL cannot be loaded: C:\PROGRAM FILES\GOOGLE\COMPUTE ENGINE\GVNIC_HELPER\GVNICHELPER.DLL.
+2019/03/19 16:49:05 windows-startup-script-ps1: Ok.
+2019/03/19 16:49:05 windows-startup-script-ps1: 
+2019/03/19 16:49:09 windows-startup-script-ps1: VERBOSE: Performing operation "New" on Target "NetRoute -DestinationPrefix 10.64.2.0/24 -InterfaceIndex 14 -NextHop 
+2019/03/19 16:49:09 windows-startup-script-ps1: 0.0.0.0 -Store Active"
+2019/03/19 16:49:09 windows-startup-script-ps1: VERBOSE: Performing operation "New" on Target "NetRoute -DestinationPrefix 10.64.2.0/24 -InterfaceIndex 14 -NextHop 
+2019/03/19 16:49:09 windows-startup-script-ps1: 0.0.0.0 -Store Persistent"
+2019/03/19 16:49:09 windows-startup-script-ps1: 
+2019/03/19 16:49:09 windows-startup-script-ps1: Caption            : 
+2019/03/19 16:49:09 windows-startup-script-ps1: Description        : 
+2019/03/19 16:49:09 windows-startup-script-ps1: ElementName        : 
+2019/03/19 16:49:09 windows-startup-script-ps1: InstanceID         : ;:8@>8<8:9<>55;>55:8:8:8:55;
+2019/03/19 16:49:09 windows-startup-script-ps1: AdminDistance      : 
+2019/03/19 16:49:10 windows-startup-script-ps1: DestinationAddress : 
+2019/03/19 16:49:10 windows-startup-script-ps1: IsStatic           : 
+2019/03/19 16:49:10 windows-startup-script-ps1: RouteMetric        : 256
+2019/03/19 16:49:11 windows-startup-script-ps1: TypeOfRoute        : 3
+2019/03/19 16:49:11 windows-startup-script-ps1: AddressFamily      : IPv4
+2019/03/19 16:49:11 windows-startup-script-ps1: CompartmentId      : 1
+2019/03/19 16:49:11 windows-startup-script-ps1: DestinationPrefix  : 10.64.2.0/24
+2019/03/19 16:49:11 windows-startup-script-ps1: InterfaceAlias     : vEthernet (Ethernet)
+2019/03/19 16:49:11 windows-startup-script-ps1: InterfaceIndex     : 14
+2019/03/19 16:49:11 windows-startup-script-ps1: InterfaceMetric    : 5
+2019/03/19 16:49:11 windows-startup-script-ps1: NextHop            : 0.0.0.0
+2019/03/19 16:49:11 windows-startup-script-ps1: PreferredLifetime  : 10675199.02:48:05.4775807
+2019/03/19 16:49:11 windows-startup-script-ps1: Protocol           : NetMgmt
+2019/03/19 16:49:12 windows-startup-script-ps1: Publish            : No
+2019/03/19 16:49:12 windows-startup-script-ps1: State              : Alive
+2019/03/19 16:49:12 windows-startup-script-ps1: Store              : ActiveStore
+2019/03/19 16:49:12 windows-startup-script-ps1: ValidLifetime      : 10675199.02:48:05.4775807
+2019/03/19 16:49:12 windows-startup-script-ps1: PSComputerName     : 
+2019/03/19 16:49:12 windows-startup-script-ps1: ifIndex            : 14
+2019/03/19 16:49:12 windows-startup-script-ps1: 
+2019/03/19 16:49:12 windows-startup-script-ps1: 
+2019/03/19 16:49:12 windows-startup-script-ps1: Caption            : 
+2019/03/19 16:49:12 windows-startup-script-ps1: Description        : 
+2019/03/19 16:49:12 windows-startup-script-ps1: ElementName        : 
+2019/03/19 16:49:12 windows-startup-script-ps1: InstanceID         : ;:8@>8<8:9<>55;>55:8:8:8:55:
+2019/03/19 16:49:12 windows-startup-script-ps1: AdminDistance      : 
+2019/03/19 16:49:12 windows-startup-script-ps1: DestinationAddress : 
+2019/03/19 16:49:12 windows-startup-script-ps1: IsStatic           : 
+2019/03/19 16:49:12 windows-startup-script-ps1: RouteMetric        : 256
+2019/03/19 16:49:13 windows-startup-script-ps1: TypeOfRoute        : 3
+2019/03/19 16:49:13 windows-startup-script-ps1: AddressFamily      : IPv4
+2019/03/19 16:49:13 windows-startup-script-ps1: CompartmentId      : 0
+2019/03/19 16:49:13 windows-startup-script-ps1: DestinationPrefix  : 10.64.2.0/24
+2019/03/19 16:49:13 windows-startup-script-ps1: InterfaceAlias     : vEthernet (Ethernet)
+2019/03/19 16:49:13 windows-startup-script-ps1: InterfaceIndex     : 14
+2019/03/19 16:49:13 windows-startup-script-ps1: InterfaceMetric    : 
+2019/03/19 16:49:13 windows-startup-script-ps1: NextHop            : 0.0.0.0
+2019/03/19 16:49:13 windows-startup-script-ps1: PreferredLifetime  : 10675199.02:48:05.4775807
+2019/03/19 16:49:13 windows-startup-script-ps1: Protocol           : NetMgmt
+2019/03/19 16:49:13 windows-startup-script-ps1: Publish            : No
+2019/03/19 16:49:13 windows-startup-script-ps1: State              : Alive
+2019/03/19 16:49:13 windows-startup-script-ps1: Store              : PersistentStore
+2019/03/19 16:49:13 windows-startup-script-ps1: ValidLifetime      : 10675199.02:48:05.4775807
+2019/03/19 16:49:13 windows-startup-script-ps1: PSComputerName     : 
+2019/03/19 16:49:13 windows-startup-script-ps1: ifIndex            : 14
+2019/03/19 16:49:13 windows-startup-script-ps1: 
+2019/03/19 16:49:13 windows-startup-script-ps1: Waiting 45 seconds for host network state to quiesce
+2019/03/19 16:49:26 GCEWindowsAgent: ERROR main.go:130: Network error when requesting metadata, make sure your instance has an active network and can reach the metadata server.
+2019/03/19 16:49:26 GCEWindowsAgent: ERROR main.go:133: Get http://metadata.google.internal/computeMetadata/v1/?recursive=true&alt=json&wait_for_change=true&timeout_sec=60&last_etag=840517930e48aba8: dial tcp: lookup metadata.google.internal: getaddrinfow: The requested name is valid, but no data of the requested type was found.
+2019/03/19 16:49:54 windows-startup-script-ps1: Waiting up to 60 seconds for GCE metadata server route to be removed
+2019/03/19 16:49:55 windows-startup-script-ps1: Re-adding the GCE metadata server route
+2019/03/19 16:49:55 windows-startup-script-ps1: Host network setup complete
+2019/03/19 16:50:16 windows-startup-script-ps1: Downloaded https://github.com/yujuhong/gce-k8s-windows-testing/raw/master/windows-cni-plugins.zip
+2019/03/19 16:50:19 windows-startup-script-ps1: using mgmt IP 10.40.0.4 and mgmt subnet 10.40.0.0/22 for CNI config
+2019/03/19 16:50:19 windows-startup-script-ps1: CNI config:
+2019/03/19 16:50:19 windows-startup-script-ps1: {
+2019/03/19 16:50:19 windows-startup-script-ps1:   "cniVersion":  "0.2.0",
+2019/03/19 16:50:19 windows-startup-script-ps1:   "name":  "l2bridge",
+2019/03/19 16:50:19 windows-startup-script-ps1:   "type":  "win-bridge",
+2019/03/19 16:50:19 windows-startup-script-ps1:   "capabilities":  {
+2019/03/19 16:50:19 windows-startup-script-ps1:     "portMappings":  true
+2019/03/19 16:50:19 windows-startup-script-ps1:   },
+2019/03/19 16:50:19 windows-startup-script-ps1:   "ipam":  {
+2019/03/19 16:50:19 windows-startup-script-ps1:     "type": "host-local",
+2019/03/19 16:50:19 windows-startup-script-ps1:     "subnet": "10.64.2.0/24",
+2019/03/19 16:50:19 windows-startup-script-ps1:     "rangeStart": "10.64.2.3"
+2019/03/19 16:50:19 windows-startup-script-ps1:   },
+2019/03/19 16:50:19 windows-startup-script-ps1:   "dns":  {
+2019/03/19 16:50:19 windows-startup-script-ps1:     "Nameservers":  [
+2019/03/19 16:50:19 windows-startup-script-ps1:       "10.0.0.10"
+2019/03/19 16:50:19 windows-startup-script-ps1:     ],
+2019/03/19 16:50:19 windows-startup-script-ps1:     "Search": [
+2019/03/19 16:50:19 windows-startup-script-ps1:       "cluster.local"
+2019/03/19 16:50:19 windows-startup-script-ps1:     ]
+2019/03/19 16:50:19 windows-startup-script-ps1:   },
+2019/03/19 16:50:20 windows-startup-script-ps1:   "Policies":  [
+2019/03/19 16:50:20 windows-startup-script-ps1:     {
+2019/03/19 16:50:20 windows-startup-script-ps1:       "Name":  "EndpointPolicy",
+2019/03/19 16:50:21 windows-startup-script-ps1:       "Value":  {
+2019/03/19 16:50:21 windows-startup-script-ps1:         "Type":  "OutBoundNAT",
+2019/03/19 16:50:21 windows-startup-script-ps1:         "ExceptionList":  [
+2019/03/19 16:50:21 windows-startup-script-ps1:           "10.64.0.0/14",
+2019/03/19 16:50:21 windows-startup-script-ps1:           "10.0.0.0/16",
+2019/03/19 16:50:21 windows-startup-script-ps1:           "10.40.0.0/22"
+2019/03/19 16:50:21 windows-startup-script-ps1:         ]
+2019/03/19 16:50:21 windows-startup-script-ps1:       }
+2019/03/19 16:50:21 windows-startup-script-ps1:     },
+2019/03/19 16:50:21 windows-startup-script-ps1:     {
+2019/03/19 16:50:21 windows-startup-script-ps1:       "Name":  "EndpointPolicy",
+2019/03/19 16:50:21 windows-startup-script-ps1:       "Value":  {
+2019/03/19 16:50:21 windows-startup-script-ps1:         "Type":  "ROUTE",
+2019/03/19 16:50:21 windows-startup-script-ps1:         "DestinationPrefix":  "10.0.0.0/16",
+2019/03/19 16:50:21 windows-startup-script-ps1:         "NeedEncap":  true
+2019/03/19 16:50:21 windows-startup-script-ps1:       }
+2019/03/19 16:50:21 windows-startup-script-ps1:     },
+2019/03/19 16:50:21 windows-startup-script-ps1:     {
+2019/03/19 16:50:22 windows-startup-script-ps1:       "Name":  "EndpointPolicy",
+2019/03/19 16:50:22 windows-startup-script-ps1:       "Value":  {
+2019/03/19 16:50:22 windows-startup-script-ps1:         "Type":  "ROUTE",
+2019/03/19 16:50:22 windows-startup-script-ps1:         "DestinationPrefix":  "10.40.0.4/32",
+2019/03/19 16:50:22 windows-startup-script-ps1:         "NeedEncap":  true
+2019/03/19 16:50:22 windows-startup-script-ps1:       }
+2019/03/19 16:50:22 windows-startup-script-ps1:     }
+2019/03/19 16:50:22 windows-startup-script-ps1:   ]
+2019/03/19 16:50:22 windows-startup-script-ps1: }
+2019/03/19 16:50:22 windows-startup-script-ps1: 
+2019/03/19 16:50:22 windows-startup-script-ps1: Downloaded https://github.com/pjh/gce-tools/raw/master/GceTools/GetGcePdName/GetGcePdName.dll
+2019/03/19 16:50:22 windows-startup-script-ps1: 
+2019/03/19 16:50:22 windows-startup-script-ps1: LastWriteTime : 3/19/2019 4:50:19 PM
+2019/03/19 16:50:22 windows-startup-script-ps1: Length        : 0
+2019/03/19 16:50:22 windows-startup-script-ps1: Name          : profile.ps1
+2019/03/19 16:50:22 windows-startup-script-ps1: 
+2019/03/19 16:50:22 windows-startup-script-ps1: Kubelet config:
+2019/03/19 16:50:22 windows-startup-script-ps1: kind: KubeletConfiguration
+2019/03/19 16:50:22 windows-startup-script-ps1: apiVersion: kubelet.config.k8s.io/v1beta1
+2019/03/19 16:50:22 windows-startup-script-ps1: cgroupRoot: /
+2019/03/19 16:50:22 windows-startup-script-ps1: clusterDNS:
+2019/03/19 16:50:22 windows-startup-script-ps1:   - '10.0.0.10'
+2019/03/19 16:50:22 windows-startup-script-ps1: clusterDomain: 'cluster.local'
+2019/03/19 16:50:22 windows-startup-script-ps1: readOnlyPort: 10255
+2019/03/19 16:50:22 windows-startup-script-ps1: evictionHard:
+2019/03/19 16:50:22 windows-startup-script-ps1:   memory.available: '250Mi'
+2019/03/19 16:50:22 windows-startup-script-ps1:   nodefs.available: '10%'
+2019/03/19 16:50:23 windows-startup-script-ps1:   nodefs.inodesFree: '5%'
+2019/03/19 16:50:23 windows-startup-script-ps1: featureGates:
+2019/03/19 16:50:23 windows-startup-script-ps1:   ExperimentalCriticalPodAnnotation: true
+2019/03/19 16:50:23 windows-startup-script-ps1: enableDebuggingHandlers: true
+2019/03/19 16:50:23 windows-startup-script-ps1: hairpinMode: 'hairpin-veth'
+2019/03/19 16:50:23 windows-startup-script-ps1: authentication:
+2019/03/19 16:50:23 windows-startup-script-ps1:   x509:
+2019/03/19 16:50:23 windows-startup-script-ps1:     clientCAFile: 'C:\etc\kubernetes\pki\ca-certificates.crt'
+2019/03/19 16:50:23 windows-startup-script-ps1: 
+2019/03/19 16:50:23 windows-startup-script-ps1: kubelet_args from metadata: --v=4 --serialize-image-pulls=false --cloud-provider=gce --max-pods=110 --experimental-kernel-memcg-notification=true --register-with-taints=node.kubernetes.io/os=win1809:NoSchedule --config=C:\etc\kubernetes\kubelet-config.yaml --bootstrap-kubeconfig=C:\etc\kubernetes\kubelet.bootstrap-kubeconfig --kubeconfig=C:\etc\kubernetes\kubelet.kubeconfig --cert-dir=C:\etc\kubernetes\pki --network-plugin=cni --cni-bin-dir=C:\etc\kubernetes\cni --cni-conf-dir=C:\etc\kubernetes\cni\config --pod-manifest-path=C:\etc\kubernetes\manifests --image-pull-progress-deadline=5m --enable-debugging-handlers=true --windows-service=true --log-file=C:\etc\kubernetes\logs\kubelet.log --logtostderr=false --resolv-conf= --cgroups-per-qos=false --enforce-node-allocatable= --experimental-kernel-memcg-notification=false
+2019/03/19 16:50:23 windows-startup-script-ps1: Final kubelet_args: --pod-infra-container-image=e2eteam/pause:3.1 --v=4 --serialize-image-pulls=false --cloud-provider=gce --max-pods=110 --experimental-kernel-memcg-notification=true --register-with-taints=node.kubernetes.io/os=win1809:NoSchedule --config=C:\etc\kubernetes\kubelet-config.yaml --bootstrap-kubeconfig=C:\etc\kubernetes\kubelet.bootstrap-kubeconfig --kubeconfig=C:\etc\kubernetes\kubelet.kubeconfig --cert-dir=C:\etc\kubernetes\pki --network-plugin=cni --cni-bin-dir=C:\etc\kubernetes\cni --cni-conf-dir=C:\etc\kubernetes\cni\config --pod-manifest-path=C:\etc\kubernetes\manifests --image-pull-progress-deadline=5m --enable-debugging-handlers=true --windows-service=true --log-file=C:\etc\kubernetes\logs\kubelet.log --logtostderr=false --resolv-conf= --cgroups-per-qos=false --enforce-node-allocatable= --experimental-kernel-memcg-notification=false
+2019/03/19 16:50:23 windows-startup-script-ps1: kubeproxy_args from metadata: --v=4 --proxy-mode=kernelspace --windows-service=true --log-file=C:\etc\kubernetes\logs\kube-proxy.log --logtostderr=false --resource-container=
+2019/03/19 16:50:23 windows-startup-script-ps1: Final kubeproxy_args: --kubeconfig=C:\etc\kubernetes\kubeproxy.kubeconfig --cluster-cidr=10.64.0.0/14 --v=4 --proxy-mode=kernelspace --windows-service=true --log-file=C:\etc\kubernetes\logs\kube-proxy.log --logtostderr=false --resource-container=
+2019/03/19 16:50:23 windows-startup-script-ps1: Creating kubelet service
+2019/03/19 16:50:23 windows-startup-script-ps1: [SC] CreateService SUCCESS
+2019/03/19 16:50:23 windows-startup-script-ps1: [SC] ChangeServiceConfig2 SUCCESS
+2019/03/19 16:50:23 windows-startup-script-ps1: Starting kubelet service
+2019/03/19 16:50:23 windows-startup-script-ps1: 
+2019/03/19 16:50:23 windows-startup-script-ps1: SERVICE_NAME: kubelet 
+2019/03/19 16:50:23 windows-startup-script-ps1:         TYPE               : 10  WIN32_OWN_PROCESS  
+2019/03/19 16:50:23 windows-startup-script-ps1:         STATE              : 2  START_PENDING 
+2019/03/19 16:50:23 windows-startup-script-ps1:                                 (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
+2019/03/19 16:50:23 windows-startup-script-ps1:         WIN32_EXIT_CODE    : 0  (0x0)
+2019/03/19 16:50:23 windows-startup-script-ps1:         SERVICE_EXIT_CODE  : 0  (0x0)
+2019/03/19 16:50:23 windows-startup-script-ps1:         CHECKPOINT         : 0x0
+2019/03/19 16:50:23 windows-startup-script-ps1:         WAIT_HINT          : 0x7d0
+2019/03/19 16:50:23 windows-startup-script-ps1:         PID                : 876
+2019/03/19 16:50:23 windows-startup-script-ps1:         FLAGS              : 
+2019/03/19 16:50:23 windows-startup-script-ps1: Waiting 10 seconds for kubelet to stabilize
+2019/03/19 16:50:31 windows-startup-script-ps1: Creating kube-proxy service
+2019/03/19 16:50:31 windows-startup-script-ps1: [SC] CreateService SUCCESS
+2019/03/19 16:50:31 windows-startup-script-ps1: [SC] ChangeServiceConfig2 SUCCESS
+2019/03/19 16:50:31 windows-startup-script-ps1: Starting kube-proxy service
+2019/03/19 16:50:31 windows-startup-script-ps1: 
+2019/03/19 16:50:31 windows-startup-script-ps1: SERVICE_NAME: kube-proxy 
+2019/03/19 16:50:31 windows-startup-script-ps1:         TYPE               : 10  WIN32_OWN_PROCESS  
+2019/03/19 16:50:31 windows-startup-script-ps1:         STATE              : 2  START_PENDING 
+2019/03/19 16:50:31 windows-startup-script-ps1:                                 (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
+2019/03/19 16:50:31 windows-startup-script-ps1:         WIN32_EXIT_CODE    : 0  (0x0)
+2019/03/19 16:50:31 windows-startup-script-ps1:         SERVICE_EXIT_CODE  : 0  (0x0)
+2019/03/19 16:50:31 windows-startup-script-ps1:         CHECKPOINT         : 0x0
+2019/03/19 16:50:31 windows-startup-script-ps1:         WAIT_HINT          : 0x7d0
+2019/03/19 16:50:31 windows-startup-script-ps1:         PID                : 3940
+2019/03/19 16:50:31 windows-startup-script-ps1:         FLAGS              : 
+2019/03/19 16:50:31 windows-startup-script-ps1: TODO: verify that jobs are still running; print more details about the background jobs.
+2019/03/19 16:50:31 windows-startup-script-ps1: 
+2019/03/19 16:50:31 windows-startup-script-ps1: Status   Name               DisplayName                           
+2019/03/19 16:50:31 windows-startup-script-ps1: ------   ----               -----------                           
+2019/03/19 16:50:31 windows-startup-script-ps1: Running  kubelet            kubelet                               
+2019/03/19 16:50:31 windows-startup-script-ps1: Start... kube-proxy         kube-proxy                            
+2019/03/19 16:50:31 windows-startup-script-ps1: 
+2019/03/19 16:50:31 windows-startup-script-ps1: 
+2019/03/19 16:50:31 windows-startup-script-ps1: 
+2019/03/19 16:50:31 windows-startup-script-ps1: Kubernetes components started successfully
+2019/03/19 16:50:31 windows-startup-script-ps1: Waiting 15 seconds for node to join cluster.
+2019/03/19 16:50:46 windows-startup-script-ps1: kubectl get nodes:
+2019/03/19 16:50:46 windows-startup-script-ps1: NAME                                             STATUS                     ROLES    AGE     VERSION
+2019/03/19 16:50:46 windows-startup-script-ps1: e2e-test-peterhornyack-master                    Ready,SchedulingDisabled   <none>   7m5s    v1.15.0-alpha.0.1217+13f77e8589cd67-dirty
+2019/03/19 16:50:46 windows-startup-script-ps1: e2e-test-peterhornyack-minion-group-413w         Ready                      <none>   3m33s   v1.15.0-alpha.0.1217+13f77e8589cd67-dirty
+2019/03/19 16:50:46 windows-startup-script-ps1: e2e-test-peterhornyack-minion-group-b97j         Ready                      <none>   3m30s   v1.15.0-alpha.0.1217+13f77e8589cd67-dirty
+2019/03/19 16:50:46 windows-startup-script-ps1: e2e-test-peterhornyack-windows-node-group-7n03   Ready                      <none>   28s     v1.15.0-alpha.0.1217+13f77e8589cd67-dirty
+2019/03/19 16:50:46 windows-startup-script-ps1: e2e-test-peterhornyack-windows-node-group-dp2r   Ready                      <none>   24s     v1.15.0-alpha.0.1217+13f77e8589cd67-dirty
+2019/03/19 16:50:46 windows-startup-script-ps1: 
+2019/03/19 16:50:46 windows-startup-script-ps1: TODO: run more verification commands.
+2019/03/19 16:50:48 windows-startup-script-ps1: 
+2019/03/19 16:50:48 windows-startup-script-ps1: Actions            : {MSFT_TaskExecAction}
+2019/03/19 16:50:48 windows-startup-script-ps1: Author             : 
+2019/03/19 16:50:48 windows-startup-script-ps1: Date               : 
+2019/03/19 16:50:48 windows-startup-script-ps1: Description        : Rotate Kubernetes logs
+2019/03/19 16:50:48 windows-startup-script-ps1: Documentation      : 
+2019/03/19 16:50:48 windows-startup-script-ps1: Principal          : MSFT_TaskPrincipal2
+2019/03/19 16:50:48 windows-startup-script-ps1: SecurityDescriptor : 
+2019/03/19 16:50:48 windows-startup-script-ps1: Settings           : MSFT_TaskSettings3
+2019/03/19 16:50:48 windows-startup-script-ps1: Source             : 
+2019/03/19 16:50:48 windows-startup-script-ps1: State              : Ready
+2019/03/19 16:50:48 windows-startup-script-ps1: TaskName           : RotateKubeLogs
+2019/03/19 16:50:48 windows-startup-script-ps1: TaskPath           : \
+2019/03/19 16:50:48 windows-startup-script-ps1: Triggers           : {MSFT_TaskTimeTrigger}
+2019/03/19 16:50:48 windows-startup-script-ps1: URI                : \RotateKubeLogs
+2019/03/19 16:50:48 windows-startup-script-ps1: Version            : 
+2019/03/19 16:50:48 windows-startup-script-ps1: PSComputerName     : 
+2019/03/19 16:50:48 windows-startup-script-ps1: 
+2019/03/19 16:50:48 windows-startup-script-ps1: 
+2019/03/19 16:50:48 windows-startup-script-ps1: 
+
