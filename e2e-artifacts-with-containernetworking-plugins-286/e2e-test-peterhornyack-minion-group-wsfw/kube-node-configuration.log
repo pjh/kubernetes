@@ -1,0 +1,35 @@
+-- Logs begin at Fri 2019-04-05 02:24:27 UTC, end at Fri 2019-04-05 05:21:30 UTC. --
+Apr 05 02:25:27.409745 e2e-test-peterhornyack-minion-group-wsfw systemd[1]: Starting Configure kubernetes node...
+Apr 05 02:25:27.430498 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Start to configure instance for kubernetes
+Apr 05 02:25:27.437192 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Found Kubelet config file at /home/kubernetes/kubelet-config.yaml
+Apr 05 02:25:27.479391 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Configuring IP firewall rules
+Apr 05 02:25:27.480743 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: net.ipv4.conf.all.route_localnet = 1
+Apr 05 02:25:27.484533 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Add rules to accept all inbound TCP/UDP/ICMP packets
+Apr 05 02:25:27.490720 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Add rules to accept all forwarded TCP/UDP/ICMP/SCTP packets
+Apr 05 02:25:27.496156 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Add rules for ip masquerade
+Apr 05 02:25:27.504969 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Add rule for metadata concealment
+Apr 05 02:25:27.510768 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Creating required directories
+Apr 05 02:25:27.515037 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Making /var/lib/kubelet executable for kubelet
+Apr 05 02:25:27.525185 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: No local SCSI SSD disks found.
+Apr 05 02:25:27.525185 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: No local NVMe SSD disks found.
+Apr 05 02:25:27.525185 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Creating node pki files
+Apr 05 02:25:27.534520 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Creating kubelet bootstrap-kubeconfig file
+Apr 05 02:25:27.535993 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Creating kube-proxy user kubeconfig file
+Apr 05 02:25:27.537750 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Creating node-problem-detector kubeconfig file
+Apr 05 02:25:27.540547 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: overriding kubectl
+Apr 05 02:25:27.565214 e2e-test-peterhornyack-minion-group-wsfw sudo[1052]:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/bin/env
+Apr 05 02:25:27.571001 e2e-test-peterhornyack-minion-group-wsfw sudo[1052]: pam_unix(sudo:session): session opened for user root by (uid=0)
+Apr 05 02:25:27.571530 e2e-test-peterhornyack-minion-group-wsfw sudo[1052]: pam_tty_audit(sudo:session): changed status from 0 to 1
+Apr 05 02:25:27.573261 e2e-test-peterhornyack-minion-group-wsfw sudo[1052]: pam_unix(sudo:session): session closed for user root
+Apr 05 02:25:27.575025 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Assemble docker command line flags
+Apr 05 02:25:27.575362 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Enable docker registry mirror at: https://mirror.gcr.io
+Apr 05 02:25:27.575621 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Extend the docker.service configuration to set a higher pids limit
+Apr 05 02:25:27.665682 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Docker command line is updated. Restart docker to pick it up
+Apr 05 02:25:33.613630 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Start kubelet
+Apr 05 02:25:34.634537 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Using kubelet binary at /home/kubernetes/bin/kubelet
+Apr 05 02:25:34.743044 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Start kube-proxy static pod
+Apr 05 02:25:34.778228 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Start node problem detector
+Apr 05 02:25:34.778228 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Using node problem detector binary at /home/kubernetes/bin/node-problem-detector
+Apr 05 02:25:35.096757 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Prepare containerized mounter
+Apr 05 02:25:35.172343 e2e-test-peterhornyack-minion-group-wsfw configure-helper.sh[969]: Done for the configuration for kubernetes
+Apr 05 02:25:35.174095 e2e-test-peterhornyack-minion-group-wsfw systemd[1]: Started Configure kubernetes node.
