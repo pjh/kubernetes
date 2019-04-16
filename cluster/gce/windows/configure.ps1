@@ -84,7 +84,25 @@ function FetchAndImport-ModuleFromMetadata {
   Import-Module -Force C:\$Filename
 }
 
+function Install-DesiredDockerVersion {
+  Write-Host 'Preinstalled Docker version:'
+  & docker version
+  & docker info
+
+  Write-Host 'Installing Docker 18.09.3:'
+  Install-Package `
+      -Name docker `
+      -ProviderName DockerMsftProvider `
+      -RequiredVersion 18.09.3 `
+      -Force
+  Restart-Service docker
+  & docker version
+  & docker info
+}
+
 try {
+  Install-DesiredDockerVersion
+
   # Don't use FetchAndImport-ModuleFromMetadata for common.psm1 - the common
   # module includes variables and functions that any other function may depend
   # on.
