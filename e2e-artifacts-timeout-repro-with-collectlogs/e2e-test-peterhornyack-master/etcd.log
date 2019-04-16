@@ -1,0 +1,13 @@
+2019-04-17 00:04:23.867151 I | mvcc: store.index: compact 7226
+2019-04-17 00:04:23.869655 I | mvcc: finished scheduled compaction at 7226 (took 1.245891ms)
+2019-04-17 00:08:29.594387 I | etcdserver: start to snapshot (applied: 10001, lastsnap: 0)
+2019-04-17 00:08:29.603208 I | etcdserver: saved snapshot at index 10001
+2019-04-17 00:08:29.603445 I | etcdserver: compacted raft log at 5001
+2019-04-17 00:09:23.872219 I | mvcc: store.index: compact 7808
+2019-04-17 00:09:23.875577 I | mvcc: finished scheduled compaction at 7808 (took 1.629538ms)
+2019-04-17 00:14:23.877973 I | mvcc: store.index: compact 8430
+2019-04-17 00:14:23.881421 I | mvcc: finished scheduled compaction at 8430 (took 1.74216ms)
+2019-04-17 00:19:23.884660 I | mvcc: store.index: compact 9018
+2019-04-17 00:19:23.888920 I | mvcc: finished scheduled compaction at 9018 (took 3.485786ms)
+2019-04-17 00:24:23.896601 I | mvcc: store.index: compact 9627
+2019-04-17 00:24:23.899676 I | mvcc: finished scheduled compaction at 9627 (took 1.573715ms)

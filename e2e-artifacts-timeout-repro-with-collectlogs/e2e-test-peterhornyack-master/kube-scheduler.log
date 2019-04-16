@@ -1,0 +1,236 @@
+I0417 00:00:14.372285       1 wrap.go:47] GET /healthz: (61.821µs) 200 [kube-probe/1.15+ 127.0.0.1:47310]
+I0417 00:00:24.372287       1 wrap.go:47] GET /healthz: (47.429µs) 200 [kube-probe/1.15+ 127.0.0.1:47346]
+I0417 00:00:34.372676       1 wrap.go:47] GET /healthz: (64.359µs) 200 [kube-probe/1.15+ 127.0.0.1:47382]
+I0417 00:00:36.015096       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.PersistentVolume total 0 items received
+I0417 00:00:44.372277       1 wrap.go:47] GET /healthz: (59.057µs) 200 [kube-probe/1.15+ 127.0.0.1:47416]
+I0417 00:00:54.377061       1 wrap.go:47] GET /healthz: (70.673µs) 200 [kube-probe/1.15+ 127.0.0.1:47464]
+I0417 00:00:57.037526       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.StatefulSet total 0 items received
+I0417 00:01:04.372182       1 wrap.go:47] GET /healthz: (80.064µs) 200 [kube-probe/1.15+ 127.0.0.1:47498]
+I0417 00:01:14.372843       1 wrap.go:47] GET /healthz: (95.682µs) 200 [kube-probe/1.15+ 127.0.0.1:47534]
+I0417 00:01:24.372556       1 wrap.go:47] GET /healthz: (70.588µs) 200 [kube-probe/1.15+ 127.0.0.1:47572]
+I0417 00:01:34.372817       1 wrap.go:47] GET /healthz: (93.988µs) 200 [kube-probe/1.15+ 127.0.0.1:47610]
+I0417 00:01:44.372289       1 wrap.go:47] GET /healthz: (89.875µs) 200 [kube-probe/1.15+ 127.0.0.1:47644]
+I0417 00:01:54.377321       1 wrap.go:47] GET /healthz: (103.95µs) 200 [kube-probe/1.15+ 127.0.0.1:47692]
+I0417 00:02:04.372563       1 wrap.go:47] GET /healthz: (107.138µs) 200 [kube-probe/1.15+ 127.0.0.1:47726]
+I0417 00:02:14.372128       1 wrap.go:47] GET /healthz: (110.508µs) 200 [kube-probe/1.15+ 127.0.0.1:47762]
+I0417 00:02:24.372089       1 wrap.go:47] GET /healthz: (135.354µs) 200 [kube-probe/1.15+ 127.0.0.1:47798]
+I0417 00:02:34.372232       1 wrap.go:47] GET /healthz: (53.787µs) 200 [kube-probe/1.15+ 127.0.0.1:47836]
+I0417 00:02:44.372780       1 wrap.go:47] GET /healthz: (103.457µs) 200 [kube-probe/1.15+ 127.0.0.1:47874]
+I0417 00:02:54.372534       1 wrap.go:47] GET /healthz: (110.246µs) 200 [kube-probe/1.15+ 127.0.0.1:47924]
+I0417 00:03:04.372594       1 wrap.go:47] GET /healthz: (104.78µs) 200 [kube-probe/1.15+ 127.0.0.1:47956]
+I0417 00:03:14.372812       1 wrap.go:47] GET /healthz: (107.459µs) 200 [kube-probe/1.15+ 127.0.0.1:47990]
+I0417 00:03:24.372311       1 wrap.go:47] GET /healthz: (90.421µs) 200 [kube-probe/1.15+ 127.0.0.1:48026]
+I0417 00:03:34.372266       1 wrap.go:47] GET /healthz: (49.556µs) 200 [kube-probe/1.15+ 127.0.0.1:48062]
+I0417 00:03:42.049992       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.ReplicaSet total 0 items received
+I0417 00:03:44.372222       1 wrap.go:47] GET /healthz: (75.651µs) 200 [kube-probe/1.15+ 127.0.0.1:48096]
+I0417 00:03:54.378695       1 wrap.go:47] GET /healthz: (93.707µs) 200 [kube-probe/1.15+ 127.0.0.1:48144]
+I0417 00:04:04.373013       1 wrap.go:47] GET /healthz: (59.689µs) 200 [kube-probe/1.15+ 127.0.0.1:48178]
+I0417 00:04:10.051941       1 reflector.go:384] cmd/kube-scheduler/app/server.go:223: Watch close - *v1.Pod total 16 items received
+I0417 00:04:14.372648       1 wrap.go:47] GET /healthz: (89.608µs) 200 [kube-probe/1.15+ 127.0.0.1:48212]
+I0417 00:04:24.372552       1 wrap.go:47] GET /healthz: (95.953µs) 200 [kube-probe/1.15+ 127.0.0.1:48258]
+I0417 00:04:26.165810       1 scheduling_queue.go:895] About to try and schedule pod services-4436/pod1
+I0417 00:04:26.165832       1 scheduler.go:454] Attempting to schedule pod: services-4436/pod1
+I0417 00:04:26.166177       1 scheduler_binder.go:255] AssumePodVolumes for pod "services-4436/pod1", node "e2e-test-peterhornyack-windows-node-group-31s1"
+I0417 00:04:26.166189       1 scheduler_binder.go:265] AssumePodVolumes for pod "services-4436/pod1", node "e2e-test-peterhornyack-windows-node-group-31s1": all PVCs bound and nothing to do
+I0417 00:04:26.166279       1 factory.go:734] Attempting to bind pod1 to e2e-test-peterhornyack-windows-node-group-31s1
+I0417 00:04:26.173785       1 scheduler.go:575] pod services-4436/pod1 is bound successfully on node e2e-test-peterhornyack-windows-node-group-31s1, 3 nodes evaluated, 1 nodes were found feasible
+I0417 00:04:34.372442       1 wrap.go:47] GET /healthz: (61.566µs) 200 [kube-probe/1.15+ 127.0.0.1:48296]
+I0417 00:04:43.659897       1 scheduling_queue.go:895] About to try and schedule pod services-4436/pod2
+I0417 00:04:43.659911       1 scheduler.go:454] Attempting to schedule pod: services-4436/pod2
+I0417 00:04:43.660151       1 scheduler_binder.go:255] AssumePodVolumes for pod "services-4436/pod2", node "e2e-test-peterhornyack-windows-node-group-31s1"
+I0417 00:04:43.660162       1 scheduler_binder.go:265] AssumePodVolumes for pod "services-4436/pod2", node "e2e-test-peterhornyack-windows-node-group-31s1": all PVCs bound and nothing to do
+I0417 00:04:43.660208       1 factory.go:734] Attempting to bind pod2 to e2e-test-peterhornyack-windows-node-group-31s1
+I0417 00:04:43.666775       1 scheduler.go:575] pod services-4436/pod2 is bound successfully on node e2e-test-peterhornyack-windows-node-group-31s1, 3 nodes evaluated, 1 nodes were found feasible
+I0417 00:04:44.372564       1 wrap.go:47] GET /healthz: (97.252µs) 200 [kube-probe/1.15+ 127.0.0.1:48332]
+I0417 00:04:52.022226       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.StorageClass total 0 items received
+I0417 00:04:54.372212       1 wrap.go:47] GET /healthz: (91.255µs) 200 [kube-probe/1.15+ 127.0.0.1:48492]
+I0417 00:05:04.372489       1 wrap.go:47] GET /healthz: (92.324µs) 200 [kube-probe/1.15+ 127.0.0.1:48526]
+I0417 00:05:11.032136       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.PersistentVolumeClaim total 0 items received
+I0417 00:05:14.372326       1 wrap.go:47] GET /healthz: (98.712µs) 200 [kube-probe/1.15+ 127.0.0.1:48562]
+I0417 00:05:24.374102       1 wrap.go:47] GET /healthz: (101.699µs) 200 [kube-probe/1.15+ 127.0.0.1:48596]
+I0417 00:05:34.005312       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1beta1.PodDisruptionBudget total 0 items received
+I0417 00:05:34.372743       1 wrap.go:47] GET /healthz: (104.546µs) 200 [kube-probe/1.15+ 127.0.0.1:48636]
+I0417 00:05:44.372328       1 wrap.go:47] GET /healthz: (92.408µs) 200 [kube-probe/1.15+ 127.0.0.1:48670]
+I0417 00:05:54.372399       1 wrap.go:47] GET /healthz: (100.54µs) 200 [kube-probe/1.15+ 127.0.0.1:48718]
+I0417 00:06:04.372420       1 wrap.go:47] GET /healthz: (96.242µs) 200 [kube-probe/1.15+ 127.0.0.1:48752]
+I0417 00:06:14.372292       1 wrap.go:47] GET /healthz: (66.64µs) 200 [kube-probe/1.15+ 127.0.0.1:48786]
+I0417 00:06:24.372393       1 wrap.go:47] GET /healthz: (84.792µs) 200 [kube-probe/1.15+ 127.0.0.1:48820]
+I0417 00:06:34.372577       1 wrap.go:47] GET /healthz: (74.311µs) 200 [kube-probe/1.15+ 127.0.0.1:48858]
+I0417 00:06:44.375914       1 wrap.go:47] GET /healthz: (118.222µs) 200 [kube-probe/1.15+ 127.0.0.1:48894]
+I0417 00:06:54.373879       1 wrap.go:47] GET /healthz: (95.95µs) 200 [kube-probe/1.15+ 127.0.0.1:48942]
+I0417 00:07:04.372297       1 wrap.go:47] GET /healthz: (103.821µs) 200 [kube-probe/1.15+ 127.0.0.1:48974]
+I0417 00:07:14.372511       1 wrap.go:47] GET /healthz: (88.56µs) 200 [kube-probe/1.15+ 127.0.0.1:49008]
+I0417 00:07:18.026133       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.Node total 36 items received
+I0417 00:07:24.373451       1 wrap.go:47] GET /healthz: (90.693µs) 200 [kube-probe/1.15+ 127.0.0.1:49054]
+I0417 00:07:34.372706       1 wrap.go:47] GET /healthz: (94.913µs) 200 [kube-probe/1.15+ 127.0.0.1:49090]
+I0417 00:07:44.372353       1 wrap.go:47] GET /healthz: (100.102µs) 200 [kube-probe/1.15+ 127.0.0.1:49126]
+I0417 00:07:54.372722       1 wrap.go:47] GET /healthz: (102.952µs) 200 [kube-probe/1.15+ 127.0.0.1:49176]
+I0417 00:08:02.027348       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.ReplicationController total 0 items received
+I0417 00:08:04.372667       1 wrap.go:47] GET /healthz: (99.043µs) 200 [kube-probe/1.15+ 127.0.0.1:49208]
+I0417 00:08:14.373064       1 wrap.go:47] GET /healthz: (122.982µs) 200 [kube-probe/1.15+ 127.0.0.1:49242]
+I0417 00:08:24.372397       1 wrap.go:47] GET /healthz: (49.218µs) 200 [kube-probe/1.15+ 127.0.0.1:49276]
+I0417 00:08:34.371788       1 wrap.go:47] GET /healthz: (108.499µs) 200 [kube-probe/1.15+ 127.0.0.1:49312]
+I0417 00:08:44.372599       1 wrap.go:47] GET /healthz: (98.651µs) 200 [kube-probe/1.15+ 127.0.0.1:49348]
+I0417 00:08:54.372966       1 wrap.go:47] GET /healthz: (95.763µs) 200 [kube-probe/1.15+ 127.0.0.1:49396]
+I0417 00:09:04.372582       1 wrap.go:47] GET /healthz: (106.453µs) 200 [kube-probe/1.15+ 127.0.0.1:49432]
+I0417 00:09:14.372124       1 wrap.go:47] GET /healthz: (113.818µs) 200 [kube-probe/1.15+ 127.0.0.1:49466]
+I0417 00:09:15.052782       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.Service total 2 items received
+I0417 00:09:24.372443       1 wrap.go:47] GET /healthz: (90.709µs) 200 [kube-probe/1.15+ 127.0.0.1:49502]
+I0417 00:09:25.042464       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.StatefulSet total 0 items received
+I0417 00:09:33.017288       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.PersistentVolume total 0 items received
+I0417 00:09:34.372370       1 wrap.go:47] GET /healthz: (60.879µs) 200 [kube-probe/1.15+ 127.0.0.1:49538]
+I0417 00:09:44.372431       1 wrap.go:47] GET /healthz: (94.465µs) 200 [kube-probe/1.15+ 127.0.0.1:49572]
+I0417 00:09:54.372506       1 wrap.go:47] GET /healthz: (98.873µs) 200 [kube-probe/1.15+ 127.0.0.1:49620]
+I0417 00:10:01.052463       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.ReplicaSet total 0 items received
+I0417 00:10:04.372440       1 wrap.go:47] GET /healthz: (94.314µs) 200 [kube-probe/1.15+ 127.0.0.1:49652]
+I0417 00:10:14.373177       1 wrap.go:47] GET /healthz: (189.661µs) 200 [kube-probe/1.15+ 127.0.0.1:49690]
+I0417 00:10:24.372608       1 wrap.go:47] GET /healthz: (90.26µs) 200 [kube-probe/1.15+ 127.0.0.1:49724]
+I0417 00:10:34.372326       1 wrap.go:47] GET /healthz: (61.213µs) 200 [kube-probe/1.15+ 127.0.0.1:49762]
+I0417 00:10:44.372440       1 wrap.go:47] GET /healthz: (92.046µs) 200 [kube-probe/1.15+ 127.0.0.1:49796]
+I0417 00:10:54.372193       1 wrap.go:47] GET /healthz: (94.609µs) 200 [kube-probe/1.15+ 127.0.0.1:49844]
+I0417 00:11:04.372295       1 wrap.go:47] GET /healthz: (104.58µs) 200 [kube-probe/1.15+ 127.0.0.1:49876]
+I0417 00:11:14.372204       1 wrap.go:47] GET /healthz: (90.345µs) 200 [kube-probe/1.15+ 127.0.0.1:49910]
+I0417 00:11:17.007604       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1beta1.PodDisruptionBudget total 0 items received
+I0417 00:11:24.372211       1 wrap.go:47] GET /healthz: (83.506µs) 200 [kube-probe/1.15+ 127.0.0.1:49948]
+I0417 00:11:33.054470       1 reflector.go:384] cmd/kube-scheduler/app/server.go:223: Watch close - *v1.Pod total 16 items received
+I0417 00:11:34.372399       1 wrap.go:47] GET /healthz: (63.733µs) 200 [kube-probe/1.15+ 127.0.0.1:49984]
+I0417 00:11:44.372519       1 wrap.go:47] GET /healthz: (61.609µs) 200 [kube-probe/1.15+ 127.0.0.1:50018]
+I0417 00:11:54.372569       1 wrap.go:47] GET /healthz: (91.55µs) 200 [kube-probe/1.15+ 127.0.0.1:50066]
+I0417 00:12:04.372811       1 wrap.go:47] GET /healthz: (74.44µs) 200 [kube-probe/1.15+ 127.0.0.1:50098]
+I0417 00:12:14.372227       1 wrap.go:47] GET /healthz: (92.56µs) 200 [kube-probe/1.15+ 127.0.0.1:50136]
+I0417 00:12:24.372328       1 wrap.go:47] GET /healthz: (84.548µs) 200 [kube-probe/1.15+ 127.0.0.1:50170]
+I0417 00:12:34.372523       1 wrap.go:47] GET /healthz: (104.202µs) 200 [kube-probe/1.15+ 127.0.0.1:50208]
+I0417 00:12:39.028652       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.Node total 24 items received
+I0417 00:12:44.372675       1 wrap.go:47] GET /healthz: (88.754µs) 200 [kube-probe/1.15+ 127.0.0.1:50244]
+I0417 00:12:54.372114       1 wrap.go:47] GET /healthz: (118.629µs) 200 [kube-probe/1.15+ 127.0.0.1:50292]
+I0417 00:13:04.372958       1 wrap.go:47] GET /healthz: (52.618µs) 200 [kube-probe/1.15+ 127.0.0.1:50324]
+I0417 00:13:14.372105       1 wrap.go:47] GET /healthz: (111.27µs) 200 [kube-probe/1.15+ 127.0.0.1:50358]
+I0417 00:13:24.372431       1 wrap.go:47] GET /healthz: (86.241µs) 200 [kube-probe/1.15+ 127.0.0.1:50392]
+I0417 00:13:34.372340       1 wrap.go:47] GET /healthz: (81.279µs) 200 [kube-probe/1.15+ 127.0.0.1:50428]
+I0417 00:13:44.372287       1 wrap.go:47] GET /healthz: (48.36µs) 200 [kube-probe/1.15+ 127.0.0.1:50464]
+I0417 00:13:54.372470       1 wrap.go:47] GET /healthz: (102.547µs) 200 [kube-probe/1.15+ 127.0.0.1:50514]
+I0417 00:13:55.024813       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.StorageClass total 0 items received
+I0417 00:14:04.373230       1 wrap.go:47] GET /healthz: (80.47µs) 200 [kube-probe/1.15+ 127.0.0.1:50546]
+I0417 00:14:07.034782       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.PersistentVolumeClaim total 0 items received
+I0417 00:14:14.371800       1 wrap.go:47] GET /healthz: (98.106µs) 200 [kube-probe/1.15+ 127.0.0.1:50580]
+I0417 00:14:16.056214       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.Service total 0 items received
+I0417 00:14:24.372000       1 wrap.go:47] GET /healthz: (107.149µs) 200 [kube-probe/1.15+ 127.0.0.1:50614]
+I0417 00:14:34.375336       1 wrap.go:47] GET /healthz: (93.088µs) 200 [kube-probe/1.15+ 127.0.0.1:50650]
+I0417 00:14:44.372648       1 wrap.go:47] GET /healthz: (79.127µs) 200 [kube-probe/1.15+ 127.0.0.1:50684]
+I0417 00:14:54.372320       1 wrap.go:47] GET /healthz: (92.621µs) 200 [kube-probe/1.15+ 127.0.0.1:50734]
+I0417 00:15:04.044605       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.StatefulSet total 0 items received
+I0417 00:15:04.372325       1 wrap.go:47] GET /healthz: (84.315µs) 200 [kube-probe/1.15+ 127.0.0.1:50766]
+I0417 00:15:14.372723       1 wrap.go:47] GET /healthz: (104.024µs) 200 [kube-probe/1.15+ 127.0.0.1:50802]
+I0417 00:15:24.372285       1 wrap.go:47] GET /healthz: (67.749µs) 200 [kube-probe/1.15+ 127.0.0.1:50838]
+I0417 00:15:34.372495       1 wrap.go:47] GET /healthz: (85.146µs) 200 [kube-probe/1.15+ 127.0.0.1:50874]
+I0417 00:15:38.019745       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.PersistentVolume total 0 items received
+I0417 00:15:44.372183       1 wrap.go:47] GET /healthz: (82.855µs) 200 [kube-probe/1.15+ 127.0.0.1:50908]
+I0417 00:15:54.372768       1 wrap.go:47] GET /healthz: (63.376µs) 200 [kube-probe/1.15+ 127.0.0.1:50958]
+I0417 00:16:04.372383       1 wrap.go:47] GET /healthz: (93.747µs) 200 [kube-probe/1.15+ 127.0.0.1:50990]
+I0417 00:16:14.373893       1 wrap.go:47] GET /healthz: (98.409µs) 200 [kube-probe/1.15+ 127.0.0.1:51024]
+I0417 00:16:24.372373       1 wrap.go:47] GET /healthz: (92.446µs) 200 [kube-probe/1.15+ 127.0.0.1:51060]
+I0417 00:16:25.054710       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.ReplicaSet total 0 items received
+I0417 00:16:34.372302       1 wrap.go:47] GET /healthz: (70.503µs) 200 [kube-probe/1.15+ 127.0.0.1:51096]
+I0417 00:16:44.372563       1 wrap.go:47] GET /healthz: (94.091µs) 200 [kube-probe/1.15+ 127.0.0.1:51130]
+I0417 00:16:54.372744       1 wrap.go:47] GET /healthz: (61.238µs) 200 [kube-probe/1.15+ 127.0.0.1:51178]
+I0417 00:17:04.372917       1 wrap.go:47] GET /healthz: (115.71µs) 200 [kube-probe/1.15+ 127.0.0.1:51212]
+I0417 00:17:05.030157       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.ReplicationController total 0 items received
+I0417 00:17:14.372499       1 wrap.go:47] GET /healthz: (71.174µs) 200 [kube-probe/1.15+ 127.0.0.1:51246]
+I0417 00:17:24.372560       1 wrap.go:47] GET /healthz: (119.158µs) 200 [kube-probe/1.15+ 127.0.0.1:51280]
+I0417 00:17:34.376689       1 wrap.go:47] GET /healthz: (97.041µs) 200 [kube-probe/1.15+ 127.0.0.1:51318]
+I0417 00:17:43.896594       1 scheduling_queue.go:895] About to try and schedule pod services-1766/pod1
+I0417 00:17:43.896608       1 scheduler.go:454] Attempting to schedule pod: services-1766/pod1
+I0417 00:17:43.896891       1 scheduler_binder.go:255] AssumePodVolumes for pod "services-1766/pod1", node "e2e-test-peterhornyack-windows-node-group-31s1"
+I0417 00:17:43.896902       1 scheduler_binder.go:265] AssumePodVolumes for pod "services-1766/pod1", node "e2e-test-peterhornyack-windows-node-group-31s1": all PVCs bound and nothing to do
+I0417 00:17:43.896970       1 factory.go:734] Attempting to bind pod1 to e2e-test-peterhornyack-windows-node-group-31s1
+I0417 00:17:43.904817       1 scheduler.go:575] pod services-1766/pod1 is bound successfully on node e2e-test-peterhornyack-windows-node-group-31s1, 3 nodes evaluated, 1 nodes were found feasible
+I0417 00:17:44.374163       1 wrap.go:47] GET /healthz: (130.987µs) 200 [kube-probe/1.15+ 127.0.0.1:51354]
+I0417 00:17:54.372396       1 wrap.go:47] GET /healthz: (91.529µs) 200 [kube-probe/1.15+ 127.0.0.1:51402]
+I0417 00:18:04.372536       1 wrap.go:47] GET /healthz: (89.365µs) 200 [kube-probe/1.15+ 127.0.0.1:51434]
+I0417 00:18:05.738462       1 scheduling_queue.go:895] About to try and schedule pod services-1766/pod2
+I0417 00:18:05.738476       1 scheduler.go:454] Attempting to schedule pod: services-1766/pod2
+I0417 00:18:05.741230       1 scheduler_binder.go:255] AssumePodVolumes for pod "services-1766/pod2", node "e2e-test-peterhornyack-windows-node-group-31s1"
+I0417 00:18:05.741244       1 scheduler_binder.go:265] AssumePodVolumes for pod "services-1766/pod2", node "e2e-test-peterhornyack-windows-node-group-31s1": all PVCs bound and nothing to do
+I0417 00:18:05.741329       1 factory.go:734] Attempting to bind pod2 to e2e-test-peterhornyack-windows-node-group-31s1
+I0417 00:18:05.765224       1 scheduler.go:575] pod services-1766/pod2 is bound successfully on node e2e-test-peterhornyack-windows-node-group-31s1, 3 nodes evaluated, 1 nodes were found feasible
+I0417 00:18:12.061386       1 reflector.go:384] cmd/kube-scheduler/app/server.go:223: Watch close - *v1.Pod total 7 items received
+I0417 00:18:14.372667       1 wrap.go:47] GET /healthz: (105.626µs) 200 [kube-probe/1.15+ 127.0.0.1:51470]
+I0417 00:18:24.372377       1 wrap.go:47] GET /healthz: (92.121µs) 200 [kube-probe/1.15+ 127.0.0.1:51504]
+I0417 00:18:34.372292       1 wrap.go:47] GET /healthz: (95.955µs) 200 [kube-probe/1.15+ 127.0.0.1:51540]
+I0417 00:18:44.372612       1 wrap.go:47] GET /healthz: (103.071µs) 200 [kube-probe/1.15+ 127.0.0.1:51574]
+I0417 00:18:54.372710       1 wrap.go:47] GET /healthz: (97.073µs) 200 [kube-probe/1.15+ 127.0.0.1:51624]
+I0417 00:19:04.373562       1 wrap.go:47] GET /healthz: (94.099µs) 200 [kube-probe/1.15+ 127.0.0.1:51656]
+I0417 00:19:14.376422       1 wrap.go:47] GET /healthz: (2.305968ms) 200 [kube-probe/1.15+ 127.0.0.1:51692]
+I0417 00:19:24.372191       1 wrap.go:47] GET /healthz: (89.67µs) 200 [kube-probe/1.15+ 127.0.0.1:51728]
+I0417 00:19:34.371980       1 wrap.go:47] GET /healthz: (60.938µs) 200 [kube-probe/1.15+ 127.0.0.1:51764]
+I0417 00:19:38.027278       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.StorageClass total 0 items received
+I0417 00:19:44.372560       1 wrap.go:47] GET /healthz: (96.099µs) 200 [kube-probe/1.15+ 127.0.0.1:51798]
+I0417 00:19:54.372464       1 wrap.go:47] GET /healthz: (61.008µs) 200 [kube-probe/1.15+ 127.0.0.1:51846]
+I0417 00:20:01.031213       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.Node total 33 items received
+I0417 00:20:04.372253       1 wrap.go:47] GET /healthz: (85.198µs) 200 [kube-probe/1.15+ 127.0.0.1:51880]
+I0417 00:20:14.372346       1 wrap.go:47] GET /healthz: (82.532µs) 200 [kube-probe/1.15+ 127.0.0.1:51914]
+I0417 00:20:19.010093       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1beta1.PodDisruptionBudget total 0 items received
+I0417 00:20:24.372319       1 wrap.go:47] GET /healthz: (71.245µs) 200 [kube-probe/1.15+ 127.0.0.1:51948]
+I0417 00:20:34.371987       1 wrap.go:47] GET /healthz: (98.827µs) 200 [kube-probe/1.15+ 127.0.0.1:51986]
+I0417 00:20:44.380209       1 wrap.go:47] GET /healthz: (96.713µs) 200 [kube-probe/1.15+ 127.0.0.1:52020]
+I0417 00:20:45.022427       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.PersistentVolume total 0 items received
+I0417 00:20:51.058794       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.Service total 2 items received
+I0417 00:20:54.372514       1 wrap.go:47] GET /healthz: (66.915µs) 200 [kube-probe/1.15+ 127.0.0.1:52068]
+I0417 00:21:04.391413       1 wrap.go:47] GET /healthz: (1.444189ms) 200 [kube-probe/1.15+ 127.0.0.1:52100]
+I0417 00:21:14.372902       1 wrap.go:47] GET /healthz: (96.945µs) 200 [kube-probe/1.15+ 127.0.0.1:52134]
+I0417 00:21:24.372429       1 wrap.go:47] GET /healthz: (101.892µs) 200 [kube-probe/1.15+ 127.0.0.1:52170]
+I0417 00:21:34.379657       1 wrap.go:47] GET /healthz: (64.726µs) 200 [kube-probe/1.15+ 127.0.0.1:52206]
+I0417 00:21:44.372984       1 wrap.go:47] GET /healthz: (91.651µs) 200 [kube-probe/1.15+ 127.0.0.1:52242]
+I0417 00:21:54.372669       1 wrap.go:47] GET /healthz: (98.785µs) 200 [kube-probe/1.15+ 127.0.0.1:52290]
+I0417 00:22:04.372290       1 wrap.go:47] GET /healthz: (60.036µs) 200 [kube-probe/1.15+ 127.0.0.1:52322]
+I0417 00:22:14.373881       1 wrap.go:47] GET /healthz: (66.236µs) 200 [kube-probe/1.15+ 127.0.0.1:52356]
+I0417 00:22:24.373050       1 wrap.go:47] GET /healthz: (91.851µs) 200 [kube-probe/1.15+ 127.0.0.1:52390]
+I0417 00:22:26.047265       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.StatefulSet total 0 items received
+I0417 00:22:34.372479       1 wrap.go:47] GET /healthz: (102.477µs) 200 [kube-probe/1.15+ 127.0.0.1:52428]
+I0417 00:22:44.372650       1 wrap.go:47] GET /healthz: (91.758µs) 200 [kube-probe/1.15+ 127.0.0.1:52462]
+I0417 00:22:54.373326       1 wrap.go:47] GET /healthz: (65.914µs) 200 [kube-probe/1.15+ 127.0.0.1:52512]
+I0417 00:23:04.372766       1 wrap.go:47] GET /healthz: (68.338µs) 200 [kube-probe/1.15+ 127.0.0.1:52544]
+I0417 00:23:14.372475       1 wrap.go:47] GET /healthz: (89.538µs) 200 [kube-probe/1.15+ 127.0.0.1:52580]
+I0417 00:23:21.063847       1 reflector.go:384] cmd/kube-scheduler/app/server.go:223: Watch close - *v1.Pod total 3 items received
+I0417 00:23:24.372322       1 wrap.go:47] GET /healthz: (80.498µs) 200 [kube-probe/1.15+ 127.0.0.1:52614]
+I0417 00:23:34.372296       1 wrap.go:47] GET /healthz: (84.714µs) 200 [kube-probe/1.15+ 127.0.0.1:52650]
+I0417 00:23:44.372361       1 wrap.go:47] GET /healthz: (95.859µs) 200 [kube-probe/1.15+ 127.0.0.1:52684]
+I0417 00:23:45.041412       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.PersistentVolumeClaim total 0 items received
+I0417 00:23:54.372273       1 wrap.go:47] GET /healthz: (98.024µs) 200 [kube-probe/1.15+ 127.0.0.1:52734]
+I0417 00:24:04.372583       1 wrap.go:47] GET /healthz: (53.475µs) 200 [kube-probe/1.15+ 127.0.0.1:52768]
+I0417 00:24:14.372539       1 wrap.go:47] GET /healthz: (89.678µs) 200 [kube-probe/1.15+ 127.0.0.1:52802]
+I0417 00:24:24.372364       1 wrap.go:47] GET /healthz: (88.067µs) 200 [kube-probe/1.15+ 127.0.0.1:52836]
+I0417 00:24:34.372518       1 wrap.go:47] GET /healthz: (61.054µs) 200 [kube-probe/1.15+ 127.0.0.1:52872]
+I0417 00:24:44.376098       1 wrap.go:47] GET /healthz: (103.866µs) 200 [kube-probe/1.15+ 127.0.0.1:52906]
+I0417 00:24:49.029999       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.StorageClass total 0 items received
+I0417 00:24:54.372707       1 wrap.go:47] GET /healthz: (54.813µs) 200 [kube-probe/1.15+ 127.0.0.1:52954]
+I0417 00:25:04.372189       1 wrap.go:47] GET /healthz: (109.571µs) 200 [kube-probe/1.15+ 127.0.0.1:52988]
+I0417 00:25:14.372441       1 wrap.go:47] GET /healthz: (99.034µs) 200 [kube-probe/1.15+ 127.0.0.1:53024]
+I0417 00:25:21.033769       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.Node total 22 items received
+I0417 00:25:24.372437       1 wrap.go:47] GET /healthz: (101.052µs) 200 [kube-probe/1.15+ 127.0.0.1:53058]
+I0417 00:25:34.372505       1 wrap.go:47] GET /healthz: (62.048µs) 200 [kube-probe/1.15+ 127.0.0.1:53094]
+I0417 00:25:38.056847       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.ReplicaSet total 0 items received
+I0417 00:25:44.372281       1 wrap.go:47] GET /healthz: (59.15µs) 200 [kube-probe/1.15+ 127.0.0.1:53128]
+I0417 00:25:54.372179       1 wrap.go:47] GET /healthz: (75.113µs) 200 [kube-probe/1.15+ 127.0.0.1:53176]
+I0417 00:26:04.372453       1 wrap.go:47] GET /healthz: (81.507µs) 200 [kube-probe/1.15+ 127.0.0.1:53208]
+I0417 00:26:09.032786       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.ReplicationController total 0 items received
+I0417 00:26:14.372333       1 wrap.go:47] GET /healthz: (95.255µs) 200 [kube-probe/1.15+ 127.0.0.1:53244]
+I0417 00:26:24.372534       1 wrap.go:47] GET /healthz: (104.268µs) 200 [kube-probe/1.15+ 127.0.0.1:53280]
+I0417 00:26:34.372757       1 wrap.go:47] GET /healthz: (102.669µs) 200 [kube-probe/1.15+ 127.0.0.1:53316]
+I0417 00:26:44.372480       1 wrap.go:47] GET /healthz: (101.834µs) 200 [kube-probe/1.15+ 127.0.0.1:53350]
+I0417 00:26:47.061339       1 reflector.go:384] k8s.io/client-go/informers/factory.go:133: Watch close - *v1.Service total 0 items received
+I0417 00:26:54.372508       1 wrap.go:47] GET /healthz: (99.106µs) 200 [kube-probe/1.15+ 127.0.0.1:53398]
+I0417 00:27:04.372880       1 wrap.go:47] GET /healthz: (93.442µs) 200 [kube-probe/1.15+ 127.0.0.1:53430]
+I0417 00:27:14.372567       1 wrap.go:47] GET /healthz: (101.402µs) 200 [kube-probe/1.15+ 127.0.0.1:53464]
+I0417 00:27:24.372740       1 wrap.go:47] GET /healthz: (90.545µs) 200 [kube-probe/1.15+ 127.0.0.1:53498]
+I0417 00:27:34.372445       1 wrap.go:47] GET /healthz: (94.197µs) 200 [kube-probe/1.15+ 127.0.0.1:53538]
+I0417 00:27:44.372524       1 wrap.go:47] GET /healthz: (83.931µs) 200 [kube-probe/1.15+ 127.0.0.1:53572]
+I0417 00:27:54.372477       1 wrap.go:47] GET /healthz: (95.396µs) 200 [kube-probe/1.15+ 127.0.0.1:53620]
+I0417 00:28:04.372753       1 wrap.go:47] GET /healthz: (100.975µs) 200 [kube-probe/1.15+ 127.0.0.1:53652]
+I0417 00:28:14.372747       1 wrap.go:47] GET /healthz: (111.574µs) 200 [kube-probe/1.15+ 127.0.0.1:53686]
+I0417 00:28:24.372683       1 wrap.go:47] GET /healthz: (66.921µs) 200 [kube-probe/1.15+ 127.0.0.1:53720]
+I0417 00:28:34.372609       1 wrap.go:47] GET /healthz: (142.223µs) 200 [kube-probe/1.15+ 127.0.0.1:53758]
+I0417 00:28:44.372579       1 wrap.go:47] GET /healthz: (64.35µs) 200 [kube-probe/1.15+ 127.0.0.1:53794]
+I0417 00:28:54.372208       1 wrap.go:47] GET /healthz: (96.359µs) 200 [kube-probe/1.15+ 127.0.0.1:53842]
+I0417 00:29:04.373227       1 wrap.go:47] GET /healthz: (96.071µs) 200 [kube-probe/1.15+ 127.0.0.1:53874]
+I0417 00:29:14.372684       1 wrap.go:47] GET /healthz: (95.097µs) 200 [kube-probe/1.15+ 127.0.0.1:53908]

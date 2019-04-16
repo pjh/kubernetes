@@ -1,0 +1,35 @@
+-- Logs begin at Tue 2019-04-16 23:06:17 UTC, end at Wed 2019-04-17 00:29:39 UTC. --
+Apr 16 23:07:30.444987 e2e-test-peterhornyack-minion-group-qrc7 systemd[1]: Starting Configure kubernetes node...
+Apr 16 23:07:30.466505 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Start to configure instance for kubernetes
+Apr 16 23:07:30.473847 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Found Kubelet config file at /home/kubernetes/kubelet-config.yaml
+Apr 16 23:07:30.516090 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Configuring IP firewall rules
+Apr 16 23:07:30.517291 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: net.ipv4.conf.all.route_localnet = 1
+Apr 16 23:07:30.521142 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Add rules to accept all inbound TCP/UDP/ICMP packets
+Apr 16 23:07:30.527879 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Add rules to accept all forwarded TCP/UDP/ICMP/SCTP packets
+Apr 16 23:07:30.533521 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Add rules for ip masquerade
+Apr 16 23:07:30.542744 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Add rule for metadata concealment
+Apr 16 23:07:30.549953 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Creating required directories
+Apr 16 23:07:30.554175 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Making /var/lib/kubelet executable for kubelet
+Apr 16 23:07:30.568593 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: No local SCSI SSD disks found.
+Apr 16 23:07:30.568967 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: No local NVMe SSD disks found.
+Apr 16 23:07:30.574675 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Creating node pki files
+Apr 16 23:07:30.583017 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Creating kubelet bootstrap-kubeconfig file
+Apr 16 23:07:30.584940 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Creating kube-proxy user kubeconfig file
+Apr 16 23:07:30.586639 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Creating node-problem-detector kubeconfig file
+Apr 16 23:07:30.589562 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: overriding kubectl
+Apr 16 23:07:30.619316 e2e-test-peterhornyack-minion-group-qrc7 sudo[1056]:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/bin/env
+Apr 16 23:07:30.625224 e2e-test-peterhornyack-minion-group-qrc7 sudo[1056]: pam_unix(sudo:session): session opened for user root by (uid=0)
+Apr 16 23:07:30.625559 e2e-test-peterhornyack-minion-group-qrc7 sudo[1056]: pam_tty_audit(sudo:session): changed status from 0 to 1
+Apr 16 23:07:30.627318 e2e-test-peterhornyack-minion-group-qrc7 sudo[1056]: pam_unix(sudo:session): session closed for user root
+Apr 16 23:07:30.629129 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Assemble docker command line flags
+Apr 16 23:07:30.629444 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Enable docker registry mirror at: https://mirror.gcr.io
+Apr 16 23:07:30.629753 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Extend the docker.service configuration to set a higher pids limit
+Apr 16 23:07:30.711423 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Docker command line is updated. Restart docker to pick it up
+Apr 16 23:07:36.736776 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Start kubelet
+Apr 16 23:07:37.728505 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Using kubelet binary at /home/kubernetes/bin/kubelet
+Apr 16 23:07:37.838320 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Start kube-proxy static pod
+Apr 16 23:07:37.875419 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Start node problem detector
+Apr 16 23:07:37.875877 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Using node problem detector binary at /home/kubernetes/bin/node-problem-detector
+Apr 16 23:07:38.169895 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Prepare containerized mounter
+Apr 16 23:07:38.265586 e2e-test-peterhornyack-minion-group-qrc7 configure-helper.sh[972]: Done for the configuration for kubernetes
+Apr 16 23:07:38.269884 e2e-test-peterhornyack-minion-group-qrc7 systemd[1]: Started Configure kubernetes node.

@@ -1,0 +1,38 @@
+-- Logs begin at Tue 2019-04-16 23:02:10 UTC, end at Wed 2019-04-17 00:28:37 UTC. --
+Apr 16 23:02:23.058340 e2e-test-peterhornyack-master systemd[1]: Starting Download and install k8s binaries and configurations...
+Apr 16 23:02:23.162910 e2e-test-peterhornyack-master configure.sh[765]: Start to install kubernetes files
+Apr 16 23:02:23.285257 e2e-test-peterhornyack-master configure.sh[765]: Downloading Kubelet config file, if it exists
+Apr 16 23:02:23.383551 e2e-test-peterhornyack-master configure.sh[765]: Downloading binary release tar
+Apr 16 23:02:23.439913 e2e-test-peterhornyack-master configure.sh[765]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Apr 16 23:02:23.441078 e2e-test-peterhornyack-master configure.sh[765]:                                  Dload  Upload   Total   Spent    Left  Speed
+Apr 16 23:02:35.613134 e2e-test-peterhornyack-master configure.sh[765]: [1.0K blob data]
+Apr 16 23:02:39.575517 e2e-test-peterhornyack-master configure.sh[765]: == Downloaded https://storage.googleapis.com/kubernetes-staging-424a22aa65/e2e-test-peterhornyack-devel/kubernetes-server-linux-amd64.tar.gz (SHA1 = ebb014fdad5f430995bb62fe56e03c468c1b36f9) ==
+Apr 16 23:03:20.884793 e2e-test-peterhornyack-master configure.sh[765]: Start loading kube-system docker images
+Apr 16 23:03:20.885537 e2e-test-peterhornyack-master configure.sh[765]: Try to load docker image file /home/kubernetes/kube-docker-files/kube-apiserver.tar
+Apr 16 23:03:35.821858 e2e-test-peterhornyack-master configure.sh[765]: Loaded image: k8s.gcr.io/kube-apiserver:v1.15.0-alpha.0.1887_bae0630ef897d6-dirty
+Apr 16 23:03:35.848978 e2e-test-peterhornyack-master configure.sh[765]: Try to load docker image file /home/kubernetes/kube-docker-files/kube-controller-manager.tar
+Apr 16 23:03:37.561875 e2e-test-peterhornyack-master configure.sh[765]: Loaded image: k8s.gcr.io/kube-controller-manager:v1.15.0-alpha.0.1887_bae0630ef897d6-dirty
+Apr 16 23:03:37.590261 e2e-test-peterhornyack-master configure.sh[765]: Try to load docker image file /home/kubernetes/kube-docker-files/kube-scheduler.tar
+Apr 16 23:03:38.390651 e2e-test-peterhornyack-master configure.sh[765]: Loaded image: k8s.gcr.io/kube-scheduler:v1.15.0-alpha.0.1887_bae0630ef897d6-dirty
+Apr 16 23:03:39.906349 e2e-test-peterhornyack-master configure.sh[765]: Downloading cni binaries
+Apr 16 23:03:40.242447 e2e-test-peterhornyack-master configure.sh[765]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Apr 16 23:03:40.243516 e2e-test-peterhornyack-master configure.sh[765]:                                  Dload  Upload   Total   Spent    Left  Speed
+Apr 16 23:03:40.473840 e2e-test-peterhornyack-master configure.sh[765]: [158B blob data]
+Apr 16 23:03:40.528755 e2e-test-peterhornyack-master configure.sh[765]: == Downloaded https://storage.googleapis.com/kubernetes-release/network-plugins/cni-plugins-amd64-v0.7.5.tgz (SHA1 = 52e9d2de8a5f927307d9397308735658ee44ab8d) ==
+Apr 16 23:03:41.187141 e2e-test-peterhornyack-master configure.sh[765]: Downloading k8s manifests tar
+Apr 16 23:03:41.226289 e2e-test-peterhornyack-master configure.sh[765]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Apr 16 23:03:41.227378 e2e-test-peterhornyack-master configure.sh[765]:                                  Dload  Upload   Total   Spent    Left  Speed
+Apr 16 23:03:41.316809 e2e-test-peterhornyack-master configure.sh[765]: [158B blob data]
+Apr 16 23:03:41.325275 e2e-test-peterhornyack-master configure.sh[765]: == Downloaded https://storage.googleapis.com/kubernetes-staging-424a22aa65/e2e-test-peterhornyack-devel/kubernetes-manifests.tar.gz (SHA1 = b633d51961542ef042e22b7b3deb64f8283e9e31) ==
+Apr 16 23:03:41.365238 e2e-test-peterhornyack-master configure.sh[765]: Downloading gci mounter tools.
+Apr 16 23:03:41.407760 e2e-test-peterhornyack-master configure.sh[765]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Apr 16 23:03:41.408802 e2e-test-peterhornyack-master configure.sh[765]:                                  Dload  Upload   Total   Spent    Left  Speed
+Apr 16 23:03:42.821388 e2e-test-peterhornyack-master configure.sh[765]: [237B blob data]
+Apr 16 23:03:43.597834 e2e-test-peterhornyack-master configure.sh[765]: == Downloaded https://storage.googleapis.com/kubernetes-release/gci-mounter/mounter.tar (SHA1 = 8003b798cf33c7f91320cd6ee5cec4fa22244571) ==
+Apr 16 23:03:44.893772 e2e-test-peterhornyack-master configure.sh[765]: Downloading crictl
+Apr 16 23:03:44.933585 e2e-test-peterhornyack-master configure.sh[765]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Apr 16 23:03:44.934643 e2e-test-peterhornyack-master configure.sh[765]:                                  Dload  Upload   Total   Spent    Left  Speed
+Apr 16 23:03:45.122971 e2e-test-peterhornyack-master configure.sh[765]: [237B blob data]
+Apr 16 23:03:45.211452 e2e-test-peterhornyack-master configure.sh[765]: == Downloaded https://storage.googleapis.com/kubernetes-release/crictl/crictl-v1.12.0-linux-amd64 (SHA1 = 82ef8b44849f9da0589c87e9865d4716573eec7f) ==
+Apr 16 23:03:45.507291 e2e-test-peterhornyack-master configure.sh[765]: Done for installing kubernetes files
+Apr 16 23:03:45.508795 e2e-test-peterhornyack-master systemd[1]: Started Download and install k8s binaries and configurations.

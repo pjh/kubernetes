@@ -1,0 +1,673 @@
+SeaBIOS (version 1.8.2-20190322_093631-google)
+Total RAM Size = 0x00000001e0000000 = 7680 MiB
+CPUs found: 2     Max CPUs supported: 2
+found virtio-scsi at 0:3
+virtio-scsi vendor='Google' product='PersistentDisk' rev='1' type=0 removable=0
+virtio-scsi blksize=512 sectors=209715200 = 102400 MiB
+drive 0x000f29c0: PCHS=0/0/0 translation=lba LCHS=1024/255/63 s=209715200
+Booting from Hard Disk 0...
+[    0.000000] Linux version 4.14.94+ (chrome-bot@swarm-cros-645) (gcc version 4.9.x 20150123 (prerelease) (4.9.2_cos_gg_4.9.2-r200-ac6128e0a17a52f011797f33ac3e7d6273a9368d_4.9.2-r200)) #1 SMP Thu Feb 28 00:14:21 PST 2019
+[    0.000000] Command line: BOOT_IMAGE=/syslinux/vmlinuz.A init=/usr/lib/systemd/systemd boot=local rootwait ro noresume noswap loglevel=7 noinitrd console=ttyS0 vsyscall=emulate security=apparmor virtio_net.napi_tx=1 systemd.unified_cgroup_hierarchy=false systemd.legacy_systemd_cgroup_controller=true csm.disabled=1 dm_verity.error_behavior=3 dm_verity.max_bios=-1 dm_verity.dev_wait=1 i915.modeset=1 cros_efi root=/dev/dm-0 "dm=1 vroot none ro 1,0 2539520 verity payload=PARTUUID=71913957-D6B1-8948-AFA7-574E312FC408 hashtree=PARTUUID=71913957-D6B1-8948-AFA7-574E312FC408 hashstart=2539520 alg=sha1 root_hexdigest=e582525d12c5f702e39eca88f648e851195d84f7 salt=331684cac74749b4944aedce8c7e5dd9abed70e63b61b9be00d8c9efd9d17444"
+[    0.000000] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+[    0.000000] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[    0.000000] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[    0.000000] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+[    0.000000] x86/fpu: Enabled xstate features 0x7, context size is 832 bytes, using 'standard' format.
+[    0.000000] e820: BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000000100000-0x00000000bfffcfff] usable
+[    0.000000] BIOS-e820: [mem 0x00000000bfffd000-0x00000000bfffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000fffbc000-0x00000000ffffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000100000000-0x000000021fffffff] usable
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] SMBIOS 2.4 present.
+[    0.000000] DMI: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+[    0.000000] Hypervisor detected: KVM
+[    0.000000] kvm-clock: Using msrs 4b564d01 and 4b564d00
+[    0.000000] kvm-clock: cpu 0, msr 894e6001, primary cpu clock
+[    0.000000] kvm-clock: using sched offset of 1016947834 cycles
+[    0.000000] clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+[    0.000000] tsc: Initial usec timer 924423
+[    0.000000] tsc: Detected 2300.000 MHz processor
+[    0.000000] e820: last_pfn = 0x220000 max_arch_pfn = 0x400000000
+[    0.000000] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+[    0.000000] e820: last_pfn = 0xbfffd max_arch_pfn = 0x400000000
+[    0.000000] found SMP MP-table at [mem 0x000f2c70-0x000f2c7f] mapped at [ffffffffff200c70]
+[    0.000000] Scanning 1 areas for low memory corruption
+[    0.000000] Using GB pages for direct mapping
+[    0.000000] ACPI: Early table checksum verification disabled
+[    0.000000] ACPI: RSDP 0x00000000000F2A00 000014 (v00 Google)
+[    0.000000] ACPI: RSDT 0x00000000BFFFDA50 000038 (v01 Google GOOGRSDT 00000001 GOOG 00000001)
+[    0.000000] ACPI: FACP 0x00000000BFFFFF00 0000F4 (v02 Google GOOGFACP 00000001 GOOG 00000001)
+[    0.000000] ACPI: DSDT 0x00000000BFFFDA90 0018BA (v01 Google GOOGDSDT 00000001 GOOG 00000001)
+[    0.000000] ACPI: FACS 0x00000000BFFFFEC0 000040
+[    0.000000] ACPI: FACS 0x00000000BFFFFEC0 000040
+[    0.000000] ACPI: SSDT 0x00000000BFFFF540 000980 (v01 Google GOOGSSDT 00000001 GOOG 00000001)
+[    0.000000] ACPI: APIC 0x00000000BFFFF450 000076 (v01 Google GOOGAPIC 00000001 GOOG 00000001)
+[    0.000000] ACPI: WAET 0x00000000BFFFF420 000028 (v01 Google GOOGWAET 00000001 GOOG 00000001)
+[    0.000000] ACPI: SRAT 0x00000000BFFFF350 0000C8 (v01 Google GOOGSRAT 00000001 GOOG 00000001)
+[    0.000000] SRAT: PXM 0 -> APIC 0x00 -> Node 0
+[    0.000000] SRAT: PXM 0 -> APIC 0x01 -> Node 0
+[    0.000000] ACPI: SRAT: Node 0 PXM 0 [mem 0x00000000-0x0009ffff]
+[    0.000000] ACPI: SRAT: Node 0 PXM 0 [mem 0x00100000-0xbfffffff]
+[    0.000000] ACPI: SRAT: Node 0 PXM 0 [mem 0x100000000-0x21fffffff]
+[    0.000000] NUMA: Node 0 [mem 0x00000000-0x0009ffff] + [mem 0x00100000-0xbfffffff] -> [mem 0x00000000-0xbfffffff]
+[    0.000000] NUMA: Node 0 [mem 0x00000000-0xbfffffff] + [mem 0x100000000-0x21fffffff] -> [mem 0x00000000-0x21fffffff]
+[    0.000000] NODE_DATA(0) allocated [mem 0x21fffa000-0x21fffdfff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.000000]   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+[    0.000000]   Normal   [mem 0x0000000100000000-0x000000021fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000001000-0x000000000009efff]
+[    0.000000]   node   0: [mem 0x0000000000100000-0x00000000bfffcfff]
+[    0.000000]   node   0: [mem 0x0000000100000000-0x000000021fffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000001000-0x000000021fffffff]
+[    0.000000] ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+[    0.000000] IOAPIC[0]: apic_id 0, version 17, address 0xfec00000, GSI 0-23
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+[    0.000000] Using ACPI (MADT) for SMP configuration information
+[    0.000000] smpboot: Allowing 2 CPUs, 0 hotplug CPUs
+[    0.000000] e820: [mem 0xc0000000-0xfffbbfff] available for PCI devices
+[    0.000000] Booting paravirtualized kernel on KVM
+[    0.000000] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+[    0.000000] random: get_random_bytes called from start_kernel+0x8c/0x487 with crng_init=0
+[    0.000000] setup_percpu: NR_CPUS:256 nr_cpumask_bits:256 nr_cpu_ids:2 nr_node_ids:1
+[    0.000000] percpu: Embedded 44 pages/cpu @ffffa0ed9fc00000 s140136 r8192 d31896 u1048576
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 1935238
+[    0.000000] Policy zone: Normal
+[    0.000000] Kernel command line: BOOT_IMAGE=/syslinux/vmlinuz.A init=/usr/lib/systemd/systemd boot=local rootwait ro noresume noswap loglevel=7 noinitrd console=ttyS0 vsyscall=emulate security=apparmor virtio_net.napi_tx=1 systemd.unified_cgroup_hierarchy=false systemd.legacy_systemd_cgroup_controller=true csm.disabled=1 dm_verity.error_behavior=3 dm_verity.max_bios=-1 dm_verity.dev_wait=1 i915.modeset=1 cros_efi root=/dev/dm-0 "dm=1 vroot none ro 1,0 2539520 verity payload=PARTUUID=71913957-D6B1-8948-AFA7-574E312FC408 hashtree=PARTUUID=71913957-D6B1-8948-AFA7-574E312FC408 hashstart=2539520 alg=sha1 root_hexdigest=e582525d12c5f702e39eca88f648e851195d84f7 salt=331684cac74749b4944aedce8c7e5dd9abed70e63b61b9be00d8c9efd9d17444"
+[    0.000000] device-mapper: init: will configure 1 devices
+[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.000000] Memory: 7652624K/7863916K available (10252K kernel code, 1149K rwdata, 2056K rodata, 1360K init, 540K bss, 211292K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.000000] Kernel/User page tables isolation: enabled
+[    0.000000] ftrace: allocating 26803 entries in 105 pages
+[    0.001000] Hierarchical RCU implementation.
+[    0.001000] 	RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=2.
+[    0.001000] RCU: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2
+[    0.001000] NR_IRQS: 16640, nr_irqs: 440, preallocated irqs: 16
+[    0.001000] console [ttyS0] enabled
+[    0.001014] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x212735223b2, max_idle_ns: 440795277976 ns
+[    0.002016] Calibrating delay loop (skipped) preset value.. 4600.00 BogoMIPS (lpj=2300000)
+[    0.003017] pid_max: default: 32768 minimum: 301
+[    0.004031] ACPI: Core revision 20170728
+[    0.006258] ACPI: 2 ACPI AML tables successfully acquired and loaded
+[    0.007042] Security Framework initialized
+[    0.008011] Yama: becoming mindful.
+[    0.009014] LoadPin: ready to pin (currently enabled)
+[    0.009017] Chromium OS LSM: enabled
+[    0.010023] AppArmor: AppArmor initialized
+[    0.016159] Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes)
+[    0.019182] Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes)
+[    0.020052] Mount-cache hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.021038] Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.023117] Last level iTLB entries: 4KB 1024, 2MB 1024, 4MB 1024
+[    0.024009] Last level dTLB entries: 4KB 1024, 2MB 1024, 4MB 1024, 1GB 4
+[    0.025015] Spectre V2 : Mitigation: Full generic retpoline
+[    0.026008] Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
+[    0.027008] Spectre V2 : Enabling Restricted Speculation for firmware calls
+[    0.028010] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+[    0.029008] Spectre V2 : User space: Mitigation: STIBP via seccomp and prctl
+[    0.030013] Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl and seccomp
+[    0.031220] Freeing SMP alternatives memory: 28K
+[    0.033607] smpboot: Max logical packages: 2
+[    0.035187] x2apic enabled
+[    0.036011] Switched APIC routing to physical x2apic.
+[    0.041525] ..TIMER: vector=0x30 apic1=0 pin1=0 apic2=-1 pin2=-1
+[    0.143151] smpboot: CPU0: Intel(R) Xeon(R) CPU @ 2.30GHz (family: 0x6, model: 0x3f, stepping: 0x0)
+[    0.144112] Performance Events: unsupported p6 CPU model 63 no PMU driver, software events only.
+[    0.145062] Hierarchical SRCU implementation.
+[    0.146116] random: crng done (trusting CPU's manufacturer)
+[    0.147012] NMI watchdog: Perf event create on CPU 0 failed with -2
+[    0.148004] NMI watchdog: Perf NMI watchdog permanently disabled
+[    0.149094] smp: Bringing up secondary CPUs ...
+[    0.151093] x86: Booting SMP configuration:
+[    0.152005] .... node  #0, CPUs:      #1
+[    0.001000] kvm-clock: cpu 1, msr 894e6041, secondary cpu clock
+[    0.154031] smp: Brought up 1 node, 2 CPUs
+[    0.156006] smpboot: Total of 2 processors activated (9200.00 BogoMIPS)
+[    0.159001] devtmpfs: initialized
+[    0.160175] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[    0.161014] futex hash table entries: 512 (order: 3, 32768 bytes)
+[    0.162242] RTC time: 21:05:15, date: 04/16/19
+[    0.163194] NET: Registered protocol family 16
+[    0.164257] cpuidle: using governor ladder
+[    0.165019] cpuidle: using governor menu
+[    0.166144] clocksource: Switched to clocksource kvm-clock
+[    0.167026] ACPI: bus type PCI registered
+[    0.168515] PCI: Using configuration type 1 for base access
+[    0.171054] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.173207] ACPI: Added _OSI(Module Device)
+[    0.174472] ACPI: Added _OSI(Processor Device)
+[    0.176031] ACPI: Added _OSI(3.0 _SCP Extensions)
+[    0.177340] ACPI: Added _OSI(Processor Aggregator Device)
+[    0.179352] ACPI: Executed 2 blocks of module-level executable AML code
+[    0.182203] ACPI: Interpreter enabled
+[    0.183278] ACPI: (supports S0 S3 S5)
+[    0.184160] ACPI: Using IOAPIC for interrupt routing
+[    0.185445] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[    0.188327] ACPI: Enabled 16 GPEs in block 00 to 0F
+[    0.192535] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+[    0.193603] acpi PNP0A03:00: _OSC: OS supports [ASPM ClockPM Segments MSI]
+[    0.195564] acpi PNP0A03:00: _OSC failed (AE_NOT_FOUND); disabling ASPM
+[    0.197029] acpi PNP0A03:00: fail to add MMCONFIG information, can't access extended PCI configuration space under this bridge.
+[    0.199211] PCI host bridge to bus 0000:00
+[    0.200401] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+[    0.202316] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+[    0.204214] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+[    0.206223] pci_bus 0000:00: root bus resource [mem 0xc0000000-0xfebfffff window]
+[    0.207815] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    0.257269] pci 0000:00:01.3: quirk: [io  0xb000-0xb03f] claimed by PIIX4 ACPI
+[    0.346109] ACPI: PCI Interrupt Link [LNKA] (IRQs 5 *10 11)
+[    0.350610] ACPI: PCI Interrupt Link [LNKB] (IRQs 5 *10 11)
+[    0.354508] ACPI: PCI Interrupt Link [LNKC] (IRQs 5 10 *11)
+[    0.357683] ACPI: PCI Interrupt Link [LNKD] (IRQs 5 10 *11)
+[    0.361840] ACPI: PCI Interrupt Link [LNKS] (IRQs *9)
+[    0.363635] SCSI subsystem initialized
+[    0.365743] PCI: Using ACPI for IRQ routing
+[    0.378110] VFS: Disk quotas dquot_6.6.0
+[    0.379605] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.382214] AppArmor: AppArmor Filesystem Enabled
+[    0.383977] pnp: PnP ACPI init
+[    0.385458] pnp: PnP ACPI: found 7 devices
+[    0.387306] NET: Registered protocol family 2
+[    0.388732] TCP established hash table entries: 65536 (order: 7, 524288 bytes)
+[    0.392042] TCP bind hash table entries: 65536 (order: 9, 2097152 bytes)
+[    0.394353] TCP: Hash tables configured (established 65536 bind 65536)
+[    0.396542] UDP hash table entries: 4096 (order: 6, 393216 bytes)
+[    0.398091] UDP-Lite hash table entries: 4096 (order: 6, 393216 bytes)
+[    0.400265] NET: Registered protocol family 1
+[    0.401277] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+[    0.402753] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+[    0.404518] software IO TLB: mapped [mem 0xbbffd000-0xbfffd000] (64MB)
+[    0.406625] RAPL PMU: API unit is 2^-32 Joules, 4 fixed counters, 10737418240 ms ovfl timer
+[    0.408773] RAPL PMU: hw unit of domain pp0-core 2^-0 Joules
+[    0.410374] RAPL PMU: hw unit of domain package 2^-0 Joules
+[    0.412144] RAPL PMU: hw unit of domain dram 2^-0 Joules
+[    0.413325] RAPL PMU: hw unit of domain pp1-gpu 2^-0 Joules
+[    0.415281] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x212735223b2, max_idle_ns: 440795277976 ns
+[    0.419918] Scanning for low memory corruption every 60 seconds
+[    0.421370] audit: initializing netlink subsys (disabled)
+[    0.423072] audit: type=2000 audit(1555448715.266:1): state=initialized audit_enabled=0 res=1
+[    0.423259] Initialise system trusted keyrings
+[    0.425768] workingset: timestamp_bits=40 max_order=21 bucket_order=0
+[    0.430514] Key type asymmetric registered
+[    0.431832] Asymmetric key parser 'x509' registered
+[    0.433074] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 250)
+[    0.434829] io scheduler noop registered (default)
+[    0.436031] io scheduler deadline registered
+[    0.437144] io scheduler cfq registered
+[    0.437971] io scheduler mq-deadline registered
+[    0.439534] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+[    0.441047] ACPI: Power Button [PWRF]
+[    0.441678] input: Sleep Button as /devices/LNXSYSTM:00/LNXSLPBN:00/input/input1
+[    0.443208] ACPI: Sleep Button [SLPF]
+[    0.446882] ACPI: PCI Interrupt Link [LNKC] enabled at IRQ 11
+[    0.448356] virtio-pci 0000:00:03.0: virtio_pci: leaving for legacy driver
+[    0.455494] ACPI: PCI Interrupt Link [LNKD] enabled at IRQ 10
+[    0.456962] virtio-pci 0000:00:04.0: virtio_pci: leaving for legacy driver
+[    0.464765] Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+[    0.488456] 00:03: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    0.513118] 00:04: ttyS1 at I/O 0x2f8 (irq = 3, base_baud = 115200) is a 16550A
+[    0.538646] 00:05: ttyS2 at I/O 0x3e8 (irq = 6, base_baud = 115200) is a 16550A
+[    0.564555] 00:06: ttyS3 at I/O 0x2e8 (irq = 7, base_baud = 115200) is a 16550A
+[    0.567164] Non-volatile memory driver v1.3
+[    0.571870] loop: module loaded
+[    0.594312] scsi host0: Virtio SCSI HBA
+[    0.612969] scsi 0:0:1:0: Direct-Access     Google   PersistentDisk   1    PQ: 0 ANSI: 6
+[    0.674105] sd 0:0:1:0: [sda] 209715200 512-byte logical blocks: (107 GB/100 GiB)
+[    0.679973] sd 0:0:1:0: [sda] 4096-byte physical blocks
+[    0.689028] sd 0:0:1:0: [sda] Write Protect is off
+[    0.694206] sd 0:0:1:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.711447] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+[    0.715731] i8042: Warning: Keylock active
+[    0.720685] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    0.722545] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    0.724297] rtc_cmos 00:00: RTC can wake from S4
+[    0.726505] rtc_cmos 00:00: registered as rtc0
+[    0.728282] rtc_cmos 00:00: alarms up to one day, 114 bytes nvram
+[    0.729870] iTCO_wdt: Intel TCO WatchDog Timer Driver v1.11
+[    0.731651] iTCO_vendor_support: vendor-support=0
+[    0.733344] device-mapper: ioctl: 4.37.0-ioctl (2017-09-20) initialised: dm-devel@redhat.com
+[    0.736335] device-mapper: verity-chromeos: dm-verity-chromeos registered
+[    0.739085] Mirror/redirect action on
+[    0.740573] Netfilter messages via NETLINK v0.30.
+[    0.743344] nf_conntrack version 0.5.0 (65536 buckets, 262144 max)
+[    0.745393] ctnetlink v0.93: registering with nfnetlink.
+[    0.745670] GPT:Primary header thinks Alt. header is not at the end of the disk.
+[    0.747306] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    0.751175] GPT:18874524 != 209715199
+[    0.755019] GPT:Alternate GPT header not at the end of the disk.
+[    0.756837] GPT:18874524 != 209715199
+[    0.758010] GPT: Use GNU Parted to correct GPT errors.
+[    0.759940]  sda: sda1 sda2 sda3 sda4 sda5 sda6 sda7 sda8 sda9 sda10 sda11 sda12
+[    0.762804] Initializing XFRM netlink socket
+[    0.763453] sd 0:0:1:0: [sda] Attached SCSI disk
+[    0.765115] NET: Registered protocol family 10
+[    0.768689] Segment Routing with IPv6
+[    0.770127] NET: Registered protocol family 17
+[    0.772043] bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+[    0.776117] sched_clock: Marking stable (776003109, 0)->(1396075122, -620072013)
+[    0.779035] registered taskstats version 1
+[    0.780060] Loading compiled-in X.509 certificates
+[    0.782694] Loaded X.509 cert 'Google LLC: Container-Optimized OS kernel signing key: cdd9ce572db9e71668e71b5a9113908047a21771'
+[    0.787209] Loaded X.509 cert 'Google: Container-Optimized OS: 2efea493fc148b35859d0bc8c3dd71a139fc7ab411283e06f6c10b5a6b17e355'
+[    0.790648] AppArmor: AppArmor sha1 policy hashing enabled
+[    0.792489] ima: No TPM chip found, activating TPM-bypass! (rc=-19)
+[    0.794151] ima: Allocated hash algorithm: sha256
+[    0.796083]   Magic number: 15:929:95
+[    0.798125] device-mapper: init: attempting early device configuration.
+[    0.799999] device-mapper: init: adding target '0 2539520 verity payload=PARTUUID=71913957-D6B1-8948-AFA7-574E312FC408 hashtree=PARTUUID=71913957-D6B1-8948-AFA7-574E312FC408 hashstart=2539520 alg=sha1 root_hexdigest=e582525d12c5f702e39eca88f648e851195d84f7 salt=331684cac74749b4944aedce8c7e5dd9abed70e63b61b9be00d8c9efd9d17444'
+[    0.806934] device-mapper: verity: Argument 0: 'payload=PARTUUID=71913957-D6B1-8948-AFA7-574E312FC408'
+[    0.809300] device-mapper: verity: Argument 1: 'hashtree=PARTUUID=71913957-D6B1-8948-AFA7-574E312FC408'
+[    0.811725] device-mapper: verity: Argument 2: 'hashstart=2539520'
+[    0.814296] device-mapper: verity: Argument 3: 'alg=sha1'
+[    0.815394] device-mapper: verity: Argument 4: 'root_hexdigest=e582525d12c5f702e39eca88f648e851195d84f7'
+[    0.816767] device-mapper: verity: Argument 5: 'salt=331684cac74749b4944aedce8c7e5dd9abed70e63b61b9be00d8c9efd9d17444'
+[    0.818968] device-mapper: init: dm-0 is ready
+[    0.826546] EXT4-fs (dm-0): mounting ext2 file system using the ext4 subsystem
+[    0.831885] EXT4-fs (dm-0): mounted filesystem without journal. Opts: (null)
+[    0.834211] VFS: Mounted root (ext2 filesystem) readonly on device 254:0.
+[    0.846806] devtmpfs: mounted
+[    0.849132] Freeing unused kernel memory: 1360K
+[    0.854054] Write protecting the kernel read-only data: 16384k
+[    0.857163] Freeing unused kernel memory: 2012K
+[    0.862364] Freeing unused kernel memory: 2040K
+[    1.118538] systemd[1]: systemd 232 running in system mode. (+PAM +AUDIT -SELINUX +IMA +APPARMOR +SMACK -SYSVINIT -UTMP -LIBCRYPTSETUP +GCRYPT -GNUTLS -ACL -XZ +LZ4 +SECCOMP +BLKID -ELFUTILS +KMOD -IDN)
+[    1.122655] systemd[1]: Detected virtualization kvm.
+[    1.124558] systemd[1]: Detected architecture x86-64.
+
+Welcome to [1mContainer-Optimized OS from Google[0m!
+
+[    1.142718] systemd[1]: Initializing machine ID from KVM UUID.
+[    1.143967] systemd[1]: Installed transient /etc/machine-id file.
+[    1.525640] systemd[1]: Started Dispatch Password Requests to Console Directory Watch.
+[[0;32m  OK  [0m] Started Dispatch Password Requests to Console Directory Watch.
+[    1.531690] systemd[1]: Created slice User and Session Slice.
+[[0;32m  OK  [0m] Created slice User and Session Slice.
+[    1.537255] systemd[1]: Listening on Network Service Netlink Socket.
+[[0;32m  OK  [0m] Listening on Network Service Netlink Socket.
+[    1.542227] systemd[1]: Listening on Journal Socket.
+[[0;32m  OK  [0m] Listening on Journal Socket.
+[    1.544394] systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+[[0;32m  OK  [0m] Started Forward Password Requests to Wall Directory Watch.
+[[0;32m  OK  [0m] Reached target Paths.
+[[0;32m  OK  [0m] Set up automount Arbitrary Executab?rmats File System Automount Point.
+[[0;32m  OK  [0m] Created slice System Slice.
+         Mounting /mnt/disks...
+         Mounting POSIX Message Queue File System...
+         Starting Create list of required st?ce nodes for the current kernel...
+         Starting Mount /dev/shm with 'noexec'...
+         Mounting Debug File System...
+[[0;32m  OK  [0m] Reached target Remote File Systems.
+[[0;32m  OK  [0m] Created slice system-systemd\x2dfsck.slice.
+[[0;32m  OK  [0m] Created slice Slice for System Daemons.
+[[0;32m  OK  [0m] Reached target Slices.
+[[0;32m  OK  [0m] Listening on udev Control Socket.
+         Starting Remount Root and Kernel File Systems...
+[[0;32m  OK  [0m] Listening on Process Core Dump Socket.
+[[0;32m  OK  [0m] Listening on Journal Audit Socket.
+[[0;32m  OK  [0m] Listening on udev Kernel Socket.
+         Starting udev Coldplug all Devices...
+[[0;32m  OK  [0m] Reached target Swap.
+         Mounting Temporary Directory...
+         Mounting Huge Pages File System...
+[[0;32m  OK  [0m] Listening on /dev/initctl Compatibility Named Pipe.
+[[0;32m  OK  [0m] Created slice system-serial\x2dgetty.slice.
+[[0;32m  OK  [0m] Listening on Journal Socket (/dev/log).
+         Starting Journal Service...
+         Starting Apply Kernel Variables...
+[[0;32m  OK  [0m] Mounted Debug File System.
+[[0;32m  OK  [0m] Mounted POSIX Message Queue File System.
+[[0;32m  OK  [0m] Mounted Huge Pages File System.
+[[0;32m  OK  [0m] Mounted /mnt/disks.
+[[0;32m  OK  [0m] Mounted Temporary Directory.
+[[0;32m  OK  [0m] Started Journal Service.
+[[0;32m  OK  [0m] Started Create list of required sta?vice nodes for the current kernel.
+[[0;32m  OK  [0m] Started Mount /dev/shm with 'noexec'.
+[[0;32m  OK  [0m] Started Remount Root and Kernel File Systems.
+[[0;32m  OK  [0m] Started Apply Kernel Variables.
+         Starting Create Static Device Nodes in /dev...
+         Starting Mount /etc overlay...
+[[0;32m  OK  [0m] Started udev Coldplug all Devices.
+[[0;32m  OK  [0m] Started Create Static Device Nodes in /dev.
+[[0;32m  OK  [0m] Reached target Local File Systems (Pre).
+[[0;32m  OK  [0m] Started stateful-devices.path.
+         Starting udev Kernel Device Manager...
+[[0;32m  OK  [0m] Started Mount /etc overlay.
+[[0;32m  OK  [0m] Started udev Kernel Device Manager.
+         Starting Creates the /dev/stateful symlink to the stateful device....
+[[0;32m  OK  [0m] Found device /dev/ttyS0.
+[    1.881809] LoadPin: dev(254,0): read-only
+[    1.883449] LoadPin: load pinning engaged.
+[    1.885234] LoadPin: kernel-module pinned obj="/lib/modules/4.14.94+/kernel/arch/x86/crypto/glue_helper.ko" pid=130 cmdline="/usr/lib/systemd/systemd-udevd"
+[    1.921078] AVX2 version of gcm_enc/dec engaged.
+[    1.922361] AES CTR mode by8 optimization enabled
+[[0;32m  OK  [0m] Found device PersistentDisk OEM.
+         Mounting /usr/share/oem...
+[[0;32m  OK  [0m] Started Creates the /dev/stateful symlink to the stateful device..
+[    1.959442] EXT4-fs (sda8): mounted filesystem with ordered data mode. Opts: (null)
+[[0;32m  OK  [0m] Mounted /usr/share/oem.
+[[0;32m  OK  [0m] Found device PersistentDisk STATE.
+         Starting File System Check on /dev/stateful...
+[    2.062316] systemd-fsck[178]: STATE: clean, 8420/318240 files, 51812/1271296 blocks
+[[0;32m  OK  [0m] Started File System Check on /dev/stateful.
+         Mounting /mnt/stateful_partition...
+[    2.120074] EXT4-fs (sda1): mounted filesystem with ordered data mode. Opts: commit=30
+[[0;32m  OK  [0m] Mounted /mnt/stateful_partition.
+         Starting Resize stateful partition...
+         Starting Make /mnt/stateful_partition private...
+[[0;32m  OK  [0m] Started Make /mnt/stateful_partition private.
+         Mounting /var...
+         Mounting /home...
+[[0;32m  OK  [0m] Mounted /var.
+[[0;32m  OK  [0m] Mounted /home.
+         Mounting /var/lib/cloud...
+         Starting Flush Journal to Persistent Storage...
+         Mounting Bind mount /var/lib/toolbox to itself...
+         Mounting Bind mount /var/lib/docker to itself...
+         Mounting Bind mount /var/lib/google to itself...
+[[0;32m  OK  [0m] Mounted Bind mount /var/lib/google to itself.
+[[0;32m  OK  [0m] Mounted Bind mount /var/lib/toolbox to itself.
+[[0;32m  OK  [0m] Mounted Bind mount /var/lib/docker to itself.
+[[0;32m  OK  [0m] Mounted /var/lib/cloud.
+         Starting Mount /var/lib/docker with 'exec'...
+[    2.193967] EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+         Starting Mount /var/lib/toolbox with 'exec' and 'suid' bits...
+[    2.201525] EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+         Starting Mount /var/lib/google with 'exec'...
+[    2.206788] EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+[[0;32m  OK  [0m] Started Mount /var/lib/docker with 'exec'.
+[[0;32m  OK  [0m] Started Mount /var/lib/toolbox with 'exec' and 'suid' bits.
+[[0;32m  OK  [0m] Started Mount /var/lib/google with 'exec'.
+[[0;32m  OK  [[    2.232078] systemd-journald[105]: Received request to flush runtime journal from PID 1
+0m] Reached target Local File Systems.
+         Starting Rebuild Journal Catalog...
+         Starting Rebuild Dynamic Linker Cache...
+[[0;32m  OK  [0m] Started Rebuild Journal Catalog.
+[[0;32m  OK  [0m] Started Flush Journal to Persistent Storage.
+         Starting Create Volatile Files and Directories...
+[[0;32m  OK  [0m] Started Create Volatile Files and Directories.
+         Starting Load Security Auditing Rules...
+         Starting Network Time Synchronization...
+[    2.315489] EXT4-fs (sda1): resizing filesystem from 1271296 to 25126395 blocks
+[[0;32m  OK  [0m] Started Load Security Auditing Rules.
+[[0;32m  OK  [0m] Started Network Time Synchronization.
+[[0;32m  OK  [0m] Reached target System Time Synchronized.
+[[0;32m  OK  [0m] Started Rebuild Dynamic Linker Cache.
+         Starting Update is Completed...
+[[0;32m  OK  [0m] Started Update is Completed.
+[    3.510253] EXT4-fs (sda1): resized filesystem to 25126395
+[[0;32m  OK  [0m] Started Resize stateful partition.
+[[0;32m  OK  [0m] Reached target System Initialization.
+[[0;32m  OK  [0m] Started Run Crash Sender hourly.
+         Starting Docker Socket for the API.
+[[0;32m  OK  [0m] Listening on D-Bus System Message Bus Socket.
+[[0;32m  OK  [0m] Started Daily Cleanup of Temporary Directories.
+[[0;32m  OK  [0m] Reached target Timers.
+[[0;32m  OK  [0m] Listening on Docker Socket for the API.
+[[0;32m  OK  [0m] Reached target Sockets.
+[[0;32m  OK  [0m] Reached target Basic System.
+         Starting Configure iptables...
+         Starting Initialize Crash Reporter...
+         Starting Login Service...
+         Starting Reports operating system info...
+         Starting Check if secure boot is enabled...
+[[0;32m  OK  [0m] Started D-Bus System Message Bus.
+[    3.641934] cat[282]: BUILD_ID=11647.64.0
+[    3.649498] cat[282]: NAME="Container-Optimized OS"
+[    3.652593] cat[282]: KERNEL_COMMIT_ID=eb49a8f827edb6d8b5926b3ea48c6bc086d7a704
+[    3.656587] cat[282]: GOOGLE_CRASH_ID=Lakitu
+[    3.658816] cat[282]: VERSION_ID=73
+[    3.663482] cat[282]: BUG_REPORT_URL="https://cloud.google.com/container-optimized-os/docs/resources/support-policy#contact_us"
+[    3.666215] cat[282]: PRETTY_NAME="Container-Optimized OS from Google"
+[    3.667646] cat[282]: VERSION=73
+[    3.671480] cat[282]: GOOGLE_METRICS_PRODUCT_ID=26
+[    3.676137] cat[282]: HOME_URL="https://cloud.google.com/container-optimized-os/docs"
+[    3.678264] cat[282]: ID=cos
+         Starting Network Service...
+         Starting Initial cloud-init job (pre-networking)...
+[[0;32m  OK  [0m] Reached target Containers.
+         Starting Configure ip6tables...
+[[0;32m  OK  [0m] Started Check if secure boot is enabled.
+[[0;32m  OK  [0m] Started Configure iptables.
+[[0;32m  OK  [0m] Started Initialize Crash Reporter.
+[    3.718477] echo[298]: Showing disk capacity
+[[0;32m  OK  [0m] Started Reports operating system info.
+         Starting Run per-boot crash collection tasks...
+[[0;32m  OK  [0m] Started Login Service.
+[    3.743711] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    3.747678] df[304]: Filesystem      Size  Used Avail Use% Mounted on
+[    3.750337] df[304]: /dev/root       1.2G  679M  542M  56% /
+[    3.752811] df[304]: devtmpfs        3.7G     0  3.7G   0% /dev
+[[0;32m  OK  [0m] Started Network Service.
+[    3.755620] df[304]: tmpfs           3.7G     0  3.7G   0% /dev/shm
+[    3.761110] df[304]: tmpfs           3.7G  224K  3.7G   1% /run
+         Starting Wait for Network to be Configured...
+[    3.764561] df[304]: tmpfs           3.7G     0  3.7G   0% /sys/fs/cgroup
+[    3.766250] df[304]: tmpfs           1.0M   36K  988K   4% /etc/machine-id
+         Starting Hostname Service...
+[    3.774415] df[304]: tmpfs           256K     0  256K   0% /mnt/disks
+[    3.775932] df[304]: tmpfs           3.7G     0  3.7G   0% /tmp
+[    3.777114] df[304]: overlayfs       1.0M   36K  988K   4% /etc
+[    3.778566] df[304]: /dev/sda8        12M   28K   12M   1% /usr/share/oem
+[    3.780113] df[304]: /dev/sda1        95G   85M   95G   1% /mnt/stateful_partition
+[[0;32m  OK  [0m] Started Run per-boot crash collection tasks.
+         Starting Crash Sender...
+[    3.786331] df[304]: tmpfs           1.0M     0  1.0M   0% /var/lib/cloud
+[[0;32m  OK  [0m] Started Hostname Service.
+[[0;32m  OK  [0m] Started Crash Sender.
+[[0;32m  OK  [0m] Started Configure ip6tables.
+[[0;32m  OK  [0m] Reached target Network.
+         Starting Network Name Resolution...
+         Starting Permit User Sessions...
+         Starting containerd container runtime...
+         Starting OpenSSH server daemon...
+[[0;32m  OK  [0m] Started Permit User Sessions.
+[[0;32m  OK  [0m] Started containerd container runtime.
+[[0;32m  OK  [0m] Started Serial Getty on ttyS0.
+[[0;32m  OK  [0m] Reached target Login Prompts.
+[[0;32m  OK  [0m] Started Network Name Resolution.
+[[0;32m  OK  [0m] Started OpenSSH server daemon.
+[[0;32m  OK  [0m] Started Wait for Network to be Configured.
+[[0;32m  OK  [0m] Reached target Network is Online.
+         Starting Initialize device policy...
+         Starting Google Compute Engine Instance Setup...
+[    5.494826] cloud-init[294]: Cloud-init v. 0.7.6 running 'init-local' at Tue, 16 Apr 2019 21:05:20 +0000. Up 5.43 seconds.
+         Starting Wait for User Data to be accessible...
+         Starting Wait for Google Container Registry (GCR) to be accessible...
+         Starting Docker Application Container Engine...
+[[0;32m  OK  [0m] Started Wait for User Data to be accessible.
+[[0;32m  OK  [0m] Reached target User Data for Cloud Init is accessible.
+[[0;32m  OK  [0m] Started Initial cloud-init job (pre-networking).
+         Starting Initial cloud-init job (metadata service crawler)...
+[[0;32m  OK  [0m] Started Google Compute Engine Instance Setup.
+         Starting Google Compute Engine Network Setup...
+[[0;32m  OK  [0m] Started Google Compute Engine Network Setup.
+         Starting Google Compute Engine Startup Scripts...
+[[0;32m  OK  [0m] Started Google Compute Engine Accounts Daemon.
+         Starting Google Compute Engine Shutdown Scripts...
+[[0;32m  OK  [0m] Started Google Compute Engine Clock Skew Daemon.
+[[0;32m  OK  [0m] Started Google Compute Engine IP Forwarding Daemon.
+[[0;32m  OK  [0m] Started Google Compute Engine Shutdown Scripts.
+[    6.653863] Bridge firewalling registered
+[    6.815965] cloud-init[420]: Cloud-init v. 0.7.6 running 'init' at Tue, 16 Apr 2019 21:05:21 +0000. Up 6.70 seconds.
+[[0;32m  OK  [0m] Started Initialize device policy.
+[[0;32m  OK  [0m] Started GCI Device Policy Service.
+[[0;32m  OK  [0m] Started Metrics Daemon.
+[    6.887628] cloud-init[420]: ci-info: ++++++++++++++++++++++++++Net device info++++++++++++++++++++++++++
+[    6.893404] cloud-init[420]: ci-info: +--------+------+-----------+-----------------+-------------------+
+[    6.898689] cloud-init[420]: ci-info: | Device |  Up  |  Address  |       Mask      |     Hw-Address    |
+[    6.903365] cloud-init[420]: ci-info: +--------+------+-----------+-----------------+-------------------+
+[    6.906684] cloud-init[420]: ci-info: |  lo:   | True | 127.0.0.1 |    255.0.0.0    |         .         |
+[    6.912476] cloud-init[420]: ci-info: | eth0:  | True | 10.40.0.4 | 255.255.255.255 | 42:01:0a:28:00:04 |
+[    6.917432] cloud-init[420]: ci-info: +--------+------+-----------+-----------------+-------------------+
+[    6.923507] cloud-init[420]: ci-info: +++++++++++++++++++++++++++++++Route info++++++++++++++++++++++++++++++++
+[    6.928558] cloud-init[420]: ci-info: +-------+-------------+-----------+-----------------+-----------+-------+
+[    6.933460] cloud-init[420]: ci-info: | Route | Destination |  Gateway  |     Genmask     | Interface | Flags |
+[    6.936328] cloud-init[420]: ci-info: +-------+-------------+-----------+-----------------+-----------+-------+
+[    6.941398] cloud-init[420]: ci-info: |   0   |   0.0.0.0   | 10.40.0.1 |     0.0.0.0     |    eth0   |   UG  |
+[    6.946489] cloud-init[420]: ci-info: |   1   |   0.0.0.0   | 10.40.0.1 |     0.0.0.0     |    eth0   |   UG  |
+[    6.952461] cloud-init[420]: ci-info: |   2   |  10.40.0.1  |  0.0.0.0  | 255.255.255.255 |    eth0   |   UH  |
+[    6.954887] cloud-init[420]: ci-info: |   3   |  10.40.0.1  |  0.0.0.0  | 255.255.255.255 |    eth0   |   UH  |
+[    6.960459] cloud-init[420]: ci-info: +-------+-------------+-----------+-----------------+-----------+-------+
+[    6.980525] IPv6: ADDRCONF(NETDEV_UP): docker0: link is not ready
+[[0;32m  OK  [0m] Started Google Compute Engine Startup Scripts.
+[[0;32m  OK  [0m] Started Docker Application Container Engine.
+
+e2e-test-peterhornyack-minion-group-06gd login: [   12.756492] cloud-init[620]: Cloud-init v. 0.7.6 running 'modules:config' at Tue, 16 Apr 2019 21:05:27 +0000. Up 12.67 seconds.
+[   13.284086] cloud-init[628]: Cloud-init v. 0.7.6 running 'modules:final' at Tue, 16 Apr 2019 21:05:28 +0000. Up 13.19 seconds.
+[   13.404732] cloud-init[628]: Created symlink /etc/systemd/system/kubernetes.target.wants/kube-node-installation.service ? /etc/systemd/system/kube-node-installation.service.
+[   13.487366] cloud-init[628]: Created symlink /etc/systemd/system/kubernetes.target.wants/kube-node-configuration.service ? /etc/systemd/system/kube-node-configuration.service.
+[   13.569501] cloud-init[628]: Created symlink /etc/systemd/system/kubernetes.target.wants/kube-container-runtime-monitor.service ? /etc/systemd/system/kube-container-runtime-monitor.service.
+[   13.652408] cloud-init[628]: Created symlink /etc/systemd/system/kubernetes.target.wants/kubelet-monitor.service ? /etc/systemd/system/kubelet-monitor.service.
+[   13.741323] cloud-init[628]: Created symlink /etc/systemd/system/kubernetes.target.wants/kube-logrotate.timer ? /etc/systemd/system/kube-logrotate.timer.
+[   13.834089] cloud-init[628]: Created symlink /etc/systemd/system/kubernetes.target.wants/kube-logrotate.service ? /etc/systemd/system/kube-logrotate.service.
+[   13.916663] cloud-init[628]: Created symlink /etc/systemd/system/multi-user.target.wants/kubernetes.target ? /etc/systemd/system/kubernetes.target.
+[   14.033392] EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+[   21.842066] konlet-startup[800]: No metadata present - not running containers
+[   88.167267] EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+[   88.993212] Unsafe core_pattern used with fs.suid_dumpable=2.
+[   88.993212] Pipe handler or fully qualified core dump path required.
+[   88.993212] Set kernel.core_pattern before fs.suid_dumpable.
+[   95.527868] EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+<14>Apr 16 21:06:50 ec2: 
+<14>Apr 16 21:06:50 ec2: #############################################################
+<14>Apr 16 21:06:50 ec2: -----BEGIN SSH HOST KEY FINGERPRINTS-----
+<14>Apr 16 21:06:50 ec2: 256 SHA256:4FLuKI/LSOFpbUGJp4/UUnIW/HCazKaCaauosuFy4k8 root@e2e-test-peterhornyack-minion-group-06gd (ECDSA)
+<14>Apr 16 21:06:50 ec2: 256 SHA256:LvXWEk/F+NPnqvU5aByn8dMZXSW9x3u+V0iSE9hIZG8 root@e2e-test-peterhornyack-minion-group-06gd (ED25519)
+<14>Apr 16 21:06:50 ec2: 2048 SHA256:V4tnzxH9NAHA+1hksVKItTv/asLVwpBXsJw/ndnSPKA root@e2e-test-peterhornyack-minion-group-06gd (RSA)
+<14>Apr 16 21:06:50 ec2: -----END SSH HOST KEY FINGERPRINTS-----
+<14>Apr 16 21:06:50 ec2: #############################################################
+-----BEGIN SSH HOST KEY KEYS-----
+ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL8LWc9xAqbv+HkrvgRNffNZpRoVFUzz4GPSuKQv0C3quVOSp1XHcVoyna3Flrat3YcyO0AXTb6FDoD2uyNY/SU= root@e2e-test-peterhornyack-minion-group-06gd
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOvUa31jTCj/b38QgNcCoStKHIyViLem2Y76R1nV/MAk root@e2e-test-peterhornyack-minion-group-06gd
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZd943wx3GxBHbr9ksXIJJxIuPm0azQqj6oWh8VfKK2Oqh1yt5YeqmgtBVN9qeFDfeiLqGAbR6GyyOLj/KTGppWLuEx7kjwDuk5qLNtFjDCV1r4EPxKOJMb+7FeGLDQrgu9AcrUHb72kBjnQM2HI8VMKcTYVQ84TAq3KKkWstT3CDJIzOSn5FqN5Ak9lFYtjtDnIQlxPgIa/bi9Nqv0TI+/gTdyMFzlKgq0sjIOGnu/5QRbJMZ85OR66TtMoVvsGE1laF7h1Y+HC0+PyvBHFd870sDCahKboQb4Ix9tmczad0FJt6SspwrAHfjQMO64aYaEsJzaPvRwV5oAB4av37R root@e2e-test-peterhornyack-minion-group-06gd
+-----END SSH HOST KEY KEYS-----
+[   95.706360] cloud-init[628]: Cloud-init v. 0.7.6 finished at Tue, 16 Apr 2019 21:06:50 +0000. Datasource DataSourceGCE.  Up 95.69 seconds
+[   99.924305] IPVS: Registered protocols (TCP, UDP, SCTP, AH, ESP)
+[   99.933176] IPVS: Connection hash table configured (size=4096, memory=64Kbytes)
+[   99.967176] IPVS: ipvs loaded.
+[   99.974341] IPVS: [rr] scheduler registered.
+[   99.982220] IPVS: [wrr] scheduler registered.
+[   99.991893] IPVS: [sh] scheduler registered.
+[  100.104623] ip_set: protocol 6
+[  101.445757] IPv6: ADDRCONF(NETDEV_UP): veth47a89a37: link is not ready
+[  101.452700] IPv6: ADDRCONF(NETDEV_CHANGE): veth47a89a37: link becomes ready
+[  101.469121] cbr0: port 1(veth47a89a37) entered blocking state
+[  101.475126] cbr0: port 1(veth47a89a37) entered disabled state
+[  101.481131] device veth47a89a37 entered promiscuous mode
+[  101.486673] cbr0: port 1(veth47a89a37) entered blocking state
+[  101.492675] cbr0: port 1(veth47a89a37) entered forwarding state
+[  102.180980] cbr0: port 2(veth3a4c0c25) entered blocking state
+[  102.186988] cbr0: port 2(veth3a4c0c25) entered disabled state
+[  102.193359] device veth3a4c0c25 entered promiscuous mode
+[  102.199247] cbr0: port 2(veth3a4c0c25) entered blocking state
+[  102.205224] cbr0: port 2(veth3a4c0c25) entered forwarding state
+[  102.311799] cbr0: port 3(veth1a3de485) entered blocking state
+[  102.317849] cbr0: port 3(veth1a3de485) entered disabled state
+[  102.323871] device veth1a3de485 entered promiscuous mode
+[  102.329578] cbr0: port 3(veth1a3de485) entered blocking state
+[  102.335586] cbr0: port 3(veth1a3de485) entered forwarding state
+[  102.441218] cbr0: port 4(veth34ae04fb) entered blocking state
+[  102.448796] cbr0: port 4(veth34ae04fb) entered disabled state
+[  102.454815] device veth34ae04fb entered promiscuous mode
+[  102.460628] cbr0: port 4(veth34ae04fb) entered blocking state
+[  102.466687] cbr0: port 4(veth34ae04fb) entered forwarding state
+[  102.783018] cbr0: port 5(vetha7b25449) entered blocking state
+[  102.789247] cbr0: port 5(vetha7b25449) entered disabled state
+[  102.795553] device vetha7b25449 entered promiscuous mode
+[  102.801260] cbr0: port 5(vetha7b25449) entered blocking state
+[  102.807606] cbr0: port 5(vetha7b25449) entered forwarding state
+[  103.042742] cbr0: port 6(veth9399fbdc) entered blocking state
+[  103.048966] cbr0: port 6(veth9399fbdc) entered disabled state
+[  103.055003] device veth9399fbdc entered promiscuous mode
+[  103.061039] cbr0: port 6(veth9399fbdc) entered blocking state
+[  103.067080] cbr0: port 6(veth9399fbdc) entered forwarding state
+[  103.371365] cbr0: port 7(vetha77f3e4c) entered blocking state
+[  103.377408] cbr0: port 7(vetha77f3e4c) entered disabled state
+[  103.383599] device vetha77f3e4c entered promiscuous mode
+[  103.389154] cbr0: port 7(vetha77f3e4c) entered blocking state
+[  103.395076] cbr0: port 7(vetha77f3e4c) entered forwarding state
+[  108.396726] IPv6: ADDRCONF(NETDEV_UP): vethf179585e: link is not ready
+[  108.404096] IPv6: ADDRCONF(NETDEV_CHANGE): vethf179585e: link becomes ready
+[  108.433463] cbr0: port 8(vethf179585e) entered blocking state
+[  108.439644] cbr0: port 8(vethf179585e) entered disabled state
+[  108.446305] device vethf179585e entered promiscuous mode
+[  108.452106] cbr0: port 8(vethf179585e) entered blocking state
+[  108.458153] cbr0: port 8(vethf179585e) entered forwarding state
+[  121.589542] IPv6: ADDRCONF(NETDEV_UP): vethb11a8d37: link is not ready
+[  121.596325] IPv6: ADDRCONF(NETDEV_CHANGE): vethb11a8d37: link becomes ready
+[  121.623173] cbr0: port 9(vethb11a8d37) entered blocking state
+[  121.629206] cbr0: port 9(vethb11a8d37) entered disabled state
+[  121.635309] device vethb11a8d37 entered promiscuous mode
+[  121.640850] cbr0: port 9(vethb11a8d37) entered blocking state
+[  121.646997] cbr0: port 9(vethb11a8d37) entered forwarding state
+[  124.273410] IPv6: ADDRCONF(NETDEV_UP): veth36591c8c: link is not ready
+[  124.280136] IPv6: ADDRCONF(NETDEV_CHANGE): veth36591c8c: link becomes ready
+[  124.315594] cbr0: port 10(veth36591c8c) entered blocking state
+[  124.321760] cbr0: port 10(veth36591c8c) entered disabled state
+[  124.328049] device veth36591c8c entered promiscuous mode
+[  124.333596] cbr0: port 10(veth36591c8c) entered blocking state
+[  124.339605] cbr0: port 10(veth36591c8c) entered forwarding state
+[  126.330798] cbr0: port 1(veth47a89a37) entered disabled state
+[  126.341396] device veth47a89a37 left promiscuous mode
+[  126.346667] cbr0: port 1(veth47a89a37) entered disabled state
+[  130.327958] cbr0: port 6(veth9399fbdc) entered disabled state
+[  130.337008] device veth9399fbdc left promiscuous mode
+[  130.342554] cbr0: port 6(veth9399fbdc) entered disabled state
+[  281.407855] IPv6: ADDRCONF(NETDEV_UP): vethf4f447df: link is not ready
+[  281.414803] IPv6: ADDRCONF(NETDEV_CHANGE): vethf4f447df: link becomes ready
+[  281.430704] cbr0: port 1(vethf4f447df) entered blocking state
+[  281.437246] cbr0: port 1(vethf4f447df) entered disabled state
+[  281.443463] device vethf4f447df entered promiscuous mode
+[  281.449228] cbr0: port 1(vethf4f447df) entered blocking state
+[  281.455306] cbr0: port 1(vethf4f447df) entered forwarding state
+[ 1284.762509] IPv6: ADDRCONF(NETDEV_UP): veth3c6a8a35: link is not ready
+[ 1284.772098] IPv6: ADDRCONF(NETDEV_CHANGE): veth3c6a8a35: link becomes ready
+[ 1284.791397] cbr0: port 6(veth3c6a8a35) entered blocking state
+[ 1284.799444] cbr0: port 6(veth3c6a8a35) entered disabled state
+[ 1284.806719] device veth3c6a8a35 entered promiscuous mode
+[ 1284.815503] cbr0: port 6(veth3c6a8a35) entered blocking state
+[ 1284.824551] cbr0: port 6(veth3c6a8a35) entered forwarding state
+[ 1295.646810] IPv6: ADDRCONF(NETDEV_UP): vethd276156b: link is not ready
+[ 1295.653618] IPv6: ADDRCONF(NETDEV_CHANGE): vethd276156b: link becomes ready
+[ 1295.667904] cbr0: port 11(vethd276156b) entered blocking state
+[ 1295.674189] cbr0: port 11(vethd276156b) entered disabled state
+[ 1295.680298] device vethd276156b entered promiscuous mode
+[ 1295.686099] cbr0: port 11(vethd276156b) entered blocking state
+[ 1295.692243] cbr0: port 11(vethd276156b) entered forwarding state
+[ 1491.606828] cbr0: port 6(veth3c6a8a35) entered disabled state
+[ 1491.621090] device veth3c6a8a35 left promiscuous mode
+[ 1491.626613] cbr0: port 6(veth3c6a8a35) entered disabled state
+[ 1521.907554] cbr0: port 11(vethd276156b) entered disabled state
+[ 1521.918235] device vethd276156b left promiscuous mode
+[ 1521.923763] cbr0: port 11(vethd276156b) entered disabled state
+[ 1839.386692] IPv6: ADDRCONF(NETDEV_UP): veth2166180b: link is not ready
+[ 1839.393671] IPv6: ADDRCONF(NETDEV_CHANGE): veth2166180b: link becomes ready
+[ 1839.411025] cbr0: port 6(veth2166180b) entered blocking state
+[ 1839.417094] cbr0: port 6(veth2166180b) entered disabled state
+[ 1839.423135] device veth2166180b entered promiscuous mode
+[ 1839.428673] cbr0: port 6(veth2166180b) entered blocking state
+[ 1839.434677] cbr0: port 6(veth2166180b) entered forwarding state
+[ 1849.397112] IPv6: ADDRCONF(NETDEV_UP): veth3bc883df: link is not ready
+[ 1849.403911] IPv6: ADDRCONF(NETDEV_CHANGE): veth3bc883df: link becomes ready
+[ 1849.428744] cbr0: port 11(veth3bc883df) entered blocking state
+[ 1849.434968] cbr0: port 11(veth3bc883df) entered disabled state
+[ 1849.441112] device veth3bc883df entered promiscuous mode
+[ 1849.446757] cbr0: port 11(veth3bc883df) entered blocking state
+[ 1849.452769] cbr0: port 11(veth3bc883df) entered forwarding state
+[ 1957.354906] cbr0: port 6(veth2166180b) entered disabled state
+[ 1957.372243] device veth2166180b left promiscuous mode
+[ 1957.377468] cbr0: port 6(veth2166180b) entered disabled state
+[ 1987.344699] cbr0: port 11(veth3bc883df) entered disabled state
+[ 1987.353644] device veth3bc883df left promiscuous mode
+[ 1987.359331] cbr0: port 11(veth3bc883df) entered disabled state
+

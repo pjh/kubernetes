@@ -1,0 +1,6 @@
+I0417 00:04:57.908518       1 manager.go:167] Start NEG garbage collection.
+I0417 00:04:58.107568       1 manager.go:177] NEG garbage collection finished.
+I0417 00:14:58.107980       1 manager.go:167] Start NEG garbage collection.
+I0417 00:14:58.268229       1 manager.go:177] NEG garbage collection finished.
+I0417 00:24:58.268622       1 manager.go:167] Start NEG garbage collection.
+I0417 00:24:58.444454       1 manager.go:177] NEG garbage collection finished.
