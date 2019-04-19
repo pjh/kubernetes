@@ -114,6 +114,9 @@ If you brought up an end-to-end test cluster using the steps above then you can
 use the steps below to run K8s e2e tests. These steps are based on
 [kubernetes-sigs/windows-testing](https://github.com/kubernetes-sigs/windows-testing).
 
+*   Run `smoke-test.sh` once (see above) to correctly set the taints on your
+    Linux and Windows nodes.
+
 *   Build the necessary test binaries. This must be done after every change to
     test code.
 
