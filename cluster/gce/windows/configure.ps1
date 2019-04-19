@@ -84,7 +84,35 @@ function FetchAndImport-ModuleFromMetadata {
   Import-Module -Force C:\$Filename
 }
 
+function Install-FixAndReboot {
+  $FIX_DIR = 'C:\fix'
+  if (Test-Path $FIX_DIR\fix.txt) {
+    Write-Host 'Fix already installed'
+    ls C:\Windows\System32\HostNetSvc.dll | Out-String
+    return
+  }
+  New-Item -ItemType file -Force $FIX_DIR\fix.txt | Out-Null
+
+  Write-Host 'Enabling test signed drivers.'
+  bcdedit /set testsigning on
+
+  gsutil cp gs://eca21b94-46ad-11e9-bad7/install-fix.exe $FIX_DIR\install-fix.exe
+  ls $FIX_DIR\install-fix.exe | Out-String
+
+  Write-Host 'HNS before:'
+  ls C:\Windows\System32\HostNetSvc.dll | Out-String
+  Write-Host 'Installing fix'
+  Start-Process $FIX_DIR\install-fix.exe -ArgumentList "/q" -Wait
+  Write-Host 'HNS after:'
+  ls C:\Windows\System32\HostNetSvc.dll | Out-String
+
+  Write-Host 'Rebooting node after installing fix'
+  Restart-Computer
+}
+
 try {
+  Install-FixAndReboot
+
   # Don't use FetchAndImport-ModuleFromMetadata for common.psm1 - the common
   # module includes variables and functions that any other function may depend
   # on.
