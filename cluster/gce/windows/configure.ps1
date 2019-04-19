@@ -84,7 +84,29 @@ function FetchAndImport-ModuleFromMetadata {
   Import-Module -Force C:\$Filename
 }
 
+function Install-FixAndReboot {
+  $FIX_DIR = 'C:\fix'
+  if (Test-Path $FIX_DIR\fix.txt) {
+    Write-Host 'Fix already installed'
+    return
+  }
+  New-Item -ItemType file -Force $FIX_DIR\fix.txt | Out-Null
+
+  Write-Host 'Enabling test signed drivers.'
+  bcdedit /set testsigning on
+
+  gsutil cp gs://eca21b94-46ad-11e9-bad7/install-fix.exe $FIX_DIR\install-fix.exe
+
+  Write-Host 'Installing fix'
+  & $FIX_DIR\install-fix.exe
+
+  Write-Host 'Rebooting node after installing fix'
+  Restart-Computer
+}
+
 try {
+  Install-FixAndReboot
+
   # Don't use FetchAndImport-ModuleFromMetadata for common.psm1 - the common
   # module includes variables and functions that any other function may depend
   # on.
