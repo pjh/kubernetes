@@ -1,0 +1,35 @@
+-- Logs begin at Wed 2019-05-29 23:04:00 UTC, end at Thu 2019-05-30 08:54:00 UTC. --
+May 29 23:04:59.607285 e2e-test-peterhornyack-minion-group-5wdh systemd[1]: Starting Configure kubernetes node...
+May 29 23:04:59.627510 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Start to configure instance for kubernetes
+May 29 23:04:59.633894 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Found Kubelet config file at /home/kubernetes/kubelet-config.yaml
+May 29 23:04:59.677395 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Configuring IP firewall rules
+May 29 23:04:59.678835 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: net.ipv4.conf.all.route_localnet = 1
+May 29 23:04:59.682491 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Add rules to accept all inbound TCP/UDP/ICMP packets
+May 29 23:04:59.688880 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Add rules to accept all forwarded TCP/UDP/ICMP/SCTP packets
+May 29 23:04:59.694486 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Add rules for ip masquerade
+May 29 23:04:59.703398 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Add rule for metadata concealment
+May 29 23:04:59.710750 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Creating required directories
+May 29 23:04:59.714379 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Making /var/lib/kubelet executable for kubelet
+May 29 23:04:59.726305 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: No local SCSI SSD disks found.
+May 29 23:04:59.726718 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: No local NVMe SSD disks found.
+May 29 23:04:59.730850 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Creating node pki files
+May 29 23:04:59.738520 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Creating kubelet bootstrap-kubeconfig file
+May 29 23:04:59.739961 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Creating kube-proxy user kubeconfig file
+May 29 23:04:59.741657 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Creating node-problem-detector kubeconfig file
+May 29 23:04:59.744246 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: overriding kubectl
+May 29 23:04:59.777189 e2e-test-peterhornyack-minion-group-5wdh sudo[1066]:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/bin/env
+May 29 23:04:59.781431 e2e-test-peterhornyack-minion-group-5wdh sudo[1066]: pam_unix(sudo:session): session opened for user root by (uid=0)
+May 29 23:04:59.781886 e2e-test-peterhornyack-minion-group-5wdh sudo[1066]: pam_tty_audit(sudo:session): changed status from 0 to 1
+May 29 23:04:59.783577 e2e-test-peterhornyack-minion-group-5wdh sudo[1066]: pam_unix(sudo:session): session closed for user root
+May 29 23:04:59.785316 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Assemble docker command line flags
+May 29 23:04:59.785573 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Enable docker registry mirror at: https://mirror.gcr.io
+May 29 23:04:59.785832 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Extend the docker.service configuration to set a higher pids limit
+May 29 23:04:59.865596 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Docker command line is updated. Restart docker to pick it up
+May 29 23:05:05.654945 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Start kubelet
+May 29 23:05:06.653533 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Using kubelet binary at /home/kubernetes/bin/kubelet
+May 29 23:05:06.761374 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Start kube-proxy static pod
+May 29 23:05:06.795239 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Start node problem detector
+May 29 23:05:06.795620 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Using node problem detector binary at /home/kubernetes/bin/node-problem-detector
+May 29 23:05:07.056321 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Prepare containerized mounter
+May 29 23:05:07.125370 e2e-test-peterhornyack-minion-group-5wdh configure-helper.sh[983]: Done for the configuration for kubernetes
+May 29 23:05:07.128725 e2e-test-peterhornyack-minion-group-5wdh systemd[1]: Started Configure kubernetes node.

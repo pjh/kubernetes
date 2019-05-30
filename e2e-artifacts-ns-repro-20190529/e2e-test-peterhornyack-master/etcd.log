@@ -1,0 +1,261 @@
+2019-05-30 00:00:13.070929 W | etcdserver: read-only range request "key:\"/registry/configmaps/kube-system/ingress-gce-lock\" " with result "range_response_count:1 size:417" took too long (206.93303ms) to execute
+2019-05-30 00:01:37.414894 I | mvcc: store.index: compact 8273
+2019-05-30 00:01:37.418770 I | mvcc: finished scheduled compaction at 8273 (took 1.927918ms)
+2019-05-30 00:06:37.421383 I | mvcc: store.index: compact 9058
+2019-05-30 00:06:37.425006 I | mvcc: finished scheduled compaction at 9058 (took 1.544277ms)
+2019-05-30 00:11:37.427838 I | mvcc: store.index: compact 10016
+2019-05-30 00:11:37.432640 I | mvcc: finished scheduled compaction at 10016 (took 1.956752ms)
+2019-05-30 00:16:37.435717 I | mvcc: store.index: compact 10896
+2019-05-30 00:16:37.439748 I | mvcc: finished scheduled compaction at 10896 (took 1.951931ms)
+2019-05-30 00:21:37.441845 I | mvcc: store.index: compact 11769
+2019-05-30 00:21:37.445563 I | mvcc: finished scheduled compaction at 11769 (took 1.698373ms)
+2019-05-30 00:26:37.447356 I | mvcc: store.index: compact 13924
+2019-05-30 00:26:37.455230 I | mvcc: finished scheduled compaction at 13924 (took 5.022412ms)
+2019-05-30 00:31:37.455485 I | mvcc: store.index: compact 14727
+2019-05-30 00:31:37.459244 I | mvcc: finished scheduled compaction at 14727 (took 2.905162ms)
+2019-05-30 00:36:37.461552 I | mvcc: store.index: compact 15587
+2019-05-30 00:36:37.465593 I | mvcc: finished scheduled compaction at 15587 (took 2.431833ms)
+2019-05-30 00:41:22.130553 I | etcdserver: start to snapshot (applied: 20002, lastsnap: 10001)
+2019-05-30 00:41:22.136181 I | etcdserver: saved snapshot at index 20002
+2019-05-30 00:41:22.136681 I | etcdserver: compacted raft log at 15002
+2019-05-30 00:41:37.467087 I | mvcc: store.index: compact 16487
+2019-05-30 00:41:37.470641 I | mvcc: finished scheduled compaction at 16487 (took 1.911124ms)
+2019-05-30 00:46:37.472403 I | mvcc: store.index: compact 17384
+2019-05-30 00:46:37.477574 I | mvcc: finished scheduled compaction at 17384 (took 4.345276ms)
+2019-05-30 00:51:37.486047 I | mvcc: store.index: compact 18121
+2019-05-30 00:51:37.489805 I | mvcc: finished scheduled compaction at 18121 (took 3.029286ms)
+2019-05-30 00:56:37.492733 I | mvcc: store.index: compact 18822
+2019-05-30 00:56:37.496380 I | mvcc: finished scheduled compaction at 18822 (took 1.933178ms)
+2019-05-30 01:01:37.499091 I | mvcc: store.index: compact 19524
+2019-05-30 01:01:37.502362 I | mvcc: finished scheduled compaction at 19524 (took 1.679508ms)
+2019-05-30 01:06:37.506425 I | mvcc: store.index: compact 20225
+2019-05-30 01:06:37.510416 I | mvcc: finished scheduled compaction at 20225 (took 1.781973ms)
+2019-05-30 01:11:37.512159 I | mvcc: store.index: compact 20931
+2019-05-30 01:11:37.516943 I | mvcc: finished scheduled compaction at 20931 (took 3.153358ms)
+2019-05-30 01:16:37.524518 I | mvcc: store.index: compact 21716
+2019-05-30 01:16:37.527039 I | mvcc: finished scheduled compaction at 21716 (took 1.929071ms)
+2019-05-30 01:21:37.529643 I | mvcc: store.index: compact 22456
+2019-05-30 01:21:37.533691 I | mvcc: finished scheduled compaction at 22456 (took 2.156ms)
+2019-05-30 01:26:37.534758 I | mvcc: store.index: compact 23251
+2019-05-30 01:26:37.539643 I | mvcc: finished scheduled compaction at 23251 (took 3.084072ms)
+2019-05-30 01:31:37.542143 I | mvcc: store.index: compact 24177
+2019-05-30 01:31:37.545174 I | mvcc: finished scheduled compaction at 24177 (took 2.187531ms)
+2019-05-30 01:36:37.547586 I | mvcc: store.index: compact 24915
+2019-05-30 01:36:37.550136 I | mvcc: finished scheduled compaction at 24915 (took 1.803753ms)
+2019-05-30 01:38:00.523984 I | etcdserver: start to snapshot (applied: 30003, lastsnap: 20002)
+2019-05-30 01:38:00.530437 I | etcdserver: saved snapshot at index 30003
+2019-05-30 01:38:00.531234 I | etcdserver: compacted raft log at 25003
+2019-05-30 01:41:37.552837 I | mvcc: store.index: compact 25663
+2019-05-30 01:41:37.556192 I | mvcc: finished scheduled compaction at 25663 (took 2.687729ms)
+2019-05-30 01:46:37.559193 I | mvcc: store.index: compact 26371
+2019-05-30 01:46:37.562426 I | mvcc: finished scheduled compaction at 26371 (took 2.522662ms)
+2019-05-30 01:51:37.565756 I | mvcc: store.index: compact 27132
+2019-05-30 01:51:37.568609 I | mvcc: finished scheduled compaction at 27132 (took 2.005383ms)
+2019-05-30 01:56:37.572333 I | mvcc: store.index: compact 28124
+2019-05-30 01:56:37.576001 I | mvcc: finished scheduled compaction at 28124 (took 1.975851ms)
+2019-05-30 02:01:37.577741 I | mvcc: store.index: compact 28859
+2019-05-30 02:01:37.580008 I | mvcc: finished scheduled compaction at 28859 (took 1.676885ms)
+2019-05-30 02:05:06.171285 W | etcdserver: read-only range request "key:\"/registry/health\" " with result "range_response_count:0 size:6" took too long (476.908613ms) to execute
+2019-05-30 02:05:06.174269 W | etcdserver: read-only range request "key:\"/registry/services/endpoints/kube-system/kube-scheduler\" " with result "range_response_count:1 size:454" took too long (127.838781ms) to execute
+2019-05-30 02:06:37.583929 I | mvcc: store.index: compact 29630
+2019-05-30 02:06:37.586745 I | mvcc: finished scheduled compaction at 29630 (took 2.05801ms)
+2019-05-30 02:11:37.589546 I | mvcc: store.index: compact 30345
+2019-05-30 02:11:37.592865 I | mvcc: finished scheduled compaction at 30345 (took 1.54607ms)
+2019-05-30 02:16:37.595201 I | mvcc: store.index: compact 31059
+2019-05-30 02:16:37.600172 I | mvcc: finished scheduled compaction at 31059 (took 2.711947ms)
+2019-05-30 02:21:37.602191 I | mvcc: store.index: compact 31799
+2019-05-30 02:21:37.605416 I | mvcc: finished scheduled compaction at 31799 (took 1.639609ms)
+2019-05-30 02:26:37.609095 I | mvcc: store.index: compact 32511
+2019-05-30 02:26:37.612748 I | mvcc: finished scheduled compaction at 32511 (took 1.427146ms)
+2019-05-30 02:31:37.614553 I | mvcc: store.index: compact 33225
+2019-05-30 02:31:37.617647 I | mvcc: finished scheduled compaction at 33225 (took 1.503807ms)
+2019-05-30 02:34:42.435231 I | etcdserver: start to snapshot (applied: 40004, lastsnap: 30003)
+2019-05-30 02:34:42.440856 I | etcdserver: saved snapshot at index 40004
+2019-05-30 02:34:42.441403 I | etcdserver: compacted raft log at 35004
+2019-05-30 02:36:37.620640 I | mvcc: store.index: compact 33935
+2019-05-30 02:36:37.624099 I | mvcc: finished scheduled compaction at 33935 (took 1.740685ms)
+2019-05-30 02:41:37.626123 I | mvcc: store.index: compact 34702
+2019-05-30 02:41:37.629802 I | mvcc: finished scheduled compaction at 34702 (took 1.631793ms)
+2019-05-30 02:46:37.631630 I | mvcc: store.index: compact 35500
+2019-05-30 02:46:37.635141 I | mvcc: finished scheduled compaction at 35500 (took 1.868667ms)
+2019-05-30 02:51:37.637076 I | mvcc: store.index: compact 36212
+2019-05-30 02:51:37.640195 I | mvcc: finished scheduled compaction at 36212 (took 1.619881ms)
+2019-05-30 02:56:37.642722 I | mvcc: store.index: compact 36921
+2019-05-30 02:56:37.646175 I | mvcc: finished scheduled compaction at 36921 (took 2.723074ms)
+2019-05-30 03:01:37.648993 I | mvcc: store.index: compact 37638
+2019-05-30 03:01:37.652253 I | mvcc: finished scheduled compaction at 37638 (took 2.037737ms)
+2019-05-30 03:06:37.660530 I | mvcc: store.index: compact 38356
+2019-05-30 03:06:37.662751 I | mvcc: finished scheduled compaction at 38356 (took 1.60143ms)
+2019-05-30 03:11:37.667367 I | mvcc: store.index: compact 39087
+2019-05-30 03:11:37.670587 I | mvcc: finished scheduled compaction at 39087 (took 1.542736ms)
+2019-05-30 03:16:37.672869 I | mvcc: store.index: compact 39845
+2019-05-30 03:16:37.675992 I | mvcc: finished scheduled compaction at 39845 (took 1.599464ms)
+2019-05-30 03:21:37.680055 I | mvcc: store.index: compact 40589
+2019-05-30 03:21:37.683485 I | mvcc: finished scheduled compaction at 40589 (took 1.681702ms)
+2019-05-30 03:26:37.686930 I | mvcc: store.index: compact 41358
+2019-05-30 03:26:37.690901 I | mvcc: finished scheduled compaction at 41358 (took 3.223251ms)
+2019-05-30 03:31:37.693943 I | mvcc: store.index: compact 42065
+2019-05-30 03:31:37.698744 I | mvcc: finished scheduled compaction at 42065 (took 3.452842ms)
+2019-05-30 03:32:11.028185 I | etcdserver: start to snapshot (applied: 50005, lastsnap: 40004)
+2019-05-30 03:32:11.033700 I | etcdserver: saved snapshot at index 50005
+2019-05-30 03:32:11.034287 I | etcdserver: compacted raft log at 45005
+2019-05-30 03:36:37.707542 I | mvcc: store.index: compact 42785
+2019-05-30 03:36:37.712746 I | mvcc: finished scheduled compaction at 42785 (took 4.331555ms)
+2019-05-30 03:41:37.717269 I | mvcc: store.index: compact 43502
+2019-05-30 03:41:37.720776 I | mvcc: finished scheduled compaction at 43502 (took 2.017267ms)
+2019-05-30 03:46:37.723990 I | mvcc: store.index: compact 44257
+2019-05-30 03:46:37.729482 I | mvcc: finished scheduled compaction at 44257 (took 3.683078ms)
+2019-05-30 03:51:37.731808 I | mvcc: store.index: compact 44960
+2019-05-30 03:51:37.736505 I | mvcc: finished scheduled compaction at 44960 (took 3.519279ms)
+2019-05-30 03:56:37.739663 I | mvcc: store.index: compact 45829
+2019-05-30 03:56:37.743131 I | mvcc: finished scheduled compaction at 45829 (took 1.698954ms)
+2019-05-30 04:01:37.746993 I | mvcc: store.index: compact 46617
+2019-05-30 04:01:37.750803 I | mvcc: finished scheduled compaction at 46617 (took 1.937849ms)
+2019-05-30 04:06:37.753077 I | mvcc: store.index: compact 47331
+2019-05-30 04:06:37.756734 I | mvcc: finished scheduled compaction at 47331 (took 2.816634ms)
+2019-05-30 04:11:37.759839 I | mvcc: store.index: compact 48068
+2019-05-30 04:11:37.763185 I | mvcc: finished scheduled compaction at 48068 (took 1.764122ms)
+2019-05-30 04:16:37.764747 I | mvcc: store.index: compact 48816
+2019-05-30 04:16:37.769392 I | mvcc: finished scheduled compaction at 48816 (took 2.712769ms)
+2019-05-30 04:21:37.770607 I | mvcc: store.index: compact 49529
+2019-05-30 04:21:37.775007 I | mvcc: finished scheduled compaction at 49529 (took 2.669147ms)
+2019-05-30 04:26:37.776873 I | mvcc: store.index: compact 50257
+2019-05-30 04:26:37.780253 I | mvcc: finished scheduled compaction at 50257 (took 1.65982ms)
+2019-05-30 04:29:00.655565 I | etcdserver: start to snapshot (applied: 60006, lastsnap: 50005)
+2019-05-30 04:29:00.661917 I | etcdserver: saved snapshot at index 60006
+2019-05-30 04:29:00.662430 I | etcdserver: compacted raft log at 55006
+2019-05-30 04:29:04.399316 I | pkg/fileutil: purged file /var/etcd/data/member/snap/0000000000000002-0000000000002711.snap successfully
+2019-05-30 04:31:37.786886 I | mvcc: store.index: compact 50965
+2019-05-30 04:31:37.792375 I | mvcc: finished scheduled compaction at 50965 (took 3.254212ms)
+2019-05-30 04:36:37.793243 I | mvcc: store.index: compact 51756
+2019-05-30 04:36:37.796547 I | mvcc: finished scheduled compaction at 51756 (took 1.540567ms)
+2019-05-30 04:41:37.798643 I | mvcc: store.index: compact 52529
+2019-05-30 04:41:37.801933 I | mvcc: finished scheduled compaction at 52529 (took 2.552813ms)
+2019-05-30 04:46:37.804825 I | mvcc: store.index: compact 53253
+2019-05-30 04:46:37.807986 I | mvcc: finished scheduled compaction at 53253 (took 1.551581ms)
+2019-05-30 04:51:37.811118 I | mvcc: store.index: compact 53962
+2019-05-30 04:51:37.815031 I | mvcc: finished scheduled compaction at 53962 (took 2.285161ms)
+2019-05-30 04:56:37.829572 I | mvcc: store.index: compact 54696
+2019-05-30 04:56:37.837061 I | mvcc: finished scheduled compaction at 54696 (took 6.695343ms)
+2019-05-30 05:01:37.844287 I | mvcc: store.index: compact 55413
+2019-05-30 05:01:37.847385 I | mvcc: finished scheduled compaction at 55413 (took 1.67734ms)
+2019-05-30 05:05:14.112899 W | wal: sync duration of 1.392688764s, expected less than 1s
+2019-05-30 05:05:14.115180 W | etcdserver: read-only range request "key:\"/registry/leases/kube-node-lease/e2e-test-peterhornyack-minion-group-fzx6\" " with result "range_response_count:1 size:419" took too long (1.059628191s) to execute
+2019-05-30 05:05:14.115426 W | etcdserver: read-only range request "key:\"/registry/csidrivers\" range_end:\"/registry/csidrivert\" count_only:true " with result "range_response_count:0 size:6" took too long (1.253496548s) to execute
+2019-05-30 05:05:14.116293 W | etcdserver: read-only range request "key:\"/registry/services/endpoints/kube-system/kube-scheduler\" " with result "range_response_count:1 size:454" took too long (138.801168ms) to execute
+2019-05-30 05:05:14.116411 W | etcdserver: read-only range request "key:\"/registry/health\" " with result "range_response_count:0 size:6" took too long (422.512776ms) to execute
+2019-05-30 05:05:14.117386 W | etcdserver: read-only range request "key:\"/registry/leases/kube-node-lease/e2e-test-peterhornyack-master\" " with result "range_response_count:1 size:376" took too long (513.145878ms) to execute
+2019-05-30 05:05:14.117533 W | etcdserver: read-only range request "key:\"/registry/leases/kube-node-lease/e2e-test-peterhornyack-windows-node-group-1vjk\" " with result "range_response_count:1 size:444" took too long (568.319843ms) to execute
+2019-05-30 05:06:37.849686 I | mvcc: store.index: compact 56138
+2019-05-30 05:06:37.852809 I | mvcc: finished scheduled compaction at 56138 (took 1.549107ms)
+2019-05-30 05:11:37.855422 I | mvcc: store.index: compact 56847
+2019-05-30 05:11:37.858577 I | mvcc: finished scheduled compaction at 56847 (took 1.557486ms)
+2019-05-30 05:16:37.862009 I | mvcc: store.index: compact 57654
+2019-05-30 05:16:37.865495 I | mvcc: finished scheduled compaction at 57654 (took 1.955026ms)
+2019-05-30 05:21:37.866912 I | mvcc: store.index: compact 58373
+2019-05-30 05:21:37.871648 I | mvcc: finished scheduled compaction at 58373 (took 2.882674ms)
+2019-05-30 05:26:37.872811 I | mvcc: store.index: compact 59097
+2019-05-30 05:26:37.875966 I | mvcc: finished scheduled compaction at 59097 (took 1.591013ms)
+2019-05-30 05:26:58.823600 I | etcdserver: start to snapshot (applied: 70007, lastsnap: 60006)
+2019-05-30 05:26:58.829736 I | etcdserver: saved snapshot at index 70007
+2019-05-30 05:26:58.830237 I | etcdserver: compacted raft log at 65007
+2019-05-30 05:27:04.459932 I | pkg/fileutil: purged file /var/etcd/data/member/snap/0000000000000002-0000000000004e22.snap successfully
+2019-05-30 05:31:37.880810 I | mvcc: store.index: compact 59806
+2019-05-30 05:31:37.884729 I | mvcc: finished scheduled compaction at 59806 (took 3.337526ms)
+2019-05-30 05:36:37.888221 I | mvcc: store.index: compact 60773
+2019-05-30 05:36:37.891996 I | mvcc: finished scheduled compaction at 60773 (took 2.043614ms)
+2019-05-30 05:41:37.894492 I | mvcc: store.index: compact 61491
+2019-05-30 05:41:37.898216 I | mvcc: finished scheduled compaction at 61491 (took 2.068701ms)
+2019-05-30 05:46:37.901266 I | mvcc: store.index: compact 62206
+2019-05-30 05:46:37.904776 I | mvcc: finished scheduled compaction at 62206 (took 1.946273ms)
+2019-05-30 05:51:37.906962 I | mvcc: store.index: compact 62939
+2019-05-30 05:51:37.911150 I | mvcc: finished scheduled compaction at 62939 (took 3.487891ms)
+2019-05-30 05:56:37.913794 I | mvcc: store.index: compact 63685
+2019-05-30 05:56:37.920567 I | mvcc: finished scheduled compaction at 63685 (took 5.205216ms)
+2019-05-30 06:01:37.920241 I | mvcc: store.index: compact 64435
+2019-05-30 06:01:37.924285 I | mvcc: finished scheduled compaction at 64435 (took 3.276571ms)
+2019-05-30 06:01:38.913949 I | wal: segmented wal file /var/etcd/data/member/wal/0000000000000001-00000000000129cb.wal is created
+2019-05-30 06:06:37.926693 I | mvcc: store.index: compact 65165
+2019-05-30 06:06:37.931056 I | mvcc: finished scheduled compaction at 65165 (took 2.435981ms)
+2019-05-30 06:11:37.935219 I | mvcc: store.index: compact 65881
+2019-05-30 06:11:37.938557 I | mvcc: finished scheduled compaction at 65881 (took 2.786195ms)
+2019-05-30 06:16:37.941063 I | mvcc: store.index: compact 66629
+2019-05-30 06:16:37.943515 I | mvcc: finished scheduled compaction at 66629 (took 1.79809ms)
+2019-05-30 06:21:37.948537 I | mvcc: store.index: compact 67352
+2019-05-30 06:21:37.951360 I | mvcc: finished scheduled compaction at 67352 (took 2.113007ms)
+2019-05-30 06:23:46.009069 I | etcdserver: start to snapshot (applied: 80008, lastsnap: 70007)
+2019-05-30 06:23:46.015646 I | etcdserver: saved snapshot at index 80008
+2019-05-30 06:23:46.016132 I | etcdserver: compacted raft log at 75008
+2019-05-30 06:24:04.521397 I | pkg/fileutil: purged file /var/etcd/data/member/snap/0000000000000002-0000000000007533.snap successfully
+2019-05-30 06:26:37.954165 I | mvcc: store.index: compact 68067
+2019-05-30 06:26:37.957243 I | mvcc: finished scheduled compaction at 68067 (took 1.511861ms)
+2019-05-30 06:31:37.960083 I | mvcc: store.index: compact 68788
+2019-05-30 06:31:37.963085 I | mvcc: finished scheduled compaction at 68788 (took 1.504501ms)
+2019-05-30 06:36:37.965194 I | mvcc: store.index: compact 69624
+2019-05-30 06:36:37.967926 I | mvcc: finished scheduled compaction at 69624 (took 2.086009ms)
+2019-05-30 06:41:37.970873 I | mvcc: store.index: compact 70378
+2019-05-30 06:41:37.974590 I | mvcc: finished scheduled compaction at 70378 (took 2.059192ms)
+2019-05-30 06:46:37.980526 I | mvcc: store.index: compact 71359
+2019-05-30 06:46:37.983727 I | mvcc: finished scheduled compaction at 71359 (took 2.521832ms)
+2019-05-30 06:51:37.985724 I | mvcc: store.index: compact 72115
+2019-05-30 06:51:37.988774 I | mvcc: finished scheduled compaction at 72115 (took 1.612076ms)
+2019-05-30 06:56:37.992162 I | mvcc: store.index: compact 72829
+2019-05-30 06:56:37.995487 I | mvcc: finished scheduled compaction at 72829 (took 1.692894ms)
+2019-05-30 07:01:38.002453 I | mvcc: store.index: compact 73560
+2019-05-30 07:01:38.006173 I | mvcc: finished scheduled compaction at 73560 (took 1.95962ms)
+2019-05-30 07:06:38.010433 I | mvcc: store.index: compact 74283
+2019-05-30 07:06:38.014281 I | mvcc: finished scheduled compaction at 74283 (took 3.031086ms)
+2019-05-30 07:11:38.016631 I | mvcc: store.index: compact 75034
+2019-05-30 07:11:38.019969 I | mvcc: finished scheduled compaction at 75034 (took 1.654517ms)
+2019-05-30 07:16:38.022317 I | mvcc: store.index: compact 75859
+2019-05-30 07:16:38.025968 I | mvcc: finished scheduled compaction at 75859 (took 1.922396ms)
+2019-05-30 07:18:22.136731 I | etcdserver: start to snapshot (applied: 90009, lastsnap: 80008)
+2019-05-30 07:18:22.141448 I | etcdserver: saved snapshot at index 90009
+2019-05-30 07:18:22.142024 I | etcdserver: compacted raft log at 85009
+2019-05-30 07:18:34.579674 I | pkg/fileutil: purged file /var/etcd/data/member/snap/0000000000000002-0000000000009c44.snap successfully
+2019-05-30 07:21:38.027606 I | mvcc: store.index: compact 76584
+2019-05-30 07:21:38.031447 I | mvcc: finished scheduled compaction at 76584 (took 1.785875ms)
+2019-05-30 07:26:38.033692 I | mvcc: store.index: compact 77398
+2019-05-30 07:26:38.037705 I | mvcc: finished scheduled compaction at 77398 (took 2.171352ms)
+2019-05-30 07:31:38.038277 I | mvcc: store.index: compact 78109
+2019-05-30 07:31:38.041714 I | mvcc: finished scheduled compaction at 78109 (took 1.977569ms)
+2019-05-30 07:35:13.409798 W | etcdserver: read-only range request "key:\"/registry/namespaces/volume-8533\" " with result "range_response_count:1 size:275" took too long (171.07676ms) to execute
+2019-05-30 07:35:13.419006 W | etcdserver: read-only range request "key:\"/registry/leases/kube-node-lease/e2e-test-peterhornyack-minion-group-5wdh\" " with result "range_response_count:1 size:419" took too long (386.097601ms) to execute
+2019-05-30 07:35:13.419146 W | etcdserver: read-only range request "key:\"/registry/services/endpoints/kube-system/kube-scheduler\" " with result "range_response_count:1 size:454" took too long (447.931435ms) to execute
+2019-05-30 07:35:13.419212 W | etcdserver: read-only range request "key:\"/registry/configmaps/kube-system/ingress-gce-lock\" " with result "range_response_count:1 size:419" took too long (110.266611ms) to execute
+2019-05-30 07:36:38.046608 I | mvcc: store.index: compact 78818
+2019-05-30 07:36:38.049049 I | mvcc: finished scheduled compaction at 78818 (took 1.794873ms)
+2019-05-30 07:41:38.052010 I | mvcc: store.index: compact 79529
+2019-05-30 07:41:38.055527 I | mvcc: finished scheduled compaction at 79529 (took 1.958477ms)
+2019-05-30 07:46:38.057973 I | mvcc: store.index: compact 80245
+2019-05-30 07:46:38.061533 I | mvcc: finished scheduled compaction at 80245 (took 1.714528ms)
+2019-05-30 07:51:38.064813 I | mvcc: store.index: compact 81022
+2019-05-30 07:51:38.068754 I | mvcc: finished scheduled compaction at 81022 (took 1.829481ms)
+2019-05-30 07:56:38.070263 I | mvcc: store.index: compact 81762
+2019-05-30 07:56:38.074153 I | mvcc: finished scheduled compaction at 81762 (took 2.274768ms)
+2019-05-30 08:01:38.076892 I | mvcc: store.index: compact 82503
+2019-05-30 08:01:38.080346 I | mvcc: finished scheduled compaction at 82503 (took 1.657458ms)
+2019-05-30 08:06:38.083552 I | mvcc: store.index: compact 83218
+2019-05-30 08:06:38.086764 I | mvcc: finished scheduled compaction at 83218 (took 1.549287ms)
+2019-05-30 08:11:38.089552 I | mvcc: store.index: compact 83978
+2019-05-30 08:11:38.092982 I | mvcc: finished scheduled compaction at 83978 (took 1.676634ms)
+2019-05-30 08:16:38.095103 I | mvcc: store.index: compact 84688
+2019-05-30 08:16:38.098838 I | mvcc: finished scheduled compaction at 84688 (took 1.931863ms)
+2019-05-30 08:16:39.890512 I | etcdserver: start to snapshot (applied: 100010, lastsnap: 90009)
+2019-05-30 08:16:39.905942 I | etcdserver: saved snapshot at index 100010
+2019-05-30 08:16:39.906404 I | etcdserver: compacted raft log at 95010
+2019-05-30 08:17:04.636806 I | pkg/fileutil: purged file /var/etcd/data/member/snap/0000000000000002-000000000000c355.snap successfully
+2019-05-30 08:21:38.101067 I | mvcc: store.index: compact 85397
+2019-05-30 08:21:38.104057 I | mvcc: finished scheduled compaction at 85397 (took 1.537769ms)
+2019-05-30 08:26:38.108097 I | mvcc: store.index: compact 86116
+2019-05-30 08:26:38.111090 I | mvcc: finished scheduled compaction at 86116 (took 1.39526ms)
+2019-05-30 08:31:38.113911 I | mvcc: store.index: compact 86860
+2019-05-30 08:31:38.117343 I | mvcc: finished scheduled compaction at 86860 (took 1.728791ms)
+2019-05-30 08:36:38.123689 I | mvcc: store.index: compact 87577
+2019-05-30 08:36:38.133592 I | mvcc: finished scheduled compaction at 87577 (took 9.080946ms)
+2019-05-30 08:41:38.130867 I | mvcc: store.index: compact 88284
+2019-05-30 08:41:38.133743 I | mvcc: finished scheduled compaction at 88284 (took 1.379287ms)
+2019-05-30 08:46:38.136490 I | mvcc: store.index: compact 89007
+2019-05-30 08:46:38.141626 I | mvcc: finished scheduled compaction at 89007 (took 3.565653ms)
+2019-05-30 08:51:38.144980 I | mvcc: store.index: compact 89742
+2019-05-30 08:51:38.148274 I | mvcc: finished scheduled compaction at 89742 (took 2.517778ms)

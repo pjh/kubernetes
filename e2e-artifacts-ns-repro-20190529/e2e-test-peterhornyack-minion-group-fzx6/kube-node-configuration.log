@@ -1,0 +1,35 @@
+-- Logs begin at Wed 2019-05-29 23:03:59 UTC, end at Thu 2019-05-30 08:53:58 UTC. --
+May 29 23:04:59.760555 e2e-test-peterhornyack-minion-group-fzx6 systemd[1]: Starting Configure kubernetes node...
+May 29 23:04:59.781484 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Start to configure instance for kubernetes
+May 29 23:04:59.788358 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Found Kubelet config file at /home/kubernetes/kubelet-config.yaml
+May 29 23:04:59.831047 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Configuring IP firewall rules
+May 29 23:04:59.832200 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: net.ipv4.conf.all.route_localnet = 1
+May 29 23:04:59.835900 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Add rules to accept all inbound TCP/UDP/ICMP packets
+May 29 23:04:59.842681 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Add rules to accept all forwarded TCP/UDP/ICMP/SCTP packets
+May 29 23:04:59.848360 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Add rules for ip masquerade
+May 29 23:04:59.857224 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Add rule for metadata concealment
+May 29 23:04:59.863807 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Creating required directories
+May 29 23:04:59.867743 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Making /var/lib/kubelet executable for kubelet
+May 29 23:04:59.879847 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: No local SCSI SSD disks found.
+May 29 23:04:59.879847 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: No local NVMe SSD disks found.
+May 29 23:04:59.881791 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Creating node pki files
+May 29 23:04:59.889729 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Creating kubelet bootstrap-kubeconfig file
+May 29 23:04:59.891446 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Creating kube-proxy user kubeconfig file
+May 29 23:04:59.893180 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Creating node-problem-detector kubeconfig file
+May 29 23:04:59.896049 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: overriding kubectl
+May 29 23:04:59.930857 e2e-test-peterhornyack-minion-group-fzx6 sudo[1068]:     root : TTY=unknown ; PWD=/ ; USER=root ; COMMAND=/bin/env
+May 29 23:04:59.936364 e2e-test-peterhornyack-minion-group-fzx6 sudo[1068]: pam_unix(sudo:session): session opened for user root by (uid=0)
+May 29 23:04:59.936934 e2e-test-peterhornyack-minion-group-fzx6 sudo[1068]: pam_tty_audit(sudo:session): changed status from 0 to 1
+May 29 23:04:59.938657 e2e-test-peterhornyack-minion-group-fzx6 sudo[1068]: pam_unix(sudo:session): session closed for user root
+May 29 23:04:59.940561 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Assemble docker command line flags
+May 29 23:04:59.940810 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Enable docker registry mirror at: https://mirror.gcr.io
+May 29 23:04:59.940810 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Extend the docker.service configuration to set a higher pids limit
+May 29 23:05:00.022946 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Docker command line is updated. Restart docker to pick it up
+May 29 23:05:05.798196 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Start kubelet
+May 29 23:05:06.797825 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Using kubelet binary at /home/kubernetes/bin/kubelet
+May 29 23:05:06.904943 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Start kube-proxy static pod
+May 29 23:05:06.942942 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Start node problem detector
+May 29 23:05:06.943390 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Using node problem detector binary at /home/kubernetes/bin/node-problem-detector
+May 29 23:05:07.194923 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Prepare containerized mounter
+May 29 23:05:07.286453 e2e-test-peterhornyack-minion-group-fzx6 configure-helper.sh[984]: Done for the configuration for kubernetes
+May 29 23:05:07.289174 e2e-test-peterhornyack-minion-group-fzx6 systemd[1]: Started Configure kubernetes node.

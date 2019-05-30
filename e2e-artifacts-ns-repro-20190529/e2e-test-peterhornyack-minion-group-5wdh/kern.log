@@ -1,0 +1,430 @@
+-- Logs begin at Wed 2019-05-29 23:04:00 UTC, end at Thu 2019-05-30 08:54:05 UTC. --
+May 29 23:04:00.755534 localhost kernel: Linux version 4.14.94+ (chrome-bot@swarm-cros-608) (gcc version 4.9.x 20150123 (prerelease) (4.9.2_cos_gg_4.9.2-r200-ac6128e0a17a52f011797f33ac3e7d6273a9368d_4.9.2-r200)) #1 SMP Thu Apr 18 18:53:20 PDT 2019
+May 29 23:04:00.755573 localhost kernel: Command line: BOOT_IMAGE=/syslinux/vmlinuz.A init=/usr/lib/systemd/systemd boot=local rootwait ro noresume noswap loglevel=7 noinitrd console=ttyS0 vsyscall=emulate security=apparmor virtio_net.napi_tx=1 systemd.unified_cgroup_hierarchy=false systemd.legacy_systemd_cgroup_controller=true csm.disabled=1 dm_verity.error_behavior=3 dm_verity.max_bios=-1 dm_verity.dev_wait=1 i915.modeset=1 cros_efi root=/dev/dm-0 "dm=1 vroot none ro 1,0 2539520 verity payload=PARTUUID=8BD177DC-EA86-1A42-B8A1-0D8B83573F5C hashtree=PARTUUID=8BD177DC-EA86-1A42-B8A1-0D8B83573F5C hashstart=2539520 alg=sha1 root_hexdigest=30ae72b75923daafb5d95b649d639f6220dfcbec salt=a1e12a9d10ec838443fdb6809b92b22832cb4850081f329b3986b707dac5fa54"
+May 29 23:04:00.755596 localhost kernel: x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+May 29 23:04:00.755605 localhost kernel: x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+May 29 23:04:00.755620 localhost kernel: x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+May 29 23:04:00.755630 localhost kernel: x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+May 29 23:04:00.755644 localhost kernel: x86/fpu: Enabled xstate features 0x7, context size is 832 bytes, using 'standard' format.
+May 29 23:04:00.755654 localhost kernel: e820: BIOS-provided physical RAM map:
+May 29 23:04:00.755665 localhost kernel: BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+May 29 23:04:00.755676 localhost kernel: BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+May 29 23:04:00.755685 localhost kernel: BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+May 29 23:04:00.755696 localhost kernel: BIOS-e820: [mem 0x0000000000100000-0x00000000bfffcfff] usable
+May 29 23:04:00.755705 localhost kernel: BIOS-e820: [mem 0x00000000bfffd000-0x00000000bfffffff] reserved
+May 29 23:04:00.755716 localhost kernel: BIOS-e820: [mem 0x00000000fffbc000-0x00000000ffffffff] reserved
+May 29 23:04:00.755731 localhost kernel: BIOS-e820: [mem 0x0000000100000000-0x000000021fffffff] usable
+May 29 23:04:00.755741 localhost kernel: NX (Execute Disable) protection: active
+May 29 23:04:00.755751 localhost kernel: SMBIOS 2.4 present.
+May 29 23:04:00.755760 localhost kernel: DMI: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+May 29 23:04:00.755769 localhost kernel: Hypervisor detected: KVM
+May 29 23:04:00.755779 localhost kernel: kvm-clock: Using msrs 4b564d01 and 4b564d00
+May 29 23:04:00.755788 localhost kernel: kvm-clock: cpu 0, msr 1044e6001, primary cpu clock
+May 29 23:04:00.755798 localhost kernel: kvm-clock: using sched offset of 1042964900 cycles
+May 29 23:04:00.755807 localhost kernel: clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+May 29 23:04:00.755817 localhost kernel: tsc: Initial usec timer 969170
+May 29 23:04:00.755829 localhost kernel: tsc: Detected 2300.000 MHz processor
+May 29 23:04:00.755839 localhost kernel: e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+May 29 23:04:00.755863 localhost kernel: e820: remove [mem 0x000a0000-0x000fffff] usable
+May 29 23:04:00.755873 localhost kernel: e820: last_pfn = 0x220000 max_arch_pfn = 0x400000000
+May 29 23:04:00.755882 localhost kernel: MTRR default type: write-back
+May 29 23:04:00.755892 localhost kernel: MTRR fixed ranges enabled:
+May 29 23:04:00.755901 localhost kernel:   00000-9FFFF write-back
+May 29 23:04:00.755911 localhost kernel:   A0000-BFFFF uncachable
+May 29 23:04:00.755922 localhost kernel:   C0000-FFFFF write-protect
+May 29 23:04:00.755931 localhost kernel: MTRR variable ranges enabled:
+May 29 23:04:00.755940 localhost kernel:   0 base 0000C0000000 mask 3FFFC0000000 uncachable
+May 29 23:04:00.755950 localhost kernel:   1 disabled
+May 29 23:04:00.755962 localhost kernel:   2 disabled
+May 29 23:04:00.755971 localhost kernel:   3 disabled
+May 29 23:04:00.755981 localhost kernel:   4 disabled
+May 29 23:04:00.755990 localhost kernel:   5 disabled
+May 29 23:04:00.756005 localhost kernel:   6 disabled
+May 29 23:04:00.756015 localhost kernel:   7 disabled
+May 29 23:04:00.756024 localhost kernel: x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+May 29 23:04:00.756052 localhost kernel: e820: last_pfn = 0xbfffd max_arch_pfn = 0x400000000
+May 29 23:04:00.756063 localhost kernel: found SMP MP-table at [mem 0x000f2a10-0x000f2a1f] mapped at [ffffffffff200a10]
+May 29 23:04:00.756076 localhost kernel: Scanning 1 areas for low memory corruption
+May 29 23:04:00.756086 localhost kernel: Base memory trampoline at [ffff9b8800099000] 99000 size 24576
+May 29 23:04:00.756096 localhost kernel: Using GB pages for direct mapping
+May 29 23:04:00.756106 localhost kernel: BRK [0x10455a000, 0x10455afff] PGTABLE
+May 29 23:04:00.756117 localhost kernel: BRK [0x10455b000, 0x10455bfff] PGTABLE
+May 29 23:04:00.756128 localhost kernel: BRK [0x10455c000, 0x10455cfff] PGTABLE
+May 29 23:04:00.756137 localhost kernel: BRK [0x10455d000, 0x10455dfff] PGTABLE
+May 29 23:04:00.756147 localhost kernel: BRK [0x10455e000, 0x10455efff] PGTABLE
+May 29 23:04:00.756158 localhost kernel: BRK [0x10455f000, 0x10455ffff] PGTABLE
+May 29 23:04:00.756202 localhost kernel: BRK [0x104560000, 0x104560fff] PGTABLE
+May 29 23:04:00.756213 localhost kernel: ACPI: Early table checksum verification disabled
+May 29 23:04:00.756223 localhost kernel: ACPI: RSDP 0x00000000000F27A0 000014 (v00 Google)
+May 29 23:04:00.756236 localhost kernel: ACPI: RSDT 0x00000000BFFFDA50 000038 (v01 Google GOOGRSDT 00000001 GOOG 00000001)
+May 29 23:04:00.756246 localhost kernel: ACPI: FACP 0x00000000BFFFFF00 0000F4 (v02 Google GOOGFACP 00000001 GOOG 00000001)
+May 29 23:04:00.756256 localhost kernel: ACPI: DSDT 0x00000000BFFFDA90 0018BA (v01 Google GOOGDSDT 00000001 GOOG 00000001)
+May 29 23:04:00.756266 localhost kernel: ACPI: FACS 0x00000000BFFFFEC0 000040
+May 29 23:04:00.756275 localhost kernel: ACPI: FACS 0x00000000BFFFFEC0 000040
+May 29 23:04:00.756285 localhost kernel: ACPI: SSDT 0x00000000BFFFF540 000980 (v01 Google GOOGSSDT 00000001 GOOG 00000001)
+May 29 23:04:00.756295 localhost kernel: ACPI: APIC 0x00000000BFFFF450 000076 (v01 Google GOOGAPIC 00000001 GOOG 00000001)
+May 29 23:04:00.756305 localhost kernel: ACPI: WAET 0x00000000BFFFF420 000028 (v01 Google GOOGWAET 00000001 GOOG 00000001)
+May 29 23:04:00.756315 localhost kernel: ACPI: SRAT 0x00000000BFFFF350 0000C8 (v01 Google GOOGSRAT 00000001 GOOG 00000001)
+May 29 23:04:00.756325 localhost kernel: ACPI: Local APIC address 0xfee00000
+May 29 23:04:00.756340 localhost kernel: SRAT: PXM 0 -> APIC 0x00 -> Node 0
+May 29 23:04:00.756349 localhost kernel: SRAT: PXM 0 -> APIC 0x01 -> Node 0
+May 29 23:04:00.756359 localhost kernel: ACPI: SRAT: Node 0 PXM 0 [mem 0x00000000-0x0009ffff]
+May 29 23:04:00.756369 localhost kernel: ACPI: SRAT: Node 0 PXM 0 [mem 0x00100000-0xbfffffff]
+May 29 23:04:00.756379 localhost kernel: ACPI: SRAT: Node 0 PXM 0 [mem 0x100000000-0x21fffffff]
+May 29 23:04:00.756388 localhost kernel: NUMA: Node 0 [mem 0x00000000-0x0009ffff] + [mem 0x00100000-0xbfffffff] -> [mem 0x00000000-0xbfffffff]
+May 29 23:04:00.756398 localhost kernel: NUMA: Node 0 [mem 0x00000000-0xbfffffff] + [mem 0x100000000-0x21fffffff] -> [mem 0x00000000-0x21fffffff]
+May 29 23:04:00.756408 localhost kernel: NODE_DATA(0) allocated [mem 0x21fffc000-0x21fffffff]
+May 29 23:04:00.756418 localhost kernel: Zone ranges:
+May 29 23:04:00.756428 localhost kernel:   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+May 29 23:04:00.756437 localhost kernel:   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+May 29 23:04:00.756447 localhost kernel:   Normal   [mem 0x0000000100000000-0x000000021fffffff]
+May 29 23:04:00.756460 localhost kernel: Movable zone start for each node
+May 29 23:04:00.756470 localhost kernel: Early memory node ranges
+May 29 23:04:00.756480 localhost kernel:   node   0: [mem 0x0000000000001000-0x000000000009efff]
+May 29 23:04:00.756489 localhost kernel:   node   0: [mem 0x0000000000100000-0x00000000bfffcfff]
+May 29 23:04:00.756499 localhost kernel:   node   0: [mem 0x0000000100000000-0x000000021fffffff]
+May 29 23:04:00.756509 localhost kernel: Initmem setup node 0 [mem 0x0000000000001000-0x000000021fffffff]
+May 29 23:04:00.756519 localhost kernel: On node 0 totalpages: 1965979
+May 29 23:04:00.756529 localhost kernel:   DMA zone: 64 pages used for memmap
+May 29 23:04:00.756539 localhost kernel:   DMA zone: 21 pages reserved
+May 29 23:04:00.756548 localhost kernel:   DMA zone: 3998 pages, LIFO batch:0
+May 29 23:04:00.756558 localhost kernel:   DMA32 zone: 12224 pages used for memmap
+May 29 23:04:00.756567 localhost kernel:   DMA32 zone: 782333 pages, LIFO batch:31
+May 29 23:04:00.756577 localhost kernel:   Normal zone: 18432 pages used for memmap
+May 29 23:04:00.756590 localhost kernel:   Normal zone: 1179648 pages, LIFO batch:31
+May 29 23:04:00.756600 localhost kernel: ACPI: Local APIC address 0xfee00000
+May 29 23:04:00.756609 localhost kernel: ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+May 29 23:04:00.756620 localhost kernel: IOAPIC[0]: apic_id 0, version 17, address 0xfec00000, GSI 0-23
+May 29 23:04:00.756630 localhost kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+May 29 23:04:00.756640 localhost kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+May 29 23:04:00.756650 localhost kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+May 29 23:04:00.756659 localhost kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+May 29 23:04:00.756671 localhost kernel: ACPI: IRQ5 used by override.
+May 29 23:04:00.756681 localhost kernel: ACPI: IRQ9 used by override.
+May 29 23:04:00.756691 localhost kernel: ACPI: IRQ10 used by override.
+May 29 23:04:00.756701 localhost kernel: ACPI: IRQ11 used by override.
+May 29 23:04:00.756711 localhost kernel: Using ACPI (MADT) for SMP configuration information
+May 29 23:04:00.756725 localhost kernel: smpboot: Allowing 2 CPUs, 0 hotplug CPUs
+May 29 23:04:00.756735 localhost kernel: e820: [mem 0xc0000000-0xfffbbfff] available for PCI devices
+May 29 23:04:00.756744 localhost kernel: Booting paravirtualized kernel on KVM
+May 29 23:04:00.756759 localhost kernel: clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+May 29 23:04:00.756769 localhost kernel: random: get_random_bytes called from start_kernel+0x8c/0x487 with crng_init=0
+May 29 23:04:00.756780 localhost kernel: setup_percpu: NR_CPUS:256 nr_cpumask_bits:256 nr_cpu_ids:2 nr_node_ids:1
+May 29 23:04:00.756789 localhost kernel: percpu: Embedded 44 pages/cpu @ffff9b8a1fc00000 s140136 r8192 d31896 u1048576
+May 29 23:04:00.756799 localhost kernel: pcpu-alloc: s140136 r8192 d31896 u1048576 alloc=1*2097152
+May 29 23:04:00.756809 localhost kernel: pcpu-alloc: [0] 0 1 
+May 29 23:04:00.756819 localhost kernel: Built 1 zonelists, mobility grouping on.  Total pages: 1935238
+May 29 23:04:00.756832 localhost kernel: Policy zone: Normal
+May 29 23:04:00.756861 localhost kernel: Kernel command line: BOOT_IMAGE=/syslinux/vmlinuz.A init=/usr/lib/systemd/systemd boot=local rootwait ro noresume noswap loglevel=7 noinitrd console=ttyS0 vsyscall=emulate security=apparmor virtio_net.napi_tx=1 systemd.unified_cgroup_hierarchy=false systemd.legacy_systemd_cgroup_controller=true csm.disabled=1 dm_verity.error_behavior=3 dm_verity.max_bios=-1 dm_verity.dev_wait=1 i915.modeset=1 cros_efi root=/dev/dm-0 "dm=1 vroot none ro 1,0 2539520 verity payload=PARTUUID=8BD177DC-EA86-1A42-B8A1-0D8B83573F5C hashtree=PARTUUID=8BD177DC-EA86-1A42-B8A1-0D8B83573F5C hashstart=2539520 alg=sha1 root_hexdigest=30ae72b75923daafb5d95b649d639f6220dfcbec salt=a1e12a9d10ec838443fdb6809b92b22832cb4850081f329b3986b707dac5fa54"
+May 29 23:04:00.756876 localhost kernel: device-mapper: init: will configure 1 devices
+May 29 23:04:00.756898 localhost kernel: PID hash table entries: 4096 (order: 3, 32768 bytes)
+May 29 23:04:00.756916 localhost kernel: Memory: 7652632K/7863916K available (10252K kernel code, 1149K rwdata, 2056K rodata, 1360K init, 540K bss, 211284K reserved, 0K cma-reserved)
+May 29 23:04:00.756926 localhost kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+May 29 23:04:00.756937 localhost kernel: Kernel/User page tables isolation: enabled
+May 29 23:04:00.756947 localhost kernel: ftrace: allocating 26807 entries in 105 pages
+May 29 23:04:00.756957 localhost kernel: Hierarchical RCU implementation.
+May 29 23:04:00.756969 localhost kernel:         RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=2.
+May 29 23:04:00.756980 localhost kernel: RCU: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2
+May 29 23:04:00.756990 localhost kernel: NR_IRQS: 16640, nr_irqs: 440, preallocated irqs: 16
+May 29 23:04:00.757000 localhost kernel: console [ttyS0] enabled
+May 29 23:04:00.757013 localhost kernel: clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x212735223b2, max_idle_ns: 440795277976 ns
+May 29 23:04:00.757024 localhost kernel: Calibrating delay loop (skipped) preset value.. 4600.00 BogoMIPS (lpj=2300000)
+May 29 23:04:00.757054 localhost kernel: pid_max: default: 32768 minimum: 301
+May 29 23:04:00.757065 localhost kernel: ACPI: Core revision 20170728
+May 29 23:04:00.757076 localhost kernel: ACPI: 2 ACPI AML tables successfully acquired and loaded
+May 29 23:04:00.757086 localhost kernel: Security Framework initialized
+May 29 23:04:00.757096 localhost kernel: Yama: becoming mindful.
+May 29 23:04:00.757107 localhost kernel: LoadPin: ready to pin (currently enabled)
+May 29 23:04:00.757117 localhost kernel: Chromium OS LSM: enabled
+May 29 23:04:00.757128 localhost kernel: AppArmor: AppArmor initialized
+May 29 23:04:00.757143 localhost kernel: Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes)
+May 29 23:04:00.757154 localhost kernel: Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes)
+May 29 23:04:00.757170 localhost kernel: Mount-cache hash table entries: 16384 (order: 5, 131072 bytes)
+May 29 23:04:00.757181 localhost kernel: Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes)
+May 29 23:04:00.757191 localhost kernel: Last level iTLB entries: 4KB 1024, 2MB 1024, 4MB 1024
+May 29 23:04:00.757202 localhost kernel: Last level dTLB entries: 4KB 1024, 2MB 1024, 4MB 1024, 1GB 4
+May 29 23:04:00.757212 localhost kernel: Spectre V2 : Mitigation: Full generic retpoline
+May 29 23:04:00.757223 localhost kernel: Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
+May 29 23:04:00.757235 localhost kernel: Spectre V2 : Enabling Restricted Speculation for firmware calls
+May 29 23:04:00.757249 localhost kernel: Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+May 29 23:04:00.757259 localhost kernel: Spectre V2 : User space: Mitigation: STIBP via seccomp and prctl
+May 29 23:04:00.757270 localhost kernel: Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl and seccomp
+May 29 23:04:00.757280 localhost kernel: Freeing SMP alternatives memory: 28K
+May 29 23:04:00.757290 localhost kernel: smpboot: Max logical packages: 2
+May 29 23:04:00.757300 localhost kernel: x2apic enabled
+May 29 23:04:00.757311 localhost kernel: Switched APIC routing to physical x2apic.
+May 29 23:04:00.757321 localhost kernel: ..TIMER: vector=0x30 apic1=0 pin1=0 apic2=-1 pin2=-1
+May 29 23:04:00.757332 localhost kernel: smpboot: CPU0: Intel(R) Xeon(R) CPU @ 2.30GHz (family: 0x6, model: 0x3f, stepping: 0x0)
+May 29 23:04:00.757346 localhost kernel: Performance Events: unsupported p6 CPU model 63 no PMU driver, software events only.
+May 29 23:04:00.757356 localhost kernel: Hierarchical SRCU implementation.
+May 29 23:04:00.757367 localhost kernel: random: crng done (trusting CPU's manufacturer)
+May 29 23:04:00.757379 localhost kernel: NMI watchdog: Perf event create on CPU 0 failed with -2
+May 29 23:04:00.757389 localhost kernel: NMI watchdog: Perf NMI watchdog permanently disabled
+May 29 23:04:00.757399 localhost kernel: smp: Bringing up secondary CPUs ...
+May 29 23:04:00.757410 localhost kernel: x86: Booting SMP configuration:
+May 29 23:04:00.757424 localhost kernel: .... node  #0, CPUs:      #1
+May 29 23:04:00.757435 localhost kernel: kvm-clock: cpu 1, msr 1044e6041, secondary cpu clock
+May 29 23:04:00.757445 localhost kernel: smp: Brought up 1 node, 2 CPUs
+May 29 23:04:00.757456 localhost kernel: smpboot: Total of 2 processors activated (9200.00 BogoMIPS)
+May 29 23:04:00.757466 localhost kernel: devtmpfs: initialized
+May 29 23:04:00.757477 localhost kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+May 29 23:04:00.757487 localhost kernel: futex hash table entries: 512 (order: 3, 32768 bytes)
+May 29 23:04:00.757498 localhost kernel: RTC time: 23:03:59, date: 05/29/19
+May 29 23:04:00.757511 localhost kernel: NET: Registered protocol family 16
+May 29 23:04:00.757522 localhost kernel: cpuidle: using governor ladder
+May 29 23:04:00.757532 localhost kernel: cpuidle: using governor menu
+May 29 23:04:00.757542 localhost kernel: clocksource: Switched to clocksource kvm-clock
+May 29 23:04:00.757553 localhost kernel: ACPI: bus type PCI registered
+May 29 23:04:00.757563 localhost kernel: PCI: Using configuration type 1 for base access
+May 29 23:04:00.757574 localhost kernel: HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+May 29 23:04:00.757585 localhost kernel: ACPI: Added _OSI(Module Device)
+May 29 23:04:00.757596 localhost kernel: ACPI: Added _OSI(Processor Device)
+May 29 23:04:00.757612 localhost kernel: ACPI: Added _OSI(3.0 _SCP Extensions)
+May 29 23:04:00.757622 localhost kernel: ACPI: Added _OSI(Processor Aggregator Device)
+May 29 23:04:00.757634 localhost kernel: ACPI: Executed 2 blocks of module-level executable AML code
+May 29 23:04:00.757645 localhost kernel: ACPI: Interpreter enabled
+May 29 23:04:00.757655 localhost kernel: ACPI: (supports S0 S3 S5)
+May 29 23:04:00.757666 localhost kernel: ACPI: Using IOAPIC for interrupt routing
+May 29 23:04:00.757678 localhost kernel: PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+May 29 23:04:00.757688 localhost kernel: ACPI: Enabled 16 GPEs in block 00 to 0F
+May 29 23:04:00.757698 localhost kernel: ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+May 29 23:04:00.757849 localhost kernel: acpi PNP0A03:00: _OSC: OS supports [ASPM ClockPM Segments MSI]
+May 29 23:04:00.757917 localhost kernel: acpi PNP0A03:00: _OSC failed (AE_NOT_FOUND); disabling ASPM
+May 29 23:04:00.757970 localhost kernel: acpi PNP0A03:00: fail to add MMCONFIG information, can't access extended PCI configuration space under this bridge.
+May 29 23:04:00.757984 localhost kernel: PCI host bridge to bus 0000:00
+May 29 23:04:00.758066 localhost kernel: pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+May 29 23:04:00.758118 localhost kernel: pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+May 29 23:04:00.758172 localhost kernel: pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+May 29 23:04:00.758226 localhost kernel: pci_bus 0000:00: root bus resource [mem 0xc0000000-0xfebfffff window]
+May 29 23:04:00.758278 localhost kernel: pci_bus 0000:00: root bus resource [bus 00-ff]
+May 29 23:04:00.758356 localhost kernel: pci 0000:00:00.0: [8086:1237] type 00 class 0x060000
+May 29 23:04:00.758434 localhost kernel: pci 0000:00:01.0: [8086:7110] type 00 class 0x060100
+May 29 23:04:00.758502 localhost kernel: pci 0000:00:01.3: [8086:7113] type 00 class 0x068000
+May 29 23:04:00.758558 localhost kernel: pci 0000:00:01.3: quirk: [io  0xb000-0xb03f] claimed by PIIX4 ACPI
+May 29 23:04:00.758628 localhost kernel: pci 0000:00:03.0: [1af4:1004] type 00 class 0x000000
+May 29 23:04:00.758686 localhost kernel: pci 0000:00:03.0: reg 0x10: [io  0xc000-0xc03f]
+May 29 23:04:00.758742 localhost kernel: pci 0000:00:03.0: reg 0x14: [mem 0xfebfe000-0xfebfe07f]
+May 29 23:04:00.758809 localhost kernel: pci 0000:00:04.0: [1af4:1000] type 00 class 0x020000
+May 29 23:04:00.758933 localhost kernel: pci 0000:00:04.0: reg 0x10: [io  0xc040-0xc07f]
+May 29 23:04:00.758991 localhost kernel: pci 0000:00:04.0: reg 0x14: [mem 0xfebff000-0xfebff07f]
+May 29 23:04:00.759003 localhost kernel: ACPI: PCI Interrupt Link [LNKA] (IRQs 5 *10 11)
+May 29 23:04:00.759014 localhost kernel: ACPI: PCI Interrupt Link [LNKB] (IRQs 5 *10 11)
+May 29 23:04:00.759029 localhost kernel: ACPI: PCI Interrupt Link [LNKC] (IRQs 5 10 *11)
+May 29 23:04:00.759060 localhost kernel: ACPI: PCI Interrupt Link [LNKD] (IRQs 5 10 *11)
+May 29 23:04:00.759070 localhost kernel: ACPI: PCI Interrupt Link [LNKS] (IRQs *9)
+May 29 23:04:00.759082 localhost kernel: SCSI subsystem initialized
+May 29 23:04:00.759093 localhost kernel: libata version 3.00 loaded.
+May 29 23:04:00.759104 localhost kernel: PCI: Using ACPI for IRQ routing
+May 29 23:04:00.759114 localhost kernel: PCI: pci_cache_line_size set to 64 bytes
+May 29 23:04:00.759125 localhost kernel: e820: reserve RAM buffer [mem 0x0009fc00-0x0009ffff]
+May 29 23:04:00.759136 localhost kernel: e820: reserve RAM buffer [mem 0xbfffd000-0xbfffffff]
+May 29 23:04:00.759150 localhost kernel: VFS: Disk quotas dquot_6.6.0
+May 29 23:04:00.759166 localhost kernel: VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+May 29 23:04:00.759177 localhost kernel: AppArmor: AppArmor Filesystem Enabled
+May 29 23:04:00.759188 localhost kernel: pnp: PnP ACPI init
+May 29 23:04:00.759255 localhost kernel: pnp 00:00: Plug and Play ACPI device, IDs PNP0b00 (active)
+May 29 23:04:00.759327 localhost kernel: pnp 00:01: Plug and Play ACPI device, IDs PNP0303 (active)
+May 29 23:04:00.759385 localhost kernel: pnp 00:02: Plug and Play ACPI device, IDs PNP0f13 (active)
+May 29 23:04:00.759445 localhost kernel: pnp 00:03: Plug and Play ACPI device, IDs PNP0501 (active)
+May 29 23:04:00.759500 localhost kernel: pnp 00:04: Plug and Play ACPI device, IDs PNP0501 (active)
+May 29 23:04:00.759557 localhost kernel: pnp 00:05: Plug and Play ACPI device, IDs PNP0501 (active)
+May 29 23:04:00.759620 localhost kernel: pnp 00:06: Plug and Play ACPI device, IDs PNP0501 (active)
+May 29 23:04:00.759633 localhost kernel: pnp: PnP ACPI: found 7 devices
+May 29 23:04:00.759695 localhost kernel: pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+May 29 23:04:00.759749 localhost kernel: pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+May 29 23:04:00.759820 localhost kernel: pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+May 29 23:04:00.759898 localhost kernel: pci_bus 0000:00: resource 7 [mem 0xc0000000-0xfebfffff window]
+May 29 23:04:00.759911 localhost kernel: NET: Registered protocol family 2
+May 29 23:04:00.759923 localhost kernel: TCP established hash table entries: 65536 (order: 7, 524288 bytes)
+May 29 23:04:00.759933 localhost kernel: TCP bind hash table entries: 65536 (order: 9, 2097152 bytes)
+May 29 23:04:00.759944 localhost kernel: TCP: Hash tables configured (established 65536 bind 65536)
+May 29 23:04:00.759955 localhost kernel: UDP hash table entries: 4096 (order: 6, 393216 bytes)
+May 29 23:04:00.759966 localhost kernel: UDP-Lite hash table entries: 4096 (order: 6, 393216 bytes)
+May 29 23:04:00.759977 localhost kernel: NET: Registered protocol family 1
+May 29 23:04:00.760088 localhost kernel: pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+May 29 23:04:00.760102 localhost kernel: PCI: CLS 0 bytes, default 64
+May 29 23:04:00.760114 localhost kernel: PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+May 29 23:04:00.760125 localhost kernel: software IO TLB: mapped [mem 0xbbffd000-0xbfffd000] (64MB)
+May 29 23:04:00.760136 localhost kernel: RAPL PMU: API unit is 2^-32 Joules, 4 fixed counters, 10737418240 ms ovfl timer
+May 29 23:04:00.760147 localhost kernel: RAPL PMU: hw unit of domain pp0-core 2^-0 Joules
+May 29 23:04:00.760158 localhost kernel: RAPL PMU: hw unit of domain package 2^-0 Joules
+May 29 23:04:00.760175 localhost kernel: RAPL PMU: hw unit of domain dram 2^-0 Joules
+May 29 23:04:00.760186 localhost kernel: RAPL PMU: hw unit of domain pp1-gpu 2^-0 Joules
+May 29 23:04:00.760202 localhost kernel: clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x212735223b2, max_idle_ns: 440795277976 ns
+May 29 23:04:00.760213 localhost kernel: Scanning for low memory corruption every 60 seconds
+May 29 23:04:00.760225 localhost kernel: audit: initializing netlink subsys (disabled)
+May 29 23:04:00.760236 localhost kernel: audit: type=2000 audit(1559171039.069:1): state=initialized audit_enabled=0 res=1
+May 29 23:04:00.760246 localhost kernel: Initialise system trusted keyrings
+May 29 23:04:00.760258 localhost kernel: workingset: timestamp_bits=40 max_order=21 bucket_order=0
+May 29 23:04:00.760268 localhost kernel: Key type asymmetric registered
+May 29 23:04:00.760279 localhost kernel: Asymmetric key parser 'x509' registered
+May 29 23:04:00.760290 localhost kernel: Block layer SCSI generic (bsg) driver version 0.4 loaded (major 250)
+May 29 23:04:00.760304 localhost kernel: io scheduler noop registered (default)
+May 29 23:04:00.760314 localhost kernel: io scheduler deadline registered
+May 29 23:04:00.760330 localhost kernel: io scheduler cfq registered
+May 29 23:04:00.760340 localhost kernel: io scheduler mq-deadline registered
+May 29 23:04:00.760351 localhost kernel: intel_idle: Please enable MWAIT in BIOS SETUP
+May 29 23:04:00.760362 localhost kernel: input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+May 29 23:04:00.760372 localhost kernel: ACPI: Power Button [PWRF]
+May 29 23:04:00.760383 localhost kernel: input: Sleep Button as /devices/LNXSYSTM:00/LNXSLPBN:00/input/input1
+May 29 23:04:00.760394 localhost kernel: ACPI: Sleep Button [SLPF]
+May 29 23:04:00.760408 localhost kernel: ACPI: PCI Interrupt Link [LNKC] enabled at IRQ 11
+May 29 23:04:00.760470 localhost kernel: virtio-pci 0000:00:03.0: virtio_pci: leaving for legacy driver
+May 29 23:04:00.760482 localhost kernel: ACPI: PCI Interrupt Link [LNKD] enabled at IRQ 10
+May 29 23:04:00.760539 localhost kernel: virtio-pci 0000:00:04.0: virtio_pci: leaving for legacy driver
+May 29 23:04:00.760551 localhost kernel: Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+May 29 23:04:00.760562 localhost kernel: 00:03: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+May 29 23:04:00.760574 localhost kernel: 00:04: ttyS1 at I/O 0x2f8 (irq = 3, base_baud = 115200) is a 16550A
+May 29 23:04:00.760585 localhost kernel: 00:05: ttyS2 at I/O 0x3e8 (irq = 6, base_baud = 115200) is a 16550A
+May 29 23:04:00.760595 localhost kernel: 00:06: ttyS3 at I/O 0x2e8 (irq = 7, base_baud = 115200) is a 16550A
+May 29 23:04:00.760609 localhost kernel: Non-volatile memory driver v1.3
+May 29 23:04:00.760621 localhost kernel: loop: module loaded
+May 29 23:04:00.760691 localhost kernel: scsi host0: Virtio SCSI HBA
+May 29 23:04:00.761526 localhost kernel: scsi 0:0:1:0: Direct-Access     Google   PersistentDisk   1    PQ: 0 ANSI: 6
+May 29 23:04:00.761769 localhost kernel: sd 0:0:1:0: [sda] 209715200 512-byte logical blocks: (107 GB/100 GiB)
+May 29 23:04:00.761978 localhost kernel: sd 0:0:1:0: [sda] 4096-byte physical blocks
+May 29 23:04:00.764309 localhost kernel: sd 0:0:1:0: [sda] Write Protect is off
+May 29 23:04:00.764455 localhost kernel: sd 0:0:1:0: [sda] Mode Sense: 1f 00 00 08
+May 29 23:04:00.764551 localhost kernel: sd 0:0:1:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+May 29 23:04:00.764567 localhost kernel: i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+May 29 23:04:00.764581 localhost kernel: i8042: Warning: Keylock active
+May 29 23:04:00.764594 localhost kernel: serio: i8042 KBD port at 0x60,0x64 irq 1
+May 29 23:04:00.764607 localhost kernel: serio: i8042 AUX port at 0x60,0x64 irq 12
+May 29 23:04:00.764670 localhost kernel: rtc_cmos 00:00: RTC can wake from S4
+May 29 23:04:00.764728 localhost kernel: rtc_cmos 00:00: registered as rtc0
+May 29 23:04:00.764785 localhost kernel: rtc_cmos 00:00: alarms up to one day, 114 bytes nvram
+May 29 23:04:00.764799 localhost kernel: iTCO_wdt: Intel TCO WatchDog Timer Driver v1.11
+May 29 23:04:00.764811 localhost kernel: GPT:Primary header thinks Alt. header is not at the end of the disk.
+May 29 23:04:00.764823 localhost kernel: iTCO_vendor_support: vendor-support=0
+May 29 23:04:00.764835 localhost kernel: device-mapper: ioctl: 4.37.0-ioctl (2017-09-20) initialised: dm-devel@redhat.com
+May 29 23:04:00.764859 localhost kernel: GPT:18874524 != 209715199
+May 29 23:04:00.764872 localhost kernel: device-mapper: verity-chromeos: dm-verity-chromeos registered
+May 29 23:04:00.764884 localhost kernel: GPT:Alternate GPT header not at the end of the disk.
+May 29 23:04:00.764896 localhost kernel: Mirror/redirect action on
+May 29 23:04:00.764919 localhost kernel: GPT:18874524 != 209715199
+May 29 23:04:00.764931 localhost kernel: Netfilter messages via NETLINK v0.30.
+May 29 23:04:00.764943 localhost kernel: GPT: Use GNU Parted to correct GPT errors.
+May 29 23:04:00.764956 localhost kernel: nf_conntrack version 0.5.0 (65536 buckets, 262144 max)
+May 29 23:04:00.764968 localhost kernel:  sda: sda1 sda2 sda3 sda4 sda5 sda6 sda7 sda8 sda9 sda10 sda11 sda12
+May 29 23:04:00.764980 localhost kernel: ctnetlink v0.93: registering with nfnetlink.
+May 29 23:04:00.764993 localhost kernel: ip_tables: (C) 2000-2006 Netfilter Core Team
+May 29 23:04:00.765005 localhost kernel: Initializing XFRM netlink socket
+May 29 23:04:00.765019 localhost kernel: NET: Registered protocol family 10
+May 29 23:04:00.765130 localhost kernel: sd 0:0:1:0: [sda] Attached SCSI disk
+May 29 23:04:00.765147 localhost kernel: Segment Routing with IPv6
+May 29 23:04:00.765160 localhost kernel: NET: Registered protocol family 17
+May 29 23:04:00.765173 localhost kernel: bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+May 29 23:04:00.765186 localhost kernel: sched_clock: Marking stable (650738180, 0)->(1102705012, -451966832)
+May 29 23:04:00.765198 localhost kernel: registered taskstats version 1
+May 29 23:04:00.765210 localhost kernel: Loading compiled-in X.509 certificates
+May 29 23:04:00.765223 localhost kernel: Loaded X.509 cert 'Google LLC: Container-Optimized OS kernel signing key: 4841dbba8a8d0303ae6d20db806d454ca37d269f'
+May 29 23:04:00.765235 localhost kernel: Loaded X.509 cert 'Google: Container-Optimized OS: 2efea493fc148b35859d0bc8c3dd71a139fc7ab411283e06f6c10b5a6b17e355'
+May 29 23:04:00.765246 localhost kernel: AppArmor: AppArmor sha1 policy hashing enabled
+May 29 23:04:00.765261 localhost kernel: ima: No TPM chip found, activating TPM-bypass! (rc=-19)
+May 29 23:04:00.765273 localhost kernel: ima: Allocated hash algorithm: sha256
+May 29 23:04:00.765286 localhost kernel:   Magic number: 3:129:101
+May 29 23:04:00.765304 localhost kernel: device-mapper: init: attempting early device configuration.
+May 29 23:04:00.765317 localhost kernel: device-mapper: init: adding target '0 2539520 verity payload=PARTUUID=8BD177DC-EA86-1A42-B8A1-0D8B83573F5C hashtree=PARTUUID=8BD177DC-EA86-1A42-B8A1-0D8B83573F5C hashstart=2539520 alg=sha1 root_hexdigest=30ae72b75923daafb5d95b649d639f6220dfcbec salt=a1e12a9d10ec838443fdb6809b92b22832cb4850081f329b3986b707dac5fa54'
+May 29 23:04:00.765331 localhost kernel: device-mapper: verity: Argument 0: 'payload=PARTUUID=8BD177DC-EA86-1A42-B8A1-0D8B83573F5C'
+May 29 23:04:00.765343 localhost kernel: device-mapper: verity: Argument 1: 'hashtree=PARTUUID=8BD177DC-EA86-1A42-B8A1-0D8B83573F5C'
+May 29 23:04:00.765357 localhost kernel: device-mapper: verity: Argument 2: 'hashstart=2539520'
+May 29 23:04:00.765371 localhost kernel: device-mapper: verity: Argument 3: 'alg=sha1'
+May 29 23:04:00.765383 localhost kernel: device-mapper: verity: Argument 4: 'root_hexdigest=30ae72b75923daafb5d95b649d639f6220dfcbec'
+May 29 23:04:00.765395 localhost kernel: device-mapper: verity: Argument 5: 'salt=a1e12a9d10ec838443fdb6809b92b22832cb4850081f329b3986b707dac5fa54'
+May 29 23:04:00.765407 localhost kernel: device-mapper: init: dm-0 is ready
+May 29 23:04:00.765422 localhost kernel: EXT4-fs (dm-0): mounting ext2 file system using the ext4 subsystem
+May 29 23:04:00.765434 localhost kernel: EXT4-fs (dm-0): mounted filesystem without journal. Opts: (null)
+May 29 23:04:00.765446 localhost kernel: VFS: Mounted root (ext2 filesystem) readonly on device 254:0.
+May 29 23:04:00.765458 localhost kernel: devtmpfs: mounted
+May 29 23:04:00.765470 localhost kernel: Freeing unused kernel memory: 1360K
+May 29 23:04:00.765484 localhost kernel: Write protecting the kernel read-only data: 16384k
+May 29 23:04:00.765496 localhost kernel: Freeing unused kernel memory: 2012K
+May 29 23:04:00.765508 localhost kernel: Freeing unused kernel memory: 2040K
+May 29 23:04:00.765524 localhost systemd[1]: systemd 232 running in system mode. (+PAM +AUDIT -SELINUX +IMA +APPARMOR +SMACK -SYSVINIT -UTMP -LIBCRYPTSETUP +GCRYPT -GNUTLS -ACL -XZ +LZ4 +SECCOMP +BLKID -ELFUTILS +KMOD -IDN)
+May 29 23:04:00.765540 localhost systemd[1]: Detected virtualization kvm.
+May 29 23:04:00.765554 localhost systemd[1]: Detected architecture x86-64.
+May 29 23:04:00.765568 localhost systemd[1]: Initializing machine ID from KVM UUID.
+May 29 23:04:00.765581 localhost systemd[1]: Installed transient /etc/machine-id file.
+May 29 23:04:00.765596 localhost systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+May 29 23:04:00.765610 localhost systemd[1]: Started Dispatch Password Requests to Console Directory Watch.
+May 29 23:04:00.765624 localhost systemd[1]: Reached target Paths.
+May 29 23:04:00.765638 localhost systemd[1]: Listening on udev Control Socket.
+May 29 23:04:00.765651 localhost systemd[1]: Listening on udev Kernel Socket.
+May 29 23:04:01.048925 localhost kernel: LoadPin: dev(254,0): read-only
+May 29 23:04:01.049017 localhost kernel: LoadPin: load pinning engaged.
+May 29 23:04:01.051957 localhost kernel: LoadPin: kernel-module pinned obj="/lib/modules/4.14.94+/kernel/arch/x86/crypto/glue_helper.ko" pid=132 cmdline="/usr/lib/systemd/systemd-udevd"
+May 29 23:04:01.088565 localhost kernel: AVX2 version of gcm_enc/dec engaged.
+May 29 23:04:01.088657 localhost kernel: AES CTR mode by8 optimization enabled
+May 29 23:04:01.131081 localhost kernel: EXT4-fs (sda8): mounted filesystem with ordered data mode. Opts: (null)
+May 29 23:04:01.377090 localhost kernel: EXT4-fs (sda1): mounted filesystem with ordered data mode. Opts: commit=30
+May 29 23:04:01.453082 localhost kernel: EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+May 29 23:04:01.462203 localhost kernel: EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+May 29 23:04:01.469080 localhost kernel: EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+May 29 23:04:01.692097 localhost kernel: EXT4-fs (sda1): resizing filesystem from 1271296 to 25126395 blocks
+May 29 23:04:02.737086 localhost kernel: EXT4-fs (sda1): resized filesystem to 25126395
+May 29 23:04:02.989365 localhost kernel: ip6_tables: (C) 2000-2006 Netfilter Core Team
+May 29 23:04:05.384088 e2e-test-peterhornyack-minion-group-5wdh kernel: Bridge firewalling registered
+May 29 23:04:05.626294 e2e-test-peterhornyack-minion-group-5wdh kernel: IPv6: ADDRCONF(NETDEV_UP): docker0: link is not ready
+May 29 23:04:13.584125 e2e-test-peterhornyack-minion-group-5wdh kernel: EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+May 29 23:04:58.739356 e2e-test-peterhornyack-minion-group-5wdh kernel: EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+May 29 23:04:59.678151 e2e-test-peterhornyack-minion-group-5wdh kernel: Unsafe core_pattern used with fs.suid_dumpable=2.
+                                                                        Pipe handler or fully qualified core dump path required.
+                                                                        Set kernel.core_pattern before fs.suid_dumpable.
+May 29 23:05:07.074154 e2e-test-peterhornyack-minion-group-5wdh kernel: EXT4-fs (sda1): re-mounted. Opts: commit=30,data=ordered
+May 29 23:05:11.986278 e2e-test-peterhornyack-minion-group-5wdh kernel: IPVS: Registered protocols (TCP, UDP, SCTP, AH, ESP)
+May 29 23:05:11.997146 e2e-test-peterhornyack-minion-group-5wdh kernel: IPVS: Connection hash table configured (size=4096, memory=64Kbytes)
+May 29 23:05:12.227830 e2e-test-peterhornyack-minion-group-5wdh kernel: IPVS: ipvs loaded.
+May 29 23:05:12.236218 e2e-test-peterhornyack-minion-group-5wdh kernel: IPVS: [rr] scheduler registered.
+May 29 23:05:12.249150 e2e-test-peterhornyack-minion-group-5wdh kernel: IPVS: [wrr] scheduler registered.
+May 29 23:05:12.263642 e2e-test-peterhornyack-minion-group-5wdh kernel: IPVS: [sh] scheduler registered.
+May 29 23:05:12.363122 e2e-test-peterhornyack-minion-group-5wdh kernel: ip_set: protocol 6
+May 29 23:05:12.895307 e2e-test-peterhornyack-minion-group-5wdh kernel: IPv6: ADDRCONF(NETDEV_UP): veth3822dfa5: link is not ready
+May 29 23:05:12.895399 e2e-test-peterhornyack-minion-group-5wdh kernel: IPv6: ADDRCONF(NETDEV_CHANGE): veth3822dfa5: link becomes ready
+May 29 23:05:12.935850 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 1(veth3822dfa5) entered blocking state
+May 29 23:05:12.936021 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 1(veth3822dfa5) entered disabled state
+May 29 23:05:12.957743 e2e-test-peterhornyack-minion-group-5wdh kernel: device veth3822dfa5 entered promiscuous mode
+May 29 23:05:12.957900 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 1(veth3822dfa5) entered blocking state
+May 29 23:05:12.957931 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 1(veth3822dfa5) entered forwarding state
+May 29 23:05:12.986643 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 2(vethbe2c9a3d) entered blocking state
+May 29 23:05:12.986807 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 2(vethbe2c9a3d) entered disabled state
+May 29 23:05:12.986841 e2e-test-peterhornyack-minion-group-5wdh kernel: device vethbe2c9a3d entered promiscuous mode
+May 29 23:05:13.001518 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 2(vethbe2c9a3d) entered blocking state
+May 29 23:05:13.001655 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 2(vethbe2c9a3d) entered forwarding state
+May 29 23:05:13.079626 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 3(veth68fc4226) entered blocking state
+May 29 23:05:13.079767 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 3(veth68fc4226) entered disabled state
+May 29 23:05:13.079802 e2e-test-peterhornyack-minion-group-5wdh kernel: device veth68fc4226 entered promiscuous mode
+May 29 23:05:13.091142 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 3(veth68fc4226) entered blocking state
+May 29 23:05:13.091290 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 3(veth68fc4226) entered forwarding state
+May 29 23:05:13.259351 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 4(veth07ea2fc7) entered blocking state
+May 29 23:05:13.259405 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 4(veth07ea2fc7) entered disabled state
+May 29 23:05:13.259451 e2e-test-peterhornyack-minion-group-5wdh kernel: device veth07ea2fc7 entered promiscuous mode
+May 29 23:05:13.259479 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 4(veth07ea2fc7) entered blocking state
+May 29 23:05:13.274039 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 4(veth07ea2fc7) entered forwarding state
+May 29 23:05:13.356819 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 5(veth9e1f4678) entered blocking state
+May 29 23:05:13.356867 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 5(veth9e1f4678) entered disabled state
+May 29 23:05:13.356897 e2e-test-peterhornyack-minion-group-5wdh kernel: device veth9e1f4678 entered promiscuous mode
+May 29 23:05:13.356927 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 5(veth9e1f4678) entered blocking state
+May 29 23:05:13.356950 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 5(veth9e1f4678) entered forwarding state
+May 29 23:05:13.621161 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 6(veth1232a06e) entered blocking state
+May 29 23:05:13.621302 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 6(veth1232a06e) entered disabled state
+May 29 23:05:13.621331 e2e-test-peterhornyack-minion-group-5wdh kernel: device veth1232a06e entered promiscuous mode
+May 29 23:05:13.632693 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 6(veth1232a06e) entered blocking state
+May 29 23:05:13.632734 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 6(veth1232a06e) entered forwarding state
+May 29 23:05:13.684918 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 7(vethf900fd79) entered blocking state
+May 29 23:05:13.685083 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 7(vethf900fd79) entered disabled state
+May 29 23:05:13.685130 e2e-test-peterhornyack-minion-group-5wdh kernel: device vethf900fd79 entered promiscuous mode
+May 29 23:05:13.696445 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 7(vethf900fd79) entered blocking state
+May 29 23:05:13.696587 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 7(vethf900fd79) entered forwarding state
+May 29 23:05:21.287635 e2e-test-peterhornyack-minion-group-5wdh kernel: IPv6: ADDRCONF(NETDEV_UP): veth60cce3bd: link is not ready
+May 29 23:05:21.570114 e2e-test-peterhornyack-minion-group-5wdh kernel: IPv6: ADDRCONF(NETDEV_CHANGE): veth60cce3bd: link becomes ready
+May 29 23:05:21.570205 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 8(veth60cce3bd) entered blocking state
+May 29 23:05:21.570239 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 8(veth60cce3bd) entered disabled state
+May 29 23:05:21.570269 e2e-test-peterhornyack-minion-group-5wdh kernel: device veth60cce3bd entered promiscuous mode
+May 29 23:05:21.570300 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 8(veth60cce3bd) entered blocking state
+May 29 23:05:21.570334 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 8(veth60cce3bd) entered forwarding state
+May 29 23:05:40.810198 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 5(veth9e1f4678) entered disabled state
+May 29 23:05:40.825351 e2e-test-peterhornyack-minion-group-5wdh kernel: device veth9e1f4678 left promiscuous mode
+May 29 23:05:40.825514 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 5(veth9e1f4678) entered disabled state
+May 29 23:05:41.842530 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 1(veth3822dfa5) entered disabled state
+May 29 23:05:41.858915 e2e-test-peterhornyack-minion-group-5wdh kernel: device veth3822dfa5 left promiscuous mode
+May 29 23:05:41.859064 e2e-test-peterhornyack-minion-group-5wdh kernel: cbr0: port 1(veth3822dfa5) entered disabled state

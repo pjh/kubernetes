@@ -1,0 +1,214 @@
+2019-05-30 00:01:37.798830 I | mvcc: store.index: compact 451
+2019-05-30 00:01:37.799681 I | mvcc: finished scheduled compaction at 451 (took 299.681µs)
+2019-05-30 00:06:37.804108 I | mvcc: store.index: compact 494
+2019-05-30 00:06:37.804823 I | mvcc: finished scheduled compaction at 494 (took 238.111µs)
+2019-05-30 00:11:37.809082 I | mvcc: store.index: compact 685
+2019-05-30 00:11:37.810896 I | mvcc: finished scheduled compaction at 685 (took 1.195619ms)
+2019-05-30 00:16:37.814343 I | mvcc: store.index: compact 803
+2019-05-30 00:16:37.815367 I | mvcc: finished scheduled compaction at 803 (took 342.819µs)
+2019-05-30 00:21:37.818976 I | mvcc: store.index: compact 948
+2019-05-30 00:21:37.819846 I | mvcc: finished scheduled compaction at 948 (took 464.731µs)
+2019-05-30 00:26:37.824208 I | mvcc: store.index: compact 1092
+2019-05-30 00:26:37.824835 I | mvcc: finished scheduled compaction at 1092 (took 251.495µs)
+2019-05-30 00:31:37.829560 I | mvcc: store.index: compact 1144
+2019-05-30 00:31:37.830004 I | mvcc: finished scheduled compaction at 1144 (took 113.164µs)
+2019-05-30 00:36:37.834256 I | mvcc: store.index: compact 1218
+2019-05-30 00:36:37.834825 I | mvcc: finished scheduled compaction at 1218 (took 197.64µs)
+2019-05-30 00:41:37.839484 I | mvcc: store.index: compact 1334
+2019-05-30 00:41:37.840100 I | mvcc: finished scheduled compaction at 1334 (took 277.487µs)
+2019-05-30 00:46:37.844315 I | mvcc: store.index: compact 1462
+2019-05-30 00:46:37.844867 I | mvcc: finished scheduled compaction at 1462 (took 194.469µs)
+2019-05-30 00:51:37.850885 I | mvcc: store.index: compact 1496
+2019-05-30 00:51:37.851206 I | mvcc: finished scheduled compaction at 1496 (took 88.87µs)
+2019-05-30 00:56:37.856346 I | mvcc: store.index: compact 1498
+2019-05-30 00:56:37.856631 I | mvcc: finished scheduled compaction at 1498 (took 28.021µs)
+2019-05-30 01:01:37.860939 I | mvcc: store.index: compact 1500
+2019-05-30 01:01:37.861179 I | mvcc: finished scheduled compaction at 1500 (took 27.346µs)
+2019-05-30 01:06:37.866188 I | mvcc: store.index: compact 1502
+2019-05-30 01:06:37.866895 I | mvcc: finished scheduled compaction at 1502 (took 36.827µs)
+2019-05-30 01:11:37.870953 I | mvcc: store.index: compact 1505
+2019-05-30 01:11:37.871183 I | mvcc: finished scheduled compaction at 1505 (took 29.068µs)
+2019-05-30 01:16:37.875595 I | mvcc: store.index: compact 1566
+2019-05-30 01:16:37.875908 I | mvcc: finished scheduled compaction at 1566 (took 101.378µs)
+2019-05-30 01:21:37.879720 I | mvcc: store.index: compact 1599
+2019-05-30 01:21:37.880008 I | mvcc: finished scheduled compaction at 1599 (took 80.452µs)
+2019-05-30 01:26:37.885254 I | mvcc: store.index: compact 1638
+2019-05-30 01:26:37.885619 I | mvcc: finished scheduled compaction at 1638 (took 77.1µs)
+2019-05-30 01:31:37.889786 I | mvcc: store.index: compact 1764
+2019-05-30 01:31:37.890588 I | mvcc: finished scheduled compaction at 1764 (took 435.285µs)
+2019-05-30 01:36:37.894226 I | mvcc: store.index: compact 1787
+2019-05-30 01:36:37.894489 I | mvcc: finished scheduled compaction at 1787 (took 68.052µs)
+2019-05-30 01:41:37.898493 I | mvcc: store.index: compact 1812
+2019-05-30 01:41:37.898784 I | mvcc: finished scheduled compaction at 1812 (took 68.942µs)
+2019-05-30 01:46:37.902672 I | mvcc: store.index: compact 1815
+2019-05-30 01:46:37.903172 I | mvcc: finished scheduled compaction at 1815 (took 28.786µs)
+2019-05-30 01:51:37.908522 I | mvcc: store.index: compact 1859
+2019-05-30 01:51:37.908936 I | mvcc: finished scheduled compaction at 1859 (took 72.929µs)
+2019-05-30 01:56:37.912863 I | mvcc: store.index: compact 2080
+2019-05-30 01:56:37.913605 I | mvcc: finished scheduled compaction at 2080 (took 428.123µs)
+2019-05-30 02:01:37.917839 I | mvcc: store.index: compact 2108
+2019-05-30 02:01:37.918185 I | mvcc: finished scheduled compaction at 2108 (took 110.661µs)
+2019-05-30 02:06:37.923795 I | mvcc: store.index: compact 2146
+2019-05-30 02:06:37.924088 I | mvcc: finished scheduled compaction at 2146 (took 100.73µs)
+2019-05-30 02:11:37.928950 I | mvcc: store.index: compact 2154
+2019-05-30 02:11:37.930404 I | mvcc: finished scheduled compaction at 2154 (took 39.727µs)
+2019-05-30 02:16:37.936524 I | mvcc: store.index: compact 2158
+2019-05-30 02:16:37.936760 I | mvcc: finished scheduled compaction at 2158 (took 28.404µs)
+2019-05-30 02:21:37.940905 I | mvcc: store.index: compact 2175
+2019-05-30 02:21:37.941139 I | mvcc: finished scheduled compaction at 2175 (took 43.488µs)
+2019-05-30 02:26:37.945472 I | mvcc: store.index: compact 2184
+2019-05-30 02:26:37.945713 I | mvcc: finished scheduled compaction at 2184 (took 51.082µs)
+2019-05-30 02:31:37.949641 I | mvcc: store.index: compact 2199
+2019-05-30 02:31:37.949873 I | mvcc: finished scheduled compaction at 2199 (took 53.651µs)
+2019-05-30 02:36:37.954340 I | mvcc: store.index: compact 2203
+2019-05-30 02:36:37.954570 I | mvcc: finished scheduled compaction at 2203 (took 29.326µs)
+2019-05-30 02:41:37.958770 I | mvcc: store.index: compact 2227
+2019-05-30 02:41:37.959018 I | mvcc: finished scheduled compaction at 2227 (took 53.055µs)
+2019-05-30 02:46:37.963307 I | mvcc: store.index: compact 2320
+2019-05-30 02:46:37.963952 I | mvcc: finished scheduled compaction at 2320 (took 151.684µs)
+2019-05-30 02:51:37.967851 I | mvcc: store.index: compact 2324
+2019-05-30 02:51:37.968092 I | mvcc: finished scheduled compaction at 2324 (took 39.582µs)
+2019-05-30 02:56:37.973597 I | mvcc: store.index: compact 2329
+2019-05-30 02:56:37.973916 I | mvcc: finished scheduled compaction at 2329 (took 67.394µs)
+2019-05-30 03:01:37.978363 I | mvcc: store.index: compact 2333
+2019-05-30 03:01:37.978657 I | mvcc: finished scheduled compaction at 2333 (took 41.155µs)
+2019-05-30 03:06:37.982734 I | mvcc: store.index: compact 2338
+2019-05-30 03:06:37.982993 I | mvcc: finished scheduled compaction at 2338 (took 53.451µs)
+2019-05-30 03:11:37.987009 I | mvcc: store.index: compact 2370
+2019-05-30 03:11:37.987335 I | mvcc: finished scheduled compaction at 2370 (took 99.69µs)
+2019-05-30 03:16:37.993012 I | mvcc: store.index: compact 2396
+2019-05-30 03:16:37.993296 I | mvcc: finished scheduled compaction at 2396 (took 63.494µs)
+2019-05-30 03:21:37.999271 I | mvcc: store.index: compact 2414
+2019-05-30 03:21:37.999621 I | mvcc: finished scheduled compaction at 2414 (took 93.981µs)
+2019-05-30 03:26:38.009130 I | mvcc: store.index: compact 2444
+2019-05-30 03:26:38.010922 I | mvcc: finished scheduled compaction at 2444 (took 90.682µs)
+2019-05-30 03:31:38.015298 I | mvcc: store.index: compact 2447
+2019-05-30 03:31:38.015605 I | mvcc: finished scheduled compaction at 2447 (took 48.646µs)
+2019-05-30 03:36:38.019927 I | mvcc: store.index: compact 2453
+2019-05-30 03:36:38.020283 I | mvcc: finished scheduled compaction at 2453 (took 68.149µs)
+2019-05-30 03:41:38.024429 I | mvcc: store.index: compact 2456
+2019-05-30 03:41:38.024786 I | mvcc: finished scheduled compaction at 2456 (took 56.506µs)
+2019-05-30 03:46:38.028950 I | mvcc: store.index: compact 2510
+2019-05-30 03:46:38.029306 I | mvcc: finished scheduled compaction at 2510 (took 131.966µs)
+2019-05-30 03:51:38.033504 I | mvcc: store.index: compact 2513
+2019-05-30 03:51:38.033820 I | mvcc: finished scheduled compaction at 2513 (took 39.73µs)
+2019-05-30 03:56:38.042497 I | mvcc: store.index: compact 2546
+2019-05-30 03:56:38.043053 I | mvcc: finished scheduled compaction at 2546 (took 93.151µs)
+2019-05-30 04:01:38.047639 I | mvcc: store.index: compact 2629
+2019-05-30 04:01:38.048401 I | mvcc: finished scheduled compaction at 2629 (took 393.38µs)
+2019-05-30 04:06:38.052476 I | mvcc: store.index: compact 2631
+2019-05-30 04:06:38.053047 I | mvcc: finished scheduled compaction at 2631 (took 52.994µs)
+2019-05-30 04:11:38.057018 I | mvcc: store.index: compact 2667
+2019-05-30 04:11:38.057410 I | mvcc: finished scheduled compaction at 2667 (took 116.078µs)
+2019-05-30 04:16:38.061421 I | mvcc: store.index: compact 2684
+2019-05-30 04:16:38.061980 I | mvcc: finished scheduled compaction at 2684 (took 60.251µs)
+2019-05-30 04:21:38.065850 I | mvcc: store.index: compact 2687
+2019-05-30 04:21:38.066081 I | mvcc: finished scheduled compaction at 2687 (took 36.065µs)
+2019-05-30 04:26:38.070485 I | mvcc: store.index: compact 2694
+2019-05-30 04:26:38.070778 I | mvcc: finished scheduled compaction at 2694 (took 65.482µs)
+2019-05-30 04:31:38.075174 I | mvcc: store.index: compact 2697
+2019-05-30 04:31:38.075476 I | mvcc: finished scheduled compaction at 2697 (took 41.866µs)
+2019-05-30 04:36:38.079496 I | mvcc: store.index: compact 2765
+2019-05-30 04:36:38.079877 I | mvcc: finished scheduled compaction at 2765 (took 135.685µs)
+2019-05-30 04:41:38.084941 I | mvcc: store.index: compact 2811
+2019-05-30 04:41:38.085245 I | mvcc: finished scheduled compaction at 2811 (took 80.432µs)
+2019-05-30 04:46:38.089302 I | mvcc: store.index: compact 2823
+2019-05-30 04:46:38.089581 I | mvcc: finished scheduled compaction at 2823 (took 48.804µs)
+2019-05-30 04:51:38.093814 I | mvcc: store.index: compact 2825
+2019-05-30 04:51:38.094383 I | mvcc: finished scheduled compaction at 2825 (took 42.084µs)
+2019-05-30 04:56:38.098272 I | mvcc: store.index: compact 2844
+2019-05-30 04:56:38.098526 I | mvcc: finished scheduled compaction at 2844 (took 65.9µs)
+2019-05-30 05:01:38.103023 I | mvcc: store.index: compact 2855
+2019-05-30 05:01:38.103266 I | mvcc: finished scheduled compaction at 2855 (took 37.13µs)
+2019-05-30 05:06:38.106825 I | mvcc: store.index: compact 2871
+2019-05-30 05:06:38.107052 I | mvcc: finished scheduled compaction at 2871 (took 52.098µs)
+2019-05-30 05:11:38.111481 I | mvcc: store.index: compact 2872
+2019-05-30 05:11:38.111732 I | mvcc: finished scheduled compaction at 2872 (took 25.353µs)
+2019-05-30 05:16:38.116381 I | mvcc: store.index: compact 2942
+2019-05-30 05:16:38.116802 I | mvcc: finished scheduled compaction at 2942 (took 162.892µs)
+2019-05-30 05:21:38.128776 I | mvcc: store.index: compact 2947
+2019-05-30 05:21:38.129072 I | mvcc: finished scheduled compaction at 2947 (took 42.544µs)
+2019-05-30 05:26:38.132975 I | mvcc: store.index: compact 2964
+2019-05-30 05:26:38.133249 I | mvcc: finished scheduled compaction at 2964 (took 75.711µs)
+2019-05-30 05:31:38.136929 I | mvcc: store.index: compact 2965
+2019-05-30 05:31:38.137180 I | mvcc: finished scheduled compaction at 2965 (took 23.456µs)
+2019-05-30 05:36:38.141504 I | mvcc: store.index: compact 3168
+2019-05-30 05:36:38.142073 I | mvcc: finished scheduled compaction at 3168 (took 252.461µs)
+2019-05-30 05:41:38.148934 I | mvcc: store.index: compact 3177
+2019-05-30 05:41:38.149144 I | mvcc: finished scheduled compaction at 3177 (took 37.235µs)
+2019-05-30 05:46:38.153202 I | mvcc: store.index: compact 3179
+2019-05-30 05:46:38.153398 I | mvcc: finished scheduled compaction at 3179 (took 28.239µs)
+2019-05-30 05:51:38.157498 I | mvcc: store.index: compact 3198
+2019-05-30 05:51:38.157809 I | mvcc: finished scheduled compaction at 3198 (took 58.546µs)
+2019-05-30 05:56:38.161346 I | mvcc: store.index: compact 3219
+2019-05-30 05:56:38.161641 I | mvcc: finished scheduled compaction at 3219 (took 55.457µs)
+2019-05-30 06:01:38.165653 I | mvcc: store.index: compact 3263
+2019-05-30 06:01:38.166233 I | mvcc: finished scheduled compaction at 3263 (took 92.768µs)
+2019-05-30 06:06:38.169955 I | mvcc: store.index: compact 3273
+2019-05-30 06:06:38.170219 I | mvcc: finished scheduled compaction at 3273 (took 45.625µs)
+2019-05-30 06:11:38.174600 I | mvcc: store.index: compact 3279
+2019-05-30 06:11:38.174839 I | mvcc: finished scheduled compaction at 3279 (took 38.558µs)
+2019-05-30 06:16:38.178914 I | mvcc: store.index: compact 3298
+2019-05-30 06:16:38.179666 I | mvcc: finished scheduled compaction at 3298 (took 95.697µs)
+2019-05-30 06:21:38.184072 I | mvcc: store.index: compact 3319
+2019-05-30 06:21:38.184390 I | mvcc: finished scheduled compaction at 3319 (took 59.787µs)
+2019-05-30 06:26:38.188297 I | mvcc: store.index: compact 3321
+2019-05-30 06:26:38.188509 I | mvcc: finished scheduled compaction at 3321 (took 24.865µs)
+2019-05-30 06:31:38.193172 I | mvcc: store.index: compact 3333
+2019-05-30 06:31:38.193403 I | mvcc: finished scheduled compaction at 3333 (took 25.003µs)
+2019-05-30 06:36:38.197485 I | mvcc: store.index: compact 3465
+2019-05-30 06:36:38.198194 I | mvcc: finished scheduled compaction at 3465 (took 424.936µs)
+2019-05-30 06:41:38.207911 I | mvcc: store.index: compact 3489
+2019-05-30 06:41:38.208311 I | mvcc: finished scheduled compaction at 3489 (took 62.762µs)
+2019-05-30 06:46:38.212699 I | mvcc: store.index: compact 3616
+2019-05-30 06:46:38.213142 I | mvcc: finished scheduled compaction at 3616 (took 151.499µs)
+2019-05-30 06:51:38.217295 I | mvcc: store.index: compact 3686
+2019-05-30 06:51:38.217698 I | mvcc: finished scheduled compaction at 3686 (took 180.711µs)
+2019-05-30 06:56:38.222007 I | mvcc: store.index: compact 3688
+2019-05-30 06:56:38.222219 I | mvcc: finished scheduled compaction at 3688 (took 28.436µs)
+2019-05-30 07:01:38.226573 I | mvcc: store.index: compact 3702
+2019-05-30 07:01:38.226801 I | mvcc: finished scheduled compaction at 3702 (took 29.096µs)
+2019-05-30 07:06:38.231086 I | mvcc: store.index: compact 3714
+2019-05-30 07:06:38.231343 I | mvcc: finished scheduled compaction at 3714 (took 34.815µs)
+2019-05-30 07:11:38.235786 I | mvcc: store.index: compact 3753
+2019-05-30 07:11:38.236103 I | mvcc: finished scheduled compaction at 3753 (took 86.765µs)
+2019-05-30 07:16:38.240184 I | mvcc: store.index: compact 3822
+2019-05-30 07:16:38.240556 I | mvcc: finished scheduled compaction at 3822 (took 130.095µs)
+2019-05-30 07:21:38.244232 I | mvcc: store.index: compact 3833
+2019-05-30 07:21:38.244520 I | mvcc: finished scheduled compaction at 3833 (took 91.035µs)
+2019-05-30 07:26:38.248928 I | mvcc: store.index: compact 3881
+2019-05-30 07:26:38.249295 I | mvcc: finished scheduled compaction at 3881 (took 125.116µs)
+2019-05-30 07:31:38.253602 I | mvcc: store.index: compact 3885
+2019-05-30 07:31:38.253914 I | mvcc: finished scheduled compaction at 3885 (took 50.141µs)
+2019-05-30 07:36:38.259075 I | mvcc: store.index: compact 3888
+2019-05-30 07:36:38.259314 I | mvcc: finished scheduled compaction at 3888 (took 39.32µs)
+2019-05-30 07:41:38.263500 I | mvcc: store.index: compact 3902
+2019-05-30 07:41:38.263802 I | mvcc: finished scheduled compaction at 3902 (took 86.806µs)
+2019-05-30 07:46:38.267885 I | mvcc: store.index: compact 3904
+2019-05-30 07:46:38.268120 I | mvcc: finished scheduled compaction at 3904 (took 26.828µs)
+2019-05-30 07:51:38.273546 I | mvcc: store.index: compact 3935
+2019-05-30 07:51:38.273884 I | mvcc: finished scheduled compaction at 3935 (took 58.03µs)
+2019-05-30 07:56:38.278284 I | mvcc: store.index: compact 3956
+2019-05-30 07:56:38.278585 I | mvcc: finished scheduled compaction at 3956 (took 65.987µs)
+2019-05-30 08:01:38.282393 I | mvcc: store.index: compact 3984
+2019-05-30 08:01:38.282679 I | mvcc: finished scheduled compaction at 3984 (took 73.522µs)
+2019-05-30 08:06:38.286868 I | mvcc: store.index: compact 3987
+2019-05-30 08:06:38.287103 I | mvcc: finished scheduled compaction at 3987 (took 31.437µs)
+2019-05-30 08:11:38.291209 I | mvcc: store.index: compact 4014
+2019-05-30 08:11:38.291484 I | mvcc: finished scheduled compaction at 4014 (took 83.345µs)
+2019-05-30 08:16:38.296033 I | mvcc: store.index: compact 4021
+2019-05-30 08:16:38.296266 I | mvcc: finished scheduled compaction at 4021 (took 40.286µs)
+2019-05-30 08:21:38.300967 I | mvcc: store.index: compact 4023
+2019-05-30 08:21:38.301156 I | mvcc: finished scheduled compaction at 4023 (took 22.622µs)
+2019-05-30 08:26:38.305289 I | mvcc: store.index: compact 4030
+2019-05-30 08:26:38.305503 I | mvcc: finished scheduled compaction at 4030 (took 47.076µs)
+2019-05-30 08:31:38.309931 I | mvcc: store.index: compact 4048
+2019-05-30 08:31:38.310163 I | mvcc: finished scheduled compaction at 4048 (took 43.884µs)
+2019-05-30 08:36:38.315140 I | mvcc: store.index: compact 4053
+2019-05-30 08:36:38.315377 I | mvcc: finished scheduled compaction at 4053 (took 36.102µs)
+2019-05-30 08:41:38.322604 I | mvcc: store.index: compact 4055
+2019-05-30 08:41:38.322850 I | mvcc: finished scheduled compaction at 4055 (took 32.185µs)
+2019-05-30 08:46:38.326926 I | mvcc: store.index: compact 4066
+2019-05-30 08:46:38.327136 I | mvcc: finished scheduled compaction at 4066 (took 29.352µs)
+2019-05-30 08:51:38.332043 I | mvcc: store.index: compact 4078
+2019-05-30 08:51:38.332275 I | mvcc: finished scheduled compaction at 4078 (took 51.142µs)
