@@ -1,0 +1,34 @@
+
+Interface vEthernet (Ethernet) Parameters
+----------------------------------------------
+IfLuid                             : ethernet_32773
+IfIndex                            : 14
+State                              : connected
+Metric                             : 5
+Link MTU                           : 1450 bytes
+Reachable Time                     : 33000 ms
+Base Reachable Time                : 30000 ms
+Retransmission Interval            : 1000 ms
+DAD Transmits                      : 3
+Site Prefix Length                 : 0
+Site Id                            : 1
+Forwarding                         : disabled
+Advertising                        : disabled
+Neighbor Discovery                 : enabled
+Neighbor Unreachability Detection  : enabled
+Router Discovery                   : dhcp
+Managed Address Configuration      : enabled
+Other Stateful Configuration       : enabled
+Weak Host Sends                    : disabled
+Weak Host Receives                 : disabled
+Use Automatic Metric               : enabled
+Ignore Default Routes              : disabled
+Advertised Router Lifetime         : 1800 seconds
+Advertise Default Route            : disabled
+Current Hop Limit                  : 0
+Force ARPND Wake up patterns       : disabled
+Directed MAC Wake up patterns      : disabled
+ECN capability                     : application
+RA Based DNS Config (RFC 6106)     : disabled
+DHCP/Static IP coexistence         : disabled
+

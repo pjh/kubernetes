@@ -1,0 +1,2619 @@
+
+Port name                            MAC address       PortId
+---------                            -----------       ------
+0BEA5928-2542-453F-8C9C-F161D43C4DB3 00-15-5D-B7-03-CF 1     
+9C3CCB32-A00A-4746-A2F2-E90B7EF59F92 42-01-0A-28-00-03 1     
+D803A3FD-9BF0-4EAC-A880-E68CC710E263 42-01-0A-28-00-03 2     
+EB9885C6-9EA4-477B-A204-7582B823F8D0 00-15-5D-E6-2E-5C 3     
+
+
+Policy for port : 
+0BEA5928-2542-453F-8C9C-F161D43C4DB3
+ERROR: failed to execute list-space
+Error (2): The system cannot find the file specified.
+
+ERROR: failed to execute list-mapping
+Error (2): The system cannot find the file specified.
+
+ERROR: failed to execute list-rule
+Error (2): The system cannot find the file specified.
+
+ERROR: failed to execute get-port-state
+Error (2): The system cannot find the file specified.
+
+ERROR: failed to execute list-nat-range
+Error (2): The system cannot find the file specified.
+
+Policy for port : 
+9C3CCB32-A00A-4746-A2F2-E90B7EF59F92
+
+ ITEM LIST
+===========
+
+Command list-space succeeded!
+
+ ITEM LIST
+===========
+
+Command list-mapping succeeded!
+
+ ITEM LIST
+===========
+
+LAYER : EXTERNAL_L2_REWRITE_LAYER
+    Friendly name : EXTERNAL_L2_REWRITE_LAYER
+    Priority : 500
+
+  GROUP : EXTERNAL_L2_REWRITE_GROUP_IPV4_IN
+      Friendly name : EXTERNAL_L2_REWRITE_GROUP_IPV4_IN
+      Priority : 0
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Priority : 0
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Source MAC : 42-01-0A-28-00-03
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : EB9885C6-9EA4-477B-A204-7582B823F8D0_to_EN
+        Priority : 200
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Source MAC : 00-15-5D-E6-2E-5C
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : D803A3FD-9BF0-4EAC-A880-E68CC710E263_to_EN
+        Priority : 200
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Source MAC : 42-01-0A-28-00-03
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+  GROUP : EXTERNAL_L2_REWRITE_GROUP_IPV4_OUT
+      Friendly name : EXTERNAL_L2_REWRITE_GROUP_IPV4_OUT
+      Priority : 0
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : EN_to_EB9885C6-9EA4-477B-A204-7582B823F8D0
+        Priority : 0
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.64.1.2
+            VLAN ID : 0-0
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 00-15-5D-E6-2E-5C
+        FlagsEx : 0 
+
+    RULE : EN_to_D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        Priority : 0
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.40.0.3
+            VLAN ID : 0-0
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : 
+        Priority : 100
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination MAC : 00-00-00-00-00-00
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Priority : 100
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            Destination MAC : 42-01-0A-28-00-03
+        Flow TTL: 0
+        FlagsEx : 0 
+
+Command list-rule succeeded!
+
+ ITEM LIST
+===========
+
+PORT STATE
+  Enabled : TRUE
+  Blocked : FALSE
+  BlockedOnRestore : TRUE
+  No Encapsulation Offloads Enabled
+
+Command get-port-state succeeded!
+
+ ITEM LIST
+===========
+
+Command list-nat-range succeeded!
+Policy for port : 
+D803A3FD-9BF0-4EAC-A880-E68CC710E263
+
+ ITEM LIST
+===========
+
+SPACE : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+    Friendly name : VNET_ENCAP_SPACE
+
+SPACE : 23A65796-86C6-4C70-BA02-7A4B09ED6838
+    Friendly name : VNET_ENCAP_SPACE
+
+Command list-space succeeded!
+
+ ITEM LIST
+===========
+
+SPACE : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+    Friendly name : VNET_ENCAP_SPACE
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.4.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-04-03
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.5.5
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-05-05
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.4.4
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-04-04
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.5.9
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-05-09
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.5.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-05-03
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.4.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-04-02
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 146.148.105.213
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-92-94-69-D5
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.1.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 00-15-5D-E6-2E-5C
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.40.0.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 42-01-0A-28-00-03
+
+SPACE : 23A65796-86C6-4C70-BA02-7A4B09ED6838
+    Friendly name : VNET_ENCAP_SPACE
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.40.0.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 42-01-0A-28-00-03
+
+Command list-mapping succeeded!
+
+ ITEM LIST
+===========
+
+LAYER : SNAT
+    Friendly name : SNAT
+    Flags : 0x9 Default Allow , Update flows on address change 
+    Priority : 200
+
+  GROUP : SNAT_IN
+      Friendly name : SNAT_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : ALLOW_GROUP
+        Priority : 65535
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 0
+        FlagsEx : 0 
+
+  GROUP : SNAT_OUT
+      Friendly name : SNAT_OUT
+      Priority : 100
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : Block_LoopBack0F577_10.40.0.3_10.40.0.3_31083_8080_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.40.0.3
+            Destination IP : 10.40.0.3
+            Destination ports : 31083
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack119EA_10.40.0.3_10.0.174.253_80_8080_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.174.253
+            Destination IP : 10.0.174.253
+            Destination ports : 80
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack3B7B9_10.40.0.3_10.0.180.11_80_8082_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.180.11
+            Destination IP : 10.0.180.11
+            Destination ports : 80
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack68872_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.0.1
+            Destination IP : 10.0.0.1
+            Destination ports : 443
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack9A865_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.0.10
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBack9FCBA_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.0.10
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBackD615D_10.40.0.3_10.0.118.241_443_443_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.118.241
+            Destination IP : 10.0.118.241
+            Destination ports : 443
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBackF020D_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.0.10
+            Destination IP : 10.0.0.10
+            Destination ports : 9153
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : Block_LoopBackFD4AE_10.40.0.3_10.0.142.141_443_8443_6
+        Priority : 1
+        Flags : 1 terminating 
+        Type : block
+        Conditions:
+            Source IP : 10.0.142.141
+            Destination IP : 10.0.142.141
+            Destination ports : 443
+        Flow TTL: 0
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_0F577_10.40.0.3_10.40.0.3_31083_8080_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.40.0.3
+            Destination ports : 31083
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.40.0.331083
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_119EA_10.40.0.3_10.0.174.253_80_8080_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.174.253
+            Destination ports : 80
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.174.25380
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_3B7B9_10.40.0.3_10.0.180.11_80_8082_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.180.11
+            Destination ports : 80
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.180.1180
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_68872_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.1
+            Destination ports : 443
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1443
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_9A865_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1053
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_D615D_10.40.0.3_10.0.118.241_443_443_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.118.241
+            Destination ports : 443
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.118.241443
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_F020D_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 9153
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.109153
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_TCP_FD4AE_10.40.0.3_10.0.142.141_443_8443_6
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.142.141
+            Destination ports : 443
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.142.141443
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : SNAT_UDP_9FCBA_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 100
+        Flags : 3 terminating stateful 
+        Type : dynnat
+        Conditions:
+            Protocols : 17
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 240
+        MSS delta: 50,0
+        Type : Source NAT;         NAT pool : SLB_NATPOOL_IPV4_UDP_10.40.0.310.0.0.1053
+        FlagsEx : 0 
+
+LAYER : LB
+    Friendly name : LB
+    Flags : 0x1, Default Allow 
+    Priority : 300
+
+  GROUP : LB_IN
+      Friendly name : LB_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : ALLOW_GROUP
+        Priority : 65535
+        Flags : 1 terminating 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 0
+        FlagsEx : 0 
+
+  GROUP : LB_OUT
+      Friendly name : LB_OUT
+      Priority : 100
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : LB_0F577_10.40.0.3_10.40.0.3_31083_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.40.0.3
+            Destination ports : 31083
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.5.9 : 8080 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_119EA_10.40.0.3_10.0.174.253_80_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.174.253
+            Destination ports : 80
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.5.9 : 8080 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_3B7B9_10.40.0.3_10.0.180.11_80_8082_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.180.11
+            Destination ports : 80
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.4.4 : 8082 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_68872_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.1
+            Destination ports : 443
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 146.148.105.213 : 443 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_9A865_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 2
+        DIP Range(s) : 
+                { 10.64.4.2 : 53 }
+                { 10.64.5.3 : 53 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_9FCBA_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 17
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 2
+        DIP Range(s) : 
+                { 10.64.4.2 : 53 }
+                { 10.64.5.3 : 53 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_D615D_10.40.0.3_10.0.118.241_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.118.241
+            Destination ports : 443
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.4.3 : 443 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_F020D_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 9153
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 2
+        DIP Range(s) : 
+                { 10.64.4.2 : 9153 }
+                { 10.64.5.3 : 9153 }
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : LB_FD4AE_10.40.0.3_10.0.142.141_443_8443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : lbnat
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.142.141
+            Destination ports : 443
+        Flow TTL: 240
+        Rule Data:
+        Decrementing TTL
+        Fixing MAC
+        Modifying destination IP
+        Modifying destination port
+        Creating a flow pair
+        Map space : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+        Count of DIP Ranges: 1
+        DIP Range(s) : 
+                { 10.64.5.5 : 8443 }
+        FlagsEx : 0 
+
+LAYER : DECAP_OUT
+    Friendly name : DECAP_OUT
+    Flags : 0x1, Default Allow 
+    Priority : 350
+
+  GROUP : DECAP_OUT
+      Friendly name : DECAP_OUT
+      Priority : 100
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : DECAP_Global
+        Priority : 100
+        Flags : 1 terminating 
+        Type : decap
+        Conditions:
+            Protocols : 252
+        Flow TTL: 0
+        FlagsEx : 0 
+
+LAYER : DECAP_IN
+    Friendly name : DECAP_IN
+    Flags : 0x1, Default Allow 
+    Priority : 600
+
+  GROUP : DECAP_IN
+      Friendly name : DECAP_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : DECAP_Global
+        Priority : 100
+        Flags : 1 terminating 
+        Type : decap
+        Conditions:
+            Protocols : 252
+        Flow TTL: 0
+        FlagsEx : 0 
+
+LAYER : VNET_PA_ROUTE_LAYER
+    Friendly name : VNET_PA_ROUTE_LAYER
+    Flags : 0x1, Default Allow 
+    Priority : 2000
+
+  GROUP : VNET_GROUP_PA_ROUTE_IPV4_OUT
+      Friendly name : VNET_GROUP_PA_ROUTE_IPV4_OUT
+      Priority : 200
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : 
+        Friendly name : PA_ROUTE_EXCEPTION
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : PA_ROUTE
+        Priority : 45535
+        Flags : 1 terminating 
+        Type : paroute
+        Conditions:
+            <none>
+        Flow TTL: 0
+        Rule Data:
+        Using default compartment
+        Cache pruning threshold: 10
+        Cache pruning timeout: 30 seconds
+        Using interface constraint with interface index: 14
+        FlagsEx : 0 
+
+  GROUP : VNET_GROUP_PA_ROUTE_IPV6_OUT
+      Friendly name : VNET_GROUP_PA_ROUTE_IPV6_OUT
+      Priority : 200
+      Direction : OUT
+      Type : IPv6
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : 
+        Friendly name : PA_ROUTE_EXCEPTION
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Destination MAC: 42-01-0A-28-00-03
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : PA_ROUTE
+        Priority : 45535
+        Flags : 1 terminating 
+        Type : paroute
+        Conditions:
+            <none>
+        Flow TTL: 0
+        Rule Data:
+        Using default compartment
+        Cache pruning threshold: 10
+        Cache pruning timeout: 30 seconds
+        Using interface constraint with interface index: 14
+        FlagsEx : 0 
+
+LAYER : SLB_HAIRPIN_LAYER
+    Friendly name : SLB_HAIRPIN_LAYER
+    Flags : 0x3 Hairpin Layer, Default Allow 
+    Priority : 101
+
+  GROUP : LB_HAIRPIN_NON_DSR_IN
+      Friendly name : LB_HAIRPIN_NON_DSR_IN
+      Priority : 100
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Longest prefix match on Destination IP
+
+    RULE : 
+        Friendly name : HP_SRC_0F577_10.40.0.3_10.40.0.3_31083_8080_6_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.40.0.3
+            Source ports : 31083
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_119EA_10.40.0.3_10.0.174.253_80_8080_6_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.174.253
+            Source ports : 80
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_3B7B9_10.40.0.3_10.0.180.11_80_8082_6_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.180.11
+            Source ports : 80
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_68872_10.40.0.3_10.0.0.1_443_443_6_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.1
+            Source ports : 443
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_9A865_10.40.0.3_10.0.0.10_53_53_6_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.10
+            Source ports : 53
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_9FCBA_10.40.0.3_10.0.0.10_53_53_17_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 17
+            Source IP : 10.0.0.10
+            Source ports : 53
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_D615D_10.40.0.3_10.0.118.241_443_443_6_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.118.241
+            Source ports : 443
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_F020D_10.40.0.3_10.0.0.10_9153_9153_6_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.10
+            Source ports : 9153
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_FD4AE_10.40.0.3_10.0.142.141_443_8443_6_Exception
+        Priority : 50
+        Flags : 32 skip_hairpinning 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.142.141
+            Source ports : 443
+            Destination IP : 10.40.0.3
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_0F577_10.40.0.3_10.40.0.3_31083_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.40.0.3
+            Destination ports : 31083
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_119EA_10.40.0.3_10.0.174.253_80_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.174.253
+            Destination ports : 80
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_3B7B9_10.40.0.3_10.0.180.11_80_8082_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.180.11
+            Destination ports : 80
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_68872_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.1
+            Destination ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_9A865_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_9FCBA_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 17
+            Destination IP : 10.0.0.10
+            Destination ports : 53
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_D615D_10.40.0.3_10.0.118.241_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.118.241
+            Destination ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_F020D_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.0.10
+            Destination ports : 9153
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_DEST_FD4AE_10.40.0.3_10.0.142.141_443_8443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Destination IP : 10.0.142.141
+            Destination ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_0F577_10.40.0.3_10.40.0.3_31083_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.40.0.3
+            Source ports : 31083
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_119EA_10.40.0.3_10.0.174.253_80_8080_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.174.253
+            Source ports : 80
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_3B7B9_10.40.0.3_10.0.180.11_80_8082_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.180.11
+            Source ports : 80
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_68872_10.40.0.3_10.0.0.1_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.1
+            Source ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_9A865_10.40.0.3_10.0.0.10_53_53_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.10
+            Source ports : 53
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_9FCBA_10.40.0.3_10.0.0.10_53_53_17
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 17
+            Source IP : 10.0.0.10
+            Source ports : 53
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_D615D_10.40.0.3_10.0.118.241_443_443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.118.241
+            Source ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_F020D_10.40.0.3_10.0.0.10_9153_9153_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.0.10
+            Source ports : 9153
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+    RULE : 
+        Friendly name : HP_SRC_FD4AE_10.40.0.3_10.0.142.141_443_8443_6
+        Priority : 100
+        Flags : 1 terminating 
+        Type : transposition
+        Conditions:
+            Protocols : 6
+            Source IP : 10.0.142.141
+            Source ports : 443
+        Flow TTL: 0
+        Transposition:
+        Modify:
+            Source MAC: 42-01-0A-28-00-03
+        Forward to Switch: BCF02EC8-36B7-4896-A120-A38E84CF446E
+        Forward to Port: D803A3FD-9BF0-4EAC-A880-E68CC710E263
+        FlagsEx : 0 
+
+Command list-rule succeeded!
+
+ ITEM LIST
+===========
+
+PORT STATE
+  Enabled : TRUE
+  Blocked : FALSE
+  BlockedOnRestore : TRUE
+  No Encapsulation Offloads Enabled
+
+Command get-port-state succeeded!
+
+ ITEM LIST
+===========
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.133.10080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.133.10080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.92.447443
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.92.447443
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.182.328765
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.182.328765
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.22.21880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.22.21880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.181.776379
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.181.776379
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.84.1156379
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.84.1156379
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.195.17680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.195.17680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.193.1986379
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.193.1986379
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.140.23381
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.140.23381
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.140.23380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.140.23380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.244.9280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.244.9280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.158.5080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.158.5080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.58.18680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.58.18680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.3.14780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.3.14780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.114.6780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.114.6780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.120.13880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.120.13880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.110.13580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.110.13580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.250.24780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.250.24780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.4880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.4880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.93.16380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.93.16380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.182.3180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.182.3180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.177.4780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.177.4780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.174.7980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.174.7980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.63.20180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.63.20180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.135.15280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.135.15280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.137.6880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.137.6880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.81.23680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.81.23680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.143.4180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.143.4180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.251.15180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.251.15180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.22680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.22680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.36.5580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.36.5580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.131.5280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.131.5280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.57.18780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.57.18780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.151.18780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.151.18780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.169.23380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.169.23380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.153.24980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.153.24980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.119.9780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.119.9780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.239.11580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.239.11580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.131.19180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.131.19180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.198.22280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.198.22280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.193.1480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.193.1480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.118.6680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.118.6680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.112.1180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.112.1180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.163.18680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.163.18680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.159.17780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.159.17780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.197.23780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.197.23780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.242.11980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.242.11980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.10.8380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.10.8380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.205.21580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.205.21580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.63.25080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.63.25080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.239.4880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.239.4880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.91.7780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.91.7780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.188.16180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.188.16180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.34.19880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.34.19880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.86.480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.86.480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.206.25080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.206.25080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.249.22080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.249.22080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.148.6580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.148.6580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.94.1480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.94.1480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.118.13180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.118.13180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.79.23480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.79.23480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.35.21280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.35.21280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.196.7080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.196.7080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.200.1880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.200.1880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.24.7080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.24.7080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.98.18380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.98.18380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.205.16880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.205.16880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.137.20480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.137.20480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.205.1780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.205.1780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.200.14180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.200.14180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.174.17980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.174.17980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.134.380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.134.380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.255.24580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.255.24580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.67.2880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.67.2880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.116.11180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.116.11180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.127.14580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.127.14580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.89.24080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.89.24080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.243.22880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.243.22880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.73.580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.73.580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.181.21280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.181.21280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.236.13180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.236.13180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.161.480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.161.480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.51.19780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.51.19780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.250.25080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.250.25080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.141.22480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.141.22480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.148.20680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.148.20680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.157.12080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.157.12080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.236.7880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.236.7880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.173.5680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.173.5680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.31.880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.31.880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.50.24280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.50.24280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.33.21280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.33.21280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.161.23480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.161.23480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.219.13680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.219.13680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.206.18480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.206.18480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.193.5280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.193.5280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.192.16380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.192.16380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.40.20580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.40.20580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.24.14880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.24.14880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.3.19280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.3.19280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.171.18780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.171.18780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.191.19680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.191.19680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.58.17380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.58.17380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.92.5380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.92.5380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.38.2380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.38.2380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.20.24480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.20.24480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.220.8980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.220.8980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.249.6080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.249.6080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.153.14880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.153.14880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.67.12580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.67.12580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.212.12180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.212.12180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.209.25180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.209.25180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.113.23080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.113.23080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.165.17480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.165.17480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.63.11080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.63.11080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.205.22880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.205.22880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.231.16480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.231.16480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.162.480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.162.480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.21680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.21680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.222.23780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.222.23780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.101.1480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.101.1480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.222.13380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.222.13380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.12480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.12480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.227.22880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.227.22880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.114.22480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.114.22480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.36.25080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.36.25080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.210.680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.210.680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.173.280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.173.280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.32.23480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.32.23480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.120.11480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.120.11480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.44.7680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.44.7680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.40.14880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.40.14880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.14.13080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.14.13080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.66.7880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.66.7880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.57.21480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.57.21480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.7.24580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.7.24580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.220.1480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.220.1480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.21.11380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.21.11380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.109.2580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.109.2580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.200.6480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.200.6480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.61.9180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.61.9180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.130.6780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.130.6780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.154.8280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.154.8280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.220.6880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.220.6880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.61.23280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.61.23280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.172.21480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.172.21480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.9.23780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.9.23780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.210.11980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.210.11980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.202.10280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.202.10280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.134.11880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.134.11880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.125.20080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.125.20080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.221.8780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.221.8780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.80.11080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.80.11080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.59.25580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.59.25580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.113.180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.113.180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.47.24980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.47.24980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.110.14980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.110.14980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.111.22080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.111.22080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.202.1580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.202.1580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.59.18580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.59.18580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.6480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.6480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.106.13880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.106.13880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.6.12980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.6.12980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.10.15680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.10.15680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.32.16980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.32.16980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.125.21980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.125.21980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.18180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.30.18180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.25.12480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.25.12480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.137.1480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.137.1480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.87.5380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.87.5380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.192.15280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.192.15280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.76.4780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.76.4780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.72.13280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.72.13280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.75.11280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.75.11280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.119.1280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.119.1280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.64.21080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.64.21080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.126.24380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.126.24380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.94.16580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.94.16580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.251.23080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.251.23080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.148.12680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.148.12680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.248.22380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.248.22380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.131.22180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.131.22180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.253.9780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.253.9780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.68.23980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.68.23980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.137.6480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.137.6480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.112.3680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.112.3680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.126.5480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.126.5480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.187.7480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.187.7480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.98.9380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.98.9380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.240.3480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.240.3480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.202.23380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.202.23380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.184.9180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.184.9180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.82.6280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.82.6280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.76.13880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.76.13880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.72.2780
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.72.2780
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.168.6480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.168.6480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.248.1680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.248.1680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.55.10980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.55.10980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.95.1880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.95.1880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.82.11280
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.82.11280
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.38.3180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.38.3180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.207.24880
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.207.24880
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.252.5980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.252.5980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.149.1080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.149.1080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.146.19980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.146.19980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.76.11980
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.76.11980
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.10.25580
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.10.25580
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.245.10380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.245.10380
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.153.19680
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.153.19680
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.230.10180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.230.10180
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.141.1080
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.141.1080
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.40.0.332108
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.40.0.332108
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.131.21480
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.131.21480
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.112.1502345
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.112.1502345
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.89.101234
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.89.101234
+    Pool Flags : no reuse udp port binding
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.118.241443
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.118.241443
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 65816
+      Ip address : 10.40.0.3
+      Port range : 65024-65087
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.142.141443
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.142.141443
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 65816
+      Ip address : 10.40.0.3
+      Port range : 65088-65151
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.180.1180
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.180.1180
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 64762
+      Ip address : 10.40.0.3
+      Port range : 65152-65215
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.40.0.331083
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.40.0.331083
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 65816
+      Ip address : 10.40.0.3
+      Port range : 65216-65279
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.174.25380
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.174.25380
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 65816
+      Ip address : 10.40.0.3
+      Port range : 65280-65343
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1053
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1053
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 57929
+      Ip address : 10.40.0.3
+      Port range : 65344-65407
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_UDP_10.40.0.310.0.0.1053
+    Friendly name : SLB_NATPOOL_IPV4_UDP_10.40.0.310.0.0.1053
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 30825
+      Ip address : 10.40.0.3
+      Port range : 65152-65215
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.109153
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.109153
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 65816
+      Ip address : 10.40.0.3
+      Port range : 65408-65471
+      Reuse limit : 0
+
+NAT POOL : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1443
+    Friendly name : SLB_NATPOOL_IPV4_TCP_10.40.0.310.0.0.1443
+    Pool Flags : no reuse udp port binding
+
+  NAT RANGE : 
+      Friendly name : SLB_PREALLOCATED_PORT
+      Status : Idle
+      Idle time : 34835
+      Ip address : 10.40.0.3
+      Port range : 65472-65535
+      Reuse limit : 0
+
+Command list-nat-range succeeded!
+Policy for port : 
+EB9885C6-9EA4-477B-A204-7582B823F8D0
+
+ ITEM LIST
+===========
+
+SPACE : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+    Friendly name : VNET_ENCAP_SPACE
+
+Command list-space succeeded!
+
+ ITEM LIST
+===========
+
+SPACE : D75B11FC-7CB4-4FF0-9A82-9224E7C9CB36
+    Friendly name : VNET_ENCAP_SPACE
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.4.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-04-03
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.5.5
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-05-05
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.4.4
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-04-04
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.5.9
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-05-09
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.5.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-05-03
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.4.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-0A-40-04-02
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 146.148.105.213
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 02-11-92-94-69-D5
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.64.1.2
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 00-15-5D-E6-2E-5C
+
+  MAPPING : 
+      Flags : permanent non-unique-pa mac-mapping 
+      Provider address: 10.40.0.3
+      Customer address: 10.40.0.3
+      Provider MAC address: 00-00-00-00-00-00
+      Idle time: 0
+      TNI: 0
+      Customer MAC address: 42-01-0A-28-00-03
+
+Command list-mapping succeeded!
+
+ ITEM LIST
+===========
+
+LAYER : ACL_ENDPOINT_LAYER
+    Friendly name : ACL_ENDPOINT_LAYER
+    Priority : 15
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV4_IN
+      Friendly name : ACL_ENDPOINT_GROUP_IPV4_IN
+      Priority : 1
+      Direction : IN
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : 12A2C781-4A3A-4908-B75B-C433BFB55667
+        Friendly name : Container: DHCP client service allow inbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 68-68
+            Source ports : 67-67
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 9F1D4A42-BE2B-42B4-B14A-6E723F2021CB
+        Friendly name : Container: Allow In Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV4_OUT
+      Friendly name : ACL_ENDPOINT_GROUP_IPV4_OUT
+      Priority : 2
+      Direction : OUT
+      Type : IPv4
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : A1EE6A32-550C-42BC-B26D-70049F2D85AE
+        Friendly name : Container: DHCP client service allow outbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 67-67
+            Source ports : 68-68
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 994551A5-8829-4765-93B5-BD3A43A7ED31
+        Friendly name : Container: Allow Out Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV6_IN
+      Friendly name : ACL_ENDPOINT_GROUP_IPV6_IN
+      Priority : 3
+      Direction : IN
+      Type : IPv6
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : A9130419-E36B-497E-B5EF-E9EB01C3671F
+        Friendly name : Container: DHCP client service allow inbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 68-68
+            Source ports : 67-67
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 7533498A-CB12-4F49-9E98-1661B51ED2B1
+        Friendly name : Container: Allow In Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+  GROUP : ACL_ENDPOINT_GROUP_IPV6_OUT
+      Friendly name : ACL_ENDPOINT_GROUP_IPV6_OUT
+      Priority : 4
+      Direction : OUT
+      Type : IPv6
+        Conditions:
+            <none>
+      Match type : Priority-based match
+
+    RULE : D841AC5A-3830-40A1-9BE3-54C6882EDDE3
+        Friendly name : Container: DHCP client service allow outbound
+        Priority : 65000
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            Protocols : 17
+            Destination ports : 67-67
+            Source ports : 68-68
+        Flow TTL: 240
+        FlagsEx : 0 
+
+    RULE : 16BD5E11-5FF4-4E78-900A-4A5DDD4C4D2E
+        Friendly name : Container: Allow Out Any
+        Priority : 65500
+        Flags : 8195 terminating stateful 
+        Type : allow
+        Conditions:
+            <none>
+        Flow TTL: 240
+        FlagsEx : 0 
+
+Command list-rule succeeded!
+
+ ITEM LIST
+===========
+
+PORT STATE
+  Enabled : TRUE
+  Blocked : FALSE
+  BlockedOnRestore : TRUE
+  No Encapsulation Offloads Enabled
+
+Command get-port-state succeeded!
+
+ ITEM LIST
+===========
+
+Command list-nat-range succeeded!
