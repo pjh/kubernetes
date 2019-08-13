@@ -25,13 +25,20 @@ import (
 	"strings"
 	"syscall"
 	"time"
+	"unsafe"
 
 	"github.com/Microsoft/go-winio"
+	"github.com/pkg/errors"
+	"golang.org/x/sys/windows"
 )
 
 const (
 	tcpProtocol   = "tcp"
 	npipeProtocol = "npipe"
+
+	reparseTagSocket = 0x80000023
+
+	msgNotAReparsePoint = "The file or directory is not a reparse point."
 )
 
 // CreateListener creates a listener on the specified endpoint.
@@ -122,4 +129,52 @@ func GetBootTime() (time.Time, error) {
 		return time.Time{}, err
 	}
 	return currentTime.Add(-time.Duration(output) * time.Millisecond).Truncate(time.Second), nil
+}
+
+type reparseDataBufferHeader struct {
+	ReparseTag        uint32
+	ReparseDataLength uint16
+	Reserved          uint16
+}
+
+type reparseDataBuffer struct {
+	Header reparseDataBufferHeader
+	Detail [syscall.MAXIMUM_REPARSE_DATA_BUFFER_SIZE]byte
+}
+
+// IsUnixDomainSocket returns whether a given file is a AF_UNIX socket file
+func IsUnixDomainSocket(filePath string) (bool, error) {
+	// Due to the absence of golang support for os.ModeSocket in Windows (https://github.com/golang/go/issues/33357)
+	// we need to get the Reparse Points (https://docs.microsoft.com/en-us/windows/win32/fileio/reparse-points)
+	// for the file (using FSCTL_GET_REPARSE_POINT) and check for reparse tag: reparseTagSocket
+
+	// Get a handle on the existing domain socket file using CreateFile. Note that CreateFile invoked with OPEN_EXISTING
+	// opens an existing file - no new file is created here that requires cleanup. CloseHandle will clean up the file handle
+	fd, err := windows.CreateFile(windows.StringToUTF16Ptr(filePath), windows.GENERIC_READ, 0, nil, windows.OPEN_EXISTING, windows.FILE_FLAG_OPEN_REPARSE_POINT|windows.FILE_FLAG_BACKUP_SEMANTICS, 0)
+	if err != nil {
+		return false, errors.Wrap(err, "CreateFile failed")
+	}
+	defer windows.CloseHandle(fd)
+
+	rdbbuf := make([]byte, syscall.MAXIMUM_REPARSE_DATA_BUFFER_SIZE)
+	var bytesReturned uint32
+	// Issue FSCTL_GET_REPARSE_POINT (https://docs.microsoft.com/en-us/windows-hardware/drivers/ifs/fsctl-get-reparse-point)
+	if err := windows.DeviceIoControl(fd, windows.FSCTL_GET_REPARSE_POINT, nil, 0, &rdbbuf[0], uint32(len(rdbbuf)), &bytesReturned, nil); err != nil {
+		if err.Error() == msgNotAReparsePoint {
+			return false, nil
+		}
+		return false, errors.Wrap(err, "FSCTL_GET_REPARSE_POINT failed")
+	}
+	rdb := (*reparseDataBuffer)(unsafe.Pointer(&rdbbuf[0]))
+	return (rdb.Header.ReparseTag == reparseTagSocket), nil
+}
+
+// NormalizePath converts FS paths returned by certain go frameworks (like fsnotify)
+// to native Windows paths that can be passed to Windows specific code
+func NormalizePath(path string) string {
+	path = strings.ReplaceAll(path, "/", "\\")
+	if strings.HasPrefix(path, "\\") {
+		path = "c:" + path
+	}
+	return path
 }
