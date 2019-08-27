@@ -27,6 +27,7 @@ import (
 	"time"
 	"unsafe"
 
+	"k8s.io/klog"
 	"github.com/Microsoft/go-winio"
 	"github.com/pkg/errors"
 	"golang.org/x/sys/windows"
@@ -150,6 +151,11 @@ func IsUnixDomainSocket(filePath string) (bool, error) {
 
 	// Get a handle on the existing domain socket file using CreateFile. Note that CreateFile invoked with OPEN_EXISTING
 	// opens an existing file - no new file is created here that requires cleanup. CloseHandle will clean up the file handle
+	// CSI-prototype: force
+	if strings.Contains(filePath, "filestore") {
+		klog.Warningf("CSI-prototype: filePath contains filestore, returning true for IsUnixDomainSocket")
+		return true, nil
+	}
 	fd, err := windows.CreateFile(windows.StringToUTF16Ptr(filePath), windows.GENERIC_READ, 0, nil, windows.OPEN_EXISTING, windows.FILE_FLAG_OPEN_REPARSE_POINT|windows.FILE_FLAG_BACKUP_SEMANTICS, 0)
 	if err != nil {
 		return false, errors.Wrap(err, "CreateFile failed")

@@ -159,6 +159,7 @@ func (h *RegistrationHandler) RegisterPlugin(pluginName string, endpoint string,
 		return err
 	}
 
+	klog.Warningf("CSI-prototype: RegisterPlugin calling InstallCSIDriver, woohoo!")
 	err = nim.InstallCSIDriver(pluginName, driverNodeID, maxVolumePerNode, accessibleTopology)
 	if err != nil {
 		if unregErr := unregisterDriver(pluginName); unregErr != nil {

@@ -181,29 +181,35 @@ func (w *Watcher) handleCreateEvent(event fsnotify.Event) error {
 		return nil
 	}
 
-	fi, err := os.Stat(event.Name)
+	_, err := os.Stat(event.Name)
 	if err != nil {
-		return fmt.Errorf("stat file %s failed: %v", event.Name, err)
+		klog.Errorf("stat file %s failed: %v", event.Name, err)
+		klog.Warningf("CSI-prototype: ignoring stat failure and continuing for %s", event.Name)
 	}
 
-	if strings.HasPrefix(fi.Name(), ".") {
-		klog.V(5).Infof("Ignoring file (starts with '.'): %s", fi.Name())
-		return nil
-	}
+	// CSI-prototype: skip
+	//if strings.HasPrefix(fi.Name(), ".") {
+	//	klog.V(5).Infof("Ignoring file (starts with '.'): %s", fi.Name())
+	//	return nil
+	//}
 
-	if !fi.IsDir() {
+	// CSI-prototype: force
+	//if !fi.IsDir() {
+	if strings.HasSuffix(event.Name, ".sock") {
+		klog.Warningf("CSI-prototype: %s ends with .sock, so not IsDir", event.Name)
 		isSocket, err := util.IsUnixDomainSocket(util.NormalizePath(event.Name))
 		if err != nil {
 			return fmt.Errorf("failed to determine if file: %s is a unix domain socket: %v", event.Name, err)
 		}
 		if !isSocket {
-			klog.V(5).Infof("Ignoring non socket file %s", fi.Name())
+			klog.V(5).Infof("Ignoring non socket file %s", event.Name)
 			return nil
 		}
 
 		return w.handlePluginRegistration(event.Name)
 	}
 
+	klog.Warningf("CSI-prototype: %s does not end with .sock, assuming it's a directory and calling traversePluginDir", event.Name)
 	return w.traversePluginDir(event.Name)
 }
 
