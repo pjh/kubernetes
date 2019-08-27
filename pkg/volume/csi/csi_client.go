@@ -163,7 +163,10 @@ func newCsiDriverClient(driverName csiDriverName) (*csiDriverClient, error) {
 	nodeV1ClientCreator := newV1NodeClient
 	nodeV0ClientCreator := newV0NodeClient
 
-	if versionRequiresV0Client(existingDriver.highestSupportedVersion) {
+	// CSI-prototype: force (for Filestore driver only because it's v0)
+	//if versionRequiresV0Client(existingDriver.highestSupportedVersion) {
+	if true {
+		klog.Warningf("CSI-prototype: newCsiDriverClient: forcing nodeV1ClientCreator to nil")
 		nodeV1ClientCreator = nil
 	} else {
 		nodeV0ClientCreator = nil
