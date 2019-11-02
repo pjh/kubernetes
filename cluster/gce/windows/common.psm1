@@ -541,5 +541,19 @@ function Test-IsTestCluster {
   return $false
 }
 
+# Returns true if this is a shielded node. $KubeEnv is a hash table containing
+# the kube-env metadata keys+values.
+function Test-IsShieldedNode {
+  param (
+    [parameter(Mandatory=$true)] [hashtable]$KubeEnv
+  )
+
+  # TODO(peterhornyack): is there a better way to test this?
+  if ($KubeEnv.Contains('TPM_BOOTSTRAP_CERT')) {
+    return $true
+  }
+  return $false
+}
+
 # Export all public functions:
 Export-ModuleMember -Function *-*

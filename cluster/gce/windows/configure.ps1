@@ -140,6 +140,7 @@ try {
 
   Create-DockerRegistryKey
   Configure-Dockerd
+  DownloadAndInstall-AuthPlugin
   DownloadAndInstall-KubernetesBinaries
   Create-NodePki
   Create-KubeletKubeconfig
