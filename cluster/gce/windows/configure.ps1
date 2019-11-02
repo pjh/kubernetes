@@ -141,6 +141,7 @@ try {
   Create-DockerRegistryKey
   Configure-Dockerd
   Pull-InfraContainer
+  DownloadAndInstall-TpmAuthPlugin
   DownloadAndInstall-KubernetesBinaries
   Create-NodePki
   Create-KubeletKubeconfig

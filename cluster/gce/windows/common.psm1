@@ -19,8 +19,9 @@
 #>
 
 # IMPORTANT PLEASE NOTE:
-# Any time the file structure in the `windows` directory changes, `windows/BUILD`
-# and `k8s.io/release/lib/releaselib.sh` must be manually updated with the changes.
+# Any time the file structure in the `windows` directory changes,
+# `windows/BUILD` and `k8s.io/release/lib/releaselib.sh` must be manually
+# updated with the changes.
 # We HIGHLY recommend not changing the file structure, because consumers of
 # Kubernetes releases depend on the release structure remaining stable.
 
@@ -536,6 +537,20 @@ function Test-IsTestCluster {
 
   if ($KubeEnv.Contains('TEST_CLUSTER') -and `
       ($KubeEnv['TEST_CLUSTER'] -eq 'true')) {
+    return $true
+  }
+  return $false
+}
+
+# Returns true if this node uses a TPM to bootstrap its authentication to the
+# master. $KubeEnv is a hash table containing the kube-env metadata
+# keys+values.
+function Test-NodeUsesTpmBootstrap {
+  param (
+    [parameter(Mandatory=$true)] [hashtable]$KubeEnv
+  )
+
+  if ($KubeEnv.Contains('TPM_BOOTSTRAP_CERT')) {
     return $true
   }
   return $false
