@@ -201,8 +201,10 @@ function Set-EnvironmentVars {
     "CNI_CONFIG_DIR" = ${kube_env}['CNI_CONFIG_DIR']
     "PKI_DIR" = ${kube_env}['PKI_DIR']
     "KUBELET_CONFIG" = ${kube_env}['KUBELET_CONFIG_FILE']
-    "BOOTSTRAP_KUBECONFIG" = ${kube_env}['BOOTSTRAP_KUBECONFIG_FILE']
+    "KUBECONFIG" = ${kube_env}['KUBECONFIG_FILE']
     "KUBEPROXY_KUBECONFIG" = ${kube_env}['KUBEPROXY_KUBECONFIG_FILE']
+    # Only used for non-shielded nodes:
+    "BOOTSTRAP_KUBECONFIG" = ${kube_env}['BOOTSTRAP_KUBECONFIG_FILE']
 
     "Path" = ${env:Path} + ";" + ${kube_env}['NODE_DIR']
     "KUBE_NETWORK" = "l2bridge".ToLower()
@@ -214,7 +216,6 @@ function Set-EnvironmentVars {
     # moved to util.sh:
     "LOGS_DIR" = ${kube_env}['LOGS_DIR']
     "MANIFESTS_DIR" = ${kube_env}['MANIFESTS_DIR']
-    "KUBECONFIG" = ${kube_env}['KUBECONFIG_FILE']
   }
 
   # Set the environment variables in two ways: permanently on the machine (only
@@ -313,6 +314,10 @@ function Get_ContainerVersionLabel {
 # Required ${kube_env} keys:
 #   NODE_BINARY_TAR_URL
 function DownloadAndInstall-KubernetesBinaries {
+  Log-Output 'Downloading gke-exec-auth-plugin.exe'
+  MustDownload-File -OutFile 'C:\gke-exec-auth-plugin.exe' -URLs `
+      https://storage.googleapis.com/peterhornyack-gke-dev-bucket/gke-exec-auth-plugin.exe
+
   # Assume that presence of kubelet.exe indicates that the kubernetes binaries
   # were already previously downloaded to this node.
   if (-not (ShouldWrite-File ${env:NODE_DIR}\kubelet.exe)) {
@@ -461,22 +466,47 @@ function Write_PkiData {
 #
 # Required ${kube_env} keys:
 #   CA_CERT
+# Required ${kube_env} keys for non-shielded nodes:
 #   KUBELET_CERT
 #   KUBELET_KEY
 function Create-NodePki {
-  Log-Output "Creating node pki files"
+  Log-Output 'Creating node pki files'
 
-  $CA_CERT_BUNDLE = ${kube_env}['CA_CERT']
-  $KUBELET_CERT = ${kube_env}['KUBELET_CERT']
-  $KUBELET_KEY = ${kube_env}['KUBELET_KEY']
+  if ($kube_env.ContainsKey('CA_CERT')) {
+    $CA_CERT_BUNDLE = ${kube_env}['CA_CERT']
+    Write_PkiData "${CA_CERT_BUNDLE}" ${env:CA_CERT_BUNDLE_PATH}
+  }
+  else {
+    Log-Output 'CA_CERT not present in kube-env'
+  }
 
-  Write_PkiData "${CA_CERT_BUNDLE}" ${env:CA_CERT_BUNDLE_PATH}
-  Write_PkiData "${KUBELET_CERT}" ${env:KUBELET_CERT_PATH}
-  Write_PkiData "${KUBELET_KEY}" ${env:KUBELET_KEY_PATH}
+  # On shielded nodes KUBELET_CERT and KUBELET_KEY will not be present -
+  # TPM_BOOTSTRAP_CERT and TPM_BOOTSTRAP_KEY will be set instead.
+  if (Test-IsShieldedNode ${kube_env}) {
+    Log-Output 'Skipping KUBELET_CERT and KUBELET_KEY for shielded node'
+    return
+  }
+
+  if ($kube_env.ContainsKey('KUBELET_CERT')) {
+    $KUBELET_CERT = ${kube_env}['KUBELET_CERT']
+    Write_PkiData "${KUBELET_CERT}" ${env:KUBELET_CERT_PATH}
+  }
+  else {
+    Log-Output 'KUBELET_CERT not present in kube-env'
+  }
+  if ($kube_env.ContainsKey('KUBELET_KEY')) {
+    $KUBELET_KEY = ${kube_env}['KUBELET_KEY']
+    Write_PkiData "${KUBELET_KEY}" ${env:KUBELET_KEY_PATH}
+  }
+  else {
+    Log-Output 'KUBELET_KEY not present in kube-env'
+  }
+
   Get-ChildItem ${env:PKI_DIR}
 }
 
-# Creates the kubelet kubeconfig at $env:BOOTSTRAP_KUBECONFIG.
+# Creates the kubelet kubeconfig at $env:BOOTSTRAP_KUBECONFIG for non-shielded
+# nodes or at $env:KUBECONFIG for shielded nodes.
 #
 # Create-NodePki() must be called first.
 #
@@ -487,8 +517,8 @@ function Create-KubeletKubeconfig {
   # think. cluster/gce/gci/configure-helper.sh?l=2801
   $apiserverAddress = ${kube_env}['KUBERNETES_MASTER_NAME']
 
-  # TODO(pjh): set these using kube-env values.
-  $createBootstrapConfig = $true
+  # TODO(peterhornyack): SHIELDED
+  $createBootstrapConfig = -not (Test-IsShieldedNode ${kube_env})
   $fetchBootstrapConfig = $false
 
   if (${createBootstrapConfig}) {
@@ -533,7 +563,65 @@ current-context: service-account-context'.`
                 "$(Get-Content -Raw ${env:BOOTSTRAP_KUBECONFIG})")
   }
   else {
-    Log_NotImplemented "fetching kubelet kubeconfig file from metadata"
+    if (-not (ShouldWrite-File ${env:KUBECONFIG})) {
+      return
+    }
+    New-Item -Force -ItemType file ${env:KUBECONFIG} | Out-Null
+    # TODO(peterhornyack): copied this from shielded COS node's kubeconfig,
+    # seems to make sense...
+    #   apiVersion: v1
+    #   kind: Config
+    #   clusters:
+    #   - cluster:
+    #       server: https://35.222.156.242
+    #       certificate-authority: /etc/srv/kubernetes/pki/ca-certificates.crt
+    #     name: default-cluster
+    #   contexts:
+    #   - context:
+    #       cluster: default-cluster
+    #       namespace: default
+    #       user: exec-plugin-auth
+    #     name: default-context
+    #   current-context: default-context
+    #   users:
+    #   - name: exec-plugin-auth
+    #     user:
+    #       exec:
+    #         apiVersion: "client.authentication.k8s.io/v1alpha1"
+    #         command: /home/kubernetes/bin/gke-exec-auth-plugin
+    #         args: ["--cache-dir", "/var/lib/kubelet/pki/"]
+    #
+    # Note: the args in the kubeconfig below did not work with double-quotes -
+    # the kubelet says it's hitting an invalid escape character in the yaml.
+    # Switching to single-quotes worked; perhaps escaping the double-quote
+    # somehow would also work.
+    Set-Content ${env:KUBECONFIG} `
+"apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    server: https://APISERVER_ADDRESS
+    certificate-authority: CA_CERT_BUNDLE_PATH
+  name: default-cluster
+contexts:
+- context:
+    cluster: default-cluster
+    namespace: default
+    user: exec-plugin-auth
+  name: default-context
+current-context: default-context
+users:
+- name: exec-plugin-auth
+  user:
+    exec:
+      apiVersion: 'client.authentication.k8s.io/v1alpha1'
+      command: C:\gke-exec-auth-plugin.exe
+      args: ['--cache-dir', 'PKI_DIR']".`
+      replace('APISERVER_ADDRESS', ${apiserverAddress}).`
+      replace('CA_CERT_BUNDLE_PATH', ${env:CA_CERT_BUNDLE_PATH}).`
+      replace('PKI_DIR', ${env:PKI_DIR})
+    Log-Output ("kubelet kubeconfig (non-bootstrap):`n" +
+                "$(Get-Content -Raw ${env:KUBECONFIG})")
   }
 }
 

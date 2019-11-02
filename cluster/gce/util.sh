@@ -828,7 +828,9 @@ function construct-windows-kubelet-flags {
   #
   # See also:
   # https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/
-  flags+=" --bootstrap-kubeconfig=${WINDOWS_BOOTSTRAP_KUBECONFIG_FILE}"
+  # TODO(peterhornyack): figure out how to leave this unset ONLY for shielded
+  #   nodes!!!
+  #flags+=" --bootstrap-kubeconfig=${WINDOWS_BOOTSTRAP_KUBECONFIG_FILE}"
   flags+=" --kubeconfig=${WINDOWS_KUBECONFIG_FILE}"
 
   # The directory where the TLS certs are located.
